@@ -168,14 +168,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Specifically, we are going to introduce the fundamentals of statistics that cover various aspects of analyzing a single variable, two variables, and three or more variables.</p>
 <p>Table 1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products.</p>
 <p>See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-statistics.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import google analytics sample data into R</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-statistics.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import Google analytics sample data into R</span></span>
 <span id="cb1-2"><a href="basic-statistics.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="basic-statistics.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="basic-statistics.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co">#You need to library the package before using it</span></span>
 <span id="cb1-4"><a href="basic-statistics.html#cb1-4" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;google analytics sample data.xlsx&quot;</span>)</span></code></pre></div>
-<p>knitr::kable(
-head(my_data[,], 10), booktabs = TRUE,
-caption = ‘Table 1. The first 10 rows of Dataset of Google Analytics from Google Merchandise Store’
-)</p>
 
 </div>
             </section>

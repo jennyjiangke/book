@@ -9,15 +9,11 @@ Table 1 presents parts of a public demo dataset of channels report from Google A
 See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 
 
 ```{r}
-#Import google analytics sample data into R
+#Import Google analytics sample data into R
 
-library(readxl)
+library(readxl) #You need to library the package before using it
 my_data <- read_excel("google analytics sample data.xlsx")
 
 ```
 
-knitr::kable(
-  head(my_data[,], 10), booktabs = TRUE,
-  caption = 'Table 1. The first 10 rows of Dataset of Google Analytics from Google Merchandise Store'
-)
 
