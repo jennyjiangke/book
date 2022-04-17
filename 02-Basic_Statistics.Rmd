@@ -1,2 +1,11 @@
 # Basic Statistics 
 
+This chapter uses data from Google Analytics’ channels report, which demonstrates how much of traffic is coming from specific paid versus unpaid channels, as well as data from social listening of #BlackLivesMatter and #StopAsianHate on Twitter to illustrate not only descriptive statistics that describe the properties of sample and population data but also inferential statistics for testing hypotheses and drawing conclusions regarding the relationships between variables. 
+
+Specifically, we are going to introduce the fundamentals of statistics that cover various aspects of analyzing a single variable, two variables, and three or more variables. 
+
+Table 1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
+
+See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 
+
+
