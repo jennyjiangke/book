@@ -59,5 +59,5 @@ A demo video showing how to create a **bookdown book** following these instructi
 
 ### Additional features
 
-Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
+Consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
 
