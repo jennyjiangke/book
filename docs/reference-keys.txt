@@ -1,3 +1,6 @@
 r-for-media-analytics
 basic-statistics
 text-analysis
+network-analysis
+geo-spatial-analysis-and-visualizations
+publishing
