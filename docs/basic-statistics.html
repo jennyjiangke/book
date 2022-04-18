@@ -145,6 +145,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#variables-levels-of-measurement"><i class="fa fa-check"></i><b>2.1</b> Variables &amp; Levels of Measurement</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="basic-statistics.html"><a href="basic-statistics.html#nominal-data"><i class="fa fa-check"></i><b>2.1.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-statistics.html"><a href="basic-statistics.html#ordinal-data"><i class="fa fa-check"></i><b>2.1.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-statistics.html"><a href="basic-statistics.html#interval-data"><i class="fa fa-check"></i><b>2.1.3</b> Interval Data</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio-data"><i class="fa fa-check"></i><b>2.1.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analysis-of-a-single-variable"><i class="fa fa-check"></i><b>2.2</b> Statistical Analysis of a Single Variable</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#frequency-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Frequency Distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-change"><i class="fa fa-check"></i><b>2.2.2</b> Percentage Change</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-statistics.html"><a href="basic-statistics.html#relative-frequency"><i class="fa fa-check"></i><b>2.2.3</b> Relative Frequency</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-points"><i class="fa fa-check"></i><b>2.2.4</b> Percentage Points</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic-statistics.html"><a href="basic-statistics.html#rate"><i class="fa fa-check"></i><b>2.2.5</b> Rate</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio"><i class="fa fa-check"></i><b>2.2.6</b> Ratio</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic-statistics.html"><a href="basic-statistics.html#central-tendency"><i class="fa fa-check"></i><b>2.2.7</b> Central Tendency</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic-statistics.html"><a href="basic-statistics.html#data-variation"><i class="fa fa-check"></i><b>2.2.8</b> Data Variation</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic-statistics.html"><a href="basic-statistics.html#case-study"><i class="fa fa-check"></i><b>2.2.9</b> Case Study</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>3</b> Text Analysis</a></li>
@@ -618,13 +633,63 @@ Direct
 <p>See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with.</p>
 <div id="variables-levels-of-measurement" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Variables &amp; Levels of Measurement<a href="basic-statistics.html#variables-levels-of-measurement" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Typically, the columns identify the variables of the dataset that represent certain qualities of individuals. Any quality that can vary can be considered a variable. Variables can take on different values or attributes. An attribute is a specific value on a variable. For example, gender might be a variable that we are interested in, and the attributes of gender could be male, female, transgender, and non-binary.</p>
+<p>In a dataset, the columns identify the variables that represent certain qualities of individuals. Any quality that can vary can be considered a variable. Variables can take on different values or attributes. An attribute is a specific value on a variable. For example, gender might be a variable that we are interested in, and the attributes of gender could be male, female, transgender, and non-binary.</p>
 <p>We use levels of measurement to describe how precisely variables are recorded. There are four levels of measurement: nominal, ordinal, interval, and ratio representing the transition from analyzing qualitative to quantitative data.</p>
 <div id="nominal-data" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Nominal Data<a href="basic-statistics.html#nominal-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Nominal data is used to label variables. Gender, nationality, race, and ethnicity are a few of the most common examples of nominal data. It can only be categorized based on qualitative differences and there are no orderings or directions among different categories. We only know that males and females have qualitative differences in terms of gender, but we cannot tell how much they differ, nor could we sort individuals based on their gender. We can still assign numbers to different attributes of nominal variables (e.g., we can assign 1 to females and 2 to males, or vice versa), but the numbers only serve as labels that lack numerical values.</p>
-<p>For the dataset of Google Analytics from Google Merchandise Store (Table 1), the variable Channel is measured at the nominal level, and it indicates the channel through which traffic got to Google Merchandise Store. Organic Search indicates visits from unpaid search results. Direct indicates visits where users navigated directly to the URL, or the source of the visit is unknown. Referral indicates traffic where users clicked a link from another site, excluding major search engines. Display indicates traffic from display advertising, such as Google AdWords remarketing campaigns. Social indicates visits from social networks (Facebook, Twitter, etc.). Paid Search indicates traffic from the PPC (Pay Per Click) campaigns run in search results.</p>
-<p>Since each variable should be exhaustive to include all the possibilities, for the variable of Channel, the attribute “Other” is assigned referring to traffic from an un-identified channel. All these different channels through which a user reaches our website are different attributes our channel variable can have.</p>
+<p>For the dataset of Google Analytics from Google Merchandise Store (Table 1), the variable <strong>Channel</strong> is measured at the nominal level, and it indicates the channel through which traffic got to Google Merchandise Store. <em>Organic Search</em> indicates visits from unpaid search results. <em>Direct</em> indicates visits where users navigated directly to the URL, or the source of the visit is unknown. <em>Referral</em> indicates traffic where users clicked a link from another site, excluding major search engines. <em>Display</em> indicates traffic from display advertising, such as Google AdWords remarketing campaigns. <em>Social</em> indicates visits from social networks (Facebook, Twitter, etc.). <em>Paid Search</em> indicates traffic from the PPC (Pay Per Click) campaigns run in search results.</p>
+<p>Since each variable should be exhaustive to include all the possibilities, for the variable of Channel, the attribute “<em>Other</em>” is assigned referring to traffic from an un-identified channel. All these different channels through which a user reaches our website are different attributes our channel variable can have.</p>
+</div>
+<div id="ordinal-data" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Ordinal Data<a href="basic-statistics.html#ordinal-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ordinal data also can be categorized, but there are rankings or orderings or scaling between categories. The ordinal measurement has been widely used to analyze variables such as education level (e.g., “high school,” “BS,” “MS,” “Ph.D.”), income level (e.g., “less than 50K,” “50-100K,” “over 100K”), and socioeconomic status (e.g., “lower class,” “middle class,” and “upper class”).</p>
+<p>For the dataset of Google Analytics from Google Merchandise Store (Table 2.1), the variable <strong>Age</strong> is also ordinal, and it refers to the age group of the users. For such ordinal variable, we can turn it into quantitative by assigning numerical values to different categories.</p>
+<p>For example, Age can be defined as having six attributes:1 = 18-24; 2 = 25-34; 3 = 35-44; 4 = 45-54; 5 = 55-64; 6 = 65+. There is a logical ordering among the different age groups, in a way that whoever answers “6” is older than individuals who answer “5” to this question. However, we cannot precisely tell the differences between the two groups because each attribute covers a wide range, and the ranges of different attributes are of different sizes.</p>
+</div>
+<div id="interval-data" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Interval Data<a href="basic-statistics.html#interval-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Interval data refers not only to the classification and ordering of data but also specifies that the distances between every two adjacent attributes on a scale are equal. For interval data, the difference between two values is meaningful, but there is no true zero point or fixed beginning, which refers to a scale where 0 indicates the absence of something.</p>
+<p>The most popular example is the temperature in degrees Fahrenheit or Celsius. The difference between 90 degrees F and 80 degrees F is the same difference between 70 degrees F and 60 degrees F; however, when it comes to 0 degrees F, we cannot say that temperature no longer exists. For interval measures, the value 0 does not mean the absence of this variable; rather, it is just an arbitrary setting that we have agreed upon.</p>
+<p>Another example of interval data is year. For year, 0 does not represent the missing value but indicates the year when Christ was born, and the time before 0 is given the prefix BC. If you were born in the year of 2005 and I was born in the year of 2000, we know that I will be five years older than you.</p>
+<p>For the dataset of Google Analytics from Google Merchandise Store (Table 2.1), the only interval variable is <strong>Year</strong>, indicating the year of each observation.</p>
+</div>
+<div id="ratio-data" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Ratio Data<a href="basic-statistics.html#ratio-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For ratio data, the difference between two values is also meaningful, and it has a true zero, indicating the absence of such variable. Media consumption is a great example of ratio data. Media consumption can be measured in days, hours, or minutes a person exposes him/herself to media content. If a person has zero media consumption, that means this person does not consume media at all; in other words, to this person, media consumption is absent.</p>
+<p>For ratio data, zero is the starting point, and the distance between two adjacent values is the same. In addition, it makes sense to calculate the ratio of different values: If you have six hours of media consumption and I only have three hours, then we can say that you consume twice as much media as I do.</p>
+<p>Table 2.1 has six ratio variables. <strong>Sessions</strong> are the total number of sessions within the date range. A session is the period time a user is actively engaged with the website of Google Merchandise Store. <strong>Users</strong> are the number of users who have initiated at least one session during the date range, with the value of zero representing no such user exists. <strong>New Users</strong> are the number of first-time users during the selected date range. <strong>Transactions</strong> are the number of completed purchases on Google Merchandise Store. <strong>Ecommerce Conversion Rate</strong> refers to the E-commerce conversion rate that is the percentage of sessions that resulted in an e-commerce transaction. <strong>Revenue</strong> refers to the revenue of the completed purchases. If the revenue from the display channel is 0, that just means there is no income produced by the display Ads.</p>
+<p>What you can do to analyze your data may be limited due to the level of measurement of the variable. The complexity and precision of the level of measurement increase from nominal to ratio. For the ratio level of measurement, we can not only add numbers or subtract numbers but calculate the ratio of two numbers. For example, if the revenue from the organic search channel is 8k and from the paid search is 4k, then the revenue generated from organic search is twice as much as the revenue from paid search.</p>
+</div>
+</div>
+<div id="statistical-analysis-of-a-single-variable" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Statistical Analysis of a Single Variable<a href="basic-statistics.html#statistical-analysis-of-a-single-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="frequency-distribution" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Frequency Distribution<a href="basic-statistics.html#frequency-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="percentage-change" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Percentage Change<a href="basic-statistics.html#percentage-change" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="relative-frequency" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Relative Frequency<a href="basic-statistics.html#relative-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="percentage-points" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Percentage Points<a href="basic-statistics.html#percentage-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="rate" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Rate<a href="basic-statistics.html#rate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="ratio" class="section level3 hasAnchor" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> Ratio<a href="basic-statistics.html#ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="central-tendency" class="section level3 hasAnchor" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> Central Tendency<a href="basic-statistics.html#central-tendency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="data-variation" class="section level3 hasAnchor" number="2.2.8">
+<h3><span class="header-section-number">2.2.8</span> Data Variation<a href="basic-statistics.html#data-variation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="case-study" class="section level3 hasAnchor" number="2.2.9">
+<h3><span class="header-section-number">2.2.9</span> Case Study<a href="basic-statistics.html#case-study" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 
 </div>
 </div>
