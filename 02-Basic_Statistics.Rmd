@@ -29,3 +29,17 @@ knitr::kable(head(my_data[,1:12], 10), digits = 5, booktabs = TRUE,
 ```
 
 See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 
+
+## Variables & Levels of Measurement 
+
+Typically, the columns identify the variables of the dataset that represent certain qualities of individuals. Any quality that can vary can be considered a variable. Variables can take on different values or attributes. An attribute is a specific value on a variable. For example, gender might be a variable that we are interested in, and the attributes of gender could be male, female, transgender, and non-binary. 
+
+We use levels of measurement to describe how precisely variables are recorded. There are four levels of measurement: nominal, ordinal, interval, and ratio representing the transition from analyzing qualitative to quantitative data. 
+
+### Nominal Data  
+
+Nominal data is used to label variables. Gender, nationality, race, and ethnicity are a few of the most common examples of nominal data. It can only be categorized based on qualitative differences and there are no orderings or directions among different categories. We only know that males and females have qualitative differences in terms of gender, but we cannot tell how much they differ, nor could we sort individuals based on their gender. We can still assign numbers to different attributes of nominal variables (e.g., we can assign 1 to females and 2 to males, or vice versa), but the numbers only serve as labels that lack numerical values.
+
+For the dataset of Google Analytics from Google Merchandise Store (Table 1), the variable Channel is measured at the nominal level, and it indicates the channel through which traffic got to Google Merchandise Store. Organic Search indicates visits from unpaid search results. Direct indicates visits where users navigated directly to the URL, or the source of the visit is unknown. Referral indicates traffic where users clicked a link from another site, excluding major search engines. Display indicates traffic from display advertising, such as Google AdWords remarketing campaigns. Social indicates visits from social networks (Facebook, Twitter, etc.). Paid Search indicates traffic from the PPC (Pay Per Click) campaigns run in search results. 
+
+Since each variable should be exhaustive to include all the possibilities, for the variable of Channel, the attribute “Other” is assigned referring to traffic from an un-identified channel. All these different channels through which a user reaches our website are different attributes our channel variable can have. 

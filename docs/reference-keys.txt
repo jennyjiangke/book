@@ -1,6 +1,8 @@
 tab:unnamed-chunk-2
 r-for-media-analytics
 basic-statistics
+variables-levels-of-measurement
+nominal-data
 text-analysis
 network-analysis
 geo-spatial-analysis-and-visualizations
