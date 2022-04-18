@@ -4,16 +4,28 @@ This chapter uses data from Google Analytics’ channels report, which demonstra
 
 Specifically, we are going to introduce the fundamentals of statistics that cover various aspects of analyzing a single variable, two variables, and three or more variables. 
 
-Table 1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
-
-See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 
+Let's import the Google Analytics’ channels report into RStudio.
 
 ```{r}
-#Import Google analytics sample data into R
+#You will need to install readxl package
 
-library(readxl) #You need to library the package before using it
-my_data <- read_excel("google analytics sample data.xlsx")
+library(readxl) 
+
+my_data <- read_excel("google analytics sample data.xlsx") #Create a dataset and name it as my_data
 
 ```
 
+Table 2.1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
 
+
+```{r}
+#You will need to install kableExtra package
+library(kableExtra)
+
+knitr::kable(head(my_data[,1:12], 10), digits = 5, booktabs = TRUE,
+  caption = 'The First 10 Rows of the Google Analytics Sample Data.'
+) %>%
+  kable_styling(font_size = 6.5)
+```
+
+See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 

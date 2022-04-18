@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -166,12 +168,448 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Basic Statistics<a href="basic-statistics.html#basic-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter uses data from Google Analytics’ channels report, which demonstrates how much of traffic is coming from specific paid versus unpaid channels, as well as data from social listening of #BlackLivesMatter and #StopAsianHate on Twitter to illustrate not only descriptive statistics that describe the properties of sample and population data but also inferential statistics for testing hypotheses and drawing conclusions regarding the relationships between variables.</p>
 <p>Specifically, we are going to introduce the fundamentals of statistics that cover various aspects of analyzing a single variable, two variables, and three or more variables.</p>
-<p>Table 1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products.</p>
-<p>See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-statistics.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import Google analytics sample data into R</span></span>
+<p>Let’s import the Google Analytics’ channels report into RStudio.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-statistics.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install readxl package</span></span>
 <span id="cb1-2"><a href="basic-statistics.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="basic-statistics.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co">#You need to library the package before using it</span></span>
-<span id="cb1-4"><a href="basic-statistics.html#cb1-4" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;google analytics sample data.xlsx&quot;</span>)</span></code></pre></div>
+<span id="cb1-3"><a href="basic-statistics.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) </span>
+<span id="cb1-4"><a href="basic-statistics.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="basic-statistics.html#cb1-5" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;google analytics sample data.xlsx&quot;</span>) <span class="co">#Create a dataset and name it as my_data</span></span></code></pre></div>
+<p>Table 2.1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic-statistics.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install kableExtra package</span></span>
+<span id="cb2-2"><a href="basic-statistics.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-3"><a href="basic-statistics.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="basic-statistics.html#cb2-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">10</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-5"><a href="basic-statistics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 10 Rows of the Google Analytics Sample Data.&#39;</span></span>
+<span id="cb2-6"><a href="basic-statistics.html#cb2-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
+<table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:right;">
+Users
+</th>
+<th style="text-align:right;">
+New Users
+</th>
+<th style="text-align:right;">
+Sessions
+</th>
+<th style="text-align:right;">
+Bounce Rate
+</th>
+<th style="text-align:right;">
+Pages / Session
+</th>
+<th style="text-align:right;">
+Avg. Session Duration
+</th>
+<th style="text-align:right;">
+Ecommerce Conversion Rate
+</th>
+<th style="text-align:right;">
+Transactions
+</th>
+<th style="text-align:right;">
+Revenue
+</th>
+<th style="text-align:right;">
+Year
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+81822
+</td>
+<td style="text-align:right;">
+76251
+</td>
+<td style="text-align:right;">
+118241
+</td>
+<td style="text-align:right;">
+0.42193
+</td>
+<td style="text-align:right;">
+5.82467
+</td>
+<td style="text-align:right;">
+227.6724
+</td>
+<td style="text-align:right;">
+0.03649
+</td>
+<td style="text-align:right;">
+4315
+</td>
+<td style="text-align:right;">
+332771.829
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+65506
+</td>
+<td style="text-align:right;">
+61565
+</td>
+<td style="text-align:right;">
+88898
+</td>
+<td style="text-align:right;">
+0.47178
+</td>
+<td style="text-align:right;">
+4.98222
+</td>
+<td style="text-align:right;">
+199.7854
+</td>
+<td style="text-align:right;">
+0.02642
+</td>
+<td style="text-align:right;">
+2349
+</td>
+<td style="text-align:right;">
+198848.060
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+41947
+</td>
+<td style="text-align:right;">
+38535
+</td>
+<td style="text-align:right;">
+59313
+</td>
+<td style="text-align:right;">
+0.42185
+</td>
+<td style="text-align:right;">
+5.91531
+</td>
+<td style="text-align:right;">
+229.8105
+</td>
+<td style="text-align:right;">
+0.03842
+</td>
+<td style="text-align:right;">
+2279
+</td>
+<td style="text-align:right;">
+189792.736
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+26800
+</td>
+<td style="text-align:right;">
+24967
+</td>
+<td style="text-align:right;">
+37477
+</td>
+<td style="text-align:right;">
+0.44659
+</td>
+<td style="text-align:right;">
+5.47669
+</td>
+<td style="text-align:right;">
+226.9229
+</td>
+<td style="text-align:right;">
+0.03421
+</td>
+<td style="text-align:right;">
+1282
+</td>
+<td style="text-align:right;">
+109531.822
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+12981
+</td>
+<td style="text-align:right;">
+12217
+</td>
+<td style="text-align:right;">
+17703
+</td>
+<td style="text-align:right;">
+0.46444
+</td>
+<td style="text-align:right;">
+5.26922
+</td>
+<td style="text-align:right;">
+213.1094
+</td>
+<td style="text-align:right;">
+0.03474
+</td>
+<td style="text-align:right;">
+615
+</td>
+<td style="text-align:right;">
+54808.702
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+65+
+</td>
+<td style="text-align:right;">
+9432
+</td>
+<td style="text-align:right;">
+8849
+</td>
+<td style="text-align:right;">
+12548
+</td>
+<td style="text-align:right;">
+0.46788
+</td>
+<td style="text-align:right;">
+5.23932
+</td>
+<td style="text-align:right;">
+210.5902
+</td>
+<td style="text-align:right;">
+0.02981
+</td>
+<td style="text-align:right;">
+374
+</td>
+<td style="text-align:right;">
+35609.855
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+2015
+</td>
+<td style="text-align:right;">
+1766
+</td>
+<td style="text-align:right;">
+2797
+</td>
+<td style="text-align:right;">
+0.55703
+</td>
+<td style="text-align:right;">
+4.71505
+</td>
+<td style="text-align:right;">
+175.1087
+</td>
+<td style="text-align:right;">
+0.02252
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+8423.719
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+1394
+</td>
+<td style="text-align:right;">
+1216
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+0.47525
+</td>
+<td style="text-align:right;">
+5.20909
+</td>
+<td style="text-align:right;">
+157.2596
+</td>
+<td style="text-align:right;">
+0.03535
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+8175.394
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+2175
+</td>
+<td style="text-align:right;">
+1829
+</td>
+<td style="text-align:right;">
+3198
+</td>
+<td style="text-align:right;">
+0.43809
+</td>
+<td style="text-align:right;">
+5.88149
+</td>
+<td style="text-align:right;">
+195.8474
+</td>
+<td style="text-align:right;">
+0.03502
+</td>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+7576.795
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+30772
+</td>
+<td style="text-align:right;">
+29628
+</td>
+<td style="text-align:right;">
+40539
+</td>
+<td style="text-align:right;">
+0.37803
+</td>
+<td style="text-align:right;">
+5.78436
+</td>
+<td style="text-align:right;">
+233.6450
+</td>
+<td style="text-align:right;">
+0.00306
+</td>
+<td style="text-align:right;">
+124
+</td>
+<td style="text-align:right;">
+7240.313
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+</tbody>
+</table>
+<p>See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with.</p>
 
 </div>
             </section>
