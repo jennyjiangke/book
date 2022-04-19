@@ -115,6 +115,42 @@ knitr::kable(
 ```
 
 ### Percentage Change
+
+Here, we can also use the grouped frequency analysis to compare the revenue from each channel between 2020 and 2021 to assess the dynamic changes of each channel. 
+
+```{r} 
+
+#Creat a subset for year 2020 and year 2021
+
+my_data_2020 <- my_data %>% filter(Year == 2020)
+my_data_2021 <- my_data %>% filter(Year == 2021)
+
+Revenue_Frequency_2020 <- my_data_2020 %>% 
+  group_by(Channel) %>% 
+  summarise(Revenue = sum(Revenue))
+
+Revenue_Frequency_2021 <- my_data_2021 %>% 
+  group_by(Channel) %>% 
+  summarise(Revenue = sum(Revenue))
+
+```
+
+As illustrated in Table 2.3, the direct channel created the most revenues in both 2020 and 2021. When you have such data for two points in time, you can calculate how much change there has been over this period. The result is expressed as a percentage in absolute numbers and is called the percentage change or the rate of change. Here is the formula: **Percentage Change = [(Number at later time / Number at earlier time) - 1] × 100%**. 
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Revenue_Frequency_2020, desc(Revenue))), 
+    head(arrange(Revenue_Frequency_2021, desc(Revenue)))), 
+  booktabs = TRUE,
+  caption = 'Grouped Revenue in 2020 and 2021'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+For example, from Table 2.3, in 2020, the revenue generated from the paid search channel was $1975.93. And in 2020, the revenue generated from the paid search channel was 29908.18. The percentage change of revenue from the paid search channel from 2020 to 2021 is then calculated as follows: **[(29908.18/ 1975.93)-1] x 100%= 1413.62%**, meaning that from the year of 2020 to the year of 2021, the revenue generated from the paid search channel increased by 1413.62%. 
+
 ### Relative Frequency
 ### Percentage Points
 ### Rate
