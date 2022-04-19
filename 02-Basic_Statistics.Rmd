@@ -23,7 +23,7 @@ Table 2.1 presents parts of a public demo dataset of channels report from Google
 library(kableExtra)
 
 knitr::kable(head(my_data[,1:12], 10), digits = 5, booktabs = TRUE,
-  caption = 'The First 10 Rows of the Google Analytics Sample Data.'
+  caption = 'The First 10 Rows of the Google Analytics Sample Data'
 ) %>%
   kable_styling(font_size = 6.5)
 ```
@@ -72,9 +72,48 @@ Table 2.1 has six ratio variables. **Sessions** are the total number of sessions
 
 What you can do to analyze your data may be limited due to the level of measurement of the variable. The complexity and precision of the level of measurement increase from nominal to ratio. For the ratio level of measurement, we can not only add numbers or subtract numbers but calculate the ratio of two numbers. For example, if the revenue from the organic search channel is 8k and from the paid search is 4k, then the revenue generated from organic search is twice as much as the revenue from paid search.
 
-## Statistical Analysis of a Single Variable 
+The rows in a spreadsheet are closely associated with the unit of analysis, which is one of the most important ideas in a research project and the major entity that you are analyzing in your study. You will need to determine the unit of analysis since it determines the analysis you do for your research. 
+
+For instance, if you are comparing the e-commerce performances (e.g., User, Sessions, Transactions, Revenues, ECR) of different channels, the unit of analysis is each individual channel. If you are comparing the e-commerce performance of different age groups, the unit of analysis is each age group. If you are comparing the e-commerce performance of different channels and age groups, the unit of analysis is each individual channel at each age group.
+
+## Statistical Analyses of a Single Variable 
+
+After defining your research questions and the related unit(s) of analysis, and levels of measurement, we may start the data analysis journey by conducting a statistical analysis of a single variable. 
 
 ### Frequency Distribution 
+
+The easiest thing we can do is to count the number of times an event or a value occurs for the variable(s) of our choice, and this is called Frequency analysis. We can aggregate individual observations of a variable into groups so that a frequency distribution of these groups can serve as a convenient means of summarizing or describing our data. 
+
+We are going to use the **dplyr** package to count the aggregated transactions by channel and age groups.
+
+```{r}
+#Frequency and grouped frequency analysis
+#You will need to install dplyr package
+library(dplyr)
+
+Transaction_Frequency_Channel <- my_data %>% 
+  group_by(Channel) %>% 
+  summarise(Frequency = sum(Transactions))
+
+Transaction_Frequency_Age <- my_data %>% 
+  group_by(Age) %>% 
+  summarise(Frequency = sum(Transactions))
+```
+
+Table 2.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store. 
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Transaction_Frequency_Channel, desc(Frequency))), 
+    head(arrange(Transaction_Frequency_Age, desc(Frequency)))), 
+  booktabs = TRUE,
+  caption = 'Grouped Transaction Frequency for Channel and Age'
+) %>%
+  kable_styling(font_size = 14)
+```
+
 ### Percentage Change
 ### Relative Frequency
 ### Percentage Points

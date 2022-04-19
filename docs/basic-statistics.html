@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3" data-path="basic-statistics.html"><a href="basic-statistics.html#interval-data"><i class="fa fa-check"></i><b>2.1.3</b> Interval Data</a></li>
 <li class="chapter" data-level="2.1.4" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio-data"><i class="fa fa-check"></i><b>2.1.4</b> Ratio Data</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analysis-of-a-single-variable"><i class="fa fa-check"></i><b>2.2</b> Statistical Analysis of a Single Variable</a>
+<li class="chapter" data-level="2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analyses-of-a-single-variable"><i class="fa fa-check"></i><b>2.2</b> Statistical Analyses of a Single Variable</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#frequency-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Frequency Distribution</a></li>
 <li class="chapter" data-level="2.2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-change"><i class="fa fa-check"></i><b>2.2.2</b> Percentage Change</a></li>
@@ -200,12 +200,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="basic-statistics.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
 <span id="cb2-3"><a href="basic-statistics.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="basic-statistics.html#cb2-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">10</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-5"><a href="basic-statistics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 10 Rows of the Google Analytics Sample Data.&#39;</span></span>
+<span id="cb2-5"><a href="basic-statistics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 10 Rows of the Google Analytics Sample Data&#39;</span></span>
 <span id="cb2-6"><a href="basic-statistics.html#cb2-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data.
+<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -660,12 +660,174 @@ Direct
 <p>For ratio data, zero is the starting point, and the distance between two adjacent values is the same. In addition, it makes sense to calculate the ratio of different values: If you have six hours of media consumption and I only have three hours, then we can say that you consume twice as much media as I do.</p>
 <p>Table 2.1 has six ratio variables. <strong>Sessions</strong> are the total number of sessions within the date range. A session is the period time a user is actively engaged with the website of Google Merchandise Store. <strong>Users</strong> are the number of users who have initiated at least one session during the date range, with the value of zero representing no such user exists. <strong>New Users</strong> are the number of first-time users during the selected date range. <strong>Transactions</strong> are the number of completed purchases on Google Merchandise Store. <strong>Ecommerce Conversion Rate</strong> refers to the E-commerce conversion rate that is the percentage of sessions that resulted in an e-commerce transaction. <strong>Revenue</strong> refers to the revenue of the completed purchases. If the revenue from the display channel is 0, that just means there is no income produced by the display Ads.</p>
 <p>What you can do to analyze your data may be limited due to the level of measurement of the variable. The complexity and precision of the level of measurement increase from nominal to ratio. For the ratio level of measurement, we can not only add numbers or subtract numbers but calculate the ratio of two numbers. For example, if the revenue from the organic search channel is 8k and from the paid search is 4k, then the revenue generated from organic search is twice as much as the revenue from paid search.</p>
+<p>The rows in a spreadsheet are closely associated with the unit of analysis, which is one of the most important ideas in a research project and the major entity that you are analyzing in your study. You will need to determine the unit of analysis since it determines the analysis you do for your research.</p>
+<p>For instance, if you are comparing the e-commerce performances (e.g., User, Sessions, Transactions, Revenues, ECR) of different channels, the unit of analysis is each individual channel. If you are comparing the e-commerce performance of different age groups, the unit of analysis is each age group. If you are comparing the e-commerce performance of different channels and age groups, the unit of analysis is each individual channel at each age group.</p>
 </div>
 </div>
-<div id="statistical-analysis-of-a-single-variable" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Statistical Analysis of a Single Variable<a href="basic-statistics.html#statistical-analysis-of-a-single-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="statistical-analyses-of-a-single-variable" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Statistical Analyses of a Single Variable<a href="basic-statistics.html#statistical-analyses-of-a-single-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After defining your research questions and the related unit(s) of analysis, and levels of measurement, we may start the data analysis journey by conducting a statistical analysis of a single variable.</p>
 <div id="frequency-distribution" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Frequency Distribution<a href="basic-statistics.html#frequency-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The easiest thing we can do is to count the number of times an event or a value occurs for the variable(s) of our choice, and this is called Frequency analysis. We can aggregate individual observations of a variable into groups so that a frequency distribution of these groups can serve as a convenient means of summarizing or describing our data.</p>
+<p>We are going to use the <strong>dplyr</strong> package to count the aggregated transactions by channel and age groups.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="basic-statistics.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Frequency and grouped frequency analysis</span></span>
+<span id="cb3-2"><a href="basic-statistics.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install dplyr package</span></span>
+<span id="cb3-3"><a href="basic-statistics.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="basic-statistics.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="basic-statistics.html#cb3-5" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Channel <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="basic-statistics.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="basic-statistics.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span>
+<span id="cb3-8"><a href="basic-statistics.html#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="basic-statistics.html#cb3-9" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Age <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="basic-statistics.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Age) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="basic-statistics.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span></code></pre></div>
+<p>Table 2.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="basic-statistics.html#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb4-2"><a href="basic-statistics.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb4-3"><a href="basic-statistics.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Channel, <span class="fu">desc</span>(Frequency))), </span>
+<span id="cb4-4"><a href="basic-statistics.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Age, <span class="fu">desc</span>(Frequency)))), </span>
+<span id="cb4-5"><a href="basic-statistics.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-6"><a href="basic-statistics.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Transaction Frequency for Channel and Age&#39;</span></span>
+<span id="cb4-7"><a href="basic-statistics.html#cb4-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="basic-statistics.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-4">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:right;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:right;">
+11581
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:right;">
+330
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:right;">
+138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Referral
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Display
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:right;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+4654
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+2558
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+2496
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+1394
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+673
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+65+
+</td>
+<td style="text-align:right;">
+414
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="percentage-change" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Percentage Change<a href="basic-statistics.html#percentage-change" class="anchor-section" aria-label="Anchor link to header"></a></h3>

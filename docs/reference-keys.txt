@@ -1,4 +1,5 @@
 tab:unnamed-chunk-2
+tab:unnamed-chunk-4
 r-for-media-analytics
 basic-statistics
 variables-levels-of-measurement
@@ -6,7 +7,7 @@ nominal-data
 ordinal-data
 interval-data
 ratio-data
-statistical-analysis-of-a-single-variable
+statistical-analyses-of-a-single-variable
 frequency-distribution
 percentage-change
 relative-frequency
