@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2022-04-18" />
+<meta name="date" content="2022-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-11">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -693,7 +693,7 @@ Direct
 <span id="cb4-8"><a href="basic-statistics.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-4">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
+<span id="tab:unnamed-chunk-13">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
 </caption>
 <tbody>
 <tr>
@@ -855,7 +855,7 @@ Frequency
 <span id="cb6-8"><a href="basic-statistics.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-6">Table 2.3: </span>Grouped Revenue in 2020 and 2021
+<span id="tab:unnamed-chunk-15">Table 2.3: </span>Grouped Revenue in 2020 and 2021
 </caption>
 <tbody>
 <tr>
@@ -994,6 +994,159 @@ Organic Search
 </div>
 <div id="relative-frequency" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Relative Frequency<a href="basic-statistics.html#relative-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the frequency analysis, we also can count how often something happens divided by all outcomes, which is called the relative frequency analysis. For example, from Table 3, the revenue from the organic search channel in 2020 is $4,628.44, and the total revenue in 2020 is the sum of revenue from all channels, which is $34422.26.The relative revenue from the organic search channel is 4,628.44/34422.26 = 13.44%, indicating 13.44% of the revenue in 2020 was from the organic search channel. We can use the codes below to get the relative revenue for each channel in 2020 and 2021 (Table 2.4).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="basic-statistics.html#cb7-1" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2020 <span class="ot">&lt;-</span> my_data_2020 <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="basic-statistics.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="basic-statistics.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2020<span class="sc">$</span>Revenue))</span>
+<span id="cb7-4"><a href="basic-statistics.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="basic-statistics.html#cb7-5" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2021 <span class="ot">&lt;-</span> my_data_2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="basic-statistics.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="basic-statistics.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2021<span class="sc">$</span>Revenue))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basic-statistics.html#cb8-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb8-2"><a href="basic-statistics.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb8-3"><a href="basic-statistics.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2020, <span class="fu">desc</span>(Revenue_Percentage))), </span>
+<span id="cb8-4"><a href="basic-statistics.html#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2021, <span class="fu">desc</span>(Revenue_Percentage)))), </span>
+<span id="cb8-5"><a href="basic-statistics.html#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-6"><a href="basic-statistics.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Revenue in 2020 and 2021&#39;</span></span>
+<span id="cb8-7"><a href="basic-statistics.html#cb8-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="basic-statistics.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-17">Table 2.4: </span>Grouped Revenue in 2020 and 2021
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:right;">
+Revenue_Percentage
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:right;">
+0.6846058
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:right;">
+0.1344607
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:right;">
+0.0916502
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:right;">
+0.0574027
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Referral
+</td>
+<td style="text-align:right;">
+0.0251211
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Social
+</td>
+<td style="text-align:right;">
+0.0047880
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:right;">
+Revenue_Percentage
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:right;">
+0.9618529
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:right;">
+0.0312225
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:right;">
+0.0054213
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Referral
+</td>
+<td style="text-align:right;">
+0.0008895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Display
+</td>
+<td style="text-align:right;">
+0.0003699
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:right;">
+0.0001969
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="percentage-points" class="section level3 hasAnchor" number="2.2.4">
 <h3><span class="header-section-number">2.2.4</span> Percentage Points<a href="basic-statistics.html#percentage-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
