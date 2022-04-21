@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2022-04-20" />
+<meta name="date" content="2022-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-11">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -1073,7 +1073,7 @@ Paid Search
 <span id="cb4-8"><a href="basic-statistics.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-13">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
+<span id="tab:unnamed-chunk-4">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
 </caption>
 <tbody>
 <tr>
@@ -1235,7 +1235,7 @@ Frequency
 <span id="cb6-8"><a href="basic-statistics.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-15">Table 2.3: </span>Grouped Revenue in 2020 and 2021
+<span id="tab:unnamed-chunk-6">Table 2.3: </span>Grouped Revenue in 2020 and 2021
 </caption>
 <tbody>
 <tr>
@@ -1392,7 +1392,7 @@ Organic Search
 <span id="cb8-8"><a href="basic-statistics.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-17">Table 2.4: </span>Grouped Revenue in 2020 and 2021
+<span id="tab:unnamed-chunk-8">Table 2.4: </span>Grouped Revenue in 2020 and 2021
 </caption>
 <tbody>
 <tr>
@@ -1545,7 +1545,7 @@ Organic Search
 <span id="cb10-4"><a href="basic-statistics.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-19">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-10">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -2432,7 +2432,7 @@ Paid Search
 <span id="cb12-6"><a href="basic-statistics.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-21">Table 2.6: </span>The Ratio of Old Users and New Users for Each Channel
+<span id="tab:unnamed-chunk-12">Table 2.6: </span>The Ratio of Old Users and New Users for Each Channel
 </caption>
 <thead>
 <tr>
@@ -2540,6 +2540,282 @@ Display
 </div>
 <div id="central-tendency" class="section level3 hasAnchor" number="2.2.7">
 <h3><span class="header-section-number">2.2.7</span> Central Tendency<a href="basic-statistics.html#central-tendency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Besides using frequency analysis to summarize the distribution of a variable, we also can use the central tendency analysis to understand which attribute of a variable is most typical or representative of the variable distribution. Specifically, the central tendency analysis describes what the center of the data for a variable is. What do we mean by the center of the data? For many, the mean, median, and mode. Mean is the sum of all data points divided by the total number of observations. Median is the midpoint in data with an equal number of data points above and below. If the number of data points is even, then Median is the mean of the two midpoints. Mode is the data point that is most prevalent in the data set. It represents the most likely outcome in a data set.</p>
+<p>Let’s first create a small dataset of test scores from 20 students.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basic-statistics.html#cb13-1" aria-hidden="true" tabindex="-1"></a>StudentID <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb13-2"><a href="basic-statistics.html#cb13-2" aria-hidden="true" tabindex="-1"></a>Score <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">100</span>)</span>
+<span id="cb13-3"><a href="basic-statistics.html#cb13-3" aria-hidden="true" tabindex="-1"></a>TestData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(StudentID, Score)</span>
+<span id="cb13-4"><a href="basic-statistics.html#cb13-4" aria-hidden="true" tabindex="-1"></a>ScoreFrequency <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(TestData<span class="sc">$</span>Score)) <span class="co"># Calculate the frequency of each score</span></span>
+<span id="cb13-5"><a href="basic-statistics.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ScoreFrequency) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score&quot;</span>,<span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p>Table 2.7 demonstrates the frequency of each score.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="basic-statistics.html#cb14-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb14-2"><a href="basic-statistics.html#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(ScoreFrequency)), </span>
+<span id="cb14-3"><a href="basic-statistics.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-4"><a href="basic-statistics.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Frequency of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb14-5"><a href="basic-statistics.html#cb14-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="basic-statistics.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-14">Table 2.7: </span>Frequency of Test Scores from 20 Students
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Score
+</th>
+<th style="text-align:left;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+80
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+90
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>The mean score is the sum of all scores divided by 20. The related formula is: <strong>(40x1 + 50x2 + 60x5 + 70x3 + 80x4 +90x4 + 100x1)/20 = 71.5</strong>, meaning that the average score among these 20 students is 71.5.</p>
+<p>When it comes to identifying the median value, we want to sort all individuals from the lowest value to the highest value, and whoever in the middle gives us the median value. But the problem is, we have 20 students in this sample, which is an even number, meaning that there will be two individuals in the middle (Table 2.8: student number 10 and number 11). For situations like this, we take the mean of these two individuals’ values to compute the median: (70+70)/2 = 70 (Table 2.8).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="basic-statistics.html#cb15-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(TestData, <span class="dv">20</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-2"><a href="basic-statistics.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;A Small Dataset of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb15-3"><a href="basic-statistics.html#cb15-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="basic-statistics.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-15">Table 2.8: </span>A Small Dataset of Test Scores from 20 Students
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+StudentID
+</th>
+<th style="text-align:left;">
+Score
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+100
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can easily identify the most frequent test score by looking into the score distribution visualization.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic-statistics.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need install ggplot2 package</span></span>
+<span id="cb16-2"><a href="basic-statistics.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-3"><a href="basic-statistics.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="basic-statistics.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot</span></span>
+<span id="cb16-5"><a href="basic-statistics.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ScoreFrequency, <span class="fu">aes</span>(<span class="at">x=</span>Score, <span class="at">y=</span>Frequency)) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="basic-statistics.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
+<img src="bookdownproj_files/figure-html/unnamed-chunk-16-1.png" alt="Distribution of Test Scores from 20 Students" width="672" />
+<p class="caption">
+Figure 2.1: Distribution of Test Scores from 20 Students
+</p>
+</div>
+<p>Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.</p>
 </div>
 <div id="data-variation" class="section level3 hasAnchor" number="2.2.8">
 <h3><span class="header-section-number">2.2.8</span> Data Variation<a href="basic-statistics.html#data-variation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
