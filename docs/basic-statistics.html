@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-11">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -1073,7 +1073,7 @@ Paid Search
 <span id="cb4-8"><a href="basic-statistics.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-4">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
+<span id="tab:unnamed-chunk-13">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
 </caption>
 <tbody>
 <tr>
@@ -1235,7 +1235,7 @@ Frequency
 <span id="cb6-8"><a href="basic-statistics.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-6">Table 2.3: </span>Grouped Revenue in 2020 and 2021
+<span id="tab:unnamed-chunk-15">Table 2.3: </span>Grouped Revenue in 2020 and 2021
 </caption>
 <tbody>
 <tr>
@@ -1392,7 +1392,7 @@ Organic Search
 <span id="cb8-8"><a href="basic-statistics.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-8">Table 2.4: </span>Grouped Revenue in 2020 and 2021
+<span id="tab:unnamed-chunk-17">Table 2.4: </span>Grouped Revenue in 2020 and 2021
 </caption>
 <tbody>
 <tr>
@@ -1545,7 +1545,7 @@ Organic Search
 <span id="cb10-4"><a href="basic-statistics.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-10">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-19">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -2416,6 +2416,127 @@ Paid Search
 </div>
 <div id="ratio" class="section level3 hasAnchor" number="2.2.6">
 <h3><span class="header-section-number">2.2.6</span> Ratio<a href="basic-statistics.html#ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ratio compares the size of two numbers indicating how many times one number contains another. For example, let’s calculate the ratio of returning users and new users using the formula: <strong>Number of Old Users / Number of New Users</strong>. We first use the r code below to create a new column <strong>old user (users - new users)</strong>, then we use the <strong>group_by</strong> function to calculate the ratio fo returning users and new users for each channel.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-statistics.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new colunme of old users</span></span>
+<span id="cb11-2"><a href="basic-statistics.html#cb11-2" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>OldUsers <span class="ot">&lt;-</span> my_data<span class="sc">$</span>Users<span class="sc">-</span>my_data<span class="sc">$</span><span class="st">&#39;New Users&#39;</span></span>
+<span id="cb11-3"><a href="basic-statistics.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="basic-statistics.html#cb11-4" aria-hidden="true" tabindex="-1"></a>userratio <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="basic-statistics.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="basic-statistics.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">OldUsers =</span> <span class="fu">sum</span>(OldUsers), <span class="at">NewUsers =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>),<span class="at">Ratio =</span> <span class="fu">sum</span>(OldUsers)<span class="sc">/</span><span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>))</span></code></pre></div>
+<p>From Table 2.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-statistics.html#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb12-2"><a href="basic-statistics.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(userratio, <span class="fu">desc</span>(Ratio))), </span>
+<span id="cb12-3"><a href="basic-statistics.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href="basic-statistics.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The Ratio of Old Users and New Users for Each Channel&#39;</span></span>
+<span id="cb12-5"><a href="basic-statistics.html#cb12-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="basic-statistics.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-21">Table 2.6: </span>The Ratio of Old Users and New Users for Each Channel
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:right;">
+OldUsers
+</th>
+<th style="text-align:right;">
+NewUsers
+</th>
+<th style="text-align:right;">
+Ratio
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:right;">
+3383
+</td>
+<td style="text-align:right;">
+7268
+</td>
+<td style="text-align:right;">
+0.4654651
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Referral
+</td>
+<td style="text-align:right;">
+8101
+</td>
+<td style="text-align:right;">
+23027
+</td>
+<td style="text-align:right;">
+0.3518044
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:right;">
+2116
+</td>
+<td style="text-align:right;">
+11593
+</td>
+<td style="text-align:right;">
+0.1825239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Affiliates
+</td>
+<td style="text-align:right;">
+1002
+</td>
+<td style="text-align:right;">
+8071
+</td>
+<td style="text-align:right;">
+0.1241482
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:right;">
+8428
+</td>
+<td style="text-align:right;">
+81809
+</td>
+<td style="text-align:right;">
+0.1030205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Display
+</td>
+<td style="text-align:right;">
+524
+</td>
+<td style="text-align:right;">
+7624
+</td>
+<td style="text-align:right;">
+0.0687303
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="central-tendency" class="section level3 hasAnchor" number="2.2.7">
 <h3><span class="header-section-number">2.2.7</span> Central Tendency<a href="basic-statistics.html#central-tendency" class="anchor-section" aria-label="Anchor link to header"></a></h3>

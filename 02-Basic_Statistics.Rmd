@@ -205,6 +205,30 @@ knitr::kable(head(my_data[,1:13], 20), digits = 5, booktabs = TRUE,
 ```
 
 ### Ratio
+
+Ratio compares the size of two numbers indicating how many times one number contains another. For example, let's calculate the ratio of returning users and new users using the formula: **Number of Old Users / Number of New Users**. We first use the r code below to create a new column **old user (users - new users)**, then we use the **group_by** function to calculate the ratio fo returning users and new users for each channel. 
+
+```{r}
+#creating a new colunme of old users
+my_data$OldUsers <- my_data$Users-my_data$'New Users'
+
+userratio <- my_data %>% 
+  group_by(Channel) %>% 
+  summarise(OldUsers = sum(OldUsers), NewUsers = sum(`New Users`),Ratio = sum(OldUsers)/sum(`New Users`))
+```
+
+From Table 2.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.
+
+```{r}
+
+knitr::kable(
+    head(arrange(userratio, desc(Ratio))), 
+  booktabs = TRUE,
+  caption = 'The Ratio of Old Users and New Users for Each Channel'
+) %>%
+  kable_styling(font_size = 14)
+```
+
 ### Central Tendency
 ### Data Variation
 ### Case Study 
