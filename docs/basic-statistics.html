@@ -199,13 +199,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic-statistics.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install kableExtra package</span></span>
 <span id="cb2-2"><a href="basic-statistics.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
 <span id="cb2-3"><a href="basic-statistics.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="basic-statistics.html#cb2-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">10</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-5"><a href="basic-statistics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 10 Rows of the Google Analytics Sample Data&#39;</span></span>
+<span id="cb2-4"><a href="basic-statistics.html#cb2-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-5"><a href="basic-statistics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
 <span id="cb2-6"><a href="basic-statistics.html#cb2-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="basic-statistics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 10 Rows of the Google Analytics Sample Data
+<span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
 </caption>
 <thead>
 <tr>
@@ -626,6 +626,386 @@ Direct
 </td>
 <td style="text-align:right;">
 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+17545
+</td>
+<td style="text-align:right;">
+17024
+</td>
+<td style="text-align:right;">
+21888
+</td>
+<td style="text-align:right;">
+0.42708
+</td>
+<td style="text-align:right;">
+5.07753
+</td>
+<td style="text-align:right;">
+210.2462
+</td>
+<td style="text-align:right;">
+0.00315
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+5325.412
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+8491
+</td>
+<td style="text-align:right;">
+8126
+</td>
+<td style="text-align:right;">
+11115
+</td>
+<td style="text-align:right;">
+0.38570
+</td>
+<td style="text-align:right;">
+5.73117
+</td>
+<td style="text-align:right;">
+230.9463
+</td>
+<td style="text-align:right;">
+0.00495
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+4173.602
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+1083
+</td>
+<td style="text-align:right;">
+960
+</td>
+<td style="text-align:right;">
+1387
+</td>
+<td style="text-align:right;">
+0.56669
+</td>
+<td style="text-align:right;">
+4.39726
+</td>
+<td style="text-align:right;">
+138.6871
+</td>
+<td style="text-align:right;">
+0.02307
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4086.483
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+14088
+</td>
+<td style="text-align:right;">
+13560
+</td>
+<td style="text-align:right;">
+18461
+</td>
+<td style="text-align:right;">
+0.38248
+</td>
+<td style="text-align:right;">
+5.53648
+</td>
+<td style="text-align:right;">
+226.3607
+</td>
+<td style="text-align:right;">
+0.00444
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+3993.809
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+35978
+</td>
+<td style="text-align:right;">
+32853
+</td>
+<td style="text-align:right;">
+47132
+</td>
+<td style="text-align:right;">
+0.51390
+</td>
+<td style="text-align:right;">
+3.97070
+</td>
+<td style="text-align:right;">
+164.3456
+</td>
+<td style="text-align:right;">
+0.00068
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+1738.469
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+284
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+523
+</td>
+<td style="text-align:right;">
+0.24474
+</td>
+<td style="text-align:right;">
+7.62524
+</td>
+<td style="text-align:right;">
+278.2505
+</td>
+<td style="text-align:right;">
+0.03824
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+1657.444
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+4466
+</td>
+<td style="text-align:right;">
+4287
+</td>
+<td style="text-align:right;">
+5862
+</td>
+<td style="text-align:right;">
+0.40242
+</td>
+<td style="text-align:right;">
+5.46571
+</td>
+<td style="text-align:right;">
+232.1102
+</td>
+<td style="text-align:right;">
+0.00409
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+1530.108
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+3440
+</td>
+<td style="text-align:right;">
+2370
+</td>
+<td style="text-align:right;">
+4741
+</td>
+<td style="text-align:right;">
+0.31533
+</td>
+<td style="text-align:right;">
+5.90719
+</td>
+<td style="text-align:right;">
+232.4685
+</td>
+<td style="text-align:right;">
+0.00337
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+1472.471
+</td>
+<td style="text-align:right;">
+2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+302
+</td>
+<td style="text-align:right;">
+849
+</td>
+<td style="text-align:right;">
+0.34982
+</td>
+<td style="text-align:right;">
+5.61602
+</td>
+<td style="text-align:right;">
+244.2697
+</td>
+<td style="text-align:right;">
+0.03651
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+1395.053
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+804
+</td>
+<td style="text-align:right;">
+748
+</td>
+<td style="text-align:right;">
+1009
+</td>
+<td style="text-align:right;">
+0.62537
+</td>
+<td style="text-align:right;">
+3.59068
+</td>
+<td style="text-align:right;">
+111.0684
+</td>
+<td style="text-align:right;">
+0.01388
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+1315.551
+</td>
+<td style="text-align:right;">
+2021
 </td>
 </tr>
 </tbody>
@@ -1154,6 +1534,885 @@ Organic Search
 </div>
 <div id="rate" class="section level3 hasAnchor" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> Rate<a href="basic-statistics.html#rate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In data analysis, some variables, such as the ECR (e-commerce conversion rate from Table 2.1), are too small to visualize. Under such circumstances, we can represent the percentage as rate by converting the small proportions to a whole number with one, two, or three digits on a base of some multiple of 1,000, 10,000, 100,000, or 1 million.</p>
+<p>For example, from Table 2.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions.</p>
+<p>We can use the r code below to add a column representing the Ecommerce Conversion Rate per 10,000 sessions for my_data.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="basic-statistics.html#cb9-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>ECR <span class="ot">&lt;-</span> my_data<span class="sc">$</span><span class="st">`</span><span class="at">Ecommerce Conversion Rate</span><span class="st">`</span><span class="sc">*</span><span class="dv">10000</span></span></code></pre></div>
+<p>Now, the new column has been added to my_data as illustrated in Table 2.5.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="basic-statistics.html#cb10-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-2"><a href="basic-statistics.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
+<span id="cb10-3"><a href="basic-statistics.html#cb10-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="basic-statistics.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
+<table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-10">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Channel
+</th>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:right;">
+Users
+</th>
+<th style="text-align:right;">
+New Users
+</th>
+<th style="text-align:right;">
+Sessions
+</th>
+<th style="text-align:right;">
+Bounce Rate
+</th>
+<th style="text-align:right;">
+Pages / Session
+</th>
+<th style="text-align:right;">
+Avg. Session Duration
+</th>
+<th style="text-align:right;">
+Ecommerce Conversion Rate
+</th>
+<th style="text-align:right;">
+Transactions
+</th>
+<th style="text-align:right;">
+Revenue
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+ECR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+81822
+</td>
+<td style="text-align:right;">
+76251
+</td>
+<td style="text-align:right;">
+118241
+</td>
+<td style="text-align:right;">
+0.42193
+</td>
+<td style="text-align:right;">
+5.82467
+</td>
+<td style="text-align:right;">
+227.6724
+</td>
+<td style="text-align:right;">
+0.03649
+</td>
+<td style="text-align:right;">
+4315
+</td>
+<td style="text-align:right;">
+332771.829
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+364.93264
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+65506
+</td>
+<td style="text-align:right;">
+61565
+</td>
+<td style="text-align:right;">
+88898
+</td>
+<td style="text-align:right;">
+0.47178
+</td>
+<td style="text-align:right;">
+4.98222
+</td>
+<td style="text-align:right;">
+199.7854
+</td>
+<td style="text-align:right;">
+0.02642
+</td>
+<td style="text-align:right;">
+2349
+</td>
+<td style="text-align:right;">
+198848.060
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+264.23542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+41947
+</td>
+<td style="text-align:right;">
+38535
+</td>
+<td style="text-align:right;">
+59313
+</td>
+<td style="text-align:right;">
+0.42185
+</td>
+<td style="text-align:right;">
+5.91531
+</td>
+<td style="text-align:right;">
+229.8105
+</td>
+<td style="text-align:right;">
+0.03842
+</td>
+<td style="text-align:right;">
+2279
+</td>
+<td style="text-align:right;">
+189792.736
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+384.23280
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+26800
+</td>
+<td style="text-align:right;">
+24967
+</td>
+<td style="text-align:right;">
+37477
+</td>
+<td style="text-align:right;">
+0.44659
+</td>
+<td style="text-align:right;">
+5.47669
+</td>
+<td style="text-align:right;">
+226.9229
+</td>
+<td style="text-align:right;">
+0.03421
+</td>
+<td style="text-align:right;">
+1282
+</td>
+<td style="text-align:right;">
+109531.822
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+342.07647
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+12981
+</td>
+<td style="text-align:right;">
+12217
+</td>
+<td style="text-align:right;">
+17703
+</td>
+<td style="text-align:right;">
+0.46444
+</td>
+<td style="text-align:right;">
+5.26922
+</td>
+<td style="text-align:right;">
+213.1094
+</td>
+<td style="text-align:right;">
+0.03474
+</td>
+<td style="text-align:right;">
+615
+</td>
+<td style="text-align:right;">
+54808.702
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+347.39875
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+65+
+</td>
+<td style="text-align:right;">
+9432
+</td>
+<td style="text-align:right;">
+8849
+</td>
+<td style="text-align:right;">
+12548
+</td>
+<td style="text-align:right;">
+0.46788
+</td>
+<td style="text-align:right;">
+5.23932
+</td>
+<td style="text-align:right;">
+210.5902
+</td>
+<td style="text-align:right;">
+0.02981
+</td>
+<td style="text-align:right;">
+374
+</td>
+<td style="text-align:right;">
+35609.855
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+298.05547
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+2015
+</td>
+<td style="text-align:right;">
+1766
+</td>
+<td style="text-align:right;">
+2797
+</td>
+<td style="text-align:right;">
+0.55703
+</td>
+<td style="text-align:right;">
+4.71505
+</td>
+<td style="text-align:right;">
+175.1087
+</td>
+<td style="text-align:right;">
+0.02252
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+8423.719
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+225.24133
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+1394
+</td>
+<td style="text-align:right;">
+1216
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+0.47525
+</td>
+<td style="text-align:right;">
+5.20909
+</td>
+<td style="text-align:right;">
+157.2596
+</td>
+<td style="text-align:right;">
+0.03535
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+8175.394
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+353.53535
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+2175
+</td>
+<td style="text-align:right;">
+1829
+</td>
+<td style="text-align:right;">
+3198
+</td>
+<td style="text-align:right;">
+0.43809
+</td>
+<td style="text-align:right;">
+5.88149
+</td>
+<td style="text-align:right;">
+195.8474
+</td>
+<td style="text-align:right;">
+0.03502
+</td>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+7576.795
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+350.21889
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+30772
+</td>
+<td style="text-align:right;">
+29628
+</td>
+<td style="text-align:right;">
+40539
+</td>
+<td style="text-align:right;">
+0.37803
+</td>
+<td style="text-align:right;">
+5.78436
+</td>
+<td style="text-align:right;">
+233.6450
+</td>
+<td style="text-align:right;">
+0.00306
+</td>
+<td style="text-align:right;">
+124
+</td>
+<td style="text-align:right;">
+7240.313
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+30.58783
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+17545
+</td>
+<td style="text-align:right;">
+17024
+</td>
+<td style="text-align:right;">
+21888
+</td>
+<td style="text-align:right;">
+0.42708
+</td>
+<td style="text-align:right;">
+5.07753
+</td>
+<td style="text-align:right;">
+210.2462
+</td>
+<td style="text-align:right;">
+0.00315
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+5325.412
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+31.52412
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+8491
+</td>
+<td style="text-align:right;">
+8126
+</td>
+<td style="text-align:right;">
+11115
+</td>
+<td style="text-align:right;">
+0.38570
+</td>
+<td style="text-align:right;">
+5.73117
+</td>
+<td style="text-align:right;">
+230.9463
+</td>
+<td style="text-align:right;">
+0.00495
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+4173.602
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+49.48268
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+45-54
+</td>
+<td style="text-align:right;">
+1083
+</td>
+<td style="text-align:right;">
+960
+</td>
+<td style="text-align:right;">
+1387
+</td>
+<td style="text-align:right;">
+0.56669
+</td>
+<td style="text-align:right;">
+4.39726
+</td>
+<td style="text-align:right;">
+138.6871
+</td>
+<td style="text-align:right;">
+0.02307
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4086.483
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+230.71377
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+14088
+</td>
+<td style="text-align:right;">
+13560
+</td>
+<td style="text-align:right;">
+18461
+</td>
+<td style="text-align:right;">
+0.38248
+</td>
+<td style="text-align:right;">
+5.53648
+</td>
+<td style="text-align:right;">
+226.3607
+</td>
+<td style="text-align:right;">
+0.00444
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+3993.809
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+44.41796
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organic Search
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+35978
+</td>
+<td style="text-align:right;">
+32853
+</td>
+<td style="text-align:right;">
+47132
+</td>
+<td style="text-align:right;">
+0.51390
+</td>
+<td style="text-align:right;">
+3.97070
+</td>
+<td style="text-align:right;">
+164.3456
+</td>
+<td style="text-align:right;">
+0.00068
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+1738.469
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+6.78944
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+35-44
+</td>
+<td style="text-align:right;">
+284
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+523
+</td>
+<td style="text-align:right;">
+0.24474
+</td>
+<td style="text-align:right;">
+7.62524
+</td>
+<td style="text-align:right;">
+278.2505
+</td>
+<td style="text-align:right;">
+0.03824
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+1657.444
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+382.40918
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Direct
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+4466
+</td>
+<td style="text-align:right;">
+4287
+</td>
+<td style="text-align:right;">
+5862
+</td>
+<td style="text-align:right;">
+0.40242
+</td>
+<td style="text-align:right;">
+5.46571
+</td>
+<td style="text-align:right;">
+232.1102
+</td>
+<td style="text-align:right;">
+0.00409
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+1530.108
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+40.94166
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+25-34
+</td>
+<td style="text-align:right;">
+3440
+</td>
+<td style="text-align:right;">
+2370
+</td>
+<td style="text-align:right;">
+4741
+</td>
+<td style="text-align:right;">
+0.31533
+</td>
+<td style="text-align:right;">
+5.90719
+</td>
+<td style="text-align:right;">
+232.4685
+</td>
+<td style="text-align:right;">
+0.00337
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+1472.471
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+33.74815
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Other)
+</td>
+<td style="text-align:left;">
+18-24
+</td>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+302
+</td>
+<td style="text-align:right;">
+849
+</td>
+<td style="text-align:right;">
+0.34982
+</td>
+<td style="text-align:right;">
+5.61602
+</td>
+<td style="text-align:right;">
+244.2697
+</td>
+<td style="text-align:right;">
+0.03651
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+1395.053
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+365.13545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paid Search
+</td>
+<td style="text-align:left;">
+55-64
+</td>
+<td style="text-align:right;">
+804
+</td>
+<td style="text-align:right;">
+748
+</td>
+<td style="text-align:right;">
+1009
+</td>
+<td style="text-align:right;">
+0.62537
+</td>
+<td style="text-align:right;">
+3.59068
+</td>
+<td style="text-align:right;">
+111.0684
+</td>
+<td style="text-align:right;">
+0.01388
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+1315.551
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+138.75124
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="ratio" class="section level3 hasAnchor" number="2.2.6">
 <h3><span class="header-section-number">2.2.6</span> Ratio<a href="basic-statistics.html#ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>

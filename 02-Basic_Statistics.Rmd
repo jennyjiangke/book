@@ -22,8 +22,8 @@ Table 2.1 presents parts of a public demo dataset of channels report from Google
 #You will need to install kableExtra package
 library(kableExtra)
 
-knitr::kable(head(my_data[,1:12], 10), digits = 5, booktabs = TRUE,
-  caption = 'The First 10 Rows of the Google Analytics Sample Data'
+knitr::kable(head(my_data[,1:12], 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data'
 ) %>%
   kable_styling(font_size = 6.5)
 ```
@@ -182,6 +182,27 @@ knitr::kable(
 We can use the term “percentage points” to compare two different percentages at two points in time. The best way to explain this is through an example: from Table 2.4, in 2020, the share of revenue from the Paid Search channel was 5.74%. In 2021, the share of revenue from the Paid Search channel was 3.12%. The difference of these two percentages is calculated in percentage points: 3.12 % - 5.74 % = -2.62%. This means that the share of revenue from Paid Search channel in 2021 was almost three percentage points lower than the share of revenue from the Paid Search channel in 2020.
 
 ### Rate
+
+In data analysis, some variables, such as the ECR (e-commerce conversion rate from Table 2.1), are too small to visualize. Under such circumstances, we can represent the percentage as rate by converting the small proportions to a whole number with one, two, or three digits on a base of some multiple of 1,000, 10,000, 100,000, or 1 million. 
+
+For example, from Table 2.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions. 
+
+We can use the r code below to add a column representing the Ecommerce Conversion Rate per 10,000 sessions for my_data.
+
+```{r}
+my_data$ECR <- my_data$`Ecommerce Conversion Rate`*10000
+```
+
+Now, the new column has been added to my_data as illustrated in Table 2.5.
+
+
+```{r}
+
+knitr::kable(head(my_data[,1:13], 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data'
+) %>%
+  kable_styling(font_size = 6.5)
+```
 
 ### Ratio
 ### Central Tendency
