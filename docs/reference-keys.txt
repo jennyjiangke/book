@@ -23,7 +23,6 @@ rate
 ratio
 central-tendency
 data-variation
-case-study
 text-analysis
 network-analysis
 geo-spatial-analysis-and-visualizations
