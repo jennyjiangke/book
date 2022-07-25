@@ -281,6 +281,31 @@ ggplot(ScoreFrequency, aes(x=Score, y=Frequency)) +
 Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.
 
 ### Data Variation
-Let's start the data variation
+If two data sets have the same center points, does that mean they
+have the same data distribution? Let’s look at two small datasets:
+
+
+```{r}
+Score1 <- data.frame(c(110, 90,70,50,30))
+Score2 <- data.frame(c(75, 70,70,70,65))
+colnames(Score1) <- c("Score1")
+colnames(Score2) <- c("Score2")
+```
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Score1, desc(Score1))), 
+    head(arrange(Score2, desc(Score2)))), 
+  booktabs = TRUE,
+  caption = 'Two Small Data Sets with the Same Mean and Median'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution. 
+
+
 ### Case Study 
 
