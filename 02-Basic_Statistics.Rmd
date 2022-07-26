@@ -280,6 +280,56 @@ ggplot(ScoreFrequency, aes(x=Score, y=Frequency)) +
 
 Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.
 
+Now we can use the code below to get the mean, median, and mode for the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data of the Google Merchandise Store. 
+
+```{r}
+#Calculate mean for each col
+mean_report <- my_data %>% 
+  summarise_if(is.numeric, mean)
+
+#Calculate median for each col
+median_report <- my_data %>% 
+  summarise_if(is.numeric, median)
+
+#Create the mode function
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+#Calculate mode for each col
+mode_report <- my_data %>% 
+  summarise_if(is.numeric, getmode)
+
+
+#combine the reports
+centerreport <- as.data.frame(rbind(mean_report, median_report, mode_report))
+rownames(centerreport) <- c("Mean","Median","Mode")
+centerreport <- centerreport[, -10]
+```
+
+```{r}
+
+knitr::kable(
+    head(arrange(centerreport)), 
+  booktabs = TRUE,
+  caption = 'Descriptive Statistics-mean,median,mode', align = "l"
+) %>%
+  kable_styling(font_size = 16)
+```
+
+It is interesting to find the huge discrepancies between different central tendency measurements. This also indicates reporting results of different central tendency analyses can provide a more comprehensive understanding of the data distribution. For example, the mean value of Users (5661) is much higher than the median (940) and mode (22), indicating a skewed data distribution due to the existence of some large-value outliers.
+
+**Weighted Mean** is a special mean where some data points contribute more than others. To calculate the weighted mean, we need to consider the weight for each data point. For example, we can calculate the weighted mean of the E-commerce Conversion Rate by taking the number of users as weight. The more users each data point has, the larger weight for its E-commerce Conversion Rate (ECR). In R, we can use the function of **weighted.mean** as below to get the weighted mean of the ECR of the Google Store:
+
+```{r}
+#Calculated the weighted mean for ECR
+weighted.mean(my_data$`Ecommerce Conversion Rate`, my_data$Users)
+
+```
+
+When taking the number of users into consideration, the weighted mean of the E-commerce Conversation Rate is almost 18 per 10,000 sessions, which is a bit higher than the normal mean, 11 per 10,000 sessions (Table above). This also indicates that the data points with high E-commerce Conversion Rates had more users than those with low rates.
+
 ### Data Variation
 If two data sets have the same center points, does that mean they
 have the same data distribution? Let’s look at two small datasets:
@@ -306,6 +356,8 @@ knitr::kable(
 
 Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution. 
 
+**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 8, the mode for Session is 3787. But
+this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
 
 ### Case Study 
 
