@@ -315,7 +315,7 @@ knitr::kable(
   booktabs = TRUE,
   caption = 'Descriptive Statistics-mean,median,mode', align = "l"
 ) %>%
-  kable_styling(font_size = 16)
+  kable_styling(font_size = 14)
 ```
 
 It is interesting to find the huge discrepancies between different central tendency measurements. This also indicates reporting results of different central tendency analyses can provide a more comprehensive understanding of the data distribution. For example, the mean value of Users (5661) is much higher than the median (940) and mode (22), indicating a skewed data distribution due to the existence of some large-value outliers.
@@ -358,6 +358,21 @@ Although they have the same mean (70) and median (70), the detailed data distrib
 
 **Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 8, the mode for Session is 3787. But
 this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
+
+**Range** The worth of the median as a measure of central tendency is dependent
+on how narrowly scores are dispersed in the distribution. The **range** is the difference between the highest and lowest scores of a distribution. In our dataset, the range in class sizes is 237-17=220. As you can see, any ex treme score in a distribution, commonly referred to as an outlier, will greatly af fect the range. That much sensitivity is not desirable. 
+
+**Inter-ranges** A more stable set of measures, called inter-ranges, drop off a specified highest and lowest percentage of the cases. The most popular are the
+*inter-decile range*, *inter-quintile range*, and *inter-quartile range*. Deciles are
+tenths, quintiles are fifths, and quartiles are fourths. These inter-ranges drop off
+the highest and lowest 10%, 20% and 25% of the cases, respectively, and then calculate
+the range of the remaining cases.
+
+For example, the *inter-quartile* range for class size in our small dataset would
+drop off the highest one-fourth and lowest one-fourth of the 23 cases. Since onefourth
+of 23 is not an even number (23/4=5.75), we’ll round up and drop off the
+top six (237, 133, 124, 103, 97, 90) and bottom six cases (17, 19, 19, 22, 23, 25). Of
+the remaining scores, the range is 56 (83-27). It is proper to say, then, that the range of the middle 50% of the cases is 56. The median score, 40 in this case, remains, of course, at the center of these mid dle 50% of the cases.
 
 ### Case Study 
 
