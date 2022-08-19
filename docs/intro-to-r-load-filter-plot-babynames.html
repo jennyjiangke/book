@@ -184,7 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.9" data-path="basic-statistics.html"><a href="basic-statistics.html#case-study"><i class="fa fa-check"></i><b>2.2.9</b> Case Study</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>3</b> Text Analysis</a></li>
+<li class="chapter" data-level="3" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>3</b> Text Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="text-analysis.html"><a href="text-analysis.html#an-introduction-to-stringr"><i class="fa fa-check"></i><b>3.1</b> An Introduction to Stringr</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="text-analysis.html"><a href="text-analysis.html#practical-applications-of-stringr"><i class="fa fa-check"></i><b>3.1.1</b> Practical Applications of Stringr</a></li>
+<li class="chapter" data-level="3.1.2" data-path="text-analysis.html"><a href="text-analysis.html#average-name-length-over-time"><i class="fa fa-check"></i><b>3.1.2</b> Average name length over time</a></li>
+<li class="chapter" data-level="3.1.3" data-path="text-analysis.html"><a href="text-analysis.html#common-issue-example-most-common-3-letter-names"><i class="fa fa-check"></i><b>3.1.3</b> Common issue: (example: most common 3-letter names)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>4</b> Network Analysis</a></li>
 <li class="chapter" data-level="5" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>5</b> Geo-Spatial Analysis and Visualizations</a></li>
 <li class="chapter" data-level="6" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>6</b> Publishing</a></li>
@@ -233,11 +241,11 @@ Having R package-based means that users only need to load packages relevant to t
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
 <pre><code>## Rows: 1,924,665
 ## Columns: 5
-## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188…
-## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, …
-## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;, &quot;Bertha&quot;, &quot;Sarah&quot;, &quot;Annie&quot;, &quot;C…
-## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 1156, 1063, 1045, 1040, 1012, 995…
-## $ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.01616720, 0.01508119, 0.01448696, 0.0135239…</code></pre>
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1…
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;…
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;…
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 1…
+## $ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.01616720, 0…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames)</span></code></pre></div>
@@ -827,7 +835,8 @@ So if we want to ‘keep’ a variable in order to later visualize it, we have t
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb67-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
 <span id="cb67-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">name_count =</span> <span class="fu">n_distinct</span>(name)) <span class="ot">-&gt;</span> distinct</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups`
+## argument.</code></pre>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(distinct, <span class="fu">aes</span>(year, name_count)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb69-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/summ2-1.png" width="672" /></p>
