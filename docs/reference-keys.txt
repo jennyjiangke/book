@@ -27,6 +27,10 @@ central-tendency
 data-variation
 case-study
 text-analysis
+practical-applications-of-stringr
+how-many-z-names-since-2000
+average-name-length-over-time
+common-issue-example-most-common-3-letter-names
 network-analysis
 geo-spatial-analysis-and-visualizations
 publishing
