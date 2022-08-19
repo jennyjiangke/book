@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 R for Media Analytics | Media Analytics With R</title>
-  <meta name="description" content="Chapter 1 R for Media Analytics | Media Analytics With R" />
+  <title>Chapter 2 R for Media Analytics | Media Analytics With R</title>
+  <meta name="description" content="Chapter 2 R for Media Analytics | Media Analytics With R" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 R for Media Analytics | Media Analytics With R" />
+  <meta property="og:title" content="Chapter 2 R for Media Analytics | Media Analytics With R" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 R for Media Analytics | Media Analytics With R" />
+  <meta name="twitter:title" content="Chapter 2 R for Media Analytics | Media Analytics With R" />
   
   
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="load-filter-plot-babynames.html"/>
 <link rel="next" href="basic-statistics.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -139,33 +139,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="r-for-media-analytics.html"><a href="r-for-media-analytics.html"><i class="fa fa-check"></i><b>1</b> R for Media Analytics</a></li>
-<li class="chapter" data-level="2" data-path="basic-statistics.html"><a href="basic-statistics.html"><i class="fa fa-check"></i><b>2</b> Basic Statistics</a>
+<li class="chapter" data-level="1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html"><i class="fa fa-check"></i><b>1</b> Load, Filter &amp; Plot: Babynames</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#variables-levels-of-measurement"><i class="fa fa-check"></i><b>2.1</b> Variables &amp; Levels of Measurement</a>
+<li class="chapter" data-level="1.1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#loading-packages-and-data"><i class="fa fa-check"></i><b>1.1</b> Loading Packages and Data</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="basic-statistics.html"><a href="basic-statistics.html#nominal-data"><i class="fa fa-check"></i><b>2.1.1</b> Nominal Data</a></li>
-<li class="chapter" data-level="2.1.2" data-path="basic-statistics.html"><a href="basic-statistics.html#ordinal-data"><i class="fa fa-check"></i><b>2.1.2</b> Ordinal Data</a></li>
-<li class="chapter" data-level="2.1.3" data-path="basic-statistics.html"><a href="basic-statistics.html#interval-data"><i class="fa fa-check"></i><b>2.1.3</b> Interval Data</a></li>
-<li class="chapter" data-level="2.1.4" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio-data"><i class="fa fa-check"></i><b>2.1.4</b> Ratio Data</a></li>
+<li class="chapter" data-level="1.1.1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#section"><i class="fa fa-check"></i><b>1.1.1</b> %&gt;%</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analyses-of-a-single-variable"><i class="fa fa-check"></i><b>2.2</b> Statistical Analyses of a Single Variable</a>
+<li class="chapter" data-level="1.2" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#filtering-data"><i class="fa fa-check"></i><b>1.2</b> Filtering Data</a></li>
+<li class="chapter" data-level="1.3" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#visualizing"><i class="fa fa-check"></i><b>1.3</b> Visualizing</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#frequency-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Frequency Distribution</a></li>
-<li class="chapter" data-level="2.2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-change"><i class="fa fa-check"></i><b>2.2.2</b> Percentage Change</a></li>
-<li class="chapter" data-level="2.2.3" data-path="basic-statistics.html"><a href="basic-statistics.html#relative-frequency"><i class="fa fa-check"></i><b>2.2.3</b> Relative Frequency</a></li>
-<li class="chapter" data-level="2.2.4" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-points"><i class="fa fa-check"></i><b>2.2.4</b> Percentage Points</a></li>
-<li class="chapter" data-level="2.2.5" data-path="basic-statistics.html"><a href="basic-statistics.html#rate"><i class="fa fa-check"></i><b>2.2.5</b> Rate</a></li>
-<li class="chapter" data-level="2.2.6" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio"><i class="fa fa-check"></i><b>2.2.6</b> Ratio</a></li>
-<li class="chapter" data-level="2.2.7" data-path="basic-statistics.html"><a href="basic-statistics.html#central-tendency"><i class="fa fa-check"></i><b>2.2.7</b> Central Tendency</a></li>
-<li class="chapter" data-level="2.2.8" data-path="basic-statistics.html"><a href="basic-statistics.html#data-variation"><i class="fa fa-check"></i><b>2.2.8</b> Data Variation</a></li>
-<li class="chapter" data-level="2.2.9" data-path="basic-statistics.html"><a href="basic-statistics.html#case-study"><i class="fa fa-check"></i><b>2.2.9</b> Case Study</a></li>
+<li class="chapter" data-level="1.3.1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#syntax"><i class="fa fa-check"></i><b>1.3.1</b> Syntax</a></li>
+<li class="chapter" data-level="1.3.2" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#creating-variables"><i class="fa fa-check"></i><b>1.3.2</b> Creating Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#modifying-data"><i class="fa fa-check"></i><b>1.4</b> Modifying Data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#count"><i class="fa fa-check"></i><b>1.4.1</b> Count</a></li>
+<li class="chapter" data-level="1.4.2" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#more-aesthetics"><i class="fa fa-check"></i><b>1.4.2</b> More Aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#review"><i class="fa fa-check"></i><b>1.5</b> Review</a></li>
+<li class="chapter" data-level="1.6" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#mutate"><i class="fa fa-check"></i><b>1.6</b> Mutate</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="load-filter-plot-babynames.html"><a href="load-filter-plot-babynames.html#group_by-summarise"><i class="fa fa-check"></i><b>1.6.1</b> Group_by , summarise()</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>3</b> Text Analysis</a></li>
-<li class="chapter" data-level="4" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>4</b> Network Analysis</a></li>
-<li class="chapter" data-level="5" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>5</b> Geo-Spatial Analysis and Visualizations</a></li>
-<li class="chapter" data-level="6" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>6</b> Publishing</a></li>
+<li class="chapter" data-level="2" data-path="r-for-media-analytics.html"><a href="r-for-media-analytics.html"><i class="fa fa-check"></i><b>2</b> R for Media Analytics</a></li>
+<li class="chapter" data-level="3" data-path="basic-statistics.html"><a href="basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Basic Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-statistics.html"><a href="basic-statistics.html#variables-levels-of-measurement"><i class="fa fa-check"></i><b>3.1</b> Variables &amp; Levels of Measurement</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-statistics.html"><a href="basic-statistics.html#nominal-data"><i class="fa fa-check"></i><b>3.1.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-statistics.html"><a href="basic-statistics.html#ordinal-data"><i class="fa fa-check"></i><b>3.1.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-statistics.html"><a href="basic-statistics.html#interval-data"><i class="fa fa-check"></i><b>3.1.3</b> Interval Data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio-data"><i class="fa fa-check"></i><b>3.1.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analyses-of-a-single-variable"><i class="fa fa-check"></i><b>3.2</b> Statistical Analyses of a Single Variable</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#frequency-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Frequency Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-change"><i class="fa fa-check"></i><b>3.2.2</b> Percentage Change</a></li>
+<li class="chapter" data-level="3.2.3" data-path="basic-statistics.html"><a href="basic-statistics.html#relative-frequency"><i class="fa fa-check"></i><b>3.2.3</b> Relative Frequency</a></li>
+<li class="chapter" data-level="3.2.4" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-points"><i class="fa fa-check"></i><b>3.2.4</b> Percentage Points</a></li>
+<li class="chapter" data-level="3.2.5" data-path="basic-statistics.html"><a href="basic-statistics.html#rate"><i class="fa fa-check"></i><b>3.2.5</b> Rate</a></li>
+<li class="chapter" data-level="3.2.6" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio"><i class="fa fa-check"></i><b>3.2.6</b> Ratio</a></li>
+<li class="chapter" data-level="3.2.7" data-path="basic-statistics.html"><a href="basic-statistics.html#central-tendency"><i class="fa fa-check"></i><b>3.2.7</b> Central Tendency</a></li>
+<li class="chapter" data-level="3.2.8" data-path="basic-statistics.html"><a href="basic-statistics.html#data-variation"><i class="fa fa-check"></i><b>3.2.8</b> Data Variation</a></li>
+<li class="chapter" data-level="3.2.9" data-path="basic-statistics.html"><a href="basic-statistics.html#case-study"><i class="fa fa-check"></i><b>3.2.9</b> Case Study</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>4</b> Text Analysis</a></li>
+<li class="chapter" data-level="5" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>5</b> Network Analysis</a></li>
+<li class="chapter" data-level="6" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>6</b> Geo-Spatial Analysis and Visualizations</a></li>
+<li class="chapter" data-level="7" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>7</b> Publishing</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -185,8 +208,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-for-media-analytics" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> R for Media Analytics<a href="r-for-media-analytics.html#r-for-media-analytics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="r-for-media-analytics" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> R for Media Analytics<a href="r-for-media-analytics.html#r-for-media-analytics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
 </div>
             </section>
@@ -194,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="load-filter-plot-babynames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="basic-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
