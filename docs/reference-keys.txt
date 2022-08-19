@@ -9,7 +9,7 @@ tab:unnamed-chunk-15
 fig:unnamed-chunk-16
 tab:unnamed-chunk-18
 tab:unnamed-chunk-21
-load-filter-plot-babynames
+intro-to-r-load-filter-plot-babynames
 loading-packages-and-data
 section
 filtering-data
@@ -22,7 +22,6 @@ more-aesthetics
 review
 mutate
 group_by-summarise
-r-for-media-analytics
 basic-statistics
 variables-levels-of-measurement
 nominal-data

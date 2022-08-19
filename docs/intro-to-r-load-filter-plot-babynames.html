@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Intro to R: Load, Filter &amp; Plot: Babynames | Media Analytics With R</title>
+  <meta name="description" content="Chapter 1 Intro to R: Load, Filter &amp; Plot: Babynames | Media Analytics With R" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Intro to R: Load, Filter &amp; Plot: Babynames | Media Analytics With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Intro to R: Load, Filter &amp; Plot: Babynames | Media Analytics With R" />
+  
+  
+  
+
+<meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
+
+
+<meta name="date" content="2022-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="basic-statistics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Media Analytic with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html"><i class="fa fa-check"></i><b>1</b> Intro to R: Load, Filter &amp; Plot: Babynames</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#loading-packages-and-data"><i class="fa fa-check"></i><b>1.1</b> Loading Packages and Data</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#section"><i class="fa fa-check"></i><b>1.1.1</b> %&gt;%</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#filtering-data"><i class="fa fa-check"></i><b>1.2</b> Filtering Data</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#visualizing"><i class="fa fa-check"></i><b>1.3</b> Visualizing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#syntax"><i class="fa fa-check"></i><b>1.3.1</b> Syntax</a></li>
+<li class="chapter" data-level="1.3.2" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#creating-variables"><i class="fa fa-check"></i><b>1.3.2</b> Creating Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#modifying-data"><i class="fa fa-check"></i><b>1.4</b> Modifying Data</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#count"><i class="fa fa-check"></i><b>1.4.1</b> Count</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#more-aesthetics"><i class="fa fa-check"></i><b>1.4.2</b> More Aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#review"><i class="fa fa-check"></i><b>1.5</b> Review</a></li>
+<li class="chapter" data-level="1.6" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#mutate"><i class="fa fa-check"></i><b>1.6</b> Mutate</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="intro-to-r-load-filter-plot-babynames.html"><a href="intro-to-r-load-filter-plot-babynames.html#group_by-summarise"><i class="fa fa-check"></i><b>1.6.1</b> Group_by , summarise()</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-statistics.html"><a href="basic-statistics.html"><i class="fa fa-check"></i><b>2</b> Basic Statistics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#variables-levels-of-measurement"><i class="fa fa-check"></i><b>2.1</b> Variables &amp; Levels of Measurement</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-statistics.html"><a href="basic-statistics.html#nominal-data"><i class="fa fa-check"></i><b>2.1.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-statistics.html"><a href="basic-statistics.html#ordinal-data"><i class="fa fa-check"></i><b>2.1.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-statistics.html"><a href="basic-statistics.html#interval-data"><i class="fa fa-check"></i><b>2.1.3</b> Interval Data</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio-data"><i class="fa fa-check"></i><b>2.1.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#statistical-analyses-of-a-single-variable"><i class="fa fa-check"></i><b>2.2</b> Statistical Analyses of a Single Variable</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="basic-statistics.html"><a href="basic-statistics.html#frequency-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Frequency Distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-change"><i class="fa fa-check"></i><b>2.2.2</b> Percentage Change</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-statistics.html"><a href="basic-statistics.html#relative-frequency"><i class="fa fa-check"></i><b>2.2.3</b> Relative Frequency</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic-statistics.html"><a href="basic-statistics.html#percentage-points"><i class="fa fa-check"></i><b>2.2.4</b> Percentage Points</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic-statistics.html"><a href="basic-statistics.html#rate"><i class="fa fa-check"></i><b>2.2.5</b> Rate</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic-statistics.html"><a href="basic-statistics.html#ratio"><i class="fa fa-check"></i><b>2.2.6</b> Ratio</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic-statistics.html"><a href="basic-statistics.html#central-tendency"><i class="fa fa-check"></i><b>2.2.7</b> Central Tendency</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic-statistics.html"><a href="basic-statistics.html#data-variation"><i class="fa fa-check"></i><b>2.2.8</b> Data Variation</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic-statistics.html"><a href="basic-statistics.html#case-study"><i class="fa fa-check"></i><b>2.2.9</b> Case Study</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>3</b> Text Analysis</a></li>
+<li class="chapter" data-level="4" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>4</b> Network Analysis</a></li>
+<li class="chapter" data-level="5" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>5</b> Geo-Spatial Analysis and Visualizations</a></li>
+<li class="chapter" data-level="6" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>6</b> Publishing</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Media Analytics With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro-to-r-load-filter-plot-babynames" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Intro to R: Load, Filter &amp; Plot: Babynames<a href="intro-to-r-load-filter-plot-babynames.html#intro-to-r-load-filter-plot-babynames" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="loading-packages-and-data" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Loading Packages and Data<a href="intro-to-r-load-filter-plot-babynames.html#loading-packages-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The U.S. Social Security Administration keeps records on first names at birth, going back to 1890.
+Data Scientist and R Superstar Hadley Wickham has created an R <em>package</em> that lets us load this data directly into R.</p>
+<p>Using a package is a two-step process: first, you install the package onto your computer; secondly, you <em>load</em> <em>the</em> <em>package</em> as a <em>library</em> to access its functions and data in your current work environment.
+Put another way, a package needs only be installed <em>once</em>, but has to be loaded into your R environment <em>every time you start up R Studio.</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;babynames&#39;</span>)</span>
+<span id="cb1-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
+<p>Where do these packages come from, and who makes them?
+Why?
+By default, packages are hosted on an online repository referred to as CRAN; they can also be installed from GitHub.
+And anyone can make and share an R package, for instance if they solve a complicated workflow and want to share that insight with others to save them time and redundancy.
+Having R package-based means that users only need to load packages relevant to their area of study - keep in mind R is used for everything from Health Sciences to Comparative Literature.</p>
+<p>Let’s take a look at the <em>babynames</em> package, by asking about its <em>structure</em>, and taking a <em>glimpse</em> at it:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(babynames)</span></code></pre></div>
+<pre><code>## tibble [1,924,665 × 5] (S3: tbl_df/tbl/data.frame)
+##  $ year: num [1:1924665] 1880 1880 1880 1880 1880 1880 1880 1880 1880 1880 ...
+##  $ sex : chr [1:1924665] &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; ...
+##  $ name: chr [1:1924665] &quot;Mary&quot; &quot;Anna&quot; &quot;Emma&quot; &quot;Elizabeth&quot; ...
+##  $ n   : int [1:1924665] 7065 2604 2003 1939 1746 1578 1472 1414 1320 1288 ...
+##  $ prop: num [1:1924665] 0.0724 0.0267 0.0205 0.0199 0.0179 ...</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
+<pre><code>## Rows: 1,924,665
+## Columns: 5
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188…
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, …
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;, &quot;Bertha&quot;, &quot;Sarah&quot;, &quot;Annie&quot;, &quot;C…
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 1156, 1063, 1045, 1040, 1012, 995…
+## $ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.01616720, 0.01508119, 0.01448696, 0.0135239…</code></pre>
+<p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
+<p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##    year sex   name          n   prop
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
+## 1  1880 F     Mary       7065 0.0724
+## 2  1880 F     Anna       2604 0.0267
+## 3  1880 F     Emma       2003 0.0205
+## 4  1880 F     Elizabeth  1939 0.0199
+## 5  1880 F     Minnie     1746 0.0179
+## 6  1880 F     Margaret   1578 0.0162</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(babynames)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##    year sex   name       n       prop
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt;
+## 1  2017 M     Zyhier     5 0.00000255
+## 2  2017 M     Zykai      5 0.00000255
+## 3  2017 M     Zykeem     5 0.00000255
+## 4  2017 M     Zylin      5 0.00000255
+## 5  2017 M     Zylis      5 0.00000255
+## 6  2017 M     Zyrie      5 0.00000255</code></pre>
+<p>Everything we’ve done up to this point has been in <em>Base R</em>, that is, R without any functions added via packages.
+Throughout this book, we’ll be relying on a collection of inter-connected packages called the <a href="https://www.tidyverse.org/" target="_blank" title="Tidyverse"><em>Tidyverse</em></a>, which drastically simplifies performing varying calculations on data.</p>
+<p>Like all packages, we first have to install and then load it.</p>
+<p>• Please note: when you install the ‘tidyverse’ package, you’ll get a prompt <em>inside your R Console</em> at the bottom-left, asking you a Yes/No question.
+You cannot proceed until you click your cursor in the Console and type out the word ‘Yes.’ Note that the Console may be cut off or obfuscated; you may need to adjust your R Studio windows to see it better.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
+<span id="cb10-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>Loading the Tidyverse shows the eight packages that make it up, as well as a few warnings that we can disregard.
+We’ll begin on focusing on three packages that will help us work with babynames: <em>dplyr</em>, <em>ggplot2</em> and <em>stringr</em>.
+All three are loaded once we run the library(tidyverse) command.
+The first, dplyr, we use to manipulate data: to filter it, rearrange it,count it, do calculations for custom columns, and pivot the data to our liking.</p>
+<div id="section" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> %&gt;%<a href="intro-to-r-load-filter-plot-babynames.html#section" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The greatest and most powerful functionality added to R via the Tidyverse, in my opinion, is the ‘pipe operator:’</p>
+<p>%&gt;%</p>
+<p>…which allows us to chain commands to each other.
+It can be tricky to type; the shortcut is Shift-Command-M (on a PC, it’d be Shift-Control-M).</p>
+<p>Another useful <em>logical operator</em> for this dataset is the ‘includes’ operator, which looks like this: %in% .</p>
+<p>I think an example will make the best sense of how to use these operators, so let’s get started with filtering.</p>
+</div>
+</div>
+<div id="filtering-data" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Filtering Data<a href="intro-to-r-load-filter-plot-babynames.html#filtering-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If we just type ‘babynames’ in R, we’ll see the first 10 rows of data, organized by year, and an indication that there are nearly 2 million more rows remaining.
+That’s way too much to visualize!
+Let’s start by filtering for specific names: I’ll use the names of The Beatles as a starting point.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb11-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="st">&#39;Ringo&#39;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 28 × 5
+##     year sex   name      n       prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;      &lt;dbl&gt;
+##  1  1964 M     Ringo    12 0.00000592
+##  2  1965 M     Ringo    18 0.0000095 
+##  3  1966 M     Ringo     8 0.0000044 
+##  4  1972 M     Ringo     6 0.00000358
+##  5  1974 M     Ringo     6 0.00000368
+##  6  1975 M     Ringo     8 0.00000493
+##  7  1976 M     Ringo    13 0.00000796
+##  8  1977 M     Ringo    10 0.00000585
+##  9  1978 M     Ringo    12 0.00000702
+## 10  1979 M     Ringo     9 0.00000502
+## # … with 18 more rows</code></pre>
+<p>That ‘translates’ to <em>‘take the babynames dataset and filter it so only values in the name column that match ’Ringo’ are included.’</em> The <em>and</em> is the pipe operator ( <strong>%&gt;%</strong> ), and the <em>match</em> is the <strong>%in%</strong> operator.</p>
+<p>If we wanted to look for more than one name, we’d change the syntax to use a ‘combine’ command ( c ), with the values comma-separated.
+Let’s try that with babynames and the Beatles.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb13-1" aria-hidden="true" tabindex="-1"></a>  babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;Paul&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;John&#39;</span>)) </span></code></pre></div>
+<pre><code>## # A tibble: 831 × 5
+##     year sex   name       n     prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;    &lt;dbl&gt;
+##  1  1880 F     John      46 0.000471
+##  2  1880 F     George    26 0.000266
+##  3  1880 M     John    9655 0.0815  
+##  4  1880 M     George  5126 0.0433  
+##  5  1880 M     Paul     301 0.00254 
+##  6  1881 F     George    30 0.000303
+##  7  1881 F     John      26 0.000263
+##  8  1881 M     John    8769 0.0810  
+##  9  1881 M     George  4664 0.0431  
+## 10  1881 M     Paul     291 0.00269 
+## # … with 821 more rows</code></pre>
+<p>Now we get a ton of results - far too many to show on the screen.</p>
+</div>
+<div id="visualizing" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Visualizing<a href="intro-to-r-load-filter-plot-babynames.html#visualizing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>That’s where data visualization comes in: it’s often impossible to even <em>see</em> your results from big data without plotting it into a visual, summarized form.
+Our visualization package is called <em>ggplot2</em>, and it’s amazingly straightforward to use, once you get used to its syntax:</p>
+<p>ggplot(data, aes(x,y)) + geometry()</p>
+<p>Huh?</p>
+<p>Well, our function (think: verb) is ‘ggplot().’ Inside that, we define our ‘aesthetics’ (aes) for the visualization, which has its own set of parentheses.
+Inside the aesthetics, we define the columns we want to use for the x and y axes, and finally we define the type of geomtry our visualization will use, such as a bar chart ( geom_col() ), scatterplot ( geom_point() ), or line chart ( geom_line() ), for instance.</p>
+<p>Like most things in R and the Tidyverse, it’s easier to make sense of ggplot() through examples:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb15-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="st">&#39;Ringo&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_ggplot1-1.png" width="672" /></p>
+<p>To review, we take ‘babynames,’ <em>and</em> filter so the name <em>includes</em> ‘Ringo;’ We then <em>plot</em> by setting the <em>aesthetics</em> to use the ‘year’ and ‘prop’ columns of our dataset; our plot will be a line chart.</p>
+<p>Learning by example often raises as many questions as it answers, so I’ll try to address those as we go along.</p>
+<p>Let’s take this one step further:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb16-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Paul&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_ggplot2-1.png" width="672" /></p>
+<p>That looks really weird!
+Why?
+In summary, becuase there is a ‘Sex’ column in the data.
+So, for any year - say, 1974 - there are 4 male Ringo’s, and zero female Ringo’s - ggplot is trying to plot both the 4 and 0 values on the same vertical axis.</p>
+<p>Therefore, our solution is to filter out one sex:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb17-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Paul&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_ggplot3-1.png" width="672" /></p>
+<p>That’s much better - but what happened to Ringo?</p>
+<p>The other names are so much more popular that his: he doesn’t show up until 1964, and the <em>proportion</em> of people born per year with that name is very low in comparison to, say, ‘George.’</p>
+<p>Let’s try filtering the ‘year’ column in order to have our ggplot ‘zoom in’ on the Ringo section.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb18-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Paul&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1964</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_years-1.png" width="672" /></p>
+<p>This visualization is more limited, but somewhat more equitable - it starts around the time the Beatles became popular, but ignores the previous popularity of some of the names (John, Paul, George).</p>
+<p>Another question arises: why are we plotting ‘prop?’
+what about ‘n?’</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb19-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Paul&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1964</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, n, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_n-1.png" width="672" /></p>
+<p>The results are very similar for ‘n’ as they were for ‘prop.’ Let’s take an example name where that’s <em>not</em> the case:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="st">&quot;Mary&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="st">&#39;1940&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb20-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-7" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="st">&quot;Mary&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-9"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="st">&#39;1940&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-11"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, n)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb20-12"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="intro-to-r-load-filter-plot-babynames.html#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># you can also try &#39;Joseph&#39; and &#39;M&#39;</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_n2-1.png" width="50%" /><img src="bookdownproj_files/figure-html/babynames_n2-2.png" width="50%" /></p>
+<p>Note that n is a <em>simple count of names per year</em>, whereas prop is a calculation: <em>total number of people given that number in a given year, divided by the total number of births</em>.
+So when there are fewer names in the database, the difference between n and prop is more obvious.
+That’d be in the early years of the babynames dataset, when biblical names like Mary and Joseph were much more common relative to <em>all</em> of the names.
+Since then, there are just <em>more</em> names, meaning the prop of the most common names of long ago have nearly all gone down in prop - even if their n value is increasing.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb21-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># note that we have not learned how to do this yet:</span></span>
+<span id="cb21-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-3" aria-hidden="true" tabindex="-1"></a> babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, total)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-7"><a href="intro-to-r-load-filter-plot-babynames.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Year&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Count of Unique Names&#39;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_count_hidden-1.png" width="672" /></p>
+<p>Now that we have all of this information, we can try to answer specific questions.
+Let’s start with some basic ones - try to answer them on your own if you can.</p>
+<ul>
+<li>
+<p>What was the most popular name in the first year of the database, 1890?</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb22-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="st">&quot;1890&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2,695 × 5
+##     year sex   name          n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
+##  1  1890 F     Mary      12078 0.0599
+##  2  1890 F     Anna       5233 0.0259
+##  3  1890 F     Elizabeth  3112 0.0154
+##  4  1890 F     Margaret   3100 0.0154
+##  5  1890 F     Emma       2980 0.0148
+##  6  1890 F     Florence   2744 0.0136
+##  7  1890 F     Ethel      2718 0.0135
+##  8  1890 F     Minnie     2650 0.0131
+##  9  1890 F     Clara      2496 0.0124
+## 10  1890 F     Bertha     2388 0.0118
+## # … with 2,685 more rows</code></pre>
+<p>But then what?
+Any why two ‘=’ symbols?</p>
+<div id="syntax" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Syntax<a href="intro-to-r-load-filter-plot-babynames.html#syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s start with ‘==.’ In R, you can create variables, and one way to do this is with a single ‘=’ symbol:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">10</span></span></code></pre></div>
+<p>In the case of babynames, we’re not aiming to create a variable - we just want to limit the data to only include entries in the year 1890 - so we need to use two ‘=’ symbols to differentiate from making a variable.
+Two ‘=’ symbols <em>tests to see if values are equal</em>.</p>
+<p>Also, in this textbook we will be using the arrow function to create variables, because it works in two directions:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb25-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb25-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="ot">-&gt;</span> x</span></code></pre></div>
+<p>Way more useful than ‘=.’</p>
+<p>So, to review, we’ll use the arrow -&gt; operator in lieu of the ‘=’ symbol, but we’ll still use ‘==’ in order to filter our data based on specific conditions, like <em>the year equals 1890.</em></p>
+</div>
+<div id="creating-variables" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Creating Variables<a href="intro-to-r-load-filter-plot-babynames.html#creating-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s take the entire <em>babynames</em> dataset and create a sub-set of the data that only incudes entries from the year 1890, using a variable:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb26-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="st">&quot;1890&quot;</span>) <span class="ot">-&gt;</span> babynames_1890</span></code></pre></div>
+<p>Note that all of our variables, or columns, are <em>lowercase</em> - everything is, except the babynames themselves.
+R will not detect your mistake if you <em>lowercase</em> a <em>name</em> or <em>Uppercase</em> a <em>Column</em>.</p>
+<p>Now we have a variable equal to a subset of our data, and we can see its contents by typing its name: babynames_1890.</p>
+<p>That makes things much easier, if that’s the only year we want to look at - but we’ll have to plot our graphs differently.</p>
+</div>
+</div>
+<div id="modifying-data" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Modifying Data<a href="intro-to-r-load-filter-plot-babynames.html#modifying-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s begin with the arrange() function, which does as it sounds - we’ll tell it to arrange in <em>descending</em> order of prop:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb27-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) </span></code></pre></div>
+<pre><code>## # A tibble: 2,695 × 5
+##     year sex   name        n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;
+##  1  1890 M     John     8502 0.0710
+##  2  1890 M     William  7494 0.0626
+##  3  1890 F     Mary    12078 0.0599
+##  4  1890 M     James    5097 0.0426
+##  5  1890 M     George   4458 0.0372
+##  6  1890 M     Charles  4061 0.0339
+##  7  1890 F     Anna     5233 0.0259
+##  8  1890 M     Frank    3078 0.0257
+##  9  1890 M     Joseph   2670 0.0223
+## 10  1890 M     Robert   2541 0.0212
+## # … with 2,685 more rows</code></pre>
+<p>So, what was the answer to our question?
+Well, ‘John’ has the highest <em>proportion</em>, but Mary has the highest <em>count</em>.</p>
+<p>Why does Mary have a higher ‘n’ value, but a lower proportion - in the same year?
+Because ‘prop’ also takes sex into account, i.e. it counts the <em>proportion of each sex in each year that receives a given name.</em></p>
+<p>Let’s account for this somewhat confusing aspect to our data by splitting it up along the <em>variable</em> that is giving us a hard time: sex.</p>
+<p>But sex is the least of our problems, as we’ll see.</p>
+<div id="count" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Count<a href="intro-to-r-load-filter-plot-babynames.html#count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s try by using a new function, count(), which does exactly what it sounds like.
+We can specify to <em>sort</em> the results; for some archaic reason, we have to write the words ‘true’ and ‘false’ in ALL CAPS:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb29-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(sex, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   sex       n
+##   &lt;chr&gt; &lt;int&gt;
+## 1 F      1534
+## 2 M      1161</code></pre>
+<p>That’s not very many names - less than 3,000 unique names in the U.S. in 1890.
+It’s also notable there are more female names than male - not more women, just more variety in the names for females births.</p>
+<p>count() can be helpful, but note that it strips away all of the columns except the one we counted - and adds an ‘n’ column.
+But that’s it - prop, count, name, year - all gone.
+More on count(later).</p>
+<p>Let’s plot the <em>most</em> popular names of 1890 - but first, we have to cut them off, as 2,695 names is too many to plot:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb31-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 5
+##     year sex   name        n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;
+##  1  1890 M     John     8502 0.0710
+##  2  1890 M     William  7494 0.0626
+##  3  1890 F     Mary    12078 0.0599
+##  4  1890 M     James    5097 0.0426
+##  5  1890 M     George   4458 0.0372
+##  6  1890 M     Charles  4061 0.0339
+##  7  1890 F     Anna     5233 0.0259
+##  8  1890 M     Frank    3078 0.0257
+##  9  1890 M     Joseph   2670 0.0223
+## 10  1890 M     Robert   2541 0.0212</code></pre>
+<p>We can plot ten names, easy:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb33-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(name, prop)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v2-1.png" width="672" /></p>
+<p>As a reminder, in <em>ggplot()</em> we define our <em>aesthetics</em> by specifying which columns will create the x- and y-axes.
+We then indicate the type of graph we want to make - in this case a column chart.</p>
+<p>Why not a line chart like before?
+Because line charts only work with <em>continous variables</em>, like <em>year.</em> In this case, we are only plotting the data from one year, so <em>year</em> is no longer something we can plot.
+We are plotting <em>name</em> and <em>prop</em>, which are <em>discrete variables.</em></p>
+<p>What’s the difference?
+To oversimplify, discrete variables can be <em>counted</em> - how many <em>Steve’s</em> show up in <em>babynames</em>, for instance - and continuous variables are <em>measured</em>, like years, as well as temperature, wind speed, etc.</p>
+<p>So what is prop?
+Prop is a calculated variable, in that it’s the result of an equation: the total number of births of a particular gender in a specific year, divided by the total number of instances of a particular name.
+In other words, we’re <em>counting</em> things.
+So it’s a discrete variable.</p>
+<p>We would make a line chart [ geom_line() ] when using a continuous variable, like year, as we did with the Beatles.
+In this case, plotting <em>name</em> and <em>prop</em> will make the most sense in a <em>column chart</em> (we usually call these <em>bar charts</em>, but ggplot’s bar charts are a little trickier to plot than column charts, and we’re aiming for easiness right now).</p>
+<p>Looking back at our chart’s results, I would prefer the results in order or <em>prop</em>.
+Why didn’t <em>arrange(desc(prop))</em> do that for us?
+Well, long story, but basically, regardless of how you reshape your data, ggplot() is going to need its own set of instructions for how to visualize it in a particular order.</p>
+<p>So arrange() doesn’t work - we have to make the adjustment <em>inside</em> the ggplot() call:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb34-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v3-1.png" width="672" /></p>
+<p>OK, that got pretty complicated.
+<em>Three</em> nested parentheses?
+Let’s look at the offending line: originally, the ‘aesthetics’ of our ggplot() were:</p>
+<p>aes(name, prop)</p>
+<p>And we want to reorder the ‘names,’ based on ‘prop:’</p>
+<p>reorder(name, prop)</p>
+<p>In other words, <em>italics</em> ‘I want to reorder the names based on their proportion.’</p>
+<p>Let’s put it back together:</p>
+<p>aes(reorder(name, prop), prop))</p>
+<p>And to see it in action:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb35-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890_v4-1.png" width="672" /></p>
+<ul>
+<li>
+<p>OK, but why is it in the wrong order?</p>
+</ul>
+<p>We just have to ‘tell’ ggplot() to reverse, or do the opposite of, the order it chose.
+We can use the minus sign for this:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb36-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, <span class="sc">-</span>prop), prop)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890_v4b-1.png" width="672" /></p>
+</div>
+<div id="more-aesthetics" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> More Aesthetics<a href="intro-to-r-load-filter-plot-babynames.html#more-aesthetics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s add some color:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb37-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, <span class="sc">-</span>prop), prop, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v5-1.png" width="672" /></p>
+<p>That didn’t work the way it did for The Beatles!</p>
+<p>Of course, that was a line graph - geom_line() - and that line has a color.
+This time, ‘color’ is read as <em>stroke</em> or outline; <em>fill</em> controls our columns.
+Also, we need to move the <em>fill</em> command to <em>inside</em> the geometry:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb38-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, <span class="sc">-</span>prop), prop)) <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v6-1.png" width="672" /></p>
+<p>Great.
+Now let’s make the fill <em>based on the value of a column</em>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb39-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, <span class="sc">-</span>prop), prop, <span class="at">fill =</span> name)) <span class="sc">+</span> <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v7-1.png" width="672" /></p>
+<p>OK, great.
+The names are all different colors because they are <em>discrete</em> data points, i.e. they are not measured - like ‘prop:’ We did this by setting our <em>fill</em> color to a variable - in this case, <em>name</em>.</p>
+<p>Since ‘prop’ is <em>measured</em>, or <em>discrete</em>, it is visualized as a range of a single color.</p>
+<p>This would all look better sideways:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb40-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> prop)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v9-1.png" width="672" /></p>
+<p>That last line, connected to the geometry with a ‘+’ symbol, tells ggplot to flip the coordinates of our plot 90 degrees.</p>
+<p>By the way, we could ‘show’ the anomaly about John and Mary having confusing ‘n’ and ‘prop’ values by adjusting our aesthetics - let’s use fill:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb41-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v10-1.png" width="672" /></p>
+<p>We’d mentioned earlier that the ‘sex’ column is complicating our use of ‘prop’ over ‘n.’ To account for this problem, we could color by sex:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb42-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> sex)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v11-1.png" width="672" /></p>
+<p>One more ggplot() trick to change the way we visualize our data: making multiple graphs, based on a variable:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb43-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb43-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb43-7"><a href="intro-to-r-load-filter-plot-babynames.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v12-1.png" width="672" /></p>
+<p>What <em>facet_wrap</em> is trying to do is create multiple graphs based on one variable - in this case, Sex.</p>
+<p>That looks….
+terrible.
+Why?
+The function facet_wrap() is trying to use the same values, and the same scale, for each of the two graphs.
+Let’s ‘free’ the y-axis to account for this discrepancy:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-1" aria-hidden="true" tabindex="-1"></a>babynames_1890 <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb44-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb44-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a href="intro-to-r-load-filter-plot-babynames.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1890v13-1.png" width="672" /></p>
+<p>Wow, that really changes things - weren’t there more female than male names, when we used count() earlier?
+Sure, but while there may be more <em>variance</em> in female names in 1890, females only have two of the most common names.</p>
+</div>
+</div>
+<div id="review" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Review<a href="intro-to-r-load-filter-plot-babynames.html#review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>OK, so now we can answer some other direct questions:</p>
+<ul>
+<li>
+<p>What were the most popular names in 2017, the most recent year of the database?&lt;
+/li&gt;</p>
+<p>How would we answer this?
+I find it’s easiest to write our the process in English, then translate it to R and the Tidyverse:</p>
+<p><em>‘Take babynames and filter it to only include entries from 2017. Then arrange the remaining entries in descending order of proportion.’</em></p>
+<p>In the Tidyverse:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb45-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<pre><code>## # A tibble: 32,469 × 5
+##     year sex   name         n    prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt;
+##  1  2017 F     Emma     19738 0.0105 
+##  2  2017 F     Olivia   18632 0.00994
+##  3  2017 M     Liam     18728 0.00954
+##  4  2017 M     Noah     18326 0.00933
+##  5  2017 F     Ava      15902 0.00848
+##  6  2017 F     Isabella 15100 0.00805
+##  7  2017 F     Sophia   14831 0.00791
+##  8  2017 M     William  14904 0.00759
+##  9  2017 M     James    14232 0.00725
+## 10  2017 F     Mia      13437 0.00717
+## # … with 32,459 more rows</code></pre>
+<p>It looks like nearly 1% of American girls in 2017 were named ‘Emma.’ Olivia, Liam and Noah are also overwhelmingly popular.</p>
+<p>What about <em>my</em> name?
+<em>My</em> birth year?
+Just replace my values with yours:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb47-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Brian&quot;</span>, <span class="st">&quot;Bryan&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_brian-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1975</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop),prop, <span class="at">fill =</span> sex)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb48-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/babynames_1975-1.png" width="672" /></p>
+<p><br /> I made the Top 10!
+(It’s all been downhill since then)</p>
+<p>Some reminders:</p>
+<ul>
+<li>
+<p>We leave quotes off of the year, as it is numeric - only strings, or characters, get quotes.</p>
+<li>
+<p>We make sure to reorder the data (based on popularity, or ‘prop’) <em>before</em> limiting it to the top 10 results.
+Otherwise, it could be organized alphabetically or something - and we’d be getting 10 names, but not the 10 <em>most popular</em> names.</p>
+<li>
+<p>We have to reorder our <em>name</em> variable in the ggplot() to go in order of <em>prop</em> - even though we just reorganized the data this way 2 steps ago, ggplot() uses its own internal logic to organize the data.</p>
+<li>
+<p>We have to plot as a bar chart, or column chart.
+Why?
+Because line charts are for <em>continuous variables</em>, like year - not discrete ones, like ‘name.’ If you can <em>measure</em> it, it’s continuous.
+If you can <em>count</em> it, it’s discrete.</p>
+</ul>
+<p>I encourage you to play around with <em>babynames</em> and get more comfortable deliberately modifying data before we continue.
+Or, if you’re getting sick of babies, you can use these tidyverse functions on any dataset.
+Let’s try using one of R’s built-in ones, <strong>mtcars:</strong></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb49-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(mtcars)</span></code></pre></div>
+<p>Looks like lots of older car performance statistics.
+Let’s try comparing weight to mpg:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb50-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/mtcars2-1.png" width="672" /></p>
+<p>geom_point() creates a <em>scatterplot</em>, but we can also see hints of an overall trend, or correlation here - so let’s add that to the ggplot():</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb51-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/mtcars3-1.png" width="672" /></p>
+<p>Let’s try adding color based on a variable:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb53-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg, <span class="at">color =</span> cyl)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/mtcars4-1.png" width="672" /></p>
+<p>Great.
+On to mutate().</p>
+</div>
+<div id="mutate" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Mutate<a href="intro-to-r-load-filter-plot-babynames.html#mutate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While <em>babynames</em> has five columns, or variables, to play with, some observations require creating a <em>calculated field</em> of content - essentially generating a sixth column, in the case of babynames, to show something already in the data but not made clear.</p>
+<p><em>Babynames</em> does not have <em>rankings</em> of popular names for each year.
+Could we create that column?
+Sure!
+When we rearrange our data in descending order of prop, we have essentially created rankings based on row number- we just need to ‘mutate’ the data frame to show it.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb55-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) </span></code></pre></div>
+<pre><code>## # A tibble: 32,469 × 6
+##     year sex   name         n    prop  rank
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;int&gt;
+##  1  2017 F     Emma     19738 0.0105      1
+##  2  2017 F     Olivia   18632 0.00994     2
+##  3  2017 M     Liam     18728 0.00954     3
+##  4  2017 M     Noah     18326 0.00933     4
+##  5  2017 F     Ava      15902 0.00848     5
+##  6  2017 F     Isabella 15100 0.00805     6
+##  7  2017 F     Sophia   14831 0.00791     7
+##  8  2017 M     William  14904 0.00759     8
+##  9  2017 M     James    14232 0.00725     9
+## 10  2017 F     Mia      13437 0.00717    10
+## # … with 32,459 more rows</code></pre>
+<p>That looks good!
+We can now save this new, mutated dataset:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb57-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="ot">-&gt;</span> babynames_2017_ranked</span></code></pre></div>
+<p>So mutate() creates a new column, and the values of that column are determined by some sort of calculation.
+Thus our code for mutate() declares the new column’s <em>name</em> (‘rank,’ in this case), and the calculation (‘row_number,’ in this case).</p>
+<p>Let’s try a practical use of mutate() by focusing on finding the most popular names of a particular <em>generation.</em></p>
+<p>According to <a href="&#39;https://www.wikipedia.cohttps://en.wikipedia.org/wiki/Silent_Generation&#39;" target="_blank">Wikipedia</a>, the ‘Silent Generation’ were born between the years of 1928 and 1944:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb58-1" aria-hidden="true" tabindex="-1"></a>silent_gen <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1927</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="dv">1945</span>) </span></code></pre></div>
+<p>Ok, we have sub-setted our data to only include the years of this generation.
+Let’s further simplify things by only looking at female names of the Silent Generation - and also add a ‘rank’ column:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb59-1" aria-hidden="true" tabindex="-1"></a>silent_gen <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span><span class="st">&quot;F&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="ot">-&gt;</span> silent_gen_f</span></code></pre></div>
+<p>Ok, let’s see some results - what are the most popular female names of the Silent Generation?
+Let’s enhance the plot by adding a geom_text() object that fills in each name’s rank in its corresponding bar:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb60-1" aria-hidden="true" tabindex="-1"></a>silent_gen_f <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, prop), prop, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb60-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb60-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> rank, <span class="at">hjust =</span> <span class="dv">3</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/silent_gen3-1.png" width="672" /></p>
+<p>It appears that Mary is the most popular name during this period.
+But wasn’t Mary popular back in 1890?
+Let’s look at these 10 names over time:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb61-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Barbara&quot;</span>, <span class="st">&quot;Betty&quot;</span>, <span class="st">&quot;Doris&quot;</span>, <span class="st">&quot;Dorothy&quot;</span>, <span class="st">&quot;Helen&quot;</span>, <span class="st">&quot;Margaret&quot;</span>, <span class="st">&quot;Ruth&quot;</span>, <span class="st">&quot;Shirley&quot;</span>, <span class="st">&quot;Virginia&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span><span class="st">&quot;F&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/silent_gen4-1.png" width="672" /></p>
+<p>It appears that Mary is the most popular name for a very long time, gradually waning as more and more unique names get added to the database every year (therefore decreasing its proportion).
+Unlike the other 9 names, it definitely doesn’t peak during this generation - so let’s remove it.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb62-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Barbara&quot;</span>, <span class="st">&quot;Betty&quot;</span>, <span class="st">&quot;Doris&quot;</span>, <span class="st">&quot;Dorothy&quot;</span>, <span class="st">&quot;Helen&quot;</span>, <span class="st">&quot;Margaret&quot;</span>, <span class="st">&quot;Ruth&quot;</span>, <span class="st">&quot;Shirley&quot;</span>, <span class="st">&quot;Virginia&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span><span class="st">&quot;F&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/silent_gen5-1.png" width="672" /></p>
+<p>That looks much better!
+What is that one name that is peaking like crazy right in the middle?</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb63-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="st">&quot;Shirley&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span><span class="st">&quot;F&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/silent_gen6-1.png" width="672" /></p>
+<p>Wow!
+What could we possibly blame this on?
+The popularity of Shirley Temple?
+There’s no way to quantitatively measure that, even if we think it to be true.</p>
+<div id="group_by-summarise" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Group_by , summarise()<a href="intro-to-r-load-filter-plot-babynames.html#group_by-summarise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Similar to creating a pivot table, the summarize() command reshapes your data by creating an <em>entirely new dataset</em> based on the parameters you specify.
+It is often used with the function <em>group_by()</em>.
+How is this useful, and how is it different from <em>mutate?</em></p>
+<p>An example will help.
+If we look at most popular names of the Silent Generation, we see a lot of names repeated:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb64-1" aria-hidden="true" tabindex="-1"></a>silent_gen_f <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 6
+##     year sex   name      n   prop  rank
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;
+##  1  1928 F     Mary  66869 0.0559     1
+##  2  1930 F     Mary  64146 0.0550 10712
+##  3  1929 F     Mary  63510 0.0549  5437
+##  4  1931 F     Mary  60296 0.0546 15960
+##  5  1932 F     Mary  59872 0.0541 20937
+##  6  1933 F     Mary  55507 0.0531 26037
+##  7  1934 F     Mary  56924 0.0526 30895
+##  8  1935 F     Mary  55065 0.0507 35868
+##  9  1937 F     Mary  55642 0.0505 45616
+## 10  1936 F     Mary  54373 0.0505 40760</code></pre>
+<p>If we want to count the <em>total number of instances</em> of each name over time, we’d have to use group_by() and summarise(), as well as <em>n_distinct()</em>, which counts the <em>number of unique instances</em> of a variable.</p>
+<p>In other words, if we want to see <em>how many instances of each name there were per year</em>, and plot it, we need to use <em>summarize():</em></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">name_count =</span> <span class="fu">n_distinct</span>(name)) <span class="ot">-&gt;</span> distinct</span>
+<span id="cb66-4"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(distinct)</span>
+<span id="cb66-6"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="intro-to-r-load-filter-plot-babynames.html#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(distinct, <span class="fu">aes</span>(year, name_count)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/summ1-1.png" width="672" /></p>
+<p>Note that, unlike mutate(), summarize() removes <em>all</em> of our dataframe’s columns except the ones we specify we want to look at in both summarize() and group_by().
+So if we want to ‘keep’ a variable in order to later visualize it, we have to add it to the group_by() function:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="intro-to-r-load-filter-plot-babynames.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">name_count =</span> <span class="fu">n_distinct</span>(name)) <span class="ot">-&gt;</span> distinct</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="intro-to-r-load-filter-plot-babynames.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(distinct, <span class="fu">aes</span>(year, name_count)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb69-2"><a href="intro-to-r-load-filter-plot-babynames.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/summ2-1.png" width="672" /></p>
+<p>Summarize() is the most challenging of the basic <em>dplyr</em> functions, so don’t be discouraged if you struggle with it!
+Again, if already familiar with the concept of a <em>Pivot Table</em>, summarize() is basically the same, but in programmatic form: select the columns you wish to compare, strip away the rest of the data, and give me a simplified dataframe that can be visualized.</p>
+<p>When do you know to use summarize() instead of mutate()?
+Well, think of mutate as making a <em>calculated field</em>, adding a column to your dataframe - and summarize() as making a pivot table, stripping away most of your data to look at only a handful of columns in a new way.
+In the case of <em>babynames</em>, it’s clearly an appropriate time to use summarize() when you see the same name repeated over and over again in your results.
+We will revisit both techniques.</p>
+<hr />
+<p>Playing with the <em>babynames</em> dataset allows us to learn basic data manipulation and visualization, while avoiding other important topics, such as loading data files into R or doing basic statistical calculations - which we will get into shortly.
+In the meantime, play around with <em>babynames</em> and try to answer specific questions, such as:</p>
+<ul>
+<li>
+<p>What generation saw the most births in the 20th Century?</p>
+<li>
+<p>How have ‘virtue names,’ like ‘Charity,’ ‘Temperance,’ or ‘Faith’ fared in babynames: are they more or less popular now than in the past?</p>
+<li>
+<p>What are the <em>total number of names</em> per year, and is this total increasing or decreasing?</p>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jennyjiangke/book/edit/master/01-Intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/jennyjiangke/book/blob/master/01-Intro.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
