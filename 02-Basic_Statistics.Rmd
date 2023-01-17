@@ -374,7 +374,10 @@ of 23 is not an even number (23/4=5.75), we’ll round up and drop off the
 top six (237, 133, 124, 103, 97, 90) and bottom six cases (17, 19, 19, 22, 23, 25). Of
 the remaining scores, the range is 56 (83-27). It is proper to say, then, that the range of the middle 50% of the cases is 56. The median score, 40 in this case, remains, of course, at the center of these mid dle 50% of the cases.
 
-**sd**
+**Standard Deviation**
+Another term for analyzing data variance is Standard Deviation. It is a measure of the amount of variation in data, or simply put, it measures the extent to which your data is spread-out. It reflects the average squared distance from the mean.
+
+Suppose we have two variables: the first one contains five units whose values are 2, 3, 3, 3, 4; and the second one contains five units as well, with the values being 1, 2, 3, 4, 5. Although these two variables have the same mean value (Mean = 3), you can clearly see that the latter one is more spread-out than the first one, indicating a bigger standard deviation.
 
 ### Case Study 
 
