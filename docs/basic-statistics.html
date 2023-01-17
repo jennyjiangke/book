@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2022-08-19" />
+<meta name="date" content="2023-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Media Analytic with R</a></li>
+<li><a href="./">Media Analytics with R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -227,12 +227,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-5"><a href="basic-statistics.html#cb70-5" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;google analytics sample data.xlsx&quot;</span>) <span class="co">#Create a dataset and name it as my_data</span></span></code></pre></div>
 <p>Table 2.1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="basic-statistics.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install kableExtra package</span></span>
-<span id="cb71-2"><a href="basic-statistics.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb71-3"><a href="basic-statistics.html#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-4"><a href="basic-statistics.html#cb71-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb71-5"><a href="basic-statistics.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
-<span id="cb71-6"><a href="basic-statistics.html#cb71-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb71-7"><a href="basic-statistics.html#cb71-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
+<span id="cb71-2"><a href="basic-statistics.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="basic-statistics.html#cb74-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb74-2"><a href="basic-statistics.html#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
+<span id="cb74-3"><a href="basic-statistics.html#cb74-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-4"><a href="basic-statistics.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-2">Table 2.1: </span>The First 20 Rows of the Google Analytics Sample Data
@@ -1081,26 +1085,26 @@ Paid Search
 <h3><span class="header-section-number">2.2.1</span> Frequency Distribution<a href="basic-statistics.html#frequency-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The easiest thing we can do is to count the number of times an event or a value occurs for the variable(s) of our choice, and this is called Frequency analysis. We can aggregate individual observations of a variable into groups so that a frequency distribution of these groups can serve as a convenient means of summarizing or describing our data.</p>
 <p>We are going to use the <strong>dplyr</strong> package to count the aggregated transactions by channel and age groups.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="basic-statistics.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Frequency and grouped frequency analysis</span></span>
-<span id="cb72-2"><a href="basic-statistics.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install dplyr package</span></span>
-<span id="cb72-3"><a href="basic-statistics.html#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb72-4"><a href="basic-statistics.html#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="basic-statistics.html#cb72-5" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Channel <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb72-6"><a href="basic-statistics.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb72-7"><a href="basic-statistics.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span>
-<span id="cb72-8"><a href="basic-statistics.html#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-9"><a href="basic-statistics.html#cb72-9" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Age <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb72-10"><a href="basic-statistics.html#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Age) <span class="sc">%&gt;%</span> </span>
-<span id="cb72-11"><a href="basic-statistics.html#cb72-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-statistics.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Frequency and grouped frequency analysis</span></span>
+<span id="cb75-2"><a href="basic-statistics.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co">#You will need to install dplyr package</span></span>
+<span id="cb75-3"><a href="basic-statistics.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb75-4"><a href="basic-statistics.html#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="basic-statistics.html#cb75-5" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Channel <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb75-6"><a href="basic-statistics.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-7"><a href="basic-statistics.html#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span>
+<span id="cb75-8"><a href="basic-statistics.html#cb75-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="basic-statistics.html#cb75-9" aria-hidden="true" tabindex="-1"></a>Transaction_Frequency_Age <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb75-10"><a href="basic-statistics.html#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Age) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-11"><a href="basic-statistics.html#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Frequency =</span> <span class="fu">sum</span>(Transactions))</span></code></pre></div>
 <p>Table 2.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic-statistics.html#cb73-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb73-2"><a href="basic-statistics.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb73-3"><a href="basic-statistics.html#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Channel, <span class="fu">desc</span>(Frequency))), </span>
-<span id="cb73-4"><a href="basic-statistics.html#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Age, <span class="fu">desc</span>(Frequency)))), </span>
-<span id="cb73-5"><a href="basic-statistics.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb73-6"><a href="basic-statistics.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Transaction Frequency for Channel and Age&#39;</span></span>
-<span id="cb73-7"><a href="basic-statistics.html#cb73-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb73-8"><a href="basic-statistics.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="basic-statistics.html#cb76-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb76-2"><a href="basic-statistics.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb76-3"><a href="basic-statistics.html#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Channel, <span class="fu">desc</span>(Frequency))), </span>
+<span id="cb76-4"><a href="basic-statistics.html#cb76-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Transaction_Frequency_Age, <span class="fu">desc</span>(Frequency)))), </span>
+<span id="cb76-5"><a href="basic-statistics.html#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb76-6"><a href="basic-statistics.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Transaction Frequency for Channel and Age&#39;</span></span>
+<span id="cb76-7"><a href="basic-statistics.html#cb76-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb76-8"><a href="basic-statistics.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-4">Table 2.2: </span>Grouped Transaction Frequency for Channel and Age
@@ -1242,27 +1246,27 @@ Frequency
 <div id="percentage-change" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Percentage Change<a href="basic-statistics.html#percentage-change" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here, we can also use the grouped frequency analysis to compare the revenue from each channel between 2020 and 2021 to assess the dynamic changes of each channel.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="basic-statistics.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creat a subset for year 2020 and year 2021</span></span>
-<span id="cb74-2"><a href="basic-statistics.html#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-3"><a href="basic-statistics.html#cb74-3" aria-hidden="true" tabindex="-1"></a>my_data_2020 <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2020</span>)</span>
-<span id="cb74-4"><a href="basic-statistics.html#cb74-4" aria-hidden="true" tabindex="-1"></a>my_data_2021 <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2021</span>)</span>
-<span id="cb74-5"><a href="basic-statistics.html#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-6"><a href="basic-statistics.html#cb74-6" aria-hidden="true" tabindex="-1"></a>Revenue_Frequency_2020 <span class="ot">&lt;-</span> my_data_2020 <span class="sc">%&gt;%</span> </span>
-<span id="cb74-7"><a href="basic-statistics.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-8"><a href="basic-statistics.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Revenue =</span> <span class="fu">sum</span>(Revenue))</span>
-<span id="cb74-9"><a href="basic-statistics.html#cb74-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-10"><a href="basic-statistics.html#cb74-10" aria-hidden="true" tabindex="-1"></a>Revenue_Frequency_2021 <span class="ot">&lt;-</span> my_data_2021 <span class="sc">%&gt;%</span> </span>
-<span id="cb74-11"><a href="basic-statistics.html#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-12"><a href="basic-statistics.html#cb74-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Revenue =</span> <span class="fu">sum</span>(Revenue))</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-statistics.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creat a subset for year 2020 and year 2021</span></span>
+<span id="cb77-2"><a href="basic-statistics.html#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="basic-statistics.html#cb77-3" aria-hidden="true" tabindex="-1"></a>my_data_2020 <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2020</span>)</span>
+<span id="cb77-4"><a href="basic-statistics.html#cb77-4" aria-hidden="true" tabindex="-1"></a>my_data_2021 <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2021</span>)</span>
+<span id="cb77-5"><a href="basic-statistics.html#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-6"><a href="basic-statistics.html#cb77-6" aria-hidden="true" tabindex="-1"></a>Revenue_Frequency_2020 <span class="ot">&lt;-</span> my_data_2020 <span class="sc">%&gt;%</span> </span>
+<span id="cb77-7"><a href="basic-statistics.html#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-8"><a href="basic-statistics.html#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Revenue =</span> <span class="fu">sum</span>(Revenue))</span>
+<span id="cb77-9"><a href="basic-statistics.html#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-10"><a href="basic-statistics.html#cb77-10" aria-hidden="true" tabindex="-1"></a>Revenue_Frequency_2021 <span class="ot">&lt;-</span> my_data_2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb77-11"><a href="basic-statistics.html#cb77-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-12"><a href="basic-statistics.html#cb77-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Revenue =</span> <span class="fu">sum</span>(Revenue))</span></code></pre></div>
 <p>As illustrated in Table 2.3, the direct channel created the most revenues in both 2020 and 2021. When you have such data for two points in time, you can calculate how much change there has been over this period. The result is expressed as a percentage in absolute numbers and is called the percentage change or the rate of change. Here is the formula: <strong>Percentage Change = [(Number at later time / Number at earlier time) - 1] × 100%</strong>.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-statistics.html#cb75-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb75-2"><a href="basic-statistics.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb75-3"><a href="basic-statistics.html#cb75-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Frequency_2020, <span class="fu">desc</span>(Revenue))), </span>
-<span id="cb75-4"><a href="basic-statistics.html#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Frequency_2021, <span class="fu">desc</span>(Revenue)))), </span>
-<span id="cb75-5"><a href="basic-statistics.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb75-6"><a href="basic-statistics.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Revenue in 2020 and 2021&#39;</span></span>
-<span id="cb75-7"><a href="basic-statistics.html#cb75-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb75-8"><a href="basic-statistics.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="basic-statistics.html#cb78-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb78-2"><a href="basic-statistics.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb78-3"><a href="basic-statistics.html#cb78-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Frequency_2020, <span class="fu">desc</span>(Revenue))), </span>
+<span id="cb78-4"><a href="basic-statistics.html#cb78-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Frequency_2021, <span class="fu">desc</span>(Revenue)))), </span>
+<span id="cb78-5"><a href="basic-statistics.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb78-6"><a href="basic-statistics.html#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Revenue in 2020 and 2021&#39;</span></span>
+<span id="cb78-7"><a href="basic-statistics.html#cb78-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb78-8"><a href="basic-statistics.html#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-6">Table 2.3: </span>Grouped Revenue in 2020 and 2021
@@ -1405,21 +1409,21 @@ Organic Search
 <div id="relative-frequency" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Relative Frequency<a href="basic-statistics.html#relative-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For the frequency analysis, we also can count how often something happens divided by all outcomes, which is called the relative frequency analysis. For example, from Table 3, the revenue from the organic search channel in 2020 is $4,628.44, and the total revenue in 2020 is the sum of revenue from all channels, which is $34422.26.The relative revenue from the organic search channel is 4,628.44/34422.26 = 13.44%, indicating 13.44% of the revenue in 2020 was from the organic search channel. We can use the codes below to get the relative revenue for each channel in 2020 and 2021 (Table 2.4).</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="basic-statistics.html#cb76-1" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2020 <span class="ot">&lt;-</span> my_data_2020 <span class="sc">%&gt;%</span> </span>
-<span id="cb76-2"><a href="basic-statistics.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb76-3"><a href="basic-statistics.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2020<span class="sc">$</span>Revenue))</span>
-<span id="cb76-4"><a href="basic-statistics.html#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-5"><a href="basic-statistics.html#cb76-5" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2021 <span class="ot">&lt;-</span> my_data_2021 <span class="sc">%&gt;%</span> </span>
-<span id="cb76-6"><a href="basic-statistics.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb76-7"><a href="basic-statistics.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2021<span class="sc">$</span>Revenue))</span></code></pre></div>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-statistics.html#cb77-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb77-2"><a href="basic-statistics.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb77-3"><a href="basic-statistics.html#cb77-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2020, <span class="fu">desc</span>(Revenue_Percentage))), </span>
-<span id="cb77-4"><a href="basic-statistics.html#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2021, <span class="fu">desc</span>(Revenue_Percentage)))), </span>
-<span id="cb77-5"><a href="basic-statistics.html#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb77-6"><a href="basic-statistics.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Revenue in 2020 and 2021&#39;</span></span>
-<span id="cb77-7"><a href="basic-statistics.html#cb77-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb77-8"><a href="basic-statistics.html#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-statistics.html#cb79-1" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2020 <span class="ot">&lt;-</span> my_data_2020 <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="basic-statistics.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-3"><a href="basic-statistics.html#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2020<span class="sc">$</span>Revenue))</span>
+<span id="cb79-4"><a href="basic-statistics.html#cb79-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="basic-statistics.html#cb79-5" aria-hidden="true" tabindex="-1"></a>Revenue_Relative_Frequency_2021 <span class="ot">&lt;-</span> my_data_2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb79-6"><a href="basic-statistics.html#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-7"><a href="basic-statistics.html#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&#39;Revenue_Percentage&#39;</span> <span class="ot">=</span> <span class="fu">sum</span>(Revenue)<span class="sc">/</span><span class="fu">sum</span>(my_data_2021<span class="sc">$</span>Revenue))</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="basic-statistics.html#cb80-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb80-2"><a href="basic-statistics.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb80-3"><a href="basic-statistics.html#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2020, <span class="fu">desc</span>(Revenue_Percentage))), </span>
+<span id="cb80-4"><a href="basic-statistics.html#cb80-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Revenue_Relative_Frequency_2021, <span class="fu">desc</span>(Revenue_Percentage)))), </span>
+<span id="cb80-5"><a href="basic-statistics.html#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb80-6"><a href="basic-statistics.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Grouped Revenue in 2020 and 2021&#39;</span></span>
+<span id="cb80-7"><a href="basic-statistics.html#cb80-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb80-8"><a href="basic-statistics.html#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-8">Table 2.4: </span>Grouped Revenue in 2020 and 2021
@@ -1567,12 +1571,12 @@ Organic Search
 <p>In data analysis, some variables, such as the ECR (e-commerce conversion rate from Table 2.1), are too small to visualize. Under such circumstances, we can represent the percentage as rate by converting the small proportions to a whole number with one, two, or three digits on a base of some multiple of 1,000, 10,000, 100,000, or 1 million.</p>
 <p>For example, from Table 2.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions.</p>
 <p>We can use the r code below to add a column representing the Ecommerce Conversion Rate per 10,000 sessions for my_data.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="basic-statistics.html#cb78-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>ECR <span class="ot">&lt;-</span> my_data<span class="sc">$</span><span class="st">`</span><span class="at">Ecommerce Conversion Rate</span><span class="st">`</span><span class="sc">*</span><span class="dv">10000</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic-statistics.html#cb81-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>ECR <span class="ot">&lt;-</span> my_data<span class="sc">$</span><span class="st">`</span><span class="at">Ecommerce Conversion Rate</span><span class="st">`</span><span class="sc">*</span><span class="dv">10000</span></span></code></pre></div>
 <p>Now, the new column has been added to my_data as illustrated in Table 2.5.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-statistics.html#cb79-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb79-2"><a href="basic-statistics.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
-<span id="cb79-3"><a href="basic-statistics.html#cb79-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb79-4"><a href="basic-statistics.html#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="basic-statistics.html#cb82-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>], <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb82-2"><a href="basic-statistics.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The First 20 Rows of the Google Analytics Sample Data&#39;</span></span>
+<span id="cb82-3"><a href="basic-statistics.html#cb82-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-4"><a href="basic-statistics.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="fl">6.5</span>)</span></code></pre></div>
 <table class="table" style="font-size: 6.5px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-10">Table 2.5: </span>The First 20 Rows of the Google Analytics Sample Data
@@ -2447,19 +2451,19 @@ Paid Search
 <div id="ratio" class="section level3 hasAnchor" number="2.2.6">
 <h3><span class="header-section-number">2.2.6</span> Ratio<a href="basic-statistics.html#ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ratio compares the size of two numbers indicating how many times one number contains another. For example, let’s calculate the ratio of returning users and new users using the formula: <strong>Number of Old Users / Number of New Users</strong>. We first use the r code below to create a new column <strong>old user (users - new users)</strong>, then we use the <strong>group_by</strong> function to calculate the ratio fo returning users and new users for each channel.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="basic-statistics.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new colunme of old users</span></span>
-<span id="cb80-2"><a href="basic-statistics.html#cb80-2" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>OldUsers <span class="ot">&lt;-</span> my_data<span class="sc">$</span>Users<span class="sc">-</span>my_data<span class="sc">$</span><span class="st">&#39;New Users&#39;</span></span>
-<span id="cb80-3"><a href="basic-statistics.html#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-4"><a href="basic-statistics.html#cb80-4" aria-hidden="true" tabindex="-1"></a>userratio <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb80-5"><a href="basic-statistics.html#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-6"><a href="basic-statistics.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">OldUsers =</span> <span class="fu">sum</span>(OldUsers), <span class="at">NewUsers =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>),<span class="at">Ratio =</span> <span class="fu">sum</span>(OldUsers)<span class="sc">/</span><span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic-statistics.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new colunme of old users</span></span>
+<span id="cb83-2"><a href="basic-statistics.html#cb83-2" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>OldUsers <span class="ot">&lt;-</span> my_data<span class="sc">$</span>Users<span class="sc">-</span>my_data<span class="sc">$</span><span class="st">&#39;New Users&#39;</span></span>
+<span id="cb83-3"><a href="basic-statistics.html#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-4"><a href="basic-statistics.html#cb83-4" aria-hidden="true" tabindex="-1"></a>userratio <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb83-5"><a href="basic-statistics.html#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Channel) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-6"><a href="basic-statistics.html#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">OldUsers =</span> <span class="fu">sum</span>(OldUsers), <span class="at">NewUsers =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>),<span class="at">Ratio =</span> <span class="fu">sum</span>(OldUsers)<span class="sc">/</span><span class="fu">sum</span>(<span class="st">`</span><span class="at">New Users</span><span class="st">`</span>))</span></code></pre></div>
 <p>From Table 2.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic-statistics.html#cb81-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb81-2"><a href="basic-statistics.html#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(userratio, <span class="fu">desc</span>(Ratio))), </span>
-<span id="cb81-3"><a href="basic-statistics.html#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb81-4"><a href="basic-statistics.html#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The Ratio of Old Users and New Users for Each Channel&#39;</span></span>
-<span id="cb81-5"><a href="basic-statistics.html#cb81-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb81-6"><a href="basic-statistics.html#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="basic-statistics.html#cb84-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb84-2"><a href="basic-statistics.html#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(userratio, <span class="fu">desc</span>(Ratio))), </span>
+<span id="cb84-3"><a href="basic-statistics.html#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb84-4"><a href="basic-statistics.html#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;The Ratio of Old Users and New Users for Each Channel&#39;</span></span>
+<span id="cb84-5"><a href="basic-statistics.html#cb84-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-6"><a href="basic-statistics.html#cb84-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-12">Table 2.6: </span>The Ratio of Old Users and New Users for Each Channel
@@ -2572,18 +2576,18 @@ Display
 <h3><span class="header-section-number">2.2.7</span> Central Tendency<a href="basic-statistics.html#central-tendency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Besides using frequency analysis to summarize the distribution of a variable, we also can use the central tendency analysis to understand which attribute of a variable is most typical or representative of the variable distribution. Specifically, the central tendency analysis describes what the center of the data for a variable is. What do we mean by the center of the data? For many, the mean, median, and mode. Mean is the sum of all data points divided by the total number of observations. Median is the midpoint in data with an equal number of data points above and below. If the number of data points is even, then Median is the mean of the two midpoints. Mode is the data point that is most prevalent in the data set. It represents the most likely outcome in a data set.</p>
 <p>Let’s first create a small dataset of test scores from 20 students.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="basic-statistics.html#cb82-1" aria-hidden="true" tabindex="-1"></a>StudentID <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb82-2"><a href="basic-statistics.html#cb82-2" aria-hidden="true" tabindex="-1"></a>Score <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">100</span>)</span>
-<span id="cb82-3"><a href="basic-statistics.html#cb82-3" aria-hidden="true" tabindex="-1"></a>TestData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(StudentID, Score)</span>
-<span id="cb82-4"><a href="basic-statistics.html#cb82-4" aria-hidden="true" tabindex="-1"></a>ScoreFrequency <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(TestData<span class="sc">$</span>Score)) <span class="co"># Calculate the frequency of each score</span></span>
-<span id="cb82-5"><a href="basic-statistics.html#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ScoreFrequency) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score&quot;</span>,<span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic-statistics.html#cb85-1" aria-hidden="true" tabindex="-1"></a>StudentID <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb85-2"><a href="basic-statistics.html#cb85-2" aria-hidden="true" tabindex="-1"></a>Score <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">90</span>,<span class="dv">100</span>)</span>
+<span id="cb85-3"><a href="basic-statistics.html#cb85-3" aria-hidden="true" tabindex="-1"></a>TestData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(StudentID, Score)</span>
+<span id="cb85-4"><a href="basic-statistics.html#cb85-4" aria-hidden="true" tabindex="-1"></a>ScoreFrequency <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(TestData<span class="sc">$</span>Score)) <span class="co"># Calculate the frequency of each score</span></span>
+<span id="cb85-5"><a href="basic-statistics.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ScoreFrequency) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score&quot;</span>,<span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <p>Table 2.7 demonstrates the frequency of each score.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic-statistics.html#cb83-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb83-2"><a href="basic-statistics.html#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(ScoreFrequency)), </span>
-<span id="cb83-3"><a href="basic-statistics.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb83-4"><a href="basic-statistics.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Frequency of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
-<span id="cb83-5"><a href="basic-statistics.html#cb83-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb83-6"><a href="basic-statistics.html#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="basic-statistics.html#cb86-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb86-2"><a href="basic-statistics.html#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(ScoreFrequency)), </span>
+<span id="cb86-3"><a href="basic-statistics.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb86-4"><a href="basic-statistics.html#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Frequency of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb86-5"><a href="basic-statistics.html#cb86-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-6"><a href="basic-statistics.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-14">Table 2.7: </span>Frequency of Test Scores from 20 Students
@@ -2651,10 +2655,10 @@ Frequency
 </table>
 <p>The mean score is the sum of all scores divided by 20. The related formula is: <strong>(40x1 + 50x2 + 60x5 + 70x3 + 80x4 +90x4 + 100x1)/20 = 71.5</strong>, meaning that the average score among these 20 students is 71.5.</p>
 <p>When it comes to identifying the median value, we want to sort all individuals from the lowest value to the highest value, and whoever in the middle gives us the median value. But the problem is, we have 20 students in this sample, which is an even number, meaning that there will be two individuals in the middle (Table 2.8: student number 10 and number 11). For situations like this, we take the mean of these two individuals’ values to compute the <strong>median: (70+70)/2 = 70</strong> (Table 2.8).</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="basic-statistics.html#cb84-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(TestData, <span class="dv">20</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb84-2"><a href="basic-statistics.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;A Small Dataset of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
-<span id="cb84-3"><a href="basic-statistics.html#cb84-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb84-4"><a href="basic-statistics.html#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic-statistics.html#cb87-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(TestData, <span class="dv">20</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb87-2"><a href="basic-statistics.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;A Small Dataset of Test Scores from 20 Students&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb87-3"><a href="basic-statistics.html#cb87-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb87-4"><a href="basic-statistics.html#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-15">Table 2.8: </span>A Small Dataset of Test Scores from 20 Students
@@ -2833,12 +2837,12 @@ Score
 </tbody>
 </table>
 <p>We can easily identify the most frequent test score by looking into the score distribution visualization.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic-statistics.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need install ggplot2 package</span></span>
-<span id="cb85-2"><a href="basic-statistics.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb85-3"><a href="basic-statistics.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-4"><a href="basic-statistics.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot</span></span>
-<span id="cb85-5"><a href="basic-statistics.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ScoreFrequency, <span class="fu">aes</span>(<span class="at">x=</span>Score, <span class="at">y=</span>Frequency)) <span class="sc">+</span> </span>
-<span id="cb85-6"><a href="basic-statistics.html#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="basic-statistics.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need install ggplot2 package</span></span>
+<span id="cb88-2"><a href="basic-statistics.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb88-3"><a href="basic-statistics.html#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="basic-statistics.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot</span></span>
+<span id="cb88-5"><a href="basic-statistics.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ScoreFrequency, <span class="fu">aes</span>(<span class="at">x=</span>Score, <span class="at">y=</span>Frequency)) <span class="sc">+</span> </span>
+<span id="cb88-6"><a href="basic-statistics.html#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
 <img src="bookdownproj_files/figure-html/unnamed-chunk-16-1.png" alt="Distribution of Test Scores from 20 Students" width="672" />
 <p class="caption">
@@ -2847,35 +2851,35 @@ Figure 2.1: Distribution of Test Scores from 20 Students
 </div>
 <p>Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.</p>
 <p>Now we can use the code below to get the mean, median, and mode for the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data of the Google Merchandise Store.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="basic-statistics.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean for each col</span></span>
-<span id="cb86-2"><a href="basic-statistics.html#cb86-2" aria-hidden="true" tabindex="-1"></a>mean_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb86-3"><a href="basic-statistics.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, mean)</span>
-<span id="cb86-4"><a href="basic-statistics.html#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-5"><a href="basic-statistics.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate median for each col</span></span>
-<span id="cb86-6"><a href="basic-statistics.html#cb86-6" aria-hidden="true" tabindex="-1"></a>median_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb86-7"><a href="basic-statistics.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, median)</span>
-<span id="cb86-8"><a href="basic-statistics.html#cb86-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-9"><a href="basic-statistics.html#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the mode function</span></span>
-<span id="cb86-10"><a href="basic-statistics.html#cb86-10" aria-hidden="true" tabindex="-1"></a>getmode <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
-<span id="cb86-11"><a href="basic-statistics.html#cb86-11" aria-hidden="true" tabindex="-1"></a>  uniqv <span class="ot">&lt;-</span> <span class="fu">unique</span>(v)</span>
-<span id="cb86-12"><a href="basic-statistics.html#cb86-12" aria-hidden="true" tabindex="-1"></a>  uniqv[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(v, uniqv)))]</span>
-<span id="cb86-13"><a href="basic-statistics.html#cb86-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb86-14"><a href="basic-statistics.html#cb86-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-15"><a href="basic-statistics.html#cb86-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mode for each col</span></span>
-<span id="cb86-16"><a href="basic-statistics.html#cb86-16" aria-hidden="true" tabindex="-1"></a>mode_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb86-17"><a href="basic-statistics.html#cb86-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, getmode)</span>
-<span id="cb86-18"><a href="basic-statistics.html#cb86-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-19"><a href="basic-statistics.html#cb86-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-20"><a href="basic-statistics.html#cb86-20" aria-hidden="true" tabindex="-1"></a><span class="co">#combine the reports</span></span>
-<span id="cb86-21"><a href="basic-statistics.html#cb86-21" aria-hidden="true" tabindex="-1"></a>centerreport <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rbind</span>(mean_report, median_report, mode_report))</span>
-<span id="cb86-22"><a href="basic-statistics.html#cb86-22" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(centerreport) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mean&quot;</span>,<span class="st">&quot;Median&quot;</span>,<span class="st">&quot;Mode&quot;</span>)</span>
-<span id="cb86-23"><a href="basic-statistics.html#cb86-23" aria-hidden="true" tabindex="-1"></a>centerreport <span class="ot">&lt;-</span> centerreport[, <span class="sc">-</span><span class="dv">10</span>]</span></code></pre></div>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic-statistics.html#cb87-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb87-2"><a href="basic-statistics.html#cb87-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(centerreport)), </span>
-<span id="cb87-3"><a href="basic-statistics.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb87-4"><a href="basic-statistics.html#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Descriptive Statistics-mean,median,mode&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
-<span id="cb87-5"><a href="basic-statistics.html#cb87-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb87-6"><a href="basic-statistics.html#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="basic-statistics.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean for each col</span></span>
+<span id="cb89-2"><a href="basic-statistics.html#cb89-2" aria-hidden="true" tabindex="-1"></a>mean_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb89-3"><a href="basic-statistics.html#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, mean)</span>
+<span id="cb89-4"><a href="basic-statistics.html#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="basic-statistics.html#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate median for each col</span></span>
+<span id="cb89-6"><a href="basic-statistics.html#cb89-6" aria-hidden="true" tabindex="-1"></a>median_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb89-7"><a href="basic-statistics.html#cb89-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, median)</span>
+<span id="cb89-8"><a href="basic-statistics.html#cb89-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-9"><a href="basic-statistics.html#cb89-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the mode function</span></span>
+<span id="cb89-10"><a href="basic-statistics.html#cb89-10" aria-hidden="true" tabindex="-1"></a>getmode <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb89-11"><a href="basic-statistics.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  uniqv <span class="ot">&lt;-</span> <span class="fu">unique</span>(v)</span>
+<span id="cb89-12"><a href="basic-statistics.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  uniqv[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(v, uniqv)))]</span>
+<span id="cb89-13"><a href="basic-statistics.html#cb89-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb89-14"><a href="basic-statistics.html#cb89-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-15"><a href="basic-statistics.html#cb89-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mode for each col</span></span>
+<span id="cb89-16"><a href="basic-statistics.html#cb89-16" aria-hidden="true" tabindex="-1"></a>mode_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb89-17"><a href="basic-statistics.html#cb89-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, getmode)</span>
+<span id="cb89-18"><a href="basic-statistics.html#cb89-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-19"><a href="basic-statistics.html#cb89-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-20"><a href="basic-statistics.html#cb89-20" aria-hidden="true" tabindex="-1"></a><span class="co">#combine the reports</span></span>
+<span id="cb89-21"><a href="basic-statistics.html#cb89-21" aria-hidden="true" tabindex="-1"></a>centerreport <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rbind</span>(mean_report, median_report, mode_report))</span>
+<span id="cb89-22"><a href="basic-statistics.html#cb89-22" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(centerreport) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mean&quot;</span>,<span class="st">&quot;Median&quot;</span>,<span class="st">&quot;Mode&quot;</span>)</span>
+<span id="cb89-23"><a href="basic-statistics.html#cb89-23" aria-hidden="true" tabindex="-1"></a>centerreport <span class="ot">&lt;-</span> centerreport[, <span class="sc">-</span><span class="dv">10</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="basic-statistics.html#cb90-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb90-2"><a href="basic-statistics.html#cb90-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(centerreport)), </span>
+<span id="cb90-3"><a href="basic-statistics.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb90-4"><a href="basic-statistics.html#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Descriptive Statistics-mean,median,mode&#39;</span>, <span class="at">align =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb90-5"><a href="basic-statistics.html#cb90-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-6"><a href="basic-statistics.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-18">Table 2.9: </span>Descriptive Statistics-mean,median,mode
@@ -3038,8 +3042,8 @@ Mode
 </table>
 <p>It is interesting to find the huge discrepancies between different central tendency measurements. This also indicates reporting results of different central tendency analyses can provide a more comprehensive understanding of the data distribution. For example, the mean value of Users (5661) is much higher than the median (940) and mode (22), indicating a skewed data distribution due to the existence of some large-value outliers.</p>
 <p><strong>Weighted Mean</strong> is a special mean where some data points contribute more than others. To calculate the weighted mean, we need to consider the weight for each data point. For example, we can calculate the weighted mean of the E-commerce Conversion Rate by taking the number of users as weight. The more users each data point has, the larger weight for its E-commerce Conversion Rate (ECR). In R, we can use the function of <strong>weighted.mean</strong> as below to get the weighted mean of the ECR of the Google Store:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="basic-statistics.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculated the weighted mean for ECR</span></span>
-<span id="cb88-2"><a href="basic-statistics.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.mean</span>(my_data<span class="sc">$</span><span class="st">`</span><span class="at">Ecommerce Conversion Rate</span><span class="st">`</span>, my_data<span class="sc">$</span>Users)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic-statistics.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculated the weighted mean for ECR</span></span>
+<span id="cb91-2"><a href="basic-statistics.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.mean</span>(my_data<span class="sc">$</span><span class="st">`</span><span class="at">Ecommerce Conversion Rate</span><span class="st">`</span>, my_data<span class="sc">$</span>Users)</span></code></pre></div>
 <pre><code>## [1] 0.01783514</code></pre>
 <p>When taking the number of users into consideration, the weighted mean of the E-commerce Conversation Rate is almost 18 per 10,000 sessions, which is a bit higher than the normal mean, 11 per 10,000 sessions (Table above). This also indicates that the data points with high E-commerce Conversion Rates had more users than those with low rates.</p>
 </div>
@@ -3047,18 +3051,18 @@ Mode
 <h3><span class="header-section-number">2.2.8</span> Data Variation<a href="basic-statistics.html#data-variation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If two data sets have the same center points, does that mean they
 have the same data distribution? Let’s look at two small datasets:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="basic-statistics.html#cb90-1" aria-hidden="true" tabindex="-1"></a>Score1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">90</span>,<span class="dv">70</span>,<span class="dv">50</span>,<span class="dv">30</span>))</span>
-<span id="cb90-2"><a href="basic-statistics.html#cb90-2" aria-hidden="true" tabindex="-1"></a>Score2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">65</span>))</span>
-<span id="cb90-3"><a href="basic-statistics.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Score1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score1&quot;</span>)</span>
-<span id="cb90-4"><a href="basic-statistics.html#cb90-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Score2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score2&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic-statistics.html#cb91-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb91-2"><a href="basic-statistics.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb91-3"><a href="basic-statistics.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Score1, <span class="fu">desc</span>(Score1))), </span>
-<span id="cb91-4"><a href="basic-statistics.html#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Score2, <span class="fu">desc</span>(Score2)))), </span>
-<span id="cb91-5"><a href="basic-statistics.html#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb91-6"><a href="basic-statistics.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Two Small Data Sets with the Same Mean and Median&#39;</span></span>
-<span id="cb91-7"><a href="basic-statistics.html#cb91-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb91-8"><a href="basic-statistics.html#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="basic-statistics.html#cb93-1" aria-hidden="true" tabindex="-1"></a>Score1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">90</span>,<span class="dv">70</span>,<span class="dv">50</span>,<span class="dv">30</span>))</span>
+<span id="cb93-2"><a href="basic-statistics.html#cb93-2" aria-hidden="true" tabindex="-1"></a>Score2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">65</span>))</span>
+<span id="cb93-3"><a href="basic-statistics.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Score1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score1&quot;</span>)</span>
+<span id="cb93-4"><a href="basic-statistics.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Score2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Score2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="basic-statistics.html#cb94-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb94-2"><a href="basic-statistics.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb94-3"><a href="basic-statistics.html#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Score1, <span class="fu">desc</span>(Score1))), </span>
+<span id="cb94-4"><a href="basic-statistics.html#cb94-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">arrange</span>(Score2, <span class="fu">desc</span>(Score2)))), </span>
+<span id="cb94-5"><a href="basic-statistics.html#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb94-6"><a href="basic-statistics.html#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&#39;Two Small Data Sets with the Same Mean and Median&#39;</span></span>
+<span id="cb94-7"><a href="basic-statistics.html#cb94-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb94-8"><a href="basic-statistics.html#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <table class="kable_wrapper table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-21">Table 2.10: </span>Two Small Data Sets with the Same Mean and Median
@@ -3159,7 +3163,9 @@ drop off the highest one-fourth and lowest one-fourth of the 23 cases. Since one
 of 23 is not an even number (23/4=5.75), we’ll round up and drop off the
 top six (237, 133, 124, 103, 97, 90) and bottom six cases (17, 19, 19, 22, 23, 25). Of
 the remaining scores, the range is 56 (83-27). It is proper to say, then, that the range of the middle 50% of the cases is 56. The median score, 40 in this case, remains, of course, at the center of these mid dle 50% of the cases.</p>
-<p><strong>sd</strong></p>
+<p><strong>Standard Deviation</strong>
+Another term for analyzing data variance is Standard Deviation. It is a measure of the amount of variation in data, or simply put, it measures the extent to which your data is spread-out. It reflects the average squared distance from the mean.</p>
+<p>Suppose we have two variables: the first one contains five units whose values are 2, 3, 3, 3, 4; and the second one contains five units as well, with the values being 1, 2, 3, 4, 5. Although these two variables have the same mean value (Mean = 3), you can clearly see that the latter one is more spread-out than the first one, indicating a bigger standard deviation.</p>
 </div>
 <div id="case-study" class="section level3 hasAnchor" number="2.2.9">
 <h3><span class="header-section-number">2.2.9</span> Case Study<a href="basic-statistics.html#case-study" class="anchor-section" aria-label="Anchor link to header"></a></h3>
