@@ -15,7 +15,8 @@ what-will-we-learn-to-do-with-r-in-this-book
 installing-the-software
 getting-started
 r-studio-projects
-intro-to-r-load-filter-plot-babynames
+intro-to-programming-in-r
+creating-a-new-project-in-r-studio
 loading-packages-and-data
 section
 filtering-data
@@ -26,8 +27,6 @@ modifying-data
 count
 more-aesthetics
 review
-mutate
-group_by-summarise
 basic-statistics
 variables-levels-of-measurement
 nominal-data
