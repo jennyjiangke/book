@@ -9,6 +9,12 @@ tab:unnamed-chunk-15
 fig:unnamed-chunk-16
 tab:unnamed-chunk-18
 tab:unnamed-chunk-21
+who-is-this-book-for
+why-r
+what-will-we-learn-to-do-with-r-in-this-book
+installing-the-software
+getting-started
+r-studio-projects
 intro-to-r-load-filter-plot-babynames
 loading-packages-and-data
 section
