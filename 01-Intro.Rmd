@@ -607,6 +607,7 @@ Otherwise, it could be organized alphabetically or something - and we'd be getti
 </ul>
 
 Why?
+
 Because line charts are for continuous variables, like year - not discrete ones, like 'name.' If you can measure it, it's continuous.
 If you can count it, it's discrete.
-
+ 
