@@ -1,7 +1,9 @@
 # Manipulating Data
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = "allow")
 library(babynames)
 library(tidyverse)
 
