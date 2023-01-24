@@ -1,0 +1,1895 @@
+--- 
+title: "Media Analytics With R"
+author: "Jenny Jiang & Brian Walsh"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Preface {-}
+
+The rapid development of information technology, along with the emergence of big data in the field of digital media, projects a workforce shortage for data-driven positions. In particular, the ability to use statistics to analyze and interpret the data obtained from tracking user interactions on websites and social media platforms make Communications students stand out in competitive job markets from a variety of industries.
+
+However, the integration of analytics into universities’ communication programs and curricula (e.g., Journalism, Television and Cinema, Public Relations, Strategic Communications, Communication Design, Health Communication, Sports Communication, Environmental Communication) is yet to catch up to the industry’s new demands. 
+
+To address this need, this book introduces Communication students to R, which is a free software environment for statistical computing and graphics, to measure and analyze audiences’ digital footprints, employ data-driven problem solving to gauge audience engagement, formulate insights, plan and execute strategies, and evaluate outcomes.
+
+## Who is this book for?
+
+Anyone who wants to learn basic data methodology and how to use the R programming language. Specifically, this book relies on analyzing text and social media and focuses on creating effective visualizations and avoiding methodological errors. R is a statistical programming language, but we'll be using it in a way that doesn't require that you have an extensive statistical background.
+
+## Why R?
+
+First of all, R is free, open-source, and runs on any OS. It is used by many professional journalistic and scientific organizations (The Guardian, the New York Times, etc.) for statistical analysis and data visualization.
+
+R is a package-based language, meaning it downloads only the core functions and requires users to customize it to their needs. It therefore takes up a smaller amount of disc space and is highly customizeable.
+
+A common issue with package-based languages is that the packages are all designed separately, and there are frequent compatibility issues. A solution to this problem in R, known as the tidyverse, combines a number of packages that are designed to work seamlessly with each other to deal with data manipulation, time adjustment, working with strings, importing data, and more.
+
+R is a language, and its IDE, R Studio -- the software we run R 'inside' of -- adds a number of capabilities that make working in R easier, including the capability of publishing your R analysis directly to the web, as well as PDF, EPUB and .docx formats, and integrates with GitHub for version control.
+
+R Studio is capable of also working and publishing using multiple programming languages (Python, Julia, Observable), as well as text, images and interactive visualizations, so you can easily publish and share a completed data analysis project effortlessly. In fact, this entire textbook was written and published using R and R Studio (repo available here).
+
+## What will we learn to do with R in this book?
+
+We'll start by learning the syntax of the tidyverse, which will then be used throughout the book. Using some example data sets, the book starts with data visualization so we can immediately see results from our programming.
+
+After learning the basics of formatting and visualizing data, we'll focus on analyzing bodies of text, from great literature to social media. We'll learn how to perform a network analysis to discover online connections between social accounts. We'll also learn to make maps overlaid with data and how to avoid common methodological pitfalls.
+
+## Installing the Software
+
+R and R Studio must be installed separately on your computer. Start with R, by going to <https://cran.rstudio.com/> and choosing a version based on the Operating System you are using. Clicking on the Mac installation brings you to a page to choose which version to download; just download the latest one for your OS (note that there are separate versions for newer and older Macs). The downloaded file is a .pkg file, which you can double-click to install R into the default location on your Mac. On a PC, the link leads you to download the base, which is what you want when first installing R.
+
+Then download R Studio from <https://posit.co/downloads/>. I recommend the 'free' version.
+
+Once everything is installed, launching R Studio should automatically load R, and you're ready to go.
+
+## Getting Started
+
+Launching R Studio should lead you to a screen like this one:
+
+![R Studio's first loading screen](images/1.png)
+
+I'm getting a pop-up that is asking me to install *git*, which will allow R Studio to run *version control*. This is all above our paygrade right now, but I can tell you that this pop-up won't go away completely until you succumb to its demands and install the git tools.
+
+The R Studio interface is divided into 4 quadrants, but only 3 are visible at first: you have to click on the little 'mimimize/maximize' button to open the 'Source' tab in the upper-right. This is where we will write all of our R code, which we will then 'send down' to the console below it - the idea is that by writing the code in the 'Source' window, we can re-run it if we need to change anything.
+
+R Studio should look like this now:
+
+![R Studio with the 'Source' tab active](images/2.png)
+
+I personally feel that a) no one should write computer code on a white screen with black text and b) no one should write code, especially in a language that is new to them, in a 10-point font that's hard to read. Let's change those things by going to 'Tools' \> 'Global Options,' and adjusting the 'Appearance' of R Studio by changing the theme and the font size:
+
+![Changing the font size and visual theme in R Studio](images/3.png)
+
+Once complete, we'll want to get used to writing our R code in the upper-left 'Source' tab. Here's an example: I've typed '4 + 12' into the 'Source' tab; now I'll click the 'Run' button to execute the code and see the results in the console. The very useful shortcut for 'Run' is 'Command-Enter' (Mac) or Control-Enter (PC). Try it!
+
+![Running our first snippet of code in the Source window](images/3.5.png)
+
+## R Studio Projects
+
+One of the most common issues new R users run into is 'finding' all of their materials on their computer's hard drive: their R scripts, their data files, and anything else needed to put together a report and, potentially, publish it.
+
+The easiest way to avoid this common pitfall is to create a *project* for each new task you're doing in R. Creating a project requires that you specify a project *folder*, and then all you have to do is put your project's assets in there.
+
+I'd recommend you create a new project for each of the hands-on coding chapters in this book. Not only will it be easier to load your data files, it'll also make it much easier to publish successfully.
+
+OK, we're now ready to get introduced to the *tidyverse* and make our first visualizations.
+
+
+<!--chapter:end:index.Rmd-->
+
+# Intro to Programming in R
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(babynames)
+library(tidyverse)
+
+```
+
+## Creating a New Project in R Studio
+
+I recommend you start by creating a *new project* for this intro chapter.
+
+Choose 'File' -\> 'New Project...' In the popup that follows, choose 'New Directory,' then 'New Project,' and choose (or create) a location for your project folder.
+You can leave all the other options as-is.
+Your popup should look something like this:
+
+![](images/popup.png){fig-alt="popup"}
+
+Once you've created a project, choose 'File' -\> 'New File' -\> 'R Script.' This will open up the Source pane and create a new, blank file.
+Let's save it: 'File' -\> 'Save' - and it will automatically save in our project's folder.
+
+OK, let's get coding!
+
+## Loading Packages and Data
+
+The U.S. Social Security Administration keeps records on first names at birth, going back to 1890.
+Data Scientist and R Superstar Hadley Wickham has created an R *package* that lets us load this data directly into R.
+
+Using a package is a two-step process: first, you install the package onto your computer; secondly, you *load* *the* *package* as a *library* to access its functions and data in your current work environment.
+
+Put another way, a package needs only be installed *once*, but has to be loaded into your R environment *every time you start up R Studio.*
+
+```{r, babynames_packages, eval=FALSE}
+install.packages('babynames')
+library(babynames)
+
+```
+
+Where do these packages come from, and who makes them?
+Why?
+By default, packages are hosted on an online repository referred to as CRAN; they can also be installed from GitHub.
+And anyone can make and share an R package, for instance if they solve a complicated workflow and want to share that insight with others to save them time and redundancy.
+Having R package-based means that users only need to load packages relevant to their area of study - keep in mind R is used for everything from Health Sciences to Comparative Literature.
+
+Let's take a look at the *babynames* package, by asking about its *structure*, and taking a *glimpse* at it:
+
+```{r, babynames_str}
+
+str(babynames)
+
+glimpse(babynames)
+```
+
+The output of *glimpse* is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is *still* not 'Big Data').
+
+So let's try *head* and *tail* to see the first and last 10 rows of the dataset:
+
+```{r, babynames_head_tail}
+head(babynames)
+tail(babynames)
+```
+
+Everything we've done up to this point has been in *Base R*, that is, R without any functions added via packages.
+Throughout this book, we'll be relying on a collection of inter-connected packages called the [*Tidyverse*](https://www.tidyverse.org/ "Tidyverse"){target="_blank"}, which drastically simplifies performing varying calculations on data.
+
+Like all packages, we first have to install and then load it.
+
+• Please note: when you install the 'tidyverse' package, you'll get a prompt *inside your R Console* at the bottom-left, asking you a Yes/No question.
+You cannot proceed until you click your cursor in the Console and type out the word 'Yes.' Note that the Console may be cut off or obfuscated; you may need to adjust your R Studio windows to see it better.
+
+```{r, tidyverse_load, eval = FALSE}
+install.packages('tidyverse')
+library(tidyverse)
+```
+
+Loading the Tidyverse shows the eight packages that make it up, as well as a few warnings that we can disregard.
+We'll begin on focusing on three packages that will help us work with babynames: *dplyr*, *ggplot2* and *stringr*.
+All three are loaded once we run the library(tidyverse) command.
+The first, dplyr, we use to manipulate data: to filter it, rearrange it,count it, do calculations for custom columns, and pivot the data to our liking.
+
+## %\>%
+
+The greatest and most powerful functionality added to R via the Tidyverse, in my opinion, is the 'pipe operator:'
+
+%\>%
+
+...which allows us to chain commands to each other.
+It can be tricky to type; the shortcut is Shift-Command-M (on a PC, it'd be Shift-Control-M).
+
+Another useful *logical operator* for this dataset is the 'includes' operator, which looks like this: %in% .
+
+I think an example will make the best sense of how to use these operators, so let's get started with filtering.
+
+## Filtering Data
+
+If we just type 'babynames' in R, we'll see the first 10 rows of data, organized by year, and an indication that there are nearly 2 million more rows remaining.
+That's way too much to visualize!
+Let's start by filtering for specific names: I'll use the names of The Beatles as a starting point.
+
+```{r, babynames_beatles}
+babynames %>% 
+  filter(name %in% 'Ringo')
+
+
+```
+
+That 'translates' to *'take the babynames dataset and filter it so only values in the name column that match 'Ringo' are included.'* The *and* is the pipe operator ( **%\>%** ), and the *match* is the **%in%** operator.
+
+If we wanted to look for more than one name, we'd change the syntax to use a 'combine' command ( c ), with the values comma-separated.
+Let's try that with babynames and the Beatles.
+
+```{r, babynames_beatles2}
+  babynames %>% 
+  filter(name %in% c('Ringo', 'Paul', 'George', 'John')) 
+
+```
+
+Now we get a ton of results - far too many to show on the screen.
+
+## Visualizing
+
+That's where data visualization comes in: it's often impossible to even *see* your results from big data without plotting it into a visual, summarized form.
+Our visualization package is called *ggplot2*, and it's amazingly straightforward to use, once you get used to its syntax:
+
+ggplot(data, aes(x,y)) + geometry()
+
+Huh?
+
+Well, our function (think: verb) is 'ggplot().' Inside that, we define our 'aesthetics' (aes) for the visualization, which has its own set of parentheses.
+Inside the aesthetics, we define the columns we want to use for the x and y axes, and finally we define the type of geomtry our visualization will use, such as a bar chart ( geom_col() ), scatterplot ( geom_point() ), or line chart ( geom_line() ), for instance.
+
+Like most things in R and the Tidyverse, it's easier to make sense of ggplot() through examples:
+
+```{r, babynames_ggplot1}
+
+babynames %>% 
+  filter(name %in% 'Ringo') %>% 
+  ggplot(aes(year, prop)) + geom_line()
+
+```
+
+To review, we take 'babynames,' *and* filter so the name *includes* 'Ringo;' We then *plot* by setting the *aesthetics* to use the 'year' and 'prop' columns of our dataset; our plot will be a line chart.
+
+Learning by example often raises as many questions as it answers, so I'll try to address those as we go along.
+
+Let's take this one step further:
+
+```{r, babynames_ggplot2}
+
+babynames %>% 
+  filter(name %in% c('Ringo', 'John', 'George', 'Paul')) %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+
+```
+
+That looks really weird!
+Why?
+In summary, becuase there is a 'Sex' column in the data.
+So, for any year - say, 1974 - there are 4 male Ringo's, and zero female Ringo's - ggplot is trying to plot both the 4 and 0 values on the same vertical axis.
+
+Therefore, our solution is to filter out one sex:
+
+```{r, babynames_ggplot3}
+
+babynames %>% 
+  filter(name %in% c('Ringo', 'John', 'George', 'Paul')) %>% 
+  filter(sex %in% "M") %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+
+```
+
+That's much better - but what happened to Ringo?
+
+The other names are so much more popular that his: he doesn't show up until 1964, and the *proportion* of people born per year with that name is very low in comparison to, say, 'George.'
+
+Let's try filtering the 'year' column in order to have our ggplot 'zoom in' on the Ringo section.
+
+```{r, babynames_years}
+
+babynames %>% 
+  filter(name %in% c('Ringo', 'John', 'George', 'Paul')) %>% 
+  filter(sex %in% "M") %>% 
+  filter(year > 1964) %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+
+
+
+```
+
+This visualization is more limited, but somewhat more equitable - it starts around the time the Beatles became popular, but ignores the previous popularity of some of the names (John, Paul, George).
+
+Another question arises: why are we plotting 'prop?'
+what about 'n?'
+
+```{r, babynames_n}
+
+babynames %>% 
+  filter(name %in% c('Ringo', 'John', 'George', 'Paul')) %>% 
+  filter(sex %in% "M") %>% 
+  filter(year > 1964) %>% 
+  ggplot(aes(year, n, color = name)) + geom_line()
+
+
+
+```
+
+The results are very similar for 'n' as they were for 'prop.' Let's take an example name where that's *not* the case:
+
+```{r, babynames_n2, out.width=c('50%', '50%'), fig.show='hold' }
+
+babynames %>% 
+  filter(name %in% "Mary") %>% 
+  filter(sex %in% "M") %>% 
+  filter(year < '1940') %>% 
+  ggplot(aes(year, prop)) + geom_line()
+
+babynames %>% 
+  filter(name %in% "Mary") %>% 
+  filter(sex %in% "M") %>% 
+  filter(year < '1940') %>% 
+  ggplot(aes(year, n)) + geom_line()
+
+# you can also try 'Joseph' and 'M'
+
+```
+
+Note that n is a *simple count of names per year*, whereas prop is a calculation: *total number of people given that number in a given year, divided by the total number of births*.
+So when there are fewer names in the database, the difference between n and prop is more obvious.
+That'd be in the early years of the babynames dataset, when biblical names like Mary and Joseph were much more common relative to *all* of the names.
+Since then, there are just *more* names, meaning the prop of the most common names of long ago have nearly all gone down in prop - even if their n value is increasing.
+
+```{r babynames_count_hidden,  class.source = 'fold-hide'}
+ # note that we have not learned how to do this yet:
+
+ babynames %>% 
+    group_by(year) %>% 
+    summarize(total = n_distinct(name)) %>% 
+    ggplot(aes(year, total)) + geom_line() +
+  xlab('Year') + ylab('Count of Unique Names')
+  
+```
+
+Now that we have all of this information, we can try to answer specific questions.
+Let's start with some basic ones - try to answer them on your own if you can.
+
+<ul>
+
+<li>
+
+What was the most popular name in the first year of the database, 1890?
+
+```{r, babynames_cs1}
+babynames %>% 
+  filter(year == "1890")
+
+```
+
+But then what?
+Any why two '=' symbols?
+
+## Syntax
+
+Let's start with '==.' In R, you can create variables, and one way to do this is with a single '=' symbol:
+
+```{r babynames_equals1}
+x = 10
+```
+
+In the case of babynames, we're not aiming to create a variable - we just want to limit the data to only include entries in the year 1890 - so we need to use two '=' symbols to differentiate from making a variable.
+Two '=' symbols *tests to see if values are equal*.
+
+Also, in this textbook we will be using the arrow function to create variables, because it works in two directions:
+
+```{r, babynames_equals2}
+x <- 10
+10 -> x
+```
+
+Way more useful than '=.'
+
+So, to review, we'll use the arrow -\> operator in lieu of the '=' symbol, but we'll still use '==' in order to filter our data based on specific conditions, like *the year equals 1890.*
+
+## Creating Variables
+
+Let's take the entire *babynames* dataset and create a sub-set of the data that only incudes entries from the year 1890, using a variable:
+
+```{r, babynames_var1}
+babynames %>% 
+  filter(year == "1890") -> babynames_1890
+
+```
+
+Note that all of our variables, or columns, are *lowercase* - everything is, except the babynames themselves.
+R will not detect your mistake if you *lowercase* a *name* or *Uppercase* a *Column*.
+
+Now we have a variable equal to a subset of our data, and we can see its contents by typing its name: babynames_1890.
+
+That makes things much easier, if that's the only year we want to look at - but we'll have to plot our graphs differently.
+
+## Modifying Data
+
+Let's begin with the arrange() function, which does as it sounds - we'll tell it to arrange in *descending* order of prop:
+
+```{r, babynamaes_col1}
+babynames_1890 %>% 
+  arrange(desc(prop)) 
+```
+
+So, what was the answer to our question?
+Well, 'John' has the highest *proportion*, but Mary has the highest *count*.
+
+Why does Mary have a higher 'n' value, but a lower proportion - in the same year?
+Because 'prop' also takes sex into account, i.e. it counts the *proportion of each sex in each year that receives a given name.*
+
+Let's account for this somewhat confusing aspect to our data by splitting it up along the *variable* that is giving us a hard time: sex.
+
+But sex is the least of our problems, as we'll see.
+
+## Count
+
+Let's try by using a new function, count(), which does exactly what it sounds like.
+We can specify to *sort* the results; for some archaic reason, we have to write the words 'true' and 'false' in ALL CAPS:
+
+```{r, babynames_countx}
+babynames_1890 %>% 
+count(sex, sort = TRUE)
+```
+
+That's not very many names - less than 3,000 unique names in the U.S. in 1890.
+It's also notable there are more female names than male - not more women, just more variety in the names for females births.
+
+count() can be helpful, but note that it strips away all of the columns except the one we counted - and adds an 'n' column.
+But that's it - prop, count, name, year - all gone.
+More on count(later).
+
+Let's plot the *most* popular names of 1890 - but first, we have to cut them off, as 2,695 names is too many to plot:
+
+```{r, babynames_1890}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10)
+```
+
+We can plot ten names, easy:
+
+```{r, babynames_1890v2}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(name, prop)) + geom_col()
+
+```
+
+As a reminder, in *ggplot()* we define our *aesthetics* by specifying which columns will create the x- and y-axes.
+We then indicate the type of graph we want to make - in this case a column chart.
+
+Why not a line chart like before?
+Because line charts only work with *continous variables*, like *year.* In this case, we are only plotting the data from one year, so *year* is no longer something we can plot.
+We are plotting *name* and *prop*, which are *discrete variables.*
+
+What's the difference?
+To oversimplify, discrete variables can be *counted* - how many *Steve's* show up in *babynames*, for instance - and continuous variables are *measured*, like years, as well as temperature, wind speed, etc.
+
+So what is prop?
+Prop is a calculated variable, in that it's the result of an equation: the total number of births of a particular gender in a specific year, divided by the total number of instances of a particular name.
+In other words, we're *counting* things.
+So it's a discrete variable.
+
+We would make a line chart [ geom_line() ] when using a continuous variable, like year, as we did with the Beatles.
+In this case, plotting *name* and *prop* will make the most sense in a *column chart* (we usually call these *bar charts*, but ggplot's bar charts are a little trickier to plot than column charts, and we're aiming for easiness right now).
+
+Looking back at our chart's results, I would prefer the results in order or *prop*.
+Why didn't *arrange(desc(prop))* do that for us?
+Well, long story, but basically, regardless of how you reshape your data, ggplot() is going to need its own set of instructions for how to visualize it in a particular order.
+
+So arrange() doesn't work - we have to make the adjustment *inside* the ggplot() call:
+
+```{r, babynames_1890v3}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop)) + geom_col()
+
+```
+
+OK, that got pretty complicated.
+*Three* nested parentheses?
+Let's look at the offending line: originally, the 'aesthetics' of our ggplot() were:
+
+aes(name, prop)
+
+And we want to reorder the 'names,' based on 'prop:'
+
+reorder(name, prop)
+
+In other words, *italics* 'I want to reorder the names based on their proportion.'
+
+Let's put it back together:
+
+aes(reorder(name, prop), prop))
+
+And to see it in action:
+
+```{r, babynames_1890_v4}
+babynames_1890 %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop)) + geom_col()
+
+
+```
+
+<ul>
+
+<li>
+
+OK, but why is it in the wrong order?
+
+</ul>
+
+We just have to 'tell' ggplot() to reverse, or do the opposite of, the order it chose.
+We can use the minus sign for this:
+
+```{r, babynames_1890_v4b}
+babynames_1890 %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, -prop), prop)) + geom_col()
+
+
+```
+
+## More Aesthetics
+
+Let's add some color:
+
+```{r, babynames_1890v5}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, -prop), prop, color = "red")) + geom_col()
+
+```
+
+That didn't work the way it did for The Beatles!
+
+Of course, that was a line graph - geom_line() - and that line has a color.
+This time, 'color' is read as *stroke* or outline; *fill* controls our columns.
+Also, we need to move the *fill* command to *inside* the geometry:
+
+```{r, babynames_1890v6}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, -prop), prop)) + geom_col(fill = "blue")
+
+```
+
+Great.
+Now let's make the fill *based on the value of a column*:
+
+```{r, babynames_1890v7}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, -prop), prop, fill = name)) + geom_col()
+
+```
+
+OK, great.
+The names are all different colors because they are *discrete* data points, i.e. they are not measured - like 'prop:' We did this by setting our *fill* color to a variable - in this case, *name*.
+
+Since 'prop' is *measured*, or *discrete*, it is visualized as a range of a single color.
+
+This would all look better sideways:
+
+```{r, babynames_1890v9}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = prop)) + geom_col() + coord_flip()
+
+```
+
+That last line, connected to the geometry with a '+' symbol, tells ggplot to flip the coordinates of our plot 90 degrees.
+
+By the way, we could 'show' the anomaly about John and Mary having confusing 'n' and 'prop' values by adjusting our aesthetics - let's use fill:
+
+```{r, babynames_1890v10}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = n)) + geom_col() + coord_flip()
+
+```
+
+We'd mentioned earlier that the 'sex' column is complicating our use of 'prop' over 'n.' To account for this problem, we could color by sex:
+
+```{r, babynames_1890v11}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = sex)) + geom_col() + coord_flip()
+
+```
+
+One more ggplot() trick to change the way we visualize our data: making multiple graphs, based on a variable:
+
+```{r, babynames_1890v12}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = sex)) + 
+  geom_col() + 
+  coord_flip() +
+  facet_wrap(~sex)
+
+```
+
+What *facet_wrap* is trying to do is create multiple graphs based on one variable - in this case, Sex.
+
+That looks....
+terrible.
+Why?
+The function facet_wrap() is trying to use the same values, and the same scale, for each of the two graphs.
+Let's 'free' the y-axis to account for this discrepancy:
+
+```{r, babynames_1890v13}
+babynames_1890 %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = sex)) + 
+  geom_col() + 
+  coord_flip() +
+  facet_wrap(~sex, scales = "free_y")
+```
+
+Wow, that really changes things - weren't there more female than male names, when we used count() earlier?
+Sure, but while there may be more *variance* in female names in 1890, females only have two of the most common names.
+
+## Review
+
+OK, so now we can answer some other direct questions:
+
+<ul>
+
+<li>
+
+What were the most popular names in 2017, the most recent year of the database?\<
+/li\>
+
+</ul>
+
+How would we answer this?
+I find it's easiest to write our the process in English, then translate it to R and the Tidyverse:
+
+'Take babynames and filter it to only include entries from 2017.
+Then arrange the remaining entries in descending order of proportion.'
+
+In the Tidyverse:
+
+```{r, babynames_2017}
+babynames %>% 
+  filter(year == 2017) %>% 
+  arrange(desc(prop))
+```
+
+It looks like nearly 1% of American girls in 2017 were named 'Emma.' Olivia, Liam and Noah are also overwhelmingly popular.
+
+What about my name?
+My birth year?
+Just replace my values with yours:
+
+```{r, babynames_brian}
+babynames %>% 
+  filter(name %in% c("Brian", "Bryan")) %>% 
+  filter(sex == "M") %>% 
+  ggplot(aes(year, prop, color = name)) + 
+  geom_line()
+```
+
+```{r, babynames_1975}
+babynames %>% 
+  filter(year == 1975) %>% 
+  arrange(desc(prop)) %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop),prop, fill = sex)) + 
+  geom_col() + 
+  coord_flip()
+```
+
+<br /> I made the Top 10!
+(It's all been downhill since then)
+
+Some reminders:
+
+<ul>
+
+<li>We leave quotes off of the year, as it is numeric - only strings, or characters, get quotes.</li>
+
+<li>We make sure to reorder the data (based on popularity, or 'prop') before limiting it to the top 10 results.
+Otherwise, it could be organized alphabetically or something - and we'd be getting 10 names, but not the 10 most popular names.</li>
+
+<li>We have to reorder our name variable in the ggplot() to go in order of prop - even though we just reorganized the data this way 2 steps ago, ggplot() uses its own internal logic to organize the data.</li>
+
+<li>We have to plot as a bar chart, or column chart.</li>
+
+</ul>
+
+Why?
+
+Because line charts are for continuous variables, like year - not discrete ones, like 'name.' If you can measure it, it's continuous.
+If you can count it, it's discrete.
+ 
+
+<!--chapter:end:01-Intro.Rmd-->
+
+# Manipulating Data
+
+## Creating Subsetted Data
+
+I encourage you to play around with *babynames* and get more comfortable deliberately modifying data before continuing. Or, if you're getting sick of babies, you can use these tidyverse functions on any dataset. Let's try using one of R's built-in ones, **mtcars:**
+
+```{r, mtcars1}
+data(mtcars)
+View(mtcars)
+```
+
+The data is lots of older car performance statistics. Let's try comparing weight to mpg:
+
+```{r, mtcars2}
+mtcars %>% 
+  ggplot(aes(wt, mpg)) + geom_point()
+
+```
+
+geom_point() creates a *scatterplot*, but we can also see hints of an overall trend, or correlation here - so let's add that to the ggplot():
+
+```{r, mtcars3}
+mtcars %>% 
+  ggplot(aes(wt, mpg)) + geom_point() + geom_smooth()
+```
+
+Let's try adding color based on a variable:
+
+```{r, mtcars4}
+mtcars %>% 
+  ggplot(aes(wt, mpg, color = cyl)) + geom_point() + geom_smooth()
+```
+
+Great. On to mutate().
+
+## Mutate
+
+While *babynames* has five columns, or variables, to play with, some observations require creating a *calculated field* of content - essentially generating a sixth column, in the case of babynames, to show something already in the data but not made clear.
+
+*Babynames* does not have *rankings* of popular names for each year. Could we create that column? Sure! When we rearrange our data in descending order of prop, we have essentially created rankings based on row number- we just need to 'mutate' the data frame to show it.
+
+```{r, babynames_mutate1}
+babynames %>% 
+  filter(year == 2017) %>% 
+  arrange(desc(prop)) %>% 
+  mutate(rank = row_number()) 
+```
+
+That looks good! We can now save this new, mutated dataset:
+
+```{r, babynames_subsetting}
+babynames %>% 
+  filter(year == 2017) %>% 
+  arrange(desc(prop)) %>% 
+  mutate(rank = row_number()) -> babynames_2017_ranked
+
+```
+
+So mutate() creates a new column, and the values of that column are determined by some sort of calculation. Thus our code for mutate() declares the new column's *name* ('rank,' in this case), and the calculation ('row_number,' in this case).
+
+Let's try a practical use of mutate() by focusing on finding the most popular names of a particular *generation.*
+
+According to [Wikipedia]('https://www.wikipedia.cohttps://en.wikipedia.org/wiki/Silent_Generation'){target="_blank"}, the 'Silent Generation' were born between the years of 1928 and 1944:
+
+```{r, silent_gen1}
+silent_gen <- babynames %>% 
+  filter(year > 1927) %>% 
+  filter(year < 1945) 
+```
+
+Ok, we have sub-setted our data to only include the years of this generation. Let's further simplify things by only looking at female names of the Silent Generation - and also add a 'rank' column:
+
+```{r, silent_gen2}
+silent_gen %>% 
+  filter(sex =="F") %>% 
+  mutate(rank = row_number()) -> silent_gen_f
+
+```
+
+Ok, let's see some results - what are the most popular female names of the Silent Generation? Let's enhance the plot by adding a geom_text() object that fills in each name's rank in its corresponding bar:
+
+```{r, silent_gen3}
+silent_gen_f %>% 
+  head(10) %>% 
+  ggplot(aes(reorder(name, prop), prop, fill = "red")) + geom_col() +
+  coord_flip() +
+  geom_text(aes(label = rank, hjust = 3))
+
+```
+
+It appears that Mary is the most popular name during this period. But wasn't Mary popular back in 1890? Let's look at these 10 names over time:
+
+```{r, silent_gen4}
+babynames %>% 
+  filter(name %in% c("Mary", "Barbara", "Betty", "Doris", "Dorothy", "Helen", "Margaret", "Ruth", "Shirley", "Virginia")) %>% 
+  filter(sex =="F") %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+```
+
+It appears that Mary is the most popular name for a very long time, gradually waning as more and more unique names get added to the database every year (therefore decreasing its proportion). Unlike the other 9 names, it definitely doesn't peak during this generation - so let's remove it.
+
+```{r, silent_gen5}
+babynames %>% 
+  filter(name %in% c("Barbara", "Betty", "Doris", "Dorothy", "Helen", "Margaret", "Ruth", "Shirley", "Virginia")) %>% 
+  filter(sex =="F") %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+```
+
+That looks much better! What is that one name that is peaking like crazy right in the middle?
+
+```{r, silent_gen6}
+babynames %>% 
+  filter(name %in% "Shirley") %>% 
+  filter(sex =="F") %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line()
+```
+
+Wow! What could we possibly blame this on? The popularity of Shirley Temple? There's no way to quantitatively measure that, even if we think it to be true.
+
+## Group_by , Summarize()
+
+Similar to creating a pivot table, the summarize() command reshapes your data by creating an *entirely new dataset* based on the parameters you specify. It is often used with the function *group_by()*. How is this useful, and how is it different from *mutate?*
+
+An example will help. If we look at most popular names of the Silent Generation, we see a lot of names repeated:
+
+```{r, silent_gen7}
+silent_gen_f %>% 
+  arrange(desc(prop)) %>% 
+  head(10)
+```
+
+If we want to count the *total number of instances* of each name over time, we'd have to use group_by() and summarise(), as well as *n_distinct()*, which counts the *number of unique instances* of a variable.
+
+In other words, if we want to see *how many instances of each name there were per year*, and plot it, we need to use *summarize():*
+
+```{r, summ1}
+babynames %>% 
+  group_by(year) %>% 
+  summarise(name_count = n_distinct(name)) -> distinct
+
+View(distinct)
+
+ggplot(distinct, aes(year, name_count)) + geom_line() 
+  
+```
+
+Note that, unlike mutate(), summarize() removes *all* of our dataframe's columns except the ones we specify we want to look at in both summarize() and group_by(). So if we want to 'keep' a variable in order to later visualize it, we have to add it to the group_by() function:
+
+```{r, summ2}
+babynames %>% 
+  group_by(year, sex) %>% 
+  summarise(name_count = n_distinct(name)) -> distinct
+
+ggplot(distinct, aes(year, name_count)) + geom_line() +
+facet_wrap(~sex)
+  
+```
+
+Summarize() is the most challenging of the basic *dplyr* functions, so don't be discouraged if you struggle with it! Again, if already familiar with the concept of a *Pivot Table*, summarize() is basically the same, but in programmatic form: select the columns you wish to compare, strip away the rest of the data, and give me a simplified dataframe that can be visualized.
+
+When do you know to use summarize() instead of mutate()? Well, think of mutate as making a *calculated field*, adding a column to your dataframe - and summarize() as making a pivot table, stripping away most of your data to look at only a handful of columns in a new way. In the case of *babynames*, it's clearly an appropriate time to use summarize() when you see the same name repeated over and over again in your results. We will revisit both techniques.
+
+<hr />
+
+Playing with the *babynames* dataset allows us to learn basic data manipulation and visualization, while avoiding other important topics, such as loading data files into R or doing basic statistical calculations - which we will get into shortly. In the meantime, play around with *babynames* and try to answer specific questions, such as:
+
+<ul>
+
+<li>What generation saw the most births in the 20th Century?</li>
+
+<li>How have 'virtue names,' like 'Charity,' 'Temperance,' or 'Faith' fared in babynames: are they more or less popular now than in the past?</li>
+
+<li>What are the *total number of names* per year, and is this total increasing or decreasing?</li>
+
+</ul>
+
+## Working with Strings
+
+```{r}
+library(babynames)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+```
+
+Stringr is a package in the *tidyverse* that deals with, well, strings. What are strings? Anything in your data frame that is text- or character-based. So, in the case of *babynames*, that'd be *Name* and *Sex -* Year, Prop and N are not strings.
+
+Stringr allows for string manipulation across your entire dataset. If, for instance, we had a column of character data that repeatedly mis-spelled a name: *Bryan* instead of *Brian*, say - stringr could change every instance of *Bryan* into *Brian* in one line of code.
+
+Let's start playing around with stringr by creating a *variable* that is equal to a string:
+
+```{r, stringr1}
+library(stringr)
+
+sentence <- c("hello", "this is a long sentence", NA)
+```
+
+Here are some functions from the stringr package that we can use to manipulate this sentence.
+
+<ul>
+
+<li>How many characters are there in the string?</li>
+
+```{r, stringr1b}
+str_length(sentence)
+```
+
+<li>Let's replace every instance of 'l' with 'x'</li>
+
+```{r}
+str_replace(sentence, "l", "X")
+```
+
+Okay, now let's create a new string that is a *list* of character strings:
+
+```{r, stringr 1c}
+
+list <- c("Apple", "Banana", "Pear")
+
+```
+
+Let's use str_sub to 'pull out' the first character of the string:
+
+```{r, stringr 1d}
+str_sub(list, 1,1)
+```
+
+What just happened? We told R to only grab the first character. Can we grab the first three characters?
+
+```{r, stringr 1e}
+str_sub(list, 1,3)
+```
+
+Let's adjust the string's content so each fruit is written entirely in lower case:
+
+```{r, stringr 1f}
+str_to_lower(str_sub(list))
+```
+
+We can also use stringr to detect specific words or phrases:
+
+```{r, stringr 1g}
+str_detect(list, "Pear")
+```
+
+R returns the position of "Pear" in the list.
+
+### Practical Applications of Stringr
+
+Let's apply more Stringr concepts to a body of text. Where could we find text? How would we get text into R?
+
+One way would be a 'web scrape' - programmatically grabbing all the relevant text off of a page, or a series of pages - think Amazon product reviews.
+
+Another would be to import a body of text, like a .txt file, into R, and then break it up into individual words - more on this in the next chapter.
+
+A third way would be to use data included in an R package. More commonly, packages give you *access* to online datasets too large to download (Spotify, The New York Times, etc.). This technique, of selectively downloading relevant data from a much larger, online database, is the basis for the concept of an 'API.' [*Application Programming Interface*, if you're wondering.] Many websites also use APIs, with downloadable files for analysis.
+
+So as to avoid any complication, let's hold off on accessing an API until we cover Twitter, and continue to use the *babynames* dataset for now; then we can move on to analyzing lyrics, political speeches, and great works of literature.
+
+A snippet of *Base R* here, rather than the *tidyverse*: if we want to specify a *column* in our dataset, we write the name of the dataset or variable, then the dollar sign, then the name of the column:
+
+```{r, class.output="scroll-300"}
+babynames$name
+
+```
+
+Let's use str_detect() to find all of the names that include a 'sh' sound:
+
+```{r, include = FALSE}
+str_detect(babynames$name, "Sh")
+```
+
+As you see, str_detect() runs as a *boolean operator*, in that it ascribes a *TRUE* or *FALSE* value for each entry in the column, based on our conditional statement: is there a 'sh' in the character string?
+
+Let's combine our previous experience with ggplot to write a long, complicated set of code that will visualize the *most popular names starting in 'Sh' for women born in 1938:*
+
+```{r}
+babynames %>% 
+  filter(str_detect(name, "Sh") & sex=="F" & year == 1938) %>% 
+  arrange(desc(prop)) %>% 
+  head(20) %>% 
+  ggplot(aes(reorder(name,prop),prop,  fill = name)) + 
+  geom_col() +
+  coord_flip()
+```
+
+Let's fancy that up a bit, by calculating a 'percentage' of use of that name per year / per gender:
+
+```{r}
+babynames %>% 
+  filter(str_detect(name, "Sh") & sex=="F" & year == 1938) %>% 
+  arrange(desc(prop)) %>% 
+  head(20) %>% 
+  mutate(percent = (prop * 100)) %>% 
+  ggplot(aes(reorder(name,percent),percent,  fill = name)) + 
+  geom_col() +
+  coord_flip()
+```
+
+how many 'z' names since 2000?
+
+```{r}
+babynames %>% 
+  filter(year > 2000 & str_detect(name, "Z")) %>% 
+  arrange(desc(prop))
+```
+
+Why did R only pull out the names starting with Z? Because we capitalized it. How do we get both?
+
+```{r}
+    babynames %>% 
+      mutate(Z = str_count(babynames$name, "[zZ]")) %>% 
+      arrange(desc(prop))
+```
+
+Instead of arranging our data by name popularity, let's look at the names with the *most* z's in them:
+
+```{r}
+    babynames %>% 
+      mutate(Z = str_count(babynames$name, "[zZ]")) %>% 
+      arrange(desc(Z))
+```
+
+What if, instead of specifying a particular letter, we just wanted to count the most frequent first letters in names?
+
+```{r}
+    babynames %>% 
+      mutate(first_letter = substr(name, 1,1)) -> baby_letters
+```
+
+Let's plot that:
+
+```{r}
+    baby_letters %>% 
+      count(first_letter, sort = TRUE) %>% 
+      ggplot(aes(reorder(first_letter, n),n)) + 
+      geom_col() +
+      coord_flip()
+```
+
+We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?
+
+```{r}
+    babynames %>% 
+      mutate(length = str_length(name)) -> babynames_length
+```
+
+## Average name length over time
+
+Now, if we want to see the average length of a names over time, the code gets a little mroe advanced - note the *mean* function we haven't used like this before:
+
+```{r}
+    babynames_length %>% 
+      group_by(year) %>% 
+      summarise_at(vars(length), funs(mean(.))) %>% 
+      ggplot(aes(year, length)) + geom_line()
+```
+
+The results are impressive. Let's split them up by Sex:
+
+```{r}
+    babynames_length %>% 
+      group_by(year, sex) %>% 
+      summarise_at(vars(length), funs(mean(.))) %>% 
+      ggplot(aes(year, length, color = sex)) + geom_line()
+```
+
+## Revisiting summarize()
+
+As mentioned in the last Chapter, summarize() is confusing. In the case of babynames, you'll know to use it when you keep getting the same results over and over, and you want to group those names together. Let's take a look at this issue by calculating the most common 3-letter names:
+
+```{r}
+    babynames_length %>% 
+      filter(length == 3) %>% 
+      arrange(desc(prop))
+```
+
+We get a lot of repeated names. Time to summarize!
+
+```{r}
+    babynames_length %>% 
+      filter(length == 3) %>% 
+      group_by(name) %>% 
+      summarise(total = sum(n) ) %>% 
+      arrange(desc(total))
+```
+
+Let's try that again, with 2-letter names:
+
+```{r}
+
+    babynames_length %>% 
+      filter(length == 2) %>% 
+      group_by(name) %>% 
+      summarize(total = sum(n)) %>% 
+      arrange(desc(total)) 
+```
+
+What is the longest name?
+
+```{r}
+    babynames_length %>% 
+      arrange(desc(length))
+```
+
+How many 15 letter names are there?
+
+```{r}
+    babynames_length %>% 
+      filter(length == 15) %>% 
+      count(name, sort = TRUE)
+```
+
+Let's plot those names:
+
+```{r}
+    babynames %>% 
+      filter(name %in% c("Christopherjohn","Johnchristopher","Christopherjame","Franciscojavier", "Christophermich", "Ryanchristopher","Christianjoseph", "Christopherjose", "Jonathanmichael", "Mariadelosangel"  
+      )) %>% 
+      ggplot(aes(year, prop, color = name)) + geom_line() 
+```
+
+By the look of these names, it's clear that most of them are actually *longer* than 15 characters - but 15 characters is the cut-off point for the column. Thus, we cannot accurately estimate the most common 15-letter names.
+
+Along similar lines, an analysis of the methodology behind *babynames* shows that only names that have *at least 5 instances in a given year* are recorded. So it'd be similarly futile for us to attempt to measure the *rarest* names, as they are excluded in the database. (It also helps clarify why some rarer names seem to 'disappear' in certain years.)
+
+## Additional Functions
+
+OK, what else can stringr do?
+
+How about the average number of vowels per name?
+
+```{r}
+ str_count(babynames$name, "[aeiou]")
+```
+
+That's a lot of numbers. Let's calculate a mean value instead:
+
+```{r}
+ mean(str_count(babynames$name, "[aeiou]"))
+```
+
+How about consonants?
+
+```{r}
+     mean(str_count(babynames$name, "[bcdfghjklmnpqrstvwxyz]"))
+```
+
+Example ideas for further exploration:
+
+How many names contain 'liz' in them?
+
+```{r}
+    babynames %>% 
+      filter(str_detect(babynames$name, "liz") )  %>% 
+      count(name, sort = TRUE) %>% 
+      head(20) %>% 
+      ggplot(aes(reorder(name, n),n)) + geom_col() + 
+      coord_flip()
+```
+
+## Case Study: Born Without A (Proper) Name
+
+There are a number of names in the database that are totally anonymous. When, and why?
+
+```{r}
+babynames %>% 
+  filter(name %in% c("Unknown", "Unnamed", "Infant", "Infantof", "Notnamed", "Baby")) %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line() + facet_wrap(~sex)
+```
+
+Let's compare this to the number of unique names per year:
+
+```{r}
+babynames %>% 
+  group_by(year) %>% 
+  summarize(annual = n_distinct(name)) %>% 
+  ggplot(aes(year, annual )) + geom_line()
+```
+
+*Babynames* also includes a data set called births, that simply lists out the total number of births per year:
+
+```{r}
+data(births)
+ggplot(births, aes(year, births)) + geom_line()
+```
+
+Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year.
+
+<!--chapter:end:02-Manipulating_Data.Rmd-->
+
+# Basic Statistics 
+
+This chapter uses data from Google Analytics’ channels report, which demonstrates how much of traffic is coming from specific paid versus unpaid channels, as well as data from social listening of #BlackLivesMatter and #StopAsianHate on Twitter to illustrate not only descriptive statistics that describe the properties of sample and population data but also inferential statistics for testing hypotheses and drawing conclusions regarding the relationships between variables. 
+
+Specifically, we are going to introduce the fundamentals of statistics that cover various aspects of analyzing a single variable, two variables, and three or more variables. 
+
+Let's import the Google Analytics’ channels report into RStudio.
+
+```{r}
+#You will need to install readxl package
+
+library(readxl) 
+
+my_data <- read_excel("google analytics sample data.xlsx") #Create a dataset and name it as my_data
+
+```
+
+Table 2.1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
+
+
+```{r}
+#You will need to install kableExtra package
+library(kableExtra)
+
+knitr::kable(head(my_data[,1:12], 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data'
+) %>%
+  kable_styling(font_size = 6.5)
+```
+
+See the bibliography at the end of the chapter for referral to the complete dataset that you can access and work with. 
+
+## Variables & Levels of Measurement 
+
+In a dataset, the columns identify the variables that represent certain qualities of individuals. Any quality that can vary can be considered a variable. Variables can take on different values or attributes. An attribute is a specific value on a variable. For example, gender might be a variable that we are interested in, and the attributes of gender could be male, female, transgender, and non-binary. 
+
+We use levels of measurement to describe how precisely variables are recorded. There are four levels of measurement: nominal, ordinal, interval, and ratio representing the transition from analyzing qualitative to quantitative data. 
+
+### Nominal Data  
+
+Nominal data is used to label variables. Gender, nationality, race, and ethnicity are a few of the most common examples of nominal data. It can only be categorized based on qualitative differences and there are no orderings or directions among different categories. We only know that males and females have qualitative differences in terms of gender, but we cannot tell how much they differ, nor could we sort individuals based on their gender. We can still assign numbers to different attributes of nominal variables (e.g., we can assign 1 to females and 2 to males, or vice versa), but the numbers only serve as labels that lack numerical values.
+
+For the dataset of Google Analytics from Google Merchandise Store (Table 1), the variable **Channel** is measured at the nominal level, and it indicates the channel through which traffic got to Google Merchandise Store. *Organic Search* indicates visits from unpaid search results. *Direct* indicates visits where users navigated directly to the URL, or the source of the visit is unknown. *Referral* indicates traffic where users clicked a link from another site, excluding major search engines. *Display* indicates traffic from display advertising, such as Google AdWords remarketing campaigns. *Social* indicates visits from social networks (Facebook, Twitter, etc.). *Paid Search* indicates traffic from the PPC (Pay Per Click) campaigns run in search results. 
+
+Since each variable should be exhaustive to include all the possibilities, for the variable of Channel, the attribute “*Other*” is assigned referring to traffic from an un-identified channel. All these different channels through which a user reaches our website are different attributes our channel variable can have. 
+
+### Ordinal Data
+
+Ordinal data also can be categorized, but there are rankings or orderings or scaling between categories. The ordinal measurement has been widely used to analyze variables such as education level (e.g., “high school,” “BS,” “MS,” “Ph.D.”), income level (e.g., “less than 50K,” “50-100K,” “over 100K”), and socioeconomic status (e.g., “lower class,” “middle class,” and “upper class”). 
+
+For the dataset of Google Analytics from Google Merchandise Store (Table 2.1), the variable **Age** is also ordinal, and it refers to the age group of the users. For such ordinal variable, we can turn it into quantitative by assigning numerical values to different categories. 
+
+For example, Age can be defined as having six attributes:1 = 18-24; 2 = 25-34; 3 = 35-44; 4 = 45-54; 5 = 55-64; 6 = 65+. There is a logical ordering among the different age groups, in a way that whoever answers “6” is older than individuals who answer “5” to this question. However, we cannot precisely tell the differences between the two groups because each attribute covers a wide range, and the ranges of different attributes are of different sizes.
+
+### Interval Data 
+
+Interval data refers not only to the classification and ordering of data but also specifies that the distances between every two adjacent attributes on a scale are equal. For interval data, the difference between two values is meaningful, but there is no true zero point or fixed beginning, which refers to a scale where 0 indicates the absence of something. 
+
+The most popular example is the temperature in degrees Fahrenheit or Celsius. The difference between 90 degrees F and 80 degrees F is the same difference between 70 degrees F and 60 degrees F; however, when it comes to 0 degrees F, we cannot say that temperature no longer exists. For interval measures, the value 0 does not mean the absence of this variable; rather, it is just an arbitrary setting that we have agreed upon. 
+
+Another example of interval data is year. For year, 0 does not represent the missing value but indicates the year when Christ was born, and the time before 0 is given the prefix BC. If you were born in the year of 2005 and I was born in the year of 2000, we know that I will be five years older than you. 
+
+For the dataset of Google Analytics from Google Merchandise Store (Table 2.1), the only interval variable is **Year**, indicating the year of each observation. 
+
+### Ratio Data
+
+For ratio data, the difference between two values is also meaningful, and it has a true zero, indicating the absence of such variable. Media consumption is a great example of ratio data. Media consumption can be measured in days, hours, or minutes a person exposes him/herself to media content. If a person has zero media consumption, that means this person does not consume media at all; in other words, to this person, media consumption is absent. 
+
+For ratio data, zero is the starting point, and the distance between two adjacent values is the same. In addition, it makes sense to calculate the ratio of different values: If you have six hours of media consumption and I only have three hours, then we can say that you consume twice as much media as I do. 
+
+Table 2.1 has six ratio variables. **Sessions** are the total number of sessions within the date range. A session is the period time a user is actively engaged with the website of Google Merchandise Store. **Users** are the number of users who have initiated at least one session during the date range, with the value of zero representing no such user exists. **New Users** are the number of first-time users during the selected date range. **Transactions** are the number of completed purchases on Google Merchandise Store. **Ecommerce Conversion Rate** refers to the E-commerce conversion rate that is the percentage of sessions that resulted in an e-commerce transaction. **Revenue** refers to the revenue of the completed purchases. If the revenue from the display channel is 0, that just means there is no income produced by the display Ads. 
+
+What you can do to analyze your data may be limited due to the level of measurement of the variable. The complexity and precision of the level of measurement increase from nominal to ratio. For the ratio level of measurement, we can not only add numbers or subtract numbers but calculate the ratio of two numbers. For example, if the revenue from the organic search channel is 8k and from the paid search is 4k, then the revenue generated from organic search is twice as much as the revenue from paid search.
+
+The rows in a spreadsheet are closely associated with the unit of analysis, which is one of the most important ideas in a research project and the major entity that you are analyzing in your study. You will need to determine the unit of analysis since it determines the analysis you do for your research. 
+
+For instance, if you are comparing the e-commerce performances (e.g., User, Sessions, Transactions, Revenues, ECR) of different channels, the unit of analysis is each individual channel. If you are comparing the e-commerce performance of different age groups, the unit of analysis is each age group. If you are comparing the e-commerce performance of different channels and age groups, the unit of analysis is each individual channel at each age group.
+
+## Statistical Analyses of a Single Variable 
+
+After defining your research questions and the related unit(s) of analysis, and levels of measurement, we may start the data analysis journey by conducting a statistical analysis of a single variable. 
+
+### Frequency Distribution 
+
+The easiest thing we can do is to count the number of times an event or a value occurs for the variable(s) of our choice, and this is called Frequency analysis. We can aggregate individual observations of a variable into groups so that a frequency distribution of these groups can serve as a convenient means of summarizing or describing our data. 
+
+We are going to use the **dplyr** package to count the aggregated transactions by channel and age groups.
+
+```{r}
+#Frequency and grouped frequency analysis
+#You will need to install dplyr package
+library(dplyr)
+
+Transaction_Frequency_Channel <- my_data %>% 
+  group_by(Channel) %>% 
+  summarise(Frequency = sum(Transactions))
+
+Transaction_Frequency_Age <- my_data %>% 
+  group_by(Age) %>% 
+  summarise(Frequency = sum(Transactions))
+```
+
+Table 2.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store. 
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Transaction_Frequency_Channel, desc(Frequency))), 
+    head(arrange(Transaction_Frequency_Age, desc(Frequency)))), 
+  booktabs = TRUE,
+  caption = 'Grouped Transaction Frequency for Channel and Age'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+### Percentage Change
+
+Here, we can also use the grouped frequency analysis to compare the revenue from each channel between 2020 and 2021 to assess the dynamic changes of each channel. 
+
+```{r} 
+
+#Creat a subset for year 2020 and year 2021
+
+my_data_2020 <- my_data %>% filter(Year == 2020)
+my_data_2021 <- my_data %>% filter(Year == 2021)
+
+Revenue_Frequency_2020 <- my_data_2020 %>% 
+  group_by(Channel) %>% 
+  summarise(Revenue = sum(Revenue))
+
+Revenue_Frequency_2021 <- my_data_2021 %>% 
+  group_by(Channel) %>% 
+  summarise(Revenue = sum(Revenue))
+
+```
+
+As illustrated in Table 2.3, the direct channel created the most revenues in both 2020 and 2021. When you have such data for two points in time, you can calculate how much change there has been over this period. The result is expressed as a percentage in absolute numbers and is called the percentage change or the rate of change. Here is the formula: **Percentage Change = [(Number at later time / Number at earlier time) - 1] × 100%**. 
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Revenue_Frequency_2020, desc(Revenue))), 
+    head(arrange(Revenue_Frequency_2021, desc(Revenue)))), 
+  booktabs = TRUE,
+  caption = 'Grouped Revenue in 2020 and 2021'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+For example, from Table 2.3, in 2020, the revenue generated from the paid search channel was $1975.93. And in 2020, the revenue generated from the paid search channel was 29908.18. The percentage change of revenue from the paid search channel from 2020 to 2021 is then calculated as follows: **[(29908.18/ 1975.93)-1] x 100%= 1413.62%**, meaning that from the year of 2020 to the year of 2021, the revenue generated from the paid search channel increased by 1413.62%. 
+
+### Relative Frequency
+
+For the frequency analysis, we also can count how often something happens divided by all outcomes, which is called the relative frequency analysis. For example, from Table 3, the revenue from the organic search channel in 2020 is $4,628.44, and the total revenue in 2020 is the sum of revenue from all channels, which is $34422.26.The relative revenue from the organic search channel is 4,628.44/34422.26 = 13.44%, indicating 13.44% of the revenue in 2020 was from the organic search channel. We can use the codes below to get the relative revenue for each channel in 2020 and 2021 (Table 2.4).
+
+```{r}
+Revenue_Relative_Frequency_2020 <- my_data_2020 %>% 
+  group_by(Channel) %>% 
+  summarise('Revenue_Percentage' = sum(Revenue)/sum(my_data_2020$Revenue))
+
+Revenue_Relative_Frequency_2021 <- my_data_2021 %>% 
+  group_by(Channel) %>% 
+  summarise('Revenue_Percentage' = sum(Revenue)/sum(my_data_2021$Revenue))
+
+```
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Revenue_Relative_Frequency_2020, desc(Revenue_Percentage))), 
+    head(arrange(Revenue_Relative_Frequency_2021, desc(Revenue_Percentage)))), 
+  booktabs = TRUE,
+  caption = 'Grouped Revenue in 2020 and 2021'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+### Percentage Points
+We can use the term “percentage points” to compare two different percentages at two points in time. The best way to explain this is through an example: from Table 2.4, in 2020, the share of revenue from the Paid Search channel was 5.74%. In 2021, the share of revenue from the Paid Search channel was 3.12%. The difference of these two percentages is calculated in percentage points: 3.12 % - 5.74 % = -2.62%. This means that the share of revenue from Paid Search channel in 2021 was almost three percentage points lower than the share of revenue from the Paid Search channel in 2020.
+
+### Rate
+
+In data analysis, some variables, such as the ECR (e-commerce conversion rate from Table 2.1), are too small to visualize. Under such circumstances, we can represent the percentage as rate by converting the small proportions to a whole number with one, two, or three digits on a base of some multiple of 1,000, 10,000, 100,000, or 1 million. 
+
+For example, from Table 2.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions. 
+
+We can use the r code below to add a column representing the Ecommerce Conversion Rate per 10,000 sessions for my_data.
+
+```{r}
+my_data$ECR <- my_data$`Ecommerce Conversion Rate`*10000
+```
+
+Now, the new column has been added to my_data as illustrated in Table 2.5.
+
+
+```{r}
+
+knitr::kable(head(my_data[,1:13], 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data'
+) %>%
+  kable_styling(font_size = 6.5)
+```
+
+### Ratio
+
+Ratio compares the size of two numbers indicating how many times one number contains another. For example, let's calculate the ratio of returning users and new users using the formula: **Number of Old Users / Number of New Users**. We first use the r code below to create a new column **old user (users - new users)**, then we use the **group_by** function to calculate the ratio fo returning users and new users for each channel. 
+
+```{r}
+#creating a new colunme of old users
+my_data$OldUsers <- my_data$Users-my_data$'New Users'
+
+userratio <- my_data %>% 
+  group_by(Channel) %>% 
+  summarise(OldUsers = sum(OldUsers), NewUsers = sum(`New Users`),Ratio = sum(OldUsers)/sum(`New Users`))
+```
+
+From Table 2.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.
+
+```{r}
+
+knitr::kable(
+    head(arrange(userratio, desc(Ratio))), 
+  booktabs = TRUE,
+  caption = 'The Ratio of Old Users and New Users for Each Channel'
+) %>%
+  kable_styling(font_size = 14)
+```
+### Central Tendency
+
+Besides using frequency analysis to summarize the distribution of a variable, we also can use the central tendency analysis to understand which attribute of a variable is most typical or representative of the variable distribution. Specifically, the central tendency analysis describes what the center of the data for a variable is. What do we mean by the center of the data? For many, the mean, median, and mode. Mean is the sum of all data points divided by the total number of observations. Median is the midpoint in data with an equal number of data points above and below. If the number of data points is even, then Median is the mean of the two midpoints. Mode is the data point that is most prevalent in the data set. It represents the most likely outcome in a data set. 
+
+Let’s first create a small dataset of test scores from 20 students.
+
+```{r}
+StudentID <- c(1:20)
+Score <- c(40,50,50,60,60,60,60,60,70,70,70,80,80,80,80,90,90,90,90,100)
+TestData <- data.frame(StudentID, Score)
+ScoreFrequency <- as.data.frame(table(TestData$Score)) # Calculate the frequency of each score
+colnames(ScoreFrequency) <- c("Score","Frequency")
+```
+
+Table 2.7 demonstrates the frequency of each score.
+
+```{r}
+
+knitr::kable(
+    head(arrange(ScoreFrequency)), 
+  booktabs = TRUE,
+  caption = 'Frequency of Test Scores from 20 Students', align = "l"
+) %>%
+  kable_styling(font_size = 16)
+```
+
+The mean score is the sum of all scores divided by 20. The related formula is: **(40x1 + 50x2 + 60x5 + 70x3 + 80x4 +90x4 + 100x1)/20 = 71.5**, meaning that the average score among these 20 students is 71.5. 
+
+When it comes to identifying the median value, we want to sort all individuals from the lowest value to the highest value, and whoever in the middle gives us the median value. But the problem is, we have 20 students in this sample, which is an even number, meaning that there will be two individuals in the middle (Table 2.8: student number 10 and number 11). For situations like this, we take the mean of these two individuals’ values to compute the **median: (70+70)/2 = 70** (Table 2.8). 
+
+```{r}
+
+knitr::kable(head(TestData, 20), booktabs = TRUE,
+  caption = 'A Small Dataset of Test Scores from 20 Students', align = "l"
+) %>%
+  kable_styling(font_size = 16)
+```
+
+We can easily identify the most frequent test score by looking into the score distribution visualization.
+
+```{r fig.align = 'center', fig.cap = "Distribution of Test Scores from 20 Students"}
+# You will need install ggplot2 package
+library(ggplot2)
+
+# Barplot
+ggplot(ScoreFrequency, aes(x=Score, y=Frequency)) + 
+  geom_bar(stat = "identity")
+
+```
+
+Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.
+
+Now we can use the code below to get the mean, median, and mode for the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data of the Google Merchandise Store. 
+
+```{r}
+#Calculate mean for each col
+mean_report <- my_data %>% 
+  summarise_if(is.numeric, mean)
+
+#Calculate median for each col
+median_report <- my_data %>% 
+  summarise_if(is.numeric, median)
+
+#Create the mode function
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+#Calculate mode for each col
+mode_report <- my_data %>% 
+  summarise_if(is.numeric, getmode)
+
+
+#combine the reports
+centerreport <- as.data.frame(rbind(mean_report, median_report, mode_report))
+rownames(centerreport) <- c("Mean","Median","Mode")
+centerreport <- centerreport[, -10]
+```
+
+```{r}
+
+knitr::kable(
+    head(arrange(centerreport)), 
+  booktabs = TRUE,
+  caption = 'Descriptive Statistics-mean,median,mode', align = "l"
+) %>%
+  kable_styling(font_size = 14)
+```
+
+It is interesting to find the huge discrepancies between different central tendency measurements. This also indicates reporting results of different central tendency analyses can provide a more comprehensive understanding of the data distribution. For example, the mean value of Users (5661) is much higher than the median (940) and mode (22), indicating a skewed data distribution due to the existence of some large-value outliers.
+
+**Weighted Mean** is a special mean where some data points contribute more than others. To calculate the weighted mean, we need to consider the weight for each data point. For example, we can calculate the weighted mean of the E-commerce Conversion Rate by taking the number of users as weight. The more users each data point has, the larger weight for its E-commerce Conversion Rate (ECR). In R, we can use the function of **weighted.mean** as below to get the weighted mean of the ECR of the Google Store:
+
+```{r}
+#Calculated the weighted mean for ECR
+weighted.mean(my_data$`Ecommerce Conversion Rate`, my_data$Users)
+
+```
+
+When taking the number of users into consideration, the weighted mean of the E-commerce Conversation Rate is almost 18 per 10,000 sessions, which is a bit higher than the normal mean, 11 per 10,000 sessions (Table above). This also indicates that the data points with high E-commerce Conversion Rates had more users than those with low rates.
+
+### Data Variation
+If two data sets have the same center points, does that mean they
+have the same data distribution? Let’s look at two small datasets:
+
+
+```{r}
+Score1 <- data.frame(c(110, 90,70,50,30))
+Score2 <- data.frame(c(75, 70,70,70,65))
+colnames(Score1) <- c("Score1")
+colnames(Score2) <- c("Score2")
+```
+
+```{r}
+
+knitr::kable(
+  list(
+    head(arrange(Score1, desc(Score1))), 
+    head(arrange(Score2, desc(Score2)))), 
+  booktabs = TRUE,
+  caption = 'Two Small Data Sets with the Same Mean and Median'
+) %>%
+  kable_styling(font_size = 14)
+```
+
+Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution. 
+
+**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 8, the mode for Session is 3787. But
+this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
+
+**Range** The worth of the median as a measure of central tendency is dependent
+on how narrowly scores are dispersed in the distribution. The **range** is the difference between the highest and lowest scores of a distribution. In our dataset, the range in class sizes is 237-17=220. As you can see, any ex treme score in a distribution, commonly referred to as an outlier, will greatly af fect the range. That much sensitivity is not desirable. 
+
+**Inter-ranges** A more stable set of measures, called inter-ranges, drop off a specified highest and lowest percentage of the cases. The most popular are the
+*inter-decile range*, *inter-quintile range*, and *inter-quartile range*. Deciles are
+tenths, quintiles are fifths, and quartiles are fourths. These inter-ranges drop off
+the highest and lowest 10%, 20% and 25% of the cases, respectively, and then calculate
+the range of the remaining cases.
+
+For example, the *inter-quartile* range for class size in our small dataset would
+drop off the highest one-fourth and lowest one-fourth of the 23 cases. Since onefourth
+of 23 is not an even number (23/4=5.75), we’ll round up and drop off the
+top six (237, 133, 124, 103, 97, 90) and bottom six cases (17, 19, 19, 22, 23, 25). Of
+the remaining scores, the range is 56 (83-27). It is proper to say, then, that the range of the middle 50% of the cases is 56. The median score, 40 in this case, remains, of course, at the center of these mid dle 50% of the cases.
+
+**Standard Deviation**
+Another term for analyzing data variance is Standard Deviation. It is a measure of the amount of variation in data, or simply put, it measures the extent to which your data is spread-out. It reflects the average squared distance from the mean.
+
+Suppose we have two variables: the first one contains five units whose values are 2, 3, 3, 3, 4; and the second one contains five units as well, with the values being 1, 2, 3, 4, 5. Although these two variables have the same mean value (Mean = 3), you can clearly see that the latter one is more spread-out than the first one, indicating a bigger standard deviation.
+
+### Case Study 
+
+
+<!--chapter:end:03-Basic_Statistics.Rmd-->
+
+# Text Analysis 
+
+## An Introduction to Stringr
+
+```{r}
+library(babynames)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+```
+
+Stringr is a package in the *tidyverse* that deals with, well, strings. What are strings? Anything in your data frame that is text- or character-based. So, in the case of *babynames*, that'd be *Name* and *Sex -* Year, Prop and N are not strings.
+
+Stringr allows for string manipulation across your entire dataset. If, for instance, we had a column of character data that repeatedly mis-spelled a name: *Bryan* instead of *Brian*, say - stringr could change every instance of *Bryan* into *Brian* in one line of code.
+
+Let's start playing around with stringr by creating a *variable* that is equal to a string:
+
+```{r, stringr1}
+library(stringr)
+
+sentence <- c("hello", "this is a long sentence", NA)
+```
+
+Here are some functions from the stringr package that we can use to manipulate this sentence.
+<ul><li>
+How many characters are there in the string?
+
+```{r, stringr1b}
+str_length(sentence)
+```
+
+<li>Let's replace every instance of 'l' with 'x'
+```{r}
+str_replace(sentence, "l", "X")
+```
+
+Okay, now let's create a new string that is a *list* of character strings:
+
+```{r, stringr 1c}
+
+list <- c("Apple", "Banana", "Pear")
+
+```
+
+Let's use str_sub to 'pull out' the first character of the string:
+
+```{r, stringr 1d}
+str_sub(list, 1,1)
+```
+
+What just happened? We told R to only grab the first character. Can we grab the first three characters?
+
+```{r, stringr 1e}
+str_sub(list, 1,3)
+```
+
+Let's adjust the string's content so each fruit is written entirely in lower case:
+
+```{r, stringr 1f}
+str_to_lower(str_sub(list))
+```
+
+We can also use stringr to detect specific words or phrases:
+
+```{r, stringr 1g}
+str_detect(list, "Pear")
+```
+
+R returns the position of "Pear" in the list.
+
+### Practical Applications of Stringr
+
+Let's apply more Stringr concepts to a body of text. Where could we find text? How would we get text into R?
+
+One way would be a 'web scrape' - programmatically grabbing all the relevant text off of a page, or a series of pages - think Amazon product reviews.
+
+Another would be to import a body of text, like a .txt file, into R, and then break it up into individual words - more on this in the next chapter.
+
+A third way would be to use data included in an R package. More commonly, packages give you *access* to online datasets too large to download (Spotify, The New York Times, etc.). This technique, of selectively downloading relevant data from a much larger, online database, is the basis for the concept of an 'API.' [*Application Programming Interface*, if you're wondering.] Many websites also use APIs, with downloadable files for analysis.
+
+So as to avoid any complication, let's hold off on accessing an API until we cover Twitter, and continue to use the *babynames* dataset for now; then we can move on to analyzing lyrics, political speeches, and great works of literature.
+
+A snippet of *Base R* here, rather than the *tidyverse*: if we want to specify a *column* in our dataset, we write the name of the dataset or variable, then the dollar sign, then the name of the column:
+
+```{r}
+babynames$name
+
+```
+
+Let's use str_detect() to find all of the names that include a 'sh' sound:
+
+```{r, include = FALSE}
+str_detect(babynames$name, "Sh")
+```
+
+As you see, str_detect() runs as a *boolean operator*, in that it ascribes a *TRUE* or *FALSE* value for each entry in the column, based on our conditional statement: is there a 'sh' in the character string?
+
+Let's combine our previous experience with ggplot to write a long, complicated set of code that will visualize the *most popular names starting in 'Sh' for women born in 1938:*
+
+```{r}
+babynames %>% 
+  filter(str_detect(name, "Sh") & sex=="F" & year == 1938) %>% 
+  arrange(desc(prop)) %>% 
+  head(20) %>% 
+  ggplot(aes(reorder(name,prop),prop,  fill = name)) + 
+  geom_col() +
+  coord_flip()
+```
+
+Let's fancy that up a bit, by calculating a 'percentage' of use of that name per year / per gender:
+
+```{r}
+babynames %>% 
+  filter(str_detect(name, "Sh") & sex=="F" & year == 1938) %>% 
+  arrange(desc(prop)) %>% 
+  head(20) %>% 
+  mutate(percent = (prop * 100)) %>% 
+  ggplot(aes(reorder(name,percent),percent,  fill = name)) + 
+  geom_col() +
+  coord_flip()
+```
+
+how many 'z' names since 2000?
+
+```{r}
+babynames %>% 
+  filter(year > 2000 & str_detect(name, "Z")) %>% 
+  arrange(desc(prop))
+```
+
+Why did R only pull out the names starting with Z? Because we capitalized it. How do we get both?
+
+```{r}
+    babynames %>% 
+      mutate(Z = str_count(babynames$name, "[zZ]")) %>% 
+      arrange(desc(prop))
+```
+
+Instead of arranging our data by name popularity, let's look at the names with the *most* z's in them:
+
+```{r}
+    babynames %>% 
+      mutate(Z = str_count(babynames$name, "[zZ]")) %>% 
+      arrange(desc(Z))
+```
+
+What if, instead of specifying a particular letter, we just wanted to count the most frequent first letters in names?
+
+```{r}
+    babynames %>% 
+      mutate(first_letter = substr(name, 1,1)) -> baby_letters
+```
+
+Let's plot that:
+
+```{r}
+    baby_letters %>% 
+      count(first_letter, sort = TRUE) %>% 
+      ggplot(aes(reorder(first_letter, n),n)) + 
+      geom_col() +
+      coord_flip()
+```
+
+We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?
+
+```{r}
+    babynames %>% 
+      mutate(length = str_length(name)) -> babynames_length
+```
+
+### Average name length over time
+
+Now, if we want to see the average length of a names over time, the code gets a little mroe advanced - note the *mean* function we haven't used like this before:
+
+```{r}
+    babynames_length %>% 
+      group_by(year) %>% 
+      summarise_at(vars(length), funs(mean(.))) %>% 
+      ggplot(aes(year, length)) + geom_line()
+```
+
+The results are impressive. Let's split them up by Sex:
+
+```{r}
+    babynames_length %>% 
+      group_by(year, sex) %>% 
+      summarise_at(vars(length), funs(mean(.))) %>% 
+      ggplot(aes(year, length, color = sex)) + geom_line()
+```
+
+### Common issue: (example: most common 3-letter names)
+
+As mentioned in the last Chapter, summarise() is confusing. In the case of babynames, you'll know to use it when you keep getting the same results over and over, and you want to group those names together. Let's take a look at this issue by calculating the most common 3-letter names:
+
+```{r}
+    babynames_length %>% 
+      filter(length == 3) %>% 
+      arrange(desc(prop))
+```
+
+We get a lot of repeated names. Time to summarize!
+
+```{r}
+    babynames_length %>% 
+      filter(length == 3) %>% 
+      group_by(name) %>% 
+      summarise(total = sum(n) ) %>% 
+      arrange(desc(total))
+```
+
+Let's try that again, with 2-letter names:
+
+```{r}
+
+    babynames_length %>% 
+      filter(length == 2) %>% 
+      group_by(name) %>% 
+      summarize(total = sum(n)) %>% 
+      arrange(desc(total)) 
+```
+
+What is the longest name?
+
+```{r}
+    babynames_length %>% 
+      arrange(desc(length))
+```
+
+How many 15 letter names are there?
+
+```{r}
+    babynames_length %>% 
+      filter(length == 15) %>% 
+      count(name, sort = TRUE)
+```
+
+Let's plot those names:
+
+```{r}
+    babynames %>% 
+      filter(name %in% c("Christopherjohn","Johnchristopher","Christopherjame","Franciscojavier", "Christophermich", "Ryanchristopher","Christianjoseph", "Christopherjose", "Jonathanmichael", "Mariadelosangel"  
+      )) %>% 
+      ggplot(aes(year, prop, color = name)) + geom_line() 
+```
+
+By the look of these names, it's clear that most of them are actually *longer* than 15 characters - but 15 characters is the cut-off point for the column. Thus, we cannot accurately estimate the most common 15-letter names.
+
+Along similar lines, an analysis of the methodology behind *babynames* shows that only names that have *at least 5 instances in a given year* are recorded. So it'd be similarly futile for us to attempt to measure the *rarest* names, as they are excluded in the database. (It also helps clarify why some rarer names seem to 'disappear' in certain years.)
+
+OK, what else can stringr do?
+
+How about the average number of vowels per name?
+
+```{r}
+ str_count(babynames$name, "[aeiou]")
+```
+
+That's a lot of numbers. Let's calculate a mean value instead:
+
+```{r}
+ mean(str_count(babynames$name, "[aeiou]"))
+```
+
+How about consonants?
+
+```{r}
+     mean(str_count(babynames$name, "[bcdfghjklmnpqrstvwxyz]"))
+```
+
+Example ideas for further exploration:
+
+How many names contain 'liz' in them?
+
+```{r}
+    babynames %>% 
+      filter(str_detect(babynames$name, "liz") )  %>% 
+      count(name, sort = TRUE) %>% 
+      head(20) %>% 
+      ggplot(aes(reorder(name, n),n)) + geom_col() + 
+      coord_flip()
+```
+
+Case Study: Born Without A (Proper) Name
+
+There are a number of names in the database that are totally anonymous. When, and why?
+
+```{r}
+babynames %>% 
+  filter(name %in% c("Unknown", "Unnamed", "Infant", "Infantof", "Notnamed", "Baby")) %>% 
+  ggplot(aes(year, prop, color = name)) + geom_line() + facet_wrap(~sex)
+```
+
+Let's compare this to the number of unique names per year:
+```{r}                                    
+babynames %>% 
+  group_by(year) %>% 
+  summarize(annual = n_distinct(name)) %>% 
+  ggplot(aes(year, annual )) + geom_line()
+```
+
+*Babynames* also includes a data set called births, that simply lists out the total number of births per year:
+```{r}
+data(births)
+ggplot(births, aes(year, births)) + geom_line()
+```
+
+Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year. 
+
+<!--chapter:end:04-Text_Analysis.Rmd-->
+
+# Geo-Spatial Analysis and Visualizations 
+
+<!--chapter:end:05-Geo_Spatial_Analysis.Rmd-->
+
+# Network Analysis 
+
+<!--chapter:end:06-Network_Analysis.Rmd-->
+
+# Publishing
+
+<!--chapter:end:07-Publishing.Rmd-->
+
