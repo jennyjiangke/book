@@ -37,13 +37,12 @@ average-name-length-over-time
 revisiting-summarize
 additional-functions
 case-study-born-without-a-proper-name
-basic-statistics
+statistical-analyses-of-a-single-variable
 variables-levels-of-measurement
 nominal-data
 ordinal-data
 interval-data
 ratio-data
-statistical-analyses-of-a-single-variable
 frequency-distribution
 percentage-change
 relative-frequency
@@ -52,7 +51,6 @@ rate
 ratio
 central-tendency
 data-variation
-case-study
 text-analysis
 an-introduction-to-stringr
 practical-applications-of-stringr-1
