@@ -51,11 +51,13 @@ rate
 ratio
 central-tendency
 data-variation
+statistical-analyses-of-two-variables
+statistical-analyses-of-three-or-more-variables-modelling
 text-analysis
 an-introduction-to-stringr
 practical-applications-of-stringr-1
 average-name-length-over-time-1
 common-issue-example-most-common-3-letter-names
-geo-spatial-analysis-and-visualizations
 network-analysis
+geo-spatial-analysis-and-visualizations
 publishing
