@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-01-25" />
+<meta name="date" content="2023-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -270,26 +270,34 @@ Having R package-based means that users only need to load packages relevant to t
 ## $ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.01616720, 0.01508119, 0.01448696, 0.01352390, 0.01319605, 0.01288868, 0.01256083…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 5
-##    year sex   name          n   prop
-##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
-## 1  1880 F     Mary       7065 0.0724
-## 2  1880 F     Anna       2604 0.0267
-## 3  1880 F     Emma       2003 0.0205
-## 4  1880 F     Elizabeth  1939 0.0199
-## 5  1880 F     Minnie     1746 0.0179
-## 6  1880 F     Margaret   1578 0.0162</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro-to-programming-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(babynames)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 5
-##    year sex   name       n       prop
-##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt;
-## 1  2017 M     Zyhier     5 0.00000255
-## 2  2017 M     Zykai      5 0.00000255
-## 3  2017 M     Zykeem     5 0.00000255
-## 4  2017 M     Zylin      5 0.00000255
-## 5  2017 M     Zylis      5 0.00000255
-## 6  2017 M     Zyrie      5 0.00000255</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 5
+##     year sex   name          n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
+##  1  1880 F     Mary       7065 0.0724
+##  2  1880 F     Anna       2604 0.0267
+##  3  1880 F     Emma       2003 0.0205
+##  4  1880 F     Elizabeth  1939 0.0199
+##  5  1880 F     Minnie     1746 0.0179
+##  6  1880 F     Margaret   1578 0.0162
+##  7  1880 F     Ida        1472 0.0151
+##  8  1880 F     Alice      1414 0.0145
+##  9  1880 F     Bertha     1320 0.0135
+## 10  1880 F     Sarah      1288 0.0132</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro-to-programming-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 5
+##     year sex   name       n       prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt;
+##  1  2017 M     Zubeyr     5 0.00000255
+##  2  2017 M     Zy         5 0.00000255
+##  3  2017 M     Zyel       5 0.00000255
+##  4  2017 M     Zyheem     5 0.00000255
+##  5  2017 M     Zyhier     5 0.00000255
+##  6  2017 M     Zykai      5 0.00000255
+##  7  2017 M     Zykeem     5 0.00000255
+##  8  2017 M     Zylin      5 0.00000255
+##  9  2017 M     Zylis      5 0.00000255
+## 10  2017 M     Zyrie      5 0.00000255</code></pre>
 <p>Everything we’ve done up to this point has been in <em>Base R</em>, that is, R without any functions added via packages.
 Throughout this book, we’ll be relying on a collection of inter-connected packages called the <a href="https://www.tidyverse.org/" target="_blank" title="Tidyverse"><em>Tidyverse</em></a>, which drastically simplifies performing varying calculations on data.</p>
 <p>Like all packages, we first have to install and then load it.</p>
@@ -371,7 +379,7 @@ Inside the aesthetics, we define the columns we want to use for the x and y axes
 <p>Let’s take this one step further:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro-to-programming-in-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="intro-to-programming-in-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;Ringo&#39;</span>, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Paul&#39;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="intro-to-programming-in-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<span id="cb16-3"><a href="intro-to-programming-in-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/babynames_ggplot2-1.png" width="672" /></p>
 <p>That looks really weird!
 Why?

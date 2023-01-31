@@ -57,8 +57,8 @@ The output of *glimpse* is a little overwhelming at first, although it makes cle
 So let's try *head* and *tail* to see the first and last 10 rows of the dataset:
 
 ```{r, babynames_head_tail}
-head(babynames)
-tail(babynames)
+head(babynames, n=10)
+tail(babynames, n=10)
 ```
 
 Everything we've done up to this point has been in *Base R*, that is, R without any functions added via packages.
@@ -150,7 +150,7 @@ Let's take this one step further:
 
 babynames %>% 
   filter(name %in% c('Ringo', 'John', 'George', 'Paul')) %>% 
-  ggplot(aes(year, prop, color = name)) + geom_line()
+  ggplot(aes(year, prop, color = name)) + geom_point()
 
 ```
 
