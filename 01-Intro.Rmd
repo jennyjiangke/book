@@ -261,7 +261,7 @@ Any why two '=' symbols?
 
 ## Syntax
 
-Let's start with '==.' In R, you can create variables, and one way to do this is with a single '=' symbol:
+Let's start with '=.' In R, you can create variables, and one way to do this is with a single '=' symbol:
 
 ```{r babynames_equals1}
 x = 10
