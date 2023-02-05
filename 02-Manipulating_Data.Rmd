@@ -3,7 +3,6 @@
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(knitr.duplicate.label = "allow")
 library(babynames)
 library(tidyverse)
 
@@ -99,7 +98,7 @@ It appears that Mary is the most popular name during this period. But wasn't Mar
 
 ```{r, silent_gen4}
 babynames %>% 
-  filter(name %in% c("Mary", "Barbara", "Betty", "Doris", "Dorothy", "Helen", "Margaret", "Ruth", "Shirley", "Virginia")) %>% 
+  filter(name %in% c(head(silent_gen_f$name, n = 10))) %>% 
   filter(sex =="F") %>% 
   ggplot(aes(year, prop, color = name)) + geom_line()
 ```
@@ -108,7 +107,8 @@ It appears that Mary is the most popular name for a very long time, gradually wa
 
 ```{r, silent_gen5}
 babynames %>% 
-  filter(name %in% c("Barbara", "Betty", "Doris", "Dorothy", "Helen", "Margaret", "Ruth", "Shirley", "Virginia")) %>% 
+  filter(name %in% c(head(silent_gen_f$name, n = 10))) %>%
+  filter(!name %in% 'Mary') %>% 
   filter(sex =="F") %>% 
   ggplot(aes(year, prop, color = name)) + geom_line()
 ```
