@@ -13,16 +13,15 @@ my_data <- read_excel("google analytics sample data.xlsx") #Create a dataset and
 
 ```
 
-Table 2.1 presents parts of a public demo dataset of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
+Table 2.1 presents parts of a public demo data set of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
 
 
 ```{r}
 #You will need to install kableExtra package
 library(kableExtra)
 
-knitr::kable(head(my_data[,1:12], 20), digits = 5, booktabs = TRUE,
-  caption = 'The First 20 Rows of the Google Analytics Sample Data'
-) %>%
+knitr::kable(head(my_data, 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data', format = 'markdown') %>%
   kable_styling(font_size = 6.5)
 ```
 
