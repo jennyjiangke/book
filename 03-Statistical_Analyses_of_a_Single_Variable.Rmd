@@ -13,15 +13,16 @@ my_data <- read_excel("google analytics sample data.xlsx") #Create a dataset and
 
 ```
 
-Table 2.1 presents parts of a public demo data set of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
+Table 3.1 presents parts of a public demo data set of channels report from Google Analytics of Google Merchandise Store, which is an affiliate of the holding company, Google, and an e-commerce business site that deals with marketing and selling of Google, YouTube, and Android branded merchandise such as stationaries, bags among other products. 
 
 
 ```{r}
 #You will need to install kableExtra package
 library(kableExtra)
 
-knitr::kable(head(my_data, 20), digits = 5, booktabs = TRUE,
-  caption = 'The First 20 Rows of the Google Analytics Sample Data', format = 'markdown') %>%
+knitr::kable(head(my_data[,1:12], 20), digits = 5, booktabs = TRUE,
+  caption = 'The First 20 Rows of the Google Analytics Sample Data'
+) %>%
   kable_styling(font_size = 6.5)
 ```
 
@@ -79,12 +80,12 @@ After defining your research questions and the related unit(s) of analysis, and 
 
 The easiest thing we can do is to count the number of times an event or a value occurs for the variable(s) of our choice, and this is called Frequency analysis. We can aggregate individual observations of a variable into groups so that a frequency distribution of these groups can serve as a convenient means of summarizing or describing our data. 
 
-We are going to use the **dplyr** package to count the aggregated transactions by channel and age groups.
+We are going to use the **tidyverse** package to count the aggregated transactions by channel and age groups.
 
 ```{r}
 #Frequency and grouped frequency analysis
 #You will need to install dplyr package
-library(dplyr)
+library(tidyverse)
 
 Transaction_Frequency_Channel <- my_data %>% 
   group_by(Channel) %>% 
@@ -95,7 +96,7 @@ Transaction_Frequency_Age <- my_data %>%
   summarise(Frequency = sum(Transactions))
 ```
 
-Table 2.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store. 
+Table 3.2 demonstrated the grouped frequency of transactions for each channel and age group. From the frequency analysis, we can tell that the direct channel (n = 11581) and the age group of 25 to 34 (n = 4654) had the greatest number of transactions in Google Merchandise Store. 
 
 ```{r}
 
@@ -130,7 +131,7 @@ Revenue_Frequency_2021 <- my_data_2021 %>%
 
 ```
 
-As illustrated in Table 2.3, the direct channel created the most revenues in both 2020 and 2021. When you have such data for two points in time, you can calculate how much change there has been over this period. The result is expressed as a percentage in absolute numbers and is called the percentage change or the rate of change. Here is the formula: **Percentage Change = [(Number at later time / Number at earlier time) - 1] × 100%**. 
+As illustrated in Table 3.3, the direct channel created the most revenues in both 2020 and 2021. When you have such data for two points in time, you can calculate how much change there has been over this period. The result is expressed as a percentage in absolute numbers and is called the percentage change or the rate of change. Here is the formula: **Percentage Change = [(Number at later time / Number at earlier time) - 1] × 100%**. 
 
 ```{r}
 
@@ -144,11 +145,11 @@ knitr::kable(
   kable_styling(font_size = 14)
 ```
 
-For example, from Table 2.3, in 2020, the revenue generated from the paid search channel was $1975.93. And in 2020, the revenue generated from the paid search channel was 29908.18. The percentage change of revenue from the paid search channel from 2020 to 2021 is then calculated as follows: **[(29908.18/ 1975.93)-1] x 100%= 1413.62%**, meaning that from the year of 2020 to the year of 2021, the revenue generated from the paid search channel increased by 1413.62%. 
+For example, from Table 3.3, in 2020, the revenue generated from the paid search channel was $1975.93. And in 2020, the revenue generated from the paid search channel was 29908.18. The percentage change of revenue from the paid search channel from 2020 to 2021 is then calculated as follows: **[(29908.18/ 1975.93)-1] x 100%= 1413.62%**, meaning that from the year of 2020 to the year of 2021, the revenue generated from the paid search channel increased by 1413.62%. 
 
 ## Relative Frequency
 
-For the frequency analysis, we also can count how often something happens divided by all outcomes, which is called the relative frequency analysis. For example, from Table 3, the revenue from the organic search channel in 2020 is $4,628.44, and the total revenue in 2020 is the sum of revenue from all channels, which is $34422.26.The relative revenue from the organic search channel is 4,628.44/34422.26 = 13.44%, indicating 13.44% of the revenue in 2020 was from the organic search channel. We can use the codes below to get the relative revenue for each channel in 2020 and 2021 (Table 2.4).
+For the frequency analysis, we also can count how often something happens divided by all outcomes, which is called the relative frequency analysis. For example, from Table 3.3, the revenue from the organic search channel in 2020 is $4,628.44, and the total revenue in 2020 is the sum of revenue from all channels, which is $34422.26.The relative revenue from the organic search channel is 4,628.44/34422.26 = 13.44%, indicating 13.44% of the revenue in 2020 was from the organic search channel. We can use the codes below to get the relative revenue for each channel in 2020 and 2021 (Table 3.4).
 
 ```{r}
 Revenue_Relative_Frequency_2020 <- my_data_2020 %>% 
@@ -174,13 +175,13 @@ knitr::kable(
 ```
 
 ## Percentage Points
-We can use the term “percentage points” to compare two different percentages at two points in time. The best way to explain this is through an example: from Table 2.4, in 2020, the share of revenue from the Paid Search channel was 5.74%. In 2021, the share of revenue from the Paid Search channel was 3.12%. The difference of these two percentages is calculated in percentage points: 3.12 % - 5.74 % = -2.62%. This means that the share of revenue from Paid Search channel in 2021 was almost three percentage points lower than the share of revenue from the Paid Search channel in 2020.
+We can use the term “percentage points” to compare two different percentages at two points in time. The best way to explain this is through an example: from Table 3.4, in 2020, the share of revenue from the Paid Search channel was 5.74%. In 2021, the share of revenue from the Paid Search channel was 3.12%. The difference of these two percentages is calculated in percentage points: 3.12 % - 5.74 % = -2.62%. This means that the share of revenue from Paid Search channel in 2021 was almost three percentage points lower than the share of revenue from the Paid Search channel in 2020.
 
 ## Rate
 
 In data analysis, some variables, such as the ECR (e-commerce conversion rate from Table 2.1), are too small to visualize. Under such circumstances, we can represent the percentage as rate by converting the small proportions to a whole number with one, two, or three digits on a base of some multiple of 1,000, 10,000, 100,000, or 1 million. 
 
-For example, from Table 2.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions. 
+For example, from Table 3.1, in 2020, the Ecommerce Conversion Rate of the organic search channel for users of 25 to 34 is 0.00068 or 0.068%. Instead of reporting the percentage, we can move the decimal place farther to the right, sufficient to make a number greater than 1, which allows us to better visualize the data. In the case of Ecommerce Conversion Rate, moving the decimal point four places to the right is the same as multiplying the value by 10,000. Consequently, the Ecommerce Conversion Rate of the organic search channel was 6.8 per 10,000 sessions. 
 
 We can use the r code below to add a column representing the Ecommerce Conversion Rate per 10,000 sessions for my_data.
 
@@ -188,7 +189,7 @@ We can use the r code below to add a column representing the Ecommerce Conversio
 my_data$ECR <- my_data$`Ecommerce Conversion Rate`*10000
 ```
 
-Now, the new column has been added to my_data as illustrated in Table 2.5.
+Now, the new column has been added to my_data as illustrated in Table 3.5.
 
 
 ```{r}
@@ -212,7 +213,7 @@ userratio <- my_data %>%
   summarise(OldUsers = sum(OldUsers), NewUsers = sum(`New Users`),Ratio = sum(OldUsers)/sum(`New Users`))
 ```
 
-From Table 2.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.
+From Table 3.6, we can find that besides the un-defined channel, the referral channel has a relatively higher ratio of returning (old) users to new users, indicating a better retention rate.
 
 ```{r}
 
@@ -237,7 +238,7 @@ ScoreFrequency <- as.data.frame(table(TestData$Score)) # Calculate the frequency
 colnames(ScoreFrequency) <- c("Score","Frequency")
 ```
 
-Table 2.7 demonstrates the frequency of each score.
+Table 3.7 demonstrates the frequency of each score.
 
 ```{r}
 
@@ -251,7 +252,7 @@ knitr::kable(
 
 The mean score is the sum of all scores divided by 20. The related formula is: **(40x1 + 50x2 + 60x5 + 70x3 + 80x4 +90x4 + 100x1)/20 = 71.5**, meaning that the average score among these 20 students is 71.5. 
 
-When it comes to identifying the median value, we want to sort all individuals from the lowest value to the highest value, and whoever in the middle gives us the median value. But the problem is, we have 20 students in this sample, which is an even number, meaning that there will be two individuals in the middle (Table 2.8: student number 10 and number 11). For situations like this, we take the mean of these two individuals’ values to compute the **median: (70+70)/2 = 70** (Table 2.8). 
+When it comes to identifying the median value, we want to sort all individuals from the lowest value to the highest value, and whoever in the middle gives us the median value. But the problem is, we have 20 students in this sample, which is an even number, meaning that there will be two individuals in the middle (Table 3.8: student number 10 and number 11). For situations like this, we take the mean of these two individuals’ values to compute the **median: (70+70)/2 = 70** (Table 2.8). 
 
 ```{r}
 
@@ -351,7 +352,7 @@ knitr::kable(
 
 Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution. 
 
-**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 8, the mode for Session is 3787. But
+**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 3.9, the mode for Session is 3787. But
 this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
 
 **Range** The worth of the median as a measure of central tendency is dependent
@@ -374,4 +375,7 @@ Another term for analyzing data variance is Standard Deviation. It is a measure 
 
 Suppose we have two variables: the first one contains five units whose values are 2, 3, 3, 3, 4; and the second one contains five units as well, with the values being 1, 2, 3, 4, 5. Although these two variables have the same mean value (Mean = 3), you can clearly see that the latter one is more spread-out than the first one, indicating a bigger standard deviation. 
 
+Below illustrates the calculations of standard deviation for the Google analytics’ transactions data. The mean of transactions is 7. We first calculated the distance of each observation’s transactions from the mean, then took the squared distance because some of the distances are positive values and others are negative. Without taking the square of these distances first, if we added all distances together, they might cancel each other out, failing to indicate the real variation of the data set. Once we get the sum of all the squared distances, we divide the sum by the number of observations (n= 96) minus 1, and then take the square root of this value to bring the distance back to the original standard scale, which gives us the standard deviation. Usually, a low standard deviation indicates that most of the data points are close to the average, while a high standard deviation means that the data points are spread out. Table 8 lists the range and standard deviation of the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data. It is interesting to find that the standard deviations of all six variables are almost twice as large as the means, indicating high variations between values and abnormal distributions for data.
 
+![Calculations of Standard Deviation](images/5_sd.png)
+## Assignment

@@ -173,6 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="manipulating-data.html"><a href="manipulating-data.html#revisiting-summarize"><i class="fa fa-check"></i><b>2.5</b> Revisiting summarize()</a></li>
 <li class="chapter" data-level="2.6" data-path="manipulating-data.html"><a href="manipulating-data.html#additional-functions"><i class="fa fa-check"></i><b>2.6</b> Additional Functions</a></li>
 <li class="chapter" data-level="2.7" data-path="manipulating-data.html"><a href="manipulating-data.html#case-study-born-without-a-proper-name"><i class="fa fa-check"></i><b>2.7</b> Case Study: Born Without A (Proper) Name</a></li>
+<li class="chapter" data-level="2.8" data-path="manipulating-data.html"><a href="manipulating-data.html#assignment"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html"><i class="fa fa-check"></i><b>3</b> Statistical Analyses of a Single Variable</a>
 <ul>
@@ -566,7 +567,7 @@ Let’s replace every instance of ‘l’ with ‘x’
 <span id="cb87-5"><a href="manipulating-data.html#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,prop),prop,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
 <span id="cb87-6"><a href="manipulating-data.html#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb87-7"><a href="manipulating-data.html#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Let’s fancy that up a bit, by calculating a ‘percentage’ of use of that name per year / per gender:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="manipulating-data.html#cb88-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb88-2"><a href="manipulating-data.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
@@ -576,7 +577,7 @@ Let’s replace every instance of ‘l’ with ‘x’
 <span id="cb88-6"><a href="manipulating-data.html#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,percent),percent,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
 <span id="cb88-7"><a href="manipulating-data.html#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb88-8"><a href="manipulating-data.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>how many ‘z’ names since 2000?</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="manipulating-data.html#cb89-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb89-2"><a href="manipulating-data.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">str_detect</span>(name, <span class="st">&quot;Z&quot;</span>)) <span class="sc">%&gt;%</span> </span>
@@ -640,7 +641,7 @@ Let’s replace every instance of ‘l’ with ‘x’
 <span id="cb96-3"><a href="manipulating-data.html#cb96-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(first_letter, n),n)) <span class="sc">+</span> </span>
 <span id="cb96-4"><a href="manipulating-data.html#cb96-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb96-5"><a href="manipulating-data.html#cb96-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="manipulating-data.html#cb97-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb97-2"><a href="manipulating-data.html#cb97-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">str_length</span>(name)) <span class="ot">-&gt;</span> babynames_length</span></code></pre></div>
@@ -653,13 +654,13 @@ Let’s replace every instance of ‘l’ with ‘x’
 <span id="cb98-2"><a href="manipulating-data.html#cb98-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
 <span id="cb98-3"><a href="manipulating-data.html#cb98-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
 <span id="cb98-4"><a href="manipulating-data.html#cb98-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>The results are impressive. Let’s split them up by Sex:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="manipulating-data.html#cb99-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
 <span id="cb99-2"><a href="manipulating-data.html#cb99-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
 <span id="cb99-3"><a href="manipulating-data.html#cb99-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
 <span id="cb99-4"><a href="manipulating-data.html#cb99-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length, <span class="at">color =</span> sex)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 <div id="revisiting-summarize" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Revisiting summarize()<a href="manipulating-data.html#revisiting-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -749,7 +750,7 @@ Let’s replace every instance of ‘l’ with ‘x’
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="manipulating-data.html#cb109-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb109-2"><a href="manipulating-data.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(length_15<span class="sc">$</span>name)) <span class="sc">%&gt;%</span> </span>
 <span id="cb109-3"><a href="manipulating-data.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>By the look of these names, it’s clear that most of them are actually <em>longer</em> than 15 characters - but 15 characters is the cut-off point for the column. Thus, we cannot accurately estimate the most common 15-letter names.</p>
 <p>Along similar lines, an analysis of the methodology behind <em>babynames</em> shows that only names that have <em>at least 5 instances in a given year</em> are recorded. So it’d be similarly futile for us to attempt to measure the <em>rarest</em> names, as they are excluded in the database. (It also helps clarify why some rarer names seem to ‘disappear’ in certain years.)</p>
 </div>
@@ -794,7 +795,7 @@ Let’s replace every instance of ‘l’ with ‘x’
 <span id="cb116-4"><a href="manipulating-data.html#cb116-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb116-5"><a href="manipulating-data.html#cb116-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, n),n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
 <span id="cb116-6"><a href="manipulating-data.html#cb116-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 </div>
 <div id="case-study-born-without-a-proper-name" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Case Study: Born Without A (Proper) Name<a href="manipulating-data.html#case-study-born-without-a-proper-name" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -802,18 +803,37 @@ Let’s replace every instance of ‘l’ with ‘x’
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="manipulating-data.html#cb117-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb117-2"><a href="manipulating-data.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unnamed&quot;</span>, <span class="st">&quot;Infant&quot;</span>, <span class="st">&quot;Infantof&quot;</span>, <span class="st">&quot;Notnamed&quot;</span>, <span class="st">&quot;Baby&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb117-3"><a href="manipulating-data.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>Let’s compare this to the number of unique names per year:</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="manipulating-data.html#cb118-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb118-2"><a href="manipulating-data.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
 <span id="cb118-3"><a href="manipulating-data.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">annual =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
 <span id="cb118-4"><a href="manipulating-data.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, annual )) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p><em>Babynames</em> also includes a data set called births, that simply lists out the total number of births per year:</p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="manipulating-data.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(births)</span>
 <span id="cb119-2"><a href="manipulating-data.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(births, <span class="fu">aes</span>(year, births)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year.</p>
+</div>
+<div id="assignment" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Assignment<a href="manipulating-data.html#assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Create a report using the Hadley Wickham packaged dataset ‘babynames.’</p>
+<p><strong>Requirements</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>The report should include at least four observations, with visualizations. At least two of them should be unique, i.e., not something we already did in class.</li>
+</ol>
+<p>For example, if you did the ‘Beatles’ example I mentioned in class, you can plot those names over time. But what else? What about the period that the Beatles became popular? Could you annotate your visualizations to show that period? What about names like ‘John’ over time – can you really make an argument that one man had an outsized influence on this already popular name? Did other bands have a similar influence, or just the Beatles? Did the popularity of the Beatles names sustain itself, or die out over time? Perhaps a better, more quantitative approach is to avoid celebrity, and focus only on the dataset. What are the most common first or last letters in names over time? What about name length? Etc.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Your report must propose a hypothesis, or introduce a topic for exploration, explain your process (code) and results (visualizations), and then have a conclusion that argues that your hypothesis was either proven or disproven, and why you think that is. Even if your topic is silly, your report should adhere to this presentation method, and your tone should be more academic than friendly. Text content can be written as comments, with the ‘#’ in the front of the line. Code can be left just as code; feel free to use comments to clarify what you’re doing.</li>
+</ol>
+<p>Your report can be evaluated based on the following items:</p>
+<ol style="list-style-type: decimal">
+<li><p>Focus on your methodology: are your results reproducible? Did you filter or limit the data in a logical, non-arbitrary way?</p></li>
+<li><p>Choose a hypothesis that has nothing to do with <em>you</em>. Our aim is to generate reproducible results; no one will want to replicate the results of your name. Your hypothesis should be something that makes sense to anyone: names starting with vowels are increasing in proportion, biblical names are on the decline, ‘Game of Thrones’ is causing Americans to give their children unfathomably terrible first names.</p></li>
+<li><p>For each visualization, consider including a paragraph describing your findings, and another paragraph describing your process.</p></li>
+<li><p>If you use an external source, be sure to include the URL in a comment.</p></li>
+</ol>
 
 </div>
 </div>

@@ -3,6 +3,7 @@
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = "allow")
 library(babynames)
 library(tidyverse)
 
@@ -495,3 +496,26 @@ ggplot(births, aes(year, births)) + geom_line()
 ```
 
 Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year.
+
+## Assignment 
+
+Create a report using the Hadley Wickham packaged dataset ‘babynames.’ 
+
+**Requirements**: 
+
+1.	The report should include at least four observations, with visualizations. At least two of them should be unique, i.e., not something we already did in class. 
+
+For example, if you did the ‘Beatles’ example I mentioned in class, you can plot those names over time. But what else? What about the period that the Beatles became popular? Could you annotate your visualizations to show that period? What about names like ‘John’ over time – can you really make an argument that one man had an outsized influence on this already popular name? Did other bands have a similar influence, or just the Beatles? Did the popularity of the Beatles names sustain itself, or die out over time? Perhaps a better, more quantitative approach is to avoid celebrity, and focus only on the dataset. What are the most common first or last letters in names over time? What about name length? Etc.
+
+2.	Your report must propose a hypothesis, or introduce a topic for exploration, explain your process (code) and results (visualizations), and then have a conclusion that argues that your hypothesis was either proven or disproven, and why you think that is. Even if your topic is silly, your report should adhere to this presentation method, and your tone should be more academic than friendly. Text content can be written as comments, with the '#' in the front of the line. Code can be left just as code; feel free to use comments to clarify what you're doing.
+
+Your report can be evaluated based on the following items:
+
+1.	Focus on your methodology: are your results reproducible? Did you filter or limit the data in a logical, non-arbitrary way? 
+
+2.	Choose a hypothesis that has nothing to do with *you*. Our aim is to generate reproducible results; no one will want to replicate the results of your name. Your hypothesis should be something that makes sense to anyone: names starting with vowels are increasing in proportion, biblical names are on the decline, ‘Game of Thrones’ is causing Americans to give their children unfathomably terrible first names. 
+
+3.	For each visualization, consider including a paragraph describing your findings, and another paragraph describing your process.
+
+4.	If you use an external source, be sure to include the URL in a comment.
+
