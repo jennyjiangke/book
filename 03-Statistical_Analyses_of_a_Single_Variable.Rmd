@@ -352,23 +352,99 @@ knitr::kable(
 
 Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution. 
 
-**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 3.9, the mode for Session is 3787. But
-this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
+**Variation Ratio** reflects the proportion of cases that are not in the mode category. For example, from Table 3.9, the mode for Session is 3787. But this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.
 
-**Range** The worth of the median as a measure of central tendency is dependent
-on how narrowly scores are dispersed in the distribution. The **range** is the difference between the highest and lowest scores of a distribution. In our dataset, the range in class sizes is 237-17=220. As you can see, any ex treme score in a distribution, commonly referred to as an outlier, will greatly af fect the range. That much sensitivity is not desirable. 
+**Range** is the difference between the highest and lowest scores of a distribution. In our dataset, the range in class sizes is 237-17=220. 
 
-**Inter-ranges** A more stable set of measures, called inter-ranges, drop off a specified highest and lowest percentage of the cases. The most popular are the
-*inter-decile range*, *inter-quintile range*, and *inter-quartile range*. Deciles are
-tenths, quintiles are fifths, and quartiles are fourths. These inter-ranges drop off
-the highest and lowest 10%, 20% and 25% of the cases, respectively, and then calculate
-the range of the remaining cases.
+**Inter-ranges** drops off a specified highest and lowest percentage of data points and then calculates the range of the remaining data points. The most popular inter-ranges are *inter-decile range*, *inter-quintile range*, and *inter-quartile range*, which drop off the highest and the lowest 10%, 20%, and 25% of the data points, respectively, and reflect the range of the remaining data points.
 
-For example, the *inter-quartile* range for class size in our small dataset would
-drop off the highest one-fourth and lowest one-fourth of the 23 cases. Since onefourth
-of 23 is not an even number (23/4=5.75), we’ll round up and drop off the
-top six (237, 133, 124, 103, 97, 90) and bottom six cases (17, 19, 19, 22, 23, 25). Of
-the remaining scores, the range is 56 (83-27). It is proper to say, then, that the range of the middle 50% of the cases is 56. The median score, 40 in this case, remains, of course, at the center of these mid dle 50% of the cases.
+Table 3.11 lists the **range** and **Inter-quartile range (IQR)** for the number of users and new users, number of sessions, e-commerce conversion rate, transaction, and revenue for the Google analytics dataset. 
+
+```{r}
+#Calculate range for each col
+range_report <- my_data %>% 
+  summarise_if(is.numeric, range)
+
+#Calculate Inter quartile range (IQR) for each col
+range_report_interquartile <- my_data %>% 
+  summarise_if(is.numeric, IQR)
+
+#aggreate center report with range and IQR report
+stats_report <- bind_rows(centerreport,range_report, range_report_interquartile)
+rownames(stats_report) <- c("mean","median","mode","min","max","IQR")
+
+```
+
+
+```{r}
+
+knitr::kable(
+    head(arrange(stats_report)), 
+  booktabs = TRUE,
+  caption = 'Descriptive Statistics', align = "l"
+) %>%
+  kable_styling(font_size = 14)
+```
+
+**IQR** is important for finding the **outlier** of an abnormal distance from other values in a data set. We use the quartile to divide observations into four intervals with an equal number of data points: the first quartile includes the lowest 25% of data points; the second quartile covers data points between 25.1% and 50%, which corresponds to the median; the third quartile includes data points above the median between 50.1% and 75%; the fourth quartile has the highest 25% of numbers. 
+
+All data points that are above q0.75+1.5×IQR or below q0.25-1.5×IQR are considered as potential outliers. Here, q0.25 and q0.75 refers to the first and third quartile, respectively. 
+
+For data from digital and social media, outliers represent important opportunities for improving audience conversion and engagement.Let take a look at how to find outlier using code.
+
+```{r}
+# Histogram: a simple way to detect outliers is to draw a histogram of the data.
+
+#using ggplot2(https://www.colorbook.io/hexcolors/view/0C4C8A)
+
+ggplot(my_data) +
+  aes(x = Transactions) +
+  geom_histogram(binwidth = 2000, fill = "#8A1537") +
+  theme_minimal()
+
+#TRY MORE THEME:https://ggplot2.tidyverse.org/reference/ggtheme.html
+
+```
+```{r}
+#Boxplot: in addition to histograms, boxplots are also useful to detect potential outliers.
+
+boxplot(my_data$Transactions,
+          ylab = "Transactions")
+
+```
+
+```{r}
+#Define Outlier
+find_outlier <- function(x) {
+  return(x < quantile(x, .25) - 1.5*IQR(x) | x > quantile(x, .75) + 1.5*IQR(x))
+}
+
+#add new column to data frame that indicates if each observation is an outlier
+my_data <- my_data %>%
+  filter(!Channel %in% c('Direct', '(Other)')) %>% 
+  group_by(Age) %>%
+  mutate(outlier = ifelse(find_outlier(Transactions), Transactions, NA))
+
+#create box plot of points by age and label outliers
+ggplot(my_data, aes(x=Age, y=Transactions)) +
+  geom_boxplot() +
+  geom_text(aes(label=outlier), na.rm=TRUE, hjust=-.5)
+
+```
+```{r}
+#Try to use a different group - Channel
+my_data <- my_data %>%
+  filter(!Channel %in% c('Direct', '(Other)')) %>% 
+  group_by(Channel) %>%
+  mutate(outlier = ifelse(find_outlier(Transactions), Transactions, NA))
+
+#create box plot of points by Channel and label outliers
+ggplot(my_data, aes(x=Channel, y=Transactions)) +
+  geom_boxplot() +
+  geom_text(aes(label=outlier), na.rm=TRUE, hjust=-.5)
+
+```
+For the above figures, data points related to the channels of “direct” and “other” were removed from the dataset since they might be classified due to the failure of channel detection in Google Analytics. For the paid search channel and referral channel, the audience in the age group of 25 to 34 had much more transactions compared to other age groups. This indicates the importance of using paid search and referral activities to drive more audiences in the age group of 25 to 34 to visit and shop at the store. 
 
 **Standard Deviation**
 Another term for analyzing data variance is Standard Deviation. It is a measure of the amount of variation in data, or simply put, it measures the extent to which your data is spread-out. It reflects the average squared distance from the mean.
@@ -380,5 +456,8 @@ Below illustrates the calculations of standard deviation for the Google analytic
 ![Calculations of Standard Deviation](images/5_sd.png)
 
 The mean of transactions is 7. We first calculated the distance of each observation’s transactions from the mean, then took the squared distance because some of the distances are positive values and others are negative. Without taking the square of these distances first, if we added all distances together, they might cancel each other out, failing to indicate the real variation of the data set. Once we get the sum of all the squared distances, we divide the sum by the number of observations (n= 96) minus 1, and then take the square root of this value to bring the distance back to the original standard scale, which gives us the standard deviation. Usually, a low standard deviation indicates that most of the data points are close to the average, while a high standard deviation means that the data points are spread out. Table 8 lists the range and standard deviation of the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data. It is interesting to find that the standard deviations of all six variables are almost twice as large as the means, indicating high variations between values and abnormal distributions for data.
+
+
+
 
 ## Assignment
