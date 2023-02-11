@@ -307,7 +307,7 @@ centerreport <- centerreport[, -10]
 ```{r}
 
 knitr::kable(
-    head(arrange(centerreport)), 
+    arrange(centerreport), 
     digits = 0,
     booktabs = TRUE,
     caption = 'Descriptive Statistics-mean,median,mode', align = "l"
@@ -380,7 +380,7 @@ stats_report <- stats_report[, -12]
 ```{r}
 
 knitr::kable(
-    head(arrange(stats_report)), 
+    arrange(stats_report), 
     digits = 0,
     booktabs = TRUE,
     caption = 'Descriptive Statistics', align = "l"
@@ -476,7 +476,7 @@ Descriptive_Statistics <- Descriptive_Statistics[,-12]
 ```{r}
 
 knitr::kable(
-    head(arrange(Descriptive_Statistics)), 
+    arrange(Descriptive_Statistics), 
     digits = 0,
     booktabs = TRUE,
     caption = 'Descriptive Statistics', align = "l"
