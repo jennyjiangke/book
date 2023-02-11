@@ -372,7 +372,7 @@ range_report_interquartile <- my_data %>%
 #aggreate center report with range and IQR report
 stats_report <- bind_rows(centerreport,range_report, range_report_interquartile)
 rownames(stats_report) <- c("mean","median","mode","min","max","IQR")
-
+stats_report <- stats_report[, -12]
 ```
 
 
@@ -420,26 +420,26 @@ find_outlier <- function(x) {
 }
 
 #add new column to data frame that indicates if each observation is an outlier
-my_data <- my_data %>%
+my_data_outlier <- my_data %>%
   filter(!Channel %in% c('Direct', '(Other)')) %>% 
   group_by(Age) %>%
   mutate(outlier = ifelse(find_outlier(Transactions), Transactions, NA))
 
 #create box plot of points by age and label outliers
-ggplot(my_data, aes(x=Age, y=Transactions)) +
+ggplot(my_data_outlier, aes(x=Age, y=Transactions)) +
   geom_boxplot() +
   geom_text(aes(label=outlier), na.rm=TRUE, hjust=-.5)
 
 ```
 ```{r}
 #Try to use a different group - Channel
-my_data <- my_data %>%
+my_data_outlier <- my_data %>%
   filter(!Channel %in% c('Direct', '(Other)')) %>% 
   group_by(Channel) %>%
   mutate(outlier = ifelse(find_outlier(Transactions), Transactions, NA))
 
 #create box plot of points by Channel and label outliers
-ggplot(my_data, aes(x=Channel, y=Transactions)) +
+ggplot(my_data_outlier, aes(x=Channel, y=Transactions)) +
   geom_boxplot() +
   geom_text(aes(label=outlier), na.rm=TRUE, hjust=-.5)
 
@@ -455,9 +455,32 @@ Below illustrates the calculations of standard deviation for the Google analytic
 
 ![Calculations of Standard Deviation](images/5_sd.png)
 
-The mean of transactions is 7. We first calculated the distance of each observation’s transactions from the mean, then took the squared distance because some of the distances are positive values and others are negative. Without taking the square of these distances first, if we added all distances together, they might cancel each other out, failing to indicate the real variation of the data set. Once we get the sum of all the squared distances, we divide the sum by the number of observations (n= 96) minus 1, and then take the square root of this value to bring the distance back to the original standard scale, which gives us the standard deviation. Usually, a low standard deviation indicates that most of the data points are close to the average, while a high standard deviation means that the data points are spread out. Table 8 lists the range and standard deviation of the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data. It is interesting to find that the standard deviations of all six variables are almost twice as large as the means, indicating high variations between values and abnormal distributions for data.
+The mean of transactions is 7. We first calculated the distance of each observation’s transactions from the mean, then took the squared distance because some of the distances are positive values and others are negative. Without taking the square of these distances first, if we added all distances together, they might cancel each other out, failing to indicate the real variation of the data set. Once we get the sum of all the squared distances, we divide the sum by the number of observations (n= 96) minus 1, and then take the square root of this value to bring the distance back to the original standard scale, which gives us the standard deviation. Usually, a low standard deviation indicates that most of the data points are close to the average, while a high standard deviation means that the data points are spread out. 
+
+The codes for calculating standard deviation is easy.
+
+```{r}
+#Calculate sd for each col
+sd_report <- my_data %>% 
+  summarise_if(is.numeric, sd)
+
+#aggregate sd to the stats_report
+stats_report <- bind_rows(stats_report, sd_report)
+rownames(stats_report) <- c("mean","median","mode","min","max","IQR", "sd")
+stats_report <- stats_report[,-12]
+```
 
 
+```{r}
 
+knitr::kable(
+    head(arrange(stats_report)), 
+  booktabs = TRUE,
+  caption = 'Descriptive Statistics', align = "l"
+) %>%
+  kable_styling(font_size = 14)
+```
+
+The high standard deviations of all nine variables indicate high variations between values and abnormal distributions for data.
 
 ## Assignment

@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-10" />
+<meta name="date" content="2023-02-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -231,40 +231,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Text Analysis<a href="text-analysis.html#text-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="an-introduction-to-stringr" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> An Introduction to Stringr<a href="text-analysis.html#an-introduction-to-stringr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="text-analysis.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span>
-<span id="cb149-2"><a href="text-analysis.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb149-3"><a href="text-analysis.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb149-4"><a href="text-analysis.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="text-analysis.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span>
+<span id="cb151-2"><a href="text-analysis.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb151-3"><a href="text-analysis.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb151-4"><a href="text-analysis.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
 <p>Stringr is a package in the <em>tidyverse</em> that deals with, well, strings. What are strings? Anything in your data frame that is text- or character-based. So, in the case of <em>babynames</em>, that’d be <em>Name</em> and <em>Sex -</em> Year, Prop and N are not strings.</p>
 <p>Stringr allows for string manipulation across your entire dataset. If, for instance, we had a column of character data that repeatedly mis-spelled a name: <em>Bryan</em> instead of <em>Brian</em>, say - stringr could change every instance of <em>Bryan</em> into <em>Brian</em> in one line of code.</p>
 <p>Let’s start playing around with stringr by creating a <em>variable</em> that is equal to a string:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="text-analysis.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb150-2"><a href="text-analysis.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-3"><a href="text-analysis.html#cb150-3" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;this is a long sentence&quot;</span>, <span class="cn">NA</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="text-analysis.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb152-2"><a href="text-analysis.html#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="text-analysis.html#cb152-3" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;this is a long sentence&quot;</span>, <span class="cn">NA</span>)</span></code></pre></div>
 Here are some functions from the stringr package that we can use to manipulate this sentence.
 <ul>
 <li>
 <p>How many characters are there in the string?</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="text-analysis.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="text-analysis.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(sentence)</span></code></pre></div>
 <pre><code>## [1]  5 23 NA</code></pre>
 <li>
 <p>Let’s replace every instance of ‘l’ with ‘x’</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="text-analysis.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(sentence, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;X&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="text-analysis.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(sentence, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;X&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;heXlo&quot;                   &quot;this is a Xong sentence&quot;
 ## [3] NA</code></pre>
 <p>Okay, now let’s create a new string that is a <em>list</em> of character strings:</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="text-analysis.html#cb155-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="text-analysis.html#cb157-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
 <p>Let’s use str_sub to ‘pull out’ the first character of the string:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="text-analysis.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="text-analysis.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;P&quot;</code></pre>
 <p>What just happened? We told R to only grab the first character. Can we grab the first three characters?</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="text-analysis.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="text-analysis.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;App&quot; &quot;Ban&quot; &quot;Pea&quot;</code></pre>
 <p>Let’s adjust the string’s content so each fruit is written entirely in lower case:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="text-analysis.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(<span class="fu">str_sub</span>(list))</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="text-analysis.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(<span class="fu">str_sub</span>(list))</span></code></pre></div>
 <pre><code>## [1] &quot;apple&quot;  &quot;banana&quot; &quot;pear&quot;</code></pre>
 <p>We can also use stringr to detect specific words or phrases:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="text-analysis.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(list, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="text-analysis.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(list, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE</code></pre>
 <p>R returns the position of “Pear” in the list.</p>
 <div id="practical-applications-of-stringr-1" class="section level3 hasAnchor" number="6.1.1">
@@ -275,7 +275,7 @@ Here are some functions from the stringr package that we can use to manipulate t
 <p>A third way would be to use data included in an R package. More commonly, packages give you <em>access</em> to online datasets too large to download (Spotify, The New York Times, etc.). This technique, of selectively downloading relevant data from a much larger, online database, is the basis for the concept of an ‘API.’ [<em>Application Programming Interface</em>, if you’re wondering.] Many websites also use APIs, with downloadable files for analysis.</p>
 <p>So as to avoid any complication, let’s hold off on accessing an API until we cover Twitter, and continue to use the <em>babynames</em> dataset for now; then we can move on to analyzing lyrics, political speeches, and great works of literature.</p>
 <p>A snippet of <em>Base R</em> here, rather than the <em>tidyverse</em>: if we want to specify a <em>column</em> in our dataset, we write the name of the dataset or variable, then the dollar sign, then the name of the column:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="text-analysis.html#cb164-1" aria-hidden="true" tabindex="-1"></a>babynames<span class="sc">$</span>name</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="text-analysis.html#cb166-1" aria-hidden="true" tabindex="-1"></a>babynames<span class="sc">$</span>name</span></code></pre></div>
 <pre><code>##    [1] &quot;Mary&quot;       &quot;Anna&quot;       &quot;Emma&quot;       &quot;Elizabeth&quot;  &quot;Minnie&quot;    
 ##    [6] &quot;Margaret&quot;   &quot;Ida&quot;        &quot;Alice&quot;      &quot;Bertha&quot;     &quot;Sarah&quot;     
 ##   [11] &quot;Annie&quot;      &quot;Clara&quot;      &quot;Ella&quot;       &quot;Florence&quot;   &quot;Cora&quot;      
@@ -480,28 +480,28 @@ Here are some functions from the stringr package that we can use to manipulate t
 <p>Let’s use str_detect() to find all of the names that include a ‘sh’ sound:</p>
 <p>As you see, str_detect() runs as a <em>boolean operator</em>, in that it ascribes a <em>TRUE</em> or <em>FALSE</em> value for each entry in the column, based on our conditional statement: is there a ‘sh’ in the character string?</p>
 <p>Let’s combine our previous experience with ggplot to write a long, complicated set of code that will visualize the <em>most popular names starting in ‘Sh’ for women born in 1938:</em></p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="text-analysis.html#cb166-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb166-2"><a href="text-analysis.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb166-3"><a href="text-analysis.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb166-4"><a href="text-analysis.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb166-5"><a href="text-analysis.html#cb166-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,prop),prop,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
-<span id="cb166-6"><a href="text-analysis.html#cb166-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb166-7"><a href="text-analysis.html#cb166-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
-<p>Let’s fancy that up a bit, by calculating a ‘percentage’ of use of that name per year / per gender:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="text-analysis.html#cb167-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb167-2"><a href="text-analysis.html#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb167-3"><a href="text-analysis.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb167-4"><a href="text-analysis.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb167-5"><a href="text-analysis.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (prop <span class="sc">*</span> <span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb167-6"><a href="text-analysis.html#cb167-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,percent),percent,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
-<span id="cb167-7"><a href="text-analysis.html#cb167-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb167-8"><a href="text-analysis.html#cb167-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<p>how many ‘z’ names since 2000?</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="text-analysis.html#cb168-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb168-2"><a href="text-analysis.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">str_detect</span>(name, <span class="st">&quot;Z&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb168-3"><a href="text-analysis.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<span id="cb168-2"><a href="text-analysis.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb168-3"><a href="text-analysis.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb168-4"><a href="text-analysis.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb168-5"><a href="text-analysis.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,prop),prop,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
+<span id="cb168-6"><a href="text-analysis.html#cb168-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb168-7"><a href="text-analysis.html#cb168-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
+<p>Let’s fancy that up a bit, by calculating a ‘percentage’ of use of that name per year / per gender:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="text-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb169-2"><a href="text-analysis.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb169-3"><a href="text-analysis.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb169-4"><a href="text-analysis.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb169-5"><a href="text-analysis.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (prop <span class="sc">*</span> <span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb169-6"><a href="text-analysis.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,percent),percent,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
+<span id="cb169-7"><a href="text-analysis.html#cb169-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb169-8"><a href="text-analysis.html#cb169-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
+<p>how many ‘z’ names since 2000?</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="text-analysis.html#cb170-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb170-2"><a href="text-analysis.html#cb170-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">str_detect</span>(name, <span class="st">&quot;Z&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb170-3"><a href="text-analysis.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 13,018 × 5
 ##     year sex   name        n    prop
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;
@@ -517,9 +517,9 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  2009 M     Zachary  8078 0.00381
 ## # … with 13,008 more rows</code></pre>
 <p>Why did R only pull out the names starting with Z? Because we capitalized it. How do we get both?</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="text-analysis.html#cb170-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb170-2"><a href="text-analysis.html#cb170-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-3"><a href="text-analysis.html#cb170-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="text-analysis.html#cb172-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb172-2"><a href="text-analysis.html#cb172-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-3"><a href="text-analysis.html#cb172-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
 ##     year sex   name        n   prop     Z
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;
@@ -535,9 +535,9 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1885 M     John     8756 0.0755     0
 ## # … with 1,924,655 more rows</code></pre>
 <p>Instead of arranging our data by name popularity, let’s look at the names with the <em>most</em> z’s in them:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="text-analysis.html#cb172-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb172-2"><a href="text-analysis.html#cb172-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb172-3"><a href="text-analysis.html#cb172-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(Z))</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="text-analysis.html#cb174-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb174-2"><a href="text-analysis.html#cb174-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb174-3"><a href="text-analysis.html#cb174-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(Z))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
 ##     year sex   name       n       prop     Z
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt; &lt;int&gt;
@@ -553,40 +553,40 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1883 F     Kizzie    14 0.000117       2
 ## # … with 1,924,655 more rows</code></pre>
 <p>What if, instead of specifying a particular letter, we just wanted to count the most frequent first letters in names?</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="text-analysis.html#cb174-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb174-2"><a href="text-analysis.html#cb174-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">first_letter =</span> <span class="fu">substr</span>(name, <span class="dv">1</span>,<span class="dv">1</span>)) <span class="ot">-&gt;</span> baby_letters</span></code></pre></div>
-<p>Let’s plot that:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="text-analysis.html#cb175-1" aria-hidden="true" tabindex="-1"></a>    baby_letters <span class="sc">%&gt;%</span> </span>
-<span id="cb175-2"><a href="text-analysis.html#cb175-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(first_letter, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb175-3"><a href="text-analysis.html#cb175-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(first_letter, n),n)) <span class="sc">+</span> </span>
-<span id="cb175-4"><a href="text-analysis.html#cb175-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb175-5"><a href="text-analysis.html#cb175-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
-<p>We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="text-analysis.html#cb176-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb176-2"><a href="text-analysis.html#cb176-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">str_length</span>(name)) <span class="ot">-&gt;</span> babynames_length</span></code></pre></div>
+<span id="cb176-2"><a href="text-analysis.html#cb176-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">first_letter =</span> <span class="fu">substr</span>(name, <span class="dv">1</span>,<span class="dv">1</span>)) <span class="ot">-&gt;</span> baby_letters</span></code></pre></div>
+<p>Let’s plot that:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="text-analysis.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    baby_letters <span class="sc">%&gt;%</span> </span>
+<span id="cb177-2"><a href="text-analysis.html#cb177-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(first_letter, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb177-3"><a href="text-analysis.html#cb177-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(first_letter, n),n)) <span class="sc">+</span> </span>
+<span id="cb177-4"><a href="text-analysis.html#cb177-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb177-5"><a href="text-analysis.html#cb177-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p>We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="text-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb178-2"><a href="text-analysis.html#cb178-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">str_length</span>(name)) <span class="ot">-&gt;</span> babynames_length</span></code></pre></div>
 </div>
 <div id="average-name-length-over-time-1" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Average name length over time<a href="text-analysis.html#average-name-length-over-time-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, if we want to see the average length of a names over time, the code gets a little mroe advanced - note the <em>mean</em> function we haven’t used like this before:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="text-analysis.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb177-2"><a href="text-analysis.html#cb177-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb177-3"><a href="text-analysis.html#cb177-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb177-4"><a href="text-analysis.html#cb177-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="text-analysis.html#cb179-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb179-2"><a href="text-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb179-3"><a href="text-analysis.html#cb179-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb179-4"><a href="text-analysis.html#cb179-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>The results are impressive. Let’s split them up by Sex:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="text-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb178-2"><a href="text-analysis.html#cb178-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
-<span id="cb178-3"><a href="text-analysis.html#cb178-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb178-4"><a href="text-analysis.html#cb178-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length, <span class="at">color =</span> sex)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="text-analysis.html#cb180-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb180-2"><a href="text-analysis.html#cb180-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-3"><a href="text-analysis.html#cb180-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-4"><a href="text-analysis.html#cb180-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length, <span class="at">color =</span> sex)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 </div>
 <div id="common-issue-example-most-common-3-letter-names" class="section level3 hasAnchor" number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> Common issue: (example: most common 3-letter names)<a href="text-analysis.html#common-issue-example-most-common-3-letter-names" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As mentioned in the last Chapter, summarise() is confusing. In the case of babynames, you’ll know to use it when you keep getting the same results over and over, and you want to group those names together. Let’s take a look at this issue by calculating the most common 3-letter names:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="text-analysis.html#cb179-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb179-2"><a href="text-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb179-3"><a href="text-analysis.html#cb179-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb181-2"><a href="text-analysis.html#cb181-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb181-3"><a href="text-analysis.html#cb181-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 41,274 × 6
 ##     year sex   name      n   prop length
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;int&gt;
@@ -602,11 +602,11 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1882 F     Ida    1673 0.0145      3
 ## # … with 41,264 more rows</code></pre>
 <p>We get a lot of repeated names. Time to summarize!</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb181-2"><a href="text-analysis.html#cb181-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-3"><a href="text-analysis.html#cb181-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-4"><a href="text-analysis.html#cb181-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n) ) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-5"><a href="text-analysis.html#cb181-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total))</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="text-analysis.html#cb183-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb183-2"><a href="text-analysis.html#cb183-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb183-3"><a href="text-analysis.html#cb183-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb183-4"><a href="text-analysis.html#cb183-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb183-5"><a href="text-analysis.html#cb183-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total))</span></code></pre></div>
 <pre><code>## # A tibble: 970 × 2
 ##    name   total
 ##    &lt;chr&gt;  &lt;int&gt;
@@ -622,11 +622,11 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 Kim   214365
 ## # … with 960 more rows</code></pre>
 <p>Let’s try that again, with 2-letter names:</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="text-analysis.html#cb183-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb183-2"><a href="text-analysis.html#cb183-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb183-3"><a href="text-analysis.html#cb183-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb183-4"><a href="text-analysis.html#cb183-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb183-5"><a href="text-analysis.html#cb183-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) </span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="text-analysis.html#cb185-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb185-2"><a href="text-analysis.html#cb185-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb185-3"><a href="text-analysis.html#cb185-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb185-4"><a href="text-analysis.html#cb185-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb185-5"><a href="text-analysis.html#cb185-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) </span></code></pre></div>
 <pre><code>## # A tibble: 149 × 2
 ##    name   total
 ##    &lt;chr&gt;  &lt;int&gt;
@@ -642,8 +642,8 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 An      2048
 ## # … with 139 more rows</code></pre>
 <p>What is the longest name?</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="text-analysis.html#cb185-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb185-2"><a href="text-analysis.html#cb185-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(length))</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis.html#cb187-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb187-2"><a href="text-analysis.html#cb187-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(length))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
 ##     year sex   name                n       prop length
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           &lt;int&gt;      &lt;dbl&gt;  &lt;int&gt;
@@ -659,9 +659,9 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1983 M     Christopherjohn     8 0.00000429     15
 ## # … with 1,924,655 more rows</code></pre>
 <p>How many 15 letter names are there?</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis.html#cb187-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb187-2"><a href="text-analysis.html#cb187-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb187-3"><a href="text-analysis.html#cb187-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="text-analysis.html#cb189-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb189-2"><a href="text-analysis.html#cb189-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-3"><a href="text-analysis.html#cb189-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 34 × 2
 ##    name                n
 ##    &lt;chr&gt;           &lt;int&gt;
@@ -677,16 +677,16 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 Mariadelosangel     4
 ## # … with 24 more rows</code></pre>
 <p>Let’s plot those names:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="text-analysis.html#cb189-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb189-2"><a href="text-analysis.html#cb189-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Christopherjohn&quot;</span>,<span class="st">&quot;Johnchristopher&quot;</span>,<span class="st">&quot;Christopherjame&quot;</span>,<span class="st">&quot;Franciscojavier&quot;</span>, <span class="st">&quot;Christophermich&quot;</span>, <span class="st">&quot;Ryanchristopher&quot;</span>,<span class="st">&quot;Christianjoseph&quot;</span>, <span class="st">&quot;Christopherjose&quot;</span>, <span class="st">&quot;Jonathanmichael&quot;</span>, <span class="st">&quot;Mariadelosangel&quot;</span>  </span>
-<span id="cb189-3"><a href="text-analysis.html#cb189-3" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">%&gt;%</span> </span>
-<span id="cb189-4"><a href="text-analysis.html#cb189-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="text-analysis.html#cb191-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb191-2"><a href="text-analysis.html#cb191-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Christopherjohn&quot;</span>,<span class="st">&quot;Johnchristopher&quot;</span>,<span class="st">&quot;Christopherjame&quot;</span>,<span class="st">&quot;Franciscojavier&quot;</span>, <span class="st">&quot;Christophermich&quot;</span>, <span class="st">&quot;Ryanchristopher&quot;</span>,<span class="st">&quot;Christianjoseph&quot;</span>, <span class="st">&quot;Christopherjose&quot;</span>, <span class="st">&quot;Jonathanmichael&quot;</span>, <span class="st">&quot;Mariadelosangel&quot;</span>  </span>
+<span id="cb191-3"><a href="text-analysis.html#cb191-3" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">%&gt;%</span> </span>
+<span id="cb191-4"><a href="text-analysis.html#cb191-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 <p>By the look of these names, it’s clear that most of them are actually <em>longer</em> than 15 characters - but 15 characters is the cut-off point for the column. Thus, we cannot accurately estimate the most common 15-letter names.</p>
 <p>Along similar lines, an analysis of the methodology behind <em>babynames</em> shows that only names that have <em>at least 5 instances in a given year</em> are recorded. So it’d be similarly futile for us to attempt to measure the <em>rarest</em> names, as they are excluded in the database. (It also helps clarify why some rarer names seem to ‘disappear’ in certain years.)</p>
 <p>OK, what else can stringr do?</p>
 <p>How about the average number of vowels per name?</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="text-analysis.html#cb190-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
 <pre><code>##    [1] 1 1 1 3 3 3 1 2 2 2 2 2 1 3 2 2 3 3 2 3 3 2 3 3 3 3 3 1 3 2 4 3 1 3 2
 ##   [36] 3 4 1 2 1 1 2 2 1 1 3 2 2 3 4 2 2 4 1 3 2 1 3 2 2 1 1 2 3 3 2 3 2 3 2
 ##   [71] 2 1 3 3 4 3 2 2 2 2 3 1 2 4 2 2 3 3 2 2 3 3 1 3 2 3 2 2 4 1 3 2 1 1 3
@@ -718,36 +718,36 @@ Here are some functions from the stringr package that we can use to manipulate t
 ##  [981] 2 1 1 1 2 2 2 3 1 2 1 2 2 1 3 1 0 3 1 1
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 1923665 entries ]</code></pre>
 <p>That’s a lot of numbers. Let’s calculate a mean value instead:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="text-analysis.html#cb194-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 2.420695</code></pre>
 <p>How about consonants?</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="text-analysis.html#cb194-1" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[bcdfghjklmnpqrstvwxyz]&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="text-analysis.html#cb196-1" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[bcdfghjklmnpqrstvwxyz]&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 2.752322</code></pre>
 <p>Example ideas for further exploration:</p>
 <p>How many names contain ‘liz’ in them?</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="text-analysis.html#cb196-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb196-2"><a href="text-analysis.html#cb196-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="fu">str_detect</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;liz&quot;</span>) )  <span class="sc">%&gt;%</span> </span>
-<span id="cb196-3"><a href="text-analysis.html#cb196-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb196-4"><a href="text-analysis.html#cb196-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb196-5"><a href="text-analysis.html#cb196-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, n),n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
-<span id="cb196-6"><a href="text-analysis.html#cb196-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="text-analysis.html#cb198-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb198-2"><a href="text-analysis.html#cb198-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="fu">str_detect</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;liz&quot;</span>) )  <span class="sc">%&gt;%</span> </span>
+<span id="cb198-3"><a href="text-analysis.html#cb198-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb198-4"><a href="text-analysis.html#cb198-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb198-5"><a href="text-analysis.html#cb198-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, n),n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb198-6"><a href="text-analysis.html#cb198-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p>Case Study: Born Without A (Proper) Name</p>
 <p>There are a number of names in the database that are totally anonymous. When, and why?</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="text-analysis.html#cb197-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb197-2"><a href="text-analysis.html#cb197-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unnamed&quot;</span>, <span class="st">&quot;Infant&quot;</span>, <span class="st">&quot;Infantof&quot;</span>, <span class="st">&quot;Notnamed&quot;</span>, <span class="st">&quot;Baby&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb197-3"><a href="text-analysis.html#cb197-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb199-2"><a href="text-analysis.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unnamed&quot;</span>, <span class="st">&quot;Infant&quot;</span>, <span class="st">&quot;Infantof&quot;</span>, <span class="st">&quot;Notnamed&quot;</span>, <span class="st">&quot;Baby&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb199-3"><a href="text-analysis.html#cb199-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <p>Let’s compare this to the number of unique names per year:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="text-analysis.html#cb198-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb198-2"><a href="text-analysis.html#cb198-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb198-3"><a href="text-analysis.html#cb198-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">annual =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
-<span id="cb198-4"><a href="text-analysis.html#cb198-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, annual )) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="text-analysis.html#cb200-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb200-2"><a href="text-analysis.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb200-3"><a href="text-analysis.html#cb200-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">annual =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb200-4"><a href="text-analysis.html#cb200-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, annual )) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
 <p><em>Babynames</em> also includes a data set called births, that simply lists out the total number of births per year:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(births)</span>
-<span id="cb199-2"><a href="text-analysis.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(births, <span class="fu">aes</span>(year, births)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(births)</span>
+<span id="cb201-2"><a href="text-analysis.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(births, <span class="fu">aes</span>(year, births)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
 <p>Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year.</p>
 
 </div>
