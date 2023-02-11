@@ -467,16 +467,16 @@ sd_report <- my_data %>%
   summarise_if(is.numeric, sd)
 
 #aggregate sd to the stats_report
-stats_report <- bind_rows(stats_report, sd_report)
-rownames(stats_report) <- c("mean","median","mode","min","max","IQR", "sd")
-stats_report <- stats_report[,-12]
+Descriptive_Statistics <- bind_rows(stats_report, sd_report)
+rownames(Descriptive_Statistics) <- c("mean","median","mode","min","max","IQR", "sd")
+Descriptive_Statistics <- Descriptive_Statistics[,-12]
 ```
 
 
 ```{r}
 
 knitr::kable(
-    head(arrange(stats_report)), 
+    head(arrange(Descriptive_Statistics)), 
     digits = 0,
     booktabs = TRUE,
     caption = 'Descriptive Statistics', align = "l"
