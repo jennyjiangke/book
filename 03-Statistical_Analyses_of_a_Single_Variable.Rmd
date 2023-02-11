@@ -308,10 +308,11 @@ centerreport <- centerreport[, -10]
 
 knitr::kable(
     head(arrange(centerreport)), 
-  booktabs = TRUE,
-  caption = 'Descriptive Statistics-mean,median,mode', align = "l"
+    digits = 2,
+    booktabs = TRUE,
+    caption = 'Descriptive Statistics-mean,median,mode', align = "l"
 ) %>%
-  kable_styling(font_size = 14)
+  kable_styling(font_size = 10)
 ```
 
 It is interesting to find the huge discrepancies between different central tendency measurements. This also indicates reporting results of different central tendency analyses can provide a more comprehensive understanding of the data distribution. For example, the mean value of Users (5661) is much higher than the median (940) and mode (22), indicating a skewed data distribution due to the existence of some large-value outliers.
@@ -380,10 +381,11 @@ stats_report <- stats_report[, -12]
 
 knitr::kable(
     head(arrange(stats_report)), 
-  booktabs = TRUE,
-  caption = 'Descriptive Statistics', align = "l"
+    digits = 2,
+    booktabs = TRUE,
+    caption = 'Descriptive Statistics', align = "l"
 ) %>%
-  kable_styling(font_size = 14)
+  kable_styling(font_size = 10)
 ```
 
 **IQR** is important for finding the **outlier** of an abnormal distance from other values in a data set. We use the quartile to divide observations into four intervals with an equal number of data points: the first quartile includes the lowest 25% of data points; the second quartile covers data points between 25.1% and 50%, which corresponds to the median; the third quartile includes data points above the median between 50.1% and 75%; the fourth quartile has the highest 25% of numbers. 
@@ -475,10 +477,11 @@ stats_report <- stats_report[,-12]
 
 knitr::kable(
     head(arrange(stats_report)), 
-  booktabs = TRUE,
-  caption = 'Descriptive Statistics', align = "l"
+    digits = 2,
+    booktabs = TRUE,
+    caption = 'Descriptive Statistics', align = "l"
 ) %>%
-  kable_styling(font_size = 14)
+  kable_styling(font_size = 10)
 ```
 
 The high standard deviations of all nine variables indicate high variations between values and abnormal distributions for data.
