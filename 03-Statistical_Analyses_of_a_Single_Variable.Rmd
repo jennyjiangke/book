@@ -5,6 +5,7 @@ This chapter uses data from Google Analytics’ channels report, which demonstra
 Let's import the Google Analytics’ channels report into RStudio.
 
 ```{r}
+
 #You will need to install readxl package
 
 library(readxl) 
