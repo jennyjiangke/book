@@ -486,4 +486,36 @@ knitr::kable(
 
 The high standard deviations of all variables indicate high variations between values and abnormal distributions for data.
 
-## Assignment
+## Assignment: Analyzing a Single Variable
+
+**Learning Objectives**: Apply the grouped frequency, relative frequency, percentage change, percentage point, rate, ratio, mean, median, mode, weighted mean, variation ratio, range, outlier, and standard deviation analysis to the process of analyzing of a single variable
+
+**Step 1** Download the google analytic data from UA-Google Merchandise Store (Acquisition – All Traffic – Channels). Add the secondary dimension of your choice (e.g., Age). Select the data for two “whole years” (e.g., 2010 & 2011). Download each year’s full data set from Google analytics as a .xlsx. 
+
+**Step 2** Open the two .xlsx data sets and clean the data sets by removing the extra sheets.
+
+**Step 3** Import the two data sets in RStudio
+
+**Step 4** Using the codes of case study 2 – import data and data cleaning to import, clean, re-organize your data, then, develop your own codes for analyzing a single variable (or several variables) of your choice using the statistics of 
+
+*a.	Grouped frequency*
+*b.	Relative frequency*
+*c.	Percentage Change*
+*d.	Percentage Points*
+*e.	Rate*
+*f.	Ratio*
+*g.	Mean*
+*h.	Median*
+*i.	Mode*
+*j.	Weighted Mean*
+*k.	Variation Ratio*
+*l.	Range*
+*m.	Outlier*
+*n.	Standard Deviation*
+
+**Step 5** Discuss with your group members to interpret the results. (Storytelling)
+
+**Step 6** Orally present your research in class. Your grade will be evaluated by three factors: **a) Cover the analysis of all metrics, b) present meaningful insights from the results of data analysis.**
+
+
+
