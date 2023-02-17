@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-14" />
+<meta name="date" content="2023-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -231,41 +231,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Text Analysis<a href="text-analysis.html#text-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="an-introduction-to-stringr" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> An Introduction to Stringr<a href="text-analysis.html#an-introduction-to-stringr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="text-analysis.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span>
-<span id="cb152-2"><a href="text-analysis.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb152-3"><a href="text-analysis.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb152-4"><a href="text-analysis.html#cb152-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="text-analysis.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span>
+<span id="cb154-2"><a href="text-analysis.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb154-3"><a href="text-analysis.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb154-4"><a href="text-analysis.html#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
 <p>Stringr is a package in the <em>tidyverse</em> that deals with, well, strings. What are strings? Anything in your data frame that is text- or character-based. So, in the case of <em>babynames</em>, that’d be <em>Name</em> and <em>Sex -</em> Year, Prop and N are not strings.</p>
 <p>Stringr allows for string manipulation across your entire dataset. If, for instance, we had a column of character data that repeatedly mis-spelled a name: <em>Bryan</em> instead of <em>Brian</em>, say - stringr could change every instance of <em>Bryan</em> into <em>Brian</em> in one line of code.</p>
 <p>Let’s start playing around with stringr by creating a <em>variable</em> that is equal to a string:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="text-analysis.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb153-2"><a href="text-analysis.html#cb153-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-3"><a href="text-analysis.html#cb153-3" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;this is a long sentence&quot;</span>, <span class="cn">NA</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="text-analysis.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb155-2"><a href="text-analysis.html#cb155-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-3"><a href="text-analysis.html#cb155-3" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;this is a long sentence&quot;</span>, <span class="cn">NA</span>)</span></code></pre></div>
 Here are some functions from the stringr package that we can use to manipulate this sentence.
 <ul>
 <li>
 <p>How many characters are there in the string?</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="text-analysis.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="text-analysis.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(sentence)</span></code></pre></div>
 <pre><code>## [1]  5 23 NA</code></pre>
 <li>
 <p>Let’s replace every instance of ‘l’ with ‘x’</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="text-analysis.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(sentence, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;X&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;heXlo&quot;                  
-## [2] &quot;this is a Xong sentence&quot;
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="text-analysis.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(sentence, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;X&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;heXlo&quot;                   &quot;this is a Xong sentence&quot;
 ## [3] NA</code></pre>
 <p>Okay, now let’s create a new string that is a <em>list</em> of character strings:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="text-analysis.html#cb158-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="text-analysis.html#cb160-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
 <p>Let’s use str_sub to ‘pull out’ the first character of the string:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="text-analysis.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="text-analysis.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;P&quot;</code></pre>
 <p>What just happened? We told R to only grab the first character. Can we grab the first three characters?</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="text-analysis.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="text-analysis.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(list, <span class="dv">1</span>,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;App&quot; &quot;Ban&quot; &quot;Pea&quot;</code></pre>
 <p>Let’s adjust the string’s content so each fruit is written entirely in lower case:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="text-analysis.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(<span class="fu">str_sub</span>(list))</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="text-analysis.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(<span class="fu">str_sub</span>(list))</span></code></pre></div>
 <pre><code>## [1] &quot;apple&quot;  &quot;banana&quot; &quot;pear&quot;</code></pre>
 <p>We can also use stringr to detect specific words or phrases:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="text-analysis.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(list, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="text-analysis.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(list, <span class="st">&quot;Pear&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE</code></pre>
 <p>R returns the position of “Pear” in the list.</p>
 <div id="practical-applications-of-stringr-1" class="section level3 hasAnchor" number="6.1.1">
@@ -276,367 +275,283 @@ Here are some functions from the stringr package that we can use to manipulate t
 <p>A third way would be to use data included in an R package. More commonly, packages give you <em>access</em> to online datasets too large to download (Spotify, The New York Times, etc.). This technique, of selectively downloading relevant data from a much larger, online database, is the basis for the concept of an ‘API.’ [<em>Application Programming Interface</em>, if you’re wondering.] Many websites also use APIs, with downloadable files for analysis.</p>
 <p>So as to avoid any complication, let’s hold off on accessing an API until we cover Twitter, and continue to use the <em>babynames</em> dataset for now; then we can move on to analyzing lyrics, political speeches, and great works of literature.</p>
 <p>A snippet of <em>Base R</em> here, rather than the <em>tidyverse</em>: if we want to specify a <em>column</em> in our dataset, we write the name of the dataset or variable, then the dollar sign, then the name of the column:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="text-analysis.html#cb167-1" aria-hidden="true" tabindex="-1"></a>babynames<span class="sc">$</span>name</span></code></pre></div>
-<pre><code>##    [1] &quot;Mary&quot;       &quot;Anna&quot;       &quot;Emma&quot;      
-##    [4] &quot;Elizabeth&quot;  &quot;Minnie&quot;     &quot;Margaret&quot;  
-##    [7] &quot;Ida&quot;        &quot;Alice&quot;      &quot;Bertha&quot;    
-##   [10] &quot;Sarah&quot;      &quot;Annie&quot;      &quot;Clara&quot;     
-##   [13] &quot;Ella&quot;       &quot;Florence&quot;   &quot;Cora&quot;      
-##   [16] &quot;Martha&quot;     &quot;Laura&quot;      &quot;Nellie&quot;    
-##   [19] &quot;Grace&quot;      &quot;Carrie&quot;     &quot;Maude&quot;     
-##   [22] &quot;Mabel&quot;      &quot;Bessie&quot;     &quot;Jennie&quot;    
-##   [25] &quot;Gertrude&quot;   &quot;Julia&quot;      &quot;Hattie&quot;    
-##   [28] &quot;Edith&quot;      &quot;Mattie&quot;     &quot;Rose&quot;      
-##   [31] &quot;Catherine&quot;  &quot;Lillian&quot;    &quot;Ada&quot;       
-##   [34] &quot;Lillie&quot;     &quot;Helen&quot;      &quot;Jessie&quot;    
-##   [37] &quot;Louise&quot;     &quot;Ethel&quot;      &quot;Lula&quot;      
-##   [40] &quot;Myrtle&quot;     &quot;Eva&quot;        &quot;Frances&quot;   
-##   [43] &quot;Lena&quot;       &quot;Lucy&quot;       &quot;Edna&quot;      
-##   [46] &quot;Maggie&quot;     &quot;Pearl&quot;      &quot;Daisy&quot;     
-##   [49] &quot;Fannie&quot;     &quot;Josephine&quot;  &quot;Dora&quot;      
-##   [52] &quot;Rosa&quot;       &quot;Katherine&quot;  &quot;Agnes&quot;     
-##   [55] &quot;Marie&quot;      &quot;Nora&quot;       &quot;May&quot;       
-##   [58] &quot;Mamie&quot;      &quot;Blanche&quot;    &quot;Stella&quot;    
-##   [61] &quot;Ellen&quot;      &quot;Nancy&quot;      &quot;Effie&quot;     
-##   [64] &quot;Sallie&quot;     &quot;Nettie&quot;     &quot;Della&quot;     
-##   [67] &quot;Lizzie&quot;     &quot;Flora&quot;      &quot;Susie&quot;     
-##   [70] &quot;Maud&quot;       &quot;Mae&quot;        &quot;Etta&quot;      
-##   [73] &quot;Harriet&quot;    &quot;Sadie&quot;      &quot;Caroline&quot;  
-##   [76] &quot;Katie&quot;      &quot;Lydia&quot;      &quot;Elsie&quot;     
-##   [79] &quot;Kate&quot;       &quot;Susan&quot;      &quot;Mollie&quot;    
-##   [82] &quot;Alma&quot;       &quot;Addie&quot;      &quot;Georgia&quot;   
-##   [85] &quot;Eliza&quot;      &quot;Lulu&quot;       &quot;Nannie&quot;    
-##   [88] &quot;Lottie&quot;     &quot;Amanda&quot;     &quot;Belle&quot;     
-##   [91] &quot;Charlotte&quot;  &quot;Rebecca&quot;    &quot;Ruth&quot;      
-##   [94] &quot;Viola&quot;      &quot;Olive&quot;      &quot;Amelia&quot;    
-##   [97] &quot;Hannah&quot;     &quot;Jane&quot;       &quot;Virginia&quot;  
-##  [100] &quot;Emily&quot;      &quot;Matilda&quot;    &quot;Irene&quot;     
-##  [103] &quot;Kathryn&quot;    &quot;Esther&quot;     &quot;Willie&quot;    
-##  [106] &quot;Henrietta&quot;  &quot;Ollie&quot;      &quot;Amy&quot;       
-##  [109] &quot;Rachel&quot;     &quot;Sara&quot;       &quot;Estella&quot;   
-##  [112] &quot;Theresa&quot;    &quot;Augusta&quot;    &quot;Ora&quot;       
-##  [115] &quot;Pauline&quot;    &quot;Josie&quot;      &quot;Lola&quot;      
-##  [118] &quot;Sophia&quot;     &quot;Leona&quot;      &quot;Anne&quot;      
-##  [121] &quot;Mildred&quot;    &quot;Ann&quot;        &quot;Beulah&quot;    
-##  [124] &quot;Callie&quot;     &quot;Lou&quot;        &quot;Delia&quot;     
-##  [127] &quot;Eleanor&quot;    &quot;Barbara&quot;    &quot;Iva&quot;       
-##  [130] &quot;Louisa&quot;     &quot;Maria&quot;      &quot;Mayme&quot;     
-##  [133] &quot;Evelyn&quot;     &quot;Estelle&quot;    &quot;Nina&quot;      
-##  [136] &quot;Betty&quot;      &quot;Marion&quot;     &quot;Bettie&quot;    
-##  [139] &quot;Dorothy&quot;    &quot;Luella&quot;     &quot;Inez&quot;      
-##  [142] &quot;Lela&quot;       &quot;Rosie&quot;      &quot;Allie&quot;     
-##  [145] &quot;Millie&quot;     &quot;Janie&quot;      &quot;Cornelia&quot;  
-##  [148] &quot;Victoria&quot;   &quot;Ruby&quot;       &quot;Winifred&quot;  
-##  [151] &quot;Alta&quot;       &quot;Celia&quot;      &quot;Christine&quot; 
-##  [154] &quot;Beatrice&quot;   &quot;Birdie&quot;     &quot;Harriett&quot;  
-##  [157] &quot;Mable&quot;      &quot;Myra&quot;       &quot;Sophie&quot;    
-##  [160] &quot;Tillie&quot;     &quot;Isabel&quot;     &quot;Sylvia&quot;    
-##  [163] &quot;Carolyn&quot;    &quot;Isabelle&quot;   &quot;Leila&quot;     
-##  [166] &quot;Sally&quot;      &quot;Ina&quot;        &quot;Essie&quot;     
-##  [169] &quot;Bertie&quot;     &quot;Nell&quot;       &quot;Alberta&quot;   
-##  [172] &quot;Katharine&quot;  &quot;Lora&quot;       &quot;Rena&quot;      
-##  [175] &quot;Mina&quot;       &quot;Rhoda&quot;      &quot;Mathilda&quot;  
-##  [178] &quot;Abbie&quot;      &quot;Eula&quot;       &quot;Dollie&quot;    
-##  [181] &quot;Hettie&quot;     &quot;Eunice&quot;     &quot;Fanny&quot;     
-##  [184] &quot;Ola&quot;        &quot;Lenora&quot;     &quot;Adelaide&quot;  
-##  [187] &quot;Christina&quot;  &quot;Lelia&quot;      &quot;Nelle&quot;     
-##  [190] &quot;Sue&quot;        &quot;Johanna&quot;    &quot;Lilly&quot;     
-##  [193] &quot;Lucinda&quot;    &quot;Minerva&quot;    &quot;Lettie&quot;    
-##  [196] &quot;Roxie&quot;      &quot;Cynthia&quot;    &quot;Helena&quot;    
-##  [199] &quot;Hilda&quot;      &quot;Hulda&quot;      &quot;Bernice&quot;   
-##  [202] &quot;Genevieve&quot;  &quot;Jean&quot;       &quot;Cordelia&quot;  
-##  [205] &quot;Marian&quot;     &quot;Francis&quot;    &quot;Jeanette&quot;  
-##  [208] &quot;Adeline&quot;    &quot;Gussie&quot;     &quot;Leah&quot;      
-##  [211] &quot;Lois&quot;       &quot;Lura&quot;       &quot;Mittie&quot;    
-##  [214] &quot;Hallie&quot;     &quot;Isabella&quot;   &quot;Olga&quot;      
-##  [217] &quot;Phoebe&quot;     &quot;Teresa&quot;     &quot;Hester&quot;    
-##  [220] &quot;Lida&quot;       &quot;Lina&quot;       &quot;Winnie&quot;    
-##  [223] &quot;Claudia&quot;    &quot;Marguerite&quot; &quot;Vera&quot;      
-##  [226] &quot;Cecelia&quot;    &quot;Bess&quot;       &quot;Emilie&quot;    
-##  [229] &quot;John&quot;       &quot;Rosetta&quot;    &quot;Verna&quot;     
-##  [232] &quot;Myrtie&quot;     &quot;Cecilia&quot;    &quot;Elva&quot;      
-##  [235] &quot;Olivia&quot;     &quot;Ophelia&quot;    &quot;Georgie&quot;   
-##  [238] &quot;Elnora&quot;     &quot;Violet&quot;     &quot;Adele&quot;     
-##  [241] &quot;Lily&quot;       &quot;Linnie&quot;     &quot;Loretta&quot;   
-##  [244] &quot;Madge&quot;      &quot;Polly&quot;      &quot;Virgie&quot;    
-##  [247] &quot;Eugenia&quot;    &quot;Lucile&quot;     &quot;Lucille&quot;   
-##  [250] &quot;Mabelle&quot;    &quot;Rosalie&quot;    &quot;Kittie&quot;    
-##  [253] &quot;Meta&quot;       &quot;Angie&quot;      &quot;Dessie&quot;    
-##  [256] &quot;Georgiana&quot;  &quot;Lila&quot;       &quot;Regina&quot;    
-##  [259] &quot;Selma&quot;      &quot;Wilhelmina&quot; &quot;Bridget&quot;   
-##  [262] &quot;Lilla&quot;      &quot;Malinda&quot;    &quot;Vina&quot;      
-##  [265] &quot;Freda&quot;      &quot;Gertie&quot;     &quot;Jeannette&quot; 
-##  [268] &quot;Louella&quot;    &quot;Mandy&quot;      &quot;Roberta&quot;   
-##  [271] &quot;Cassie&quot;     &quot;Corinne&quot;    &quot;Ivy&quot;       
-##  [274] &quot;Melissa&quot;    &quot;Lyda&quot;       &quot;Naomi&quot;     
-##  [277] &quot;Norma&quot;      &quot;Bell&quot;       &quot;Margie&quot;    
-##  [280] &quot;Nona&quot;       &quot;Zella&quot;      &quot;Dovie&quot;     
-##  [283] &quot;Elvira&quot;     &quot;Erma&quot;       &quot;Irma&quot;      
-##  [286] &quot;Leota&quot;      &quot;William&quot;    &quot;Artie&quot;     
-##  [289] &quot;Blanch&quot;     &quot;Charity&quot;    &quot;Lorena&quot;    
-##  [292] &quot;Lucretia&quot;   &quot;Orpha&quot;      &quot;Alvina&quot;    
-##  [295] &quot;Annette&quot;    &quot;Catharine&quot;  &quot;Elma&quot;      
-##  [298] &quot;Geneva&quot;     &quot;Janet&quot;      &quot;Lee&quot;       
-##  [301] &quot;Leora&quot;      &quot;Lona&quot;       &quot;Miriam&quot;    
-##  [304] &quot;Zora&quot;       &quot;Linda&quot;      &quot;Octavia&quot;   
-##  [307] &quot;Sudie&quot;      &quot;Zula&quot;       &quot;Adella&quot;    
-##  [310] &quot;Alpha&quot;      &quot;Frieda&quot;     &quot;George&quot;    
-##  [313] &quot;Joanna&quot;     &quot;Leonora&quot;    &quot;Priscilla&quot; 
-##  [316] &quot;Tennie&quot;     &quot;Angeline&quot;   &quot;Docia&quot;     
-##  [319] &quot;Ettie&quot;      &quot;Flossie&quot;    &quot;Hanna&quot;     
-##  [322] &quot;Letha&quot;      &quot;Minta&quot;      &quot;Retta&quot;     
-##  [325] &quot;Rosella&quot;    &quot;Adah&quot;       &quot;Berta&quot;     
-##  [328] &quot;Elisabeth&quot;  &quot;Elise&quot;      &quot;Goldie&quot;    
-##  [331] &quot;Leola&quot;      &quot;Margret&quot;    &quot;Adaline&quot;   
-##  [334] &quot;Floy&quot;       &quot;Idella&quot;     &quot;Juanita&quot;   
-##  [337] &quot;Lenna&quot;      &quot;Lucie&quot;      &quot;Missouri&quot;  
-##  [340] &quot;Nola&quot;       &quot;Zoe&quot;        &quot;Eda&quot;       
-##  [343] &quot;Isabell&quot;    &quot;James&quot;      &quot;Julie&quot;     
-##  [346] &quot;Letitia&quot;    &quot;Madeline&quot;   &quot;Malissa&quot;   
-##  [349] &quot;Mariah&quot;     &quot;Pattie&quot;     &quot;Vivian&quot;    
-##  [352] &quot;Almeda&quot;     &quot;Aurelia&quot;    &quot;Claire&quot;    
-##  [355] &quot;Dolly&quot;      &quot;Hazel&quot;      &quot;Jannie&quot;    
-##  [358] &quot;Kathleen&quot;   &quot;Kathrine&quot;   &quot;Lavinia&quot;   
-##  [361] &quot;Marietta&quot;   &quot;Melvina&quot;    &quot;Ona&quot;       
-##  [364] &quot;Pinkie&quot;     &quot;Samantha&quot;   &quot;Susanna&quot;   
-##  [367] &quot;Chloe&quot;      &quot;Donnie&quot;     &quot;Elsa&quot;      
-##  [370] &quot;Gladys&quot;     &quot;Matie&quot;      &quot;Pearle&quot;    
-##  [373] &quot;Vesta&quot;      &quot;Vinnie&quot;     &quot;Antoinette&quot;
-##  [376] &quot;Clementine&quot; &quot;Edythe&quot;     &quot;Harriette&quot; 
-##  [379] &quot;Libbie&quot;     &quot;Lilian&quot;     &quot;Lue&quot;       
-##  [382] &quot;Lutie&quot;      &quot;Magdalena&quot;  &quot;Meda&quot;      
-##  [385] &quot;Rita&quot;       &quot;Tena&quot;       &quot;Zelma&quot;     
-##  [388] &quot;Adelia&quot;     &quot;Annetta&quot;    &quot;Antonia&quot;   
-##  [391] &quot;Dona&quot;       &quot;Elizebeth&quot;  &quot;Georgianna&quot;
-##  [394] &quot;Gracie&quot;     &quot;Iona&quot;       &quot;Lessie&quot;    
-##  [397] &quot;Leta&quot;       &quot;Liza&quot;       &quot;Mertie&quot;    
-##  [400] &quot;Molly&quot;      &quot;Neva&quot;       &quot;Oma&quot;       
-##  [403] &quot;Alida&quot;      &quot;Alva&quot;       &quot;Cecile&quot;    
-##  [406] &quot;Cleo&quot;       &quot;Donna&quot;      &quot;Ellie&quot;     
-##  [409] &quot;Ernestine&quot;  &quot;Evie&quot;       &quot;Frankie&quot;   
-##  [412] &quot;Helene&quot;     &quot;Minna&quot;      &quot;Myrta&quot;     
-##  [415] &quot;Prudence&quot;   &quot;Queen&quot;      &quot;Rilla&quot;     
-##  [418] &quot;Savannah&quot;   &quot;Tessie&quot;     &quot;Tina&quot;      
-##  [421] &quot;Agatha&quot;     &quot;America&quot;    &quot;Anita&quot;     
-##  [424] &quot;Arminta&quot;    &quot;Dorothea&quot;   &quot;Ira&quot;       
-##  [427] &quot;Luvenia&quot;    &quot;Marjorie&quot;   &quot;Maybelle&quot;  
-##  [430] &quot;Mellie&quot;     &quot;Nan&quot;        &quot;Pearlie&quot;   
-##  [433] &quot;Sidney&quot;     &quot;Velma&quot;      &quot;Clare&quot;     
-##  [436] &quot;Constance&quot;  &quot;Dixie&quot;      &quot;Ila&quot;       
-##  [439] &quot;Iola&quot;       &quot;Jimmie&quot;     &quot;Louvenia&quot;  
-##  [442] &quot;Lucia&quot;      &quot;Ludie&quot;      &quot;Luna&quot;      
-##  [445] &quot;Metta&quot;      &quot;Patsy&quot;      &quot;Phebe&quot;     
-##  [448] &quot;Sophronia&quot;  &quot;Adda&quot;       &quot;Avis&quot;      
-##  [451] &quot;Betsy&quot;      &quot;Bonnie&quot;     &quot;Cecil&quot;     
-##  [454] &quot;Cordie&quot;     &quot;Emmaline&quot;   &quot;Ethelyn&quot;   
-##  [457] &quot;Hortense&quot;   &quot;June&quot;       &quot;Louie&quot;     
-##  [460] &quot;Lovie&quot;      &quot;Marcella&quot;   &quot;Melinda&quot;   
-##  [463] &quot;Mona&quot;       &quot;Odessa&quot;     &quot;Veronica&quot;  
-##  [466] &quot;Aimee&quot;      &quot;Annabel&quot;    &quot;Ava&quot;       
-##  [469] &quot;Bella&quot;      &quot;Carolina&quot;   &quot;Cathrine&quot;  
-##  [472] &quot;Christena&quot;  &quot;Clyde&quot;      &quot;Dena&quot;      
-##  [475] &quot;Dolores&quot;    &quot;Eleanore&quot;   &quot;Elmira&quot;    
-##  [478] &quot;Fay&quot;        &quot;Frank&quot;      &quot;Jenny&quot;     
-##  [481] &quot;Kizzie&quot;     &quot;Lonnie&quot;     &quot;Loula&quot;     
-##  [484] &quot;Magdalene&quot;  &quot;Mettie&quot;     &quot;Mintie&quot;    
-##  [487] &quot;Peggy&quot;      &quot;Reba&quot;       &quot;Serena&quot;    
-##  [490] &quot;Vida&quot;       &quot;Zada&quot;       &quot;Abigail&quot;   
-##  [493] &quot;Celestine&quot;  &quot;Celina&quot;     &quot;Claudie&quot;   
-##  [496] &quot;Clemmie&quot;    &quot;Connie&quot;     &quot;Daisie&quot;    
-##  [499] &quot;Deborah&quot;    &quot;Dessa&quot;      &quot;Easter&quot;    
-##  [502] &quot;Eddie&quot;      &quot;Emelia&quot;     &quot;Emmie&quot;     
-##  [505] &quot;Imogene&quot;    &quot;India&quot;      &quot;Jeanne&quot;    
-##  [508] &quot;Joan&quot;       &quot;Lenore&quot;     &quot;Liddie&quot;    
-##  [511] &quot;Lotta&quot;      &quot;Mame&quot;       &quot;Nevada&quot;    
-##  [514] &quot;Rachael&quot;    &quot;Robert&quot;     &quot;Sina&quot;      
-##  [517] &quot;Willa&quot;      &quot;Aline&quot;      &quot;Beryl&quot;     
-##  [520] &quot;Charles&quot;    &quot;Daisey&quot;     &quot;Dorcas&quot;    
-##  [523] &quot;Edmonia&quot;    &quot;Effa&quot;       &quot;Eldora&quot;    
-##  [526] &quot;Eloise&quot;     &quot;Emmer&quot;      &quot;Era&quot;       
-##  [529] &quot;Gena&quot;       &quot;Henry&quot;      &quot;Iris&quot;      
-##  [532] &quot;Izora&quot;      &quot;Lennie&quot;     &quot;Lissie&quot;    
-##  [535] &quot;Mallie&quot;     &quot;Malvina&quot;    &quot;Mathilde&quot;  
-##  [538] &quot;Mazie&quot;      &quot;Queenie&quot;    &quot;Rosina&quot;    
-##  [541] &quot;Salome&quot;     &quot;Theodora&quot;   &quot;Therese&quot;   
-##  [544] &quot;Vena&quot;       &quot;Wanda&quot;      &quot;Wilda&quot;     
-##  [547] &quot;Altha&quot;      &quot;Anastasia&quot;  &quot;Besse&quot;     
-##  [550] &quot;Bird&quot;       &quot;Birtie&quot;     &quot;Clarissa&quot;  
-##  [553] &quot;Claude&quot;     &quot;Delilah&quot;    &quot;Diana&quot;     
-##  [556] &quot;Emelie&quot;     &quot;Erna&quot;       &quot;Fern&quot;      
-##  [559] &quot;Florida&quot;    &quot;Frona&quot;      &quot;Hilma&quot;     
-##  [562] &quot;Joseph&quot;     &quot;Juliet&quot;     &quot;Leonie&quot;    
-##  [565] &quot;Lugenia&quot;    &quot;Mammie&quot;     &quot;Manda&quot;     
-##  [568] &quot;Manerva&quot;    &quot;Manie&quot;      &quot;Nella&quot;     
-##  [571] &quot;Paulina&quot;    &quot;Philomena&quot;  &quot;Rae&quot;       
-##  [574] &quot;Selina&quot;     &quot;Sena&quot;       &quot;Theodosia&quot; 
-##  [577] &quot;Tommie&quot;     &quot;Una&quot;        &quot;Vernie&quot;    
-##  [580] &quot;Adela&quot;      &quot;Althea&quot;     &quot;Amalia&quot;    
-##  [583] &quot;Amber&quot;      &quot;Angelina&quot;   &quot;Annabelle&quot; 
-##  [586] &quot;Anner&quot;      &quot;Arie&quot;       &quot;Clarice&quot;   
-##  [589] &quot;Corda&quot;      &quot;Corrie&quot;     &quot;Dell&quot;      
-##  [592] &quot;Dellar&quot;     &quot;Donie&quot;      &quot;Doris&quot;     
-##  [595] &quot;Elda&quot;       &quot;Elinor&quot;     &quot;Emeline&quot;   
-##  [598] &quot;Emilia&quot;     &quot;Esta&quot;       &quot;Estell&quot;    
-##  [601] &quot;Etha&quot;       &quot;Fred&quot;       &quot;Hope&quot;      
-##  [604] &quot;Indiana&quot;    &quot;Ione&quot;       &quot;Jettie&quot;    
-##  [607] &quot;Johnnie&quot;    &quot;Josiephine&quot; &quot;Kitty&quot;     
-##  [610] &quot;Lavina&quot;     &quot;Leda&quot;       &quot;Letta&quot;     
-##  [613] &quot;Mahala&quot;     &quot;Marcia&quot;     &quot;Margarette&quot;
-##  [616] &quot;Maudie&quot;     &quot;Maye&quot;       &quot;Norah&quot;     
-##  [619] &quot;Oda&quot;        &quot;Patty&quot;      &quot;Paula&quot;     
-##  [622] &quot;Permelia&quot;   &quot;Rosalia&quot;    &quot;Roxanna&quot;   
-##  [625] &quot;Sula&quot;       &quot;Vada&quot;       &quot;Winnifred&quot; 
-##  [628] &quot;Adline&quot;     &quot;Almira&quot;     &quot;Alvena&quot;    
-##  [631] &quot;Arizona&quot;    &quot;Becky&quot;      &quot;Bennie&quot;    
-##  [634] &quot;Bernadette&quot; &quot;Camille&quot;    &quot;Cordia&quot;    
-##  [637] &quot;Corine&quot;     &quot;Dicie&quot;      &quot;Dove&quot;      
-##  [640] &quot;Drusilla&quot;   &quot;Elena&quot;      &quot;Elenora&quot;   
-##  [643] &quot;Elmina&quot;     &quot;Ethyl&quot;      &quot;Evalyn&quot;    
-##  [646] &quot;Evelina&quot;    &quot;Faye&quot;       &quot;Huldah&quot;    
-##  [649] &quot;Idell&quot;      &quot;Inga&quot;       &quot;Irena&quot;     
-##  [652] &quot;Jewell&quot;     &quot;Kattie&quot;     &quot;Lavenia&quot;   
-##  [655] &quot;Leslie&quot;     &quot;Lovina&quot;     &quot;Lulie&quot;     
-##  [658] &quot;Magnolia&quot;   &quot;Margeret&quot;   &quot;Margery&quot;   
-##  [661] &quot;Media&quot;      &quot;Millicent&quot;  &quot;Nena&quot;      
-##  [664] &quot;Ocie&quot;       &quot;Orilla&quot;     &quot;Osie&quot;      
-##  [667] &quot;Pansy&quot;      &quot;Ray&quot;        &quot;Rosia&quot;     
-##  [670] &quot;Rowena&quot;     &quot;Shirley&quot;    &quot;Tabitha&quot;   
-##  [673] &quot;Thomas&quot;     &quot;Verdie&quot;     &quot;Walter&quot;    
-##  [676] &quot;Zetta&quot;      &quot;Zoa&quot;        &quot;Zona&quot;      
-##  [679] &quot;Albertina&quot;  &quot;Albina&quot;     &quot;Alyce&quot;     
-##  [682] &quot;Amie&quot;       &quot;Angela&quot;     &quot;Annis&quot;     
-##  [685] &quot;Carol&quot;      &quot;Carra&quot;      &quot;Clarence&quot;  
-##  [688] &quot;Clarinda&quot;   &quot;Delphia&quot;    &quot;Dillie&quot;    
-##  [691] &quot;Doshie&quot;     &quot;Drucilla&quot;   &quot;Etna&quot;      
-##  [694] &quot;Eugenie&quot;    &quot;Eulalia&quot;    &quot;Eve&quot;       
-##  [697] &quot;Felicia&quot;    &quot;Florance&quot;   &quot;Fronie&quot;    
-##  [700] &quot;Geraldine&quot;  &quot;Gina&quot;       &quot;Glenna&quot;    
-##  [703] &quot;Grayce&quot;     &quot;Hedwig&quot;     &quot;Jessica&quot;   
-##  [706] &quot;Jossie&quot;     &quot;Katheryn&quot;   &quot;Katy&quot;      
-##  [709] &quot;Lea&quot;        &quot;Leanna&quot;     &quot;Leitha&quot;    
-##  [712] &quot;Leone&quot;      &quot;Lidie&quot;      &quot;Loma&quot;      
-##  [715] &quot;Lular&quot;      &quot;Magdalen&quot;   &quot;Maymie&quot;    
-##  [718] &quot;Minervia&quot;   &quot;Muriel&quot;     &quot;Neppie&quot;    
-##  [721] &quot;Olie&quot;       &quot;Onie&quot;       &quot;Osa&quot;       
-##  [724] &quot;Otelia&quot;     &quot;Paralee&quot;    &quot;Patience&quot;  
-##  [727] &quot;Rella&quot;      &quot;Rillie&quot;     &quot;Rosanna&quot;   
-##  [730] &quot;Theo&quot;       &quot;Tilda&quot;      &quot;Tishie&quot;    
-##  [733] &quot;Tressa&quot;     &quot;Viva&quot;       &quot;Yetta&quot;     
-##  [736] &quot;Zena&quot;       &quot;Zola&quot;       &quot;Abby&quot;      
-##  [739] &quot;Aileen&quot;     &quot;Alba&quot;       &quot;Alda&quot;      
-##  [742] &quot;Alla&quot;       &quot;Alverta&quot;    &quot;Ara&quot;       
-##  [745] &quot;Ardelia&quot;    &quot;Ardella&quot;    &quot;Arrie&quot;     
-##  [748] &quot;Arvilla&quot;    &quot;Augustine&quot;  &quot;Aurora&quot;    
-##  [751] &quot;Bama&quot;       &quot;Bena&quot;       &quot;Byrd&quot;      
-##  [754] &quot;Calla&quot;      &quot;Camilla&quot;    &quot;Carey&quot;     
-##  [757] &quot;Carlotta&quot;   &quot;Celestia&quot;   &quot;Cherry&quot;    
-##  [760] &quot;Cinda&quot;      &quot;Classie&quot;    &quot;Claudine&quot;  
-##  [763] &quot;Clemie&quot;     &quot;Clifford&quot;   &quot;Clyda&quot;     
-##  [766] &quot;Creola&quot;     &quot;Debbie&quot;     &quot;Dee&quot;       
-##  [769] &quot;Dinah&quot;      &quot;Doshia&quot;     &quot;Ednah&quot;     
-##  [772] &quot;Edyth&quot;      &quot;Eleanora&quot;   &quot;Electa&quot;    
-##  [775] &quot;Eola&quot;       &quot;Erie&quot;       &quot;Eudora&quot;    
-##  [778] &quot;Euphemia&quot;   &quot;Evalena&quot;    &quot;Evaline&quot;   
-##  [781] &quot;Faith&quot;      &quot;Fidelia&quot;    &quot;Freddie&quot;   
-##  [784] &quot;Golda&quot;      &quot;Harry&quot;      &quot;Helma&quot;     
-##  [787] &quot;Hermine&quot;    &quot;Hessie&quot;     &quot;Ivah&quot;      
-##  [790] &quot;Janette&quot;    &quot;Jennette&quot;   &quot;Joella&quot;    
-##  [793] &quot;Kathryne&quot;   &quot;Lacy&quot;       &quot;Lanie&quot;     
-##  [796] &quot;Lauretta&quot;   &quot;Leana&quot;      &quot;Leatha&quot;    
-##  [799] &quot;Leo&quot;        &quot;Liller&quot;     &quot;Lillis&quot;    
-##  [802] &quot;Louetta&quot;    &quot;Madie&quot;      &quot;Mai&quot;       
-##  [805] &quot;Martina&quot;    &quot;Maryann&quot;    &quot;Melva&quot;     
-##  [808] &quot;Mena&quot;       &quot;Mercedes&quot;   &quot;Merle&quot;     
-##  [811] &quot;Mima&quot;       &quot;Minda&quot;      &quot;Monica&quot;    
-##  [814] &quot;Nealie&quot;     &quot;Netta&quot;      &quot;Nolia&quot;     
-##  [817] &quot;Nonie&quot;      &quot;Odelia&quot;     &quot;Ottilie&quot;   
-##  [820] &quot;Phyllis&quot;    &quot;Robbie&quot;     &quot;Sabina&quot;    
-##  [823] &quot;Sada&quot;       &quot;Sammie&quot;     &quot;Suzanne&quot;   
-##  [826] &quot;Sybilla&quot;    &quot;Thea&quot;       &quot;Tressie&quot;   
-##  [829] &quot;Vallie&quot;     &quot;Venie&quot;      &quot;Viney&quot;     
-##  [832] &quot;Wilhelmine&quot; &quot;Winona&quot;     &quot;Zelda&quot;     
-##  [835] &quot;Zilpha&quot;     &quot;Adelle&quot;     &quot;Adina&quot;     
-##  [838] &quot;Adrienne&quot;   &quot;Albertine&quot;  &quot;Alys&quot;      
-##  [841] &quot;Ana&quot;        &quot;Araminta&quot;   &quot;Arthur&quot;    
-##  [844] &quot;Birtha&quot;     &quot;Bulah&quot;      &quot;Caddie&quot;    
-##  [847] &quot;Celie&quot;      &quot;Charlotta&quot;  &quot;Clair&quot;     
-##  [850] &quot;Concepcion&quot; &quot;Cordella&quot;   &quot;Corrine&quot;   
-##  [853] &quot;Delila&quot;     &quot;Delphine&quot;   &quot;Dosha&quot;     
-##  [856] &quot;Edgar&quot;      &quot;Elaine&quot;     &quot;Elisa&quot;     
-##  [859] &quot;Ellar&quot;      &quot;Elmire&quot;     &quot;Elvina&quot;    
-##  [862] &quot;Ena&quot;        &quot;Estie&quot;      &quot;Etter&quot;     
-##  [865] &quot;Fronnie&quot;    &quot;Genie&quot;      &quot;Georgina&quot;  
-##  [868] &quot;Glenn&quot;      &quot;Gracia&quot;     &quot;Guadalupe&quot; 
-##  [871] &quot;Gwendolyn&quot;  &quot;Hassie&quot;     &quot;Honora&quot;    
-##  [874] &quot;Icy&quot;        &quot;Isa&quot;        &quot;Isadora&quot;   
-##  [877] &quot;Jesse&quot;      &quot;Jewel&quot;      &quot;Joe&quot;       
-##  [880] &quot;Johannah&quot;   &quot;Juana&quot;      &quot;Judith&quot;    
-##  [883] &quot;Judy&quot;       &quot;Junie&quot;      &quot;Lavonia&quot;   
-##  [886] &quot;Lella&quot;      &quot;Lemma&quot;      &quot;Letty&quot;     
-##  [889] &quot;Linna&quot;      &quot;Littie&quot;     &quot;Lollie&quot;    
-##  [892] &quot;Lorene&quot;     &quot;Louis&quot;      &quot;Love&quot;      
-##  [895] &quot;Lovisa&quot;     &quot;Lucina&quot;     &quot;Lynn&quot;      
-##  [898] &quot;Madora&quot;     &quot;Mahalia&quot;    &quot;Manervia&quot;  
-##  [901] &quot;Manuela&quot;    &quot;Margarett&quot;  &quot;Margaretta&quot;
-##  [904] &quot;Margarita&quot;  &quot;Marilla&quot;    &quot;Mignon&quot;    
-##  [907] &quot;Mozella&quot;    &quot;Natalie&quot;    &quot;Nelia&quot;     
-##  [910] &quot;Nolie&quot;      &quot;Omie&quot;       &quot;Opal&quot;      
-##  [913] &quot;Ossie&quot;      &quot;Ottie&quot;      &quot;Ottilia&quot;   
-##  [916] &quot;Parthenia&quot;  &quot;Penelope&quot;   &quot;Pinkey&quot;    
-##  [919] &quot;Pollie&quot;     &quot;Rennie&quot;     &quot;Reta&quot;      
-##  [922] &quot;Roena&quot;      &quot;Rosalee&quot;    &quot;Roseanna&quot;  
-##  [925] &quot;Ruthie&quot;     &quot;Sabra&quot;      &quot;Sannie&quot;    
-##  [928] &quot;Selena&quot;     &quot;Sibyl&quot;      &quot;Tella&quot;     
-##  [931] &quot;Tempie&quot;     &quot;Tennessee&quot;  &quot;Teressa&quot;   
-##  [934] &quot;Texas&quot;      &quot;Theda&quot;      &quot;Thelma&quot;    
-##  [937] &quot;Thursa&quot;     &quot;Ula&quot;        &quot;Vannie&quot;    
-##  [940] &quot;Verona&quot;     &quot;Vertie&quot;     &quot;Wilma&quot;     
-##  [943] &quot;John&quot;       &quot;William&quot;    &quot;James&quot;     
-##  [946] &quot;Charles&quot;    &quot;George&quot;     &quot;Frank&quot;     
-##  [949] &quot;Joseph&quot;     &quot;Thomas&quot;     &quot;Henry&quot;     
-##  [952] &quot;Robert&quot;     &quot;Edward&quot;     &quot;Harry&quot;     
-##  [955] &quot;Walter&quot;     &quot;Arthur&quot;     &quot;Fred&quot;      
-##  [958] &quot;Albert&quot;     &quot;Samuel&quot;     &quot;David&quot;     
-##  [961] &quot;Louis&quot;      &quot;Joe&quot;        &quot;Charlie&quot;   
-##  [964] &quot;Clarence&quot;   &quot;Richard&quot;    &quot;Andrew&quot;    
-##  [967] &quot;Daniel&quot;     &quot;Ernest&quot;     &quot;Will&quot;      
-##  [970] &quot;Jesse&quot;      &quot;Oscar&quot;      &quot;Lewis&quot;     
-##  [973] &quot;Peter&quot;      &quot;Benjamin&quot;   &quot;Frederick&quot; 
-##  [976] &quot;Willie&quot;     &quot;Alfred&quot;     &quot;Sam&quot;       
-##  [979] &quot;Roy&quot;        &quot;Herbert&quot;    &quot;Jacob&quot;     
-##  [982] &quot;Tom&quot;        &quot;Elmer&quot;      &quot;Carl&quot;      
-##  [985] &quot;Lee&quot;        &quot;Howard&quot;     &quot;Martin&quot;    
-##  [988] &quot;Michael&quot;    &quot;Bert&quot;       &quot;Herman&quot;    
-##  [991] &quot;Jim&quot;        &quot;Francis&quot;    &quot;Harvey&quot;    
-##  [994] &quot;Earl&quot;       &quot;Eugene&quot;     &quot;Ralph&quot;     
-##  [997] &quot;Ed&quot;         &quot;Claude&quot;     &quot;Edwin&quot;     
-## [1000] &quot;Ben&quot;       
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="text-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a>babynames<span class="sc">$</span>name</span></code></pre></div>
+<pre><code>##    [1] &quot;Mary&quot;       &quot;Anna&quot;       &quot;Emma&quot;       &quot;Elizabeth&quot; 
+##    [5] &quot;Minnie&quot;     &quot;Margaret&quot;   &quot;Ida&quot;        &quot;Alice&quot;     
+##    [9] &quot;Bertha&quot;     &quot;Sarah&quot;      &quot;Annie&quot;      &quot;Clara&quot;     
+##   [13] &quot;Ella&quot;       &quot;Florence&quot;   &quot;Cora&quot;       &quot;Martha&quot;    
+##   [17] &quot;Laura&quot;      &quot;Nellie&quot;     &quot;Grace&quot;      &quot;Carrie&quot;    
+##   [21] &quot;Maude&quot;      &quot;Mabel&quot;      &quot;Bessie&quot;     &quot;Jennie&quot;    
+##   [25] &quot;Gertrude&quot;   &quot;Julia&quot;      &quot;Hattie&quot;     &quot;Edith&quot;     
+##   [29] &quot;Mattie&quot;     &quot;Rose&quot;       &quot;Catherine&quot;  &quot;Lillian&quot;   
+##   [33] &quot;Ada&quot;        &quot;Lillie&quot;     &quot;Helen&quot;      &quot;Jessie&quot;    
+##   [37] &quot;Louise&quot;     &quot;Ethel&quot;      &quot;Lula&quot;       &quot;Myrtle&quot;    
+##   [41] &quot;Eva&quot;        &quot;Frances&quot;    &quot;Lena&quot;       &quot;Lucy&quot;      
+##   [45] &quot;Edna&quot;       &quot;Maggie&quot;     &quot;Pearl&quot;      &quot;Daisy&quot;     
+##   [49] &quot;Fannie&quot;     &quot;Josephine&quot;  &quot;Dora&quot;       &quot;Rosa&quot;      
+##   [53] &quot;Katherine&quot;  &quot;Agnes&quot;      &quot;Marie&quot;      &quot;Nora&quot;      
+##   [57] &quot;May&quot;        &quot;Mamie&quot;      &quot;Blanche&quot;    &quot;Stella&quot;    
+##   [61] &quot;Ellen&quot;      &quot;Nancy&quot;      &quot;Effie&quot;      &quot;Sallie&quot;    
+##   [65] &quot;Nettie&quot;     &quot;Della&quot;      &quot;Lizzie&quot;     &quot;Flora&quot;     
+##   [69] &quot;Susie&quot;      &quot;Maud&quot;       &quot;Mae&quot;        &quot;Etta&quot;      
+##   [73] &quot;Harriet&quot;    &quot;Sadie&quot;      &quot;Caroline&quot;   &quot;Katie&quot;     
+##   [77] &quot;Lydia&quot;      &quot;Elsie&quot;      &quot;Kate&quot;       &quot;Susan&quot;     
+##   [81] &quot;Mollie&quot;     &quot;Alma&quot;       &quot;Addie&quot;      &quot;Georgia&quot;   
+##   [85] &quot;Eliza&quot;      &quot;Lulu&quot;       &quot;Nannie&quot;     &quot;Lottie&quot;    
+##   [89] &quot;Amanda&quot;     &quot;Belle&quot;      &quot;Charlotte&quot;  &quot;Rebecca&quot;   
+##   [93] &quot;Ruth&quot;       &quot;Viola&quot;      &quot;Olive&quot;      &quot;Amelia&quot;    
+##   [97] &quot;Hannah&quot;     &quot;Jane&quot;       &quot;Virginia&quot;   &quot;Emily&quot;     
+##  [101] &quot;Matilda&quot;    &quot;Irene&quot;      &quot;Kathryn&quot;    &quot;Esther&quot;    
+##  [105] &quot;Willie&quot;     &quot;Henrietta&quot;  &quot;Ollie&quot;      &quot;Amy&quot;       
+##  [109] &quot;Rachel&quot;     &quot;Sara&quot;       &quot;Estella&quot;    &quot;Theresa&quot;   
+##  [113] &quot;Augusta&quot;    &quot;Ora&quot;        &quot;Pauline&quot;    &quot;Josie&quot;     
+##  [117] &quot;Lola&quot;       &quot;Sophia&quot;     &quot;Leona&quot;      &quot;Anne&quot;      
+##  [121] &quot;Mildred&quot;    &quot;Ann&quot;        &quot;Beulah&quot;     &quot;Callie&quot;    
+##  [125] &quot;Lou&quot;        &quot;Delia&quot;      &quot;Eleanor&quot;    &quot;Barbara&quot;   
+##  [129] &quot;Iva&quot;        &quot;Louisa&quot;     &quot;Maria&quot;      &quot;Mayme&quot;     
+##  [133] &quot;Evelyn&quot;     &quot;Estelle&quot;    &quot;Nina&quot;       &quot;Betty&quot;     
+##  [137] &quot;Marion&quot;     &quot;Bettie&quot;     &quot;Dorothy&quot;    &quot;Luella&quot;    
+##  [141] &quot;Inez&quot;       &quot;Lela&quot;       &quot;Rosie&quot;      &quot;Allie&quot;     
+##  [145] &quot;Millie&quot;     &quot;Janie&quot;      &quot;Cornelia&quot;   &quot;Victoria&quot;  
+##  [149] &quot;Ruby&quot;       &quot;Winifred&quot;   &quot;Alta&quot;       &quot;Celia&quot;     
+##  [153] &quot;Christine&quot;  &quot;Beatrice&quot;   &quot;Birdie&quot;     &quot;Harriett&quot;  
+##  [157] &quot;Mable&quot;      &quot;Myra&quot;       &quot;Sophie&quot;     &quot;Tillie&quot;    
+##  [161] &quot;Isabel&quot;     &quot;Sylvia&quot;     &quot;Carolyn&quot;    &quot;Isabelle&quot;  
+##  [165] &quot;Leila&quot;      &quot;Sally&quot;      &quot;Ina&quot;        &quot;Essie&quot;     
+##  [169] &quot;Bertie&quot;     &quot;Nell&quot;       &quot;Alberta&quot;    &quot;Katharine&quot; 
+##  [173] &quot;Lora&quot;       &quot;Rena&quot;       &quot;Mina&quot;       &quot;Rhoda&quot;     
+##  [177] &quot;Mathilda&quot;   &quot;Abbie&quot;      &quot;Eula&quot;       &quot;Dollie&quot;    
+##  [181] &quot;Hettie&quot;     &quot;Eunice&quot;     &quot;Fanny&quot;      &quot;Ola&quot;       
+##  [185] &quot;Lenora&quot;     &quot;Adelaide&quot;   &quot;Christina&quot;  &quot;Lelia&quot;     
+##  [189] &quot;Nelle&quot;      &quot;Sue&quot;        &quot;Johanna&quot;    &quot;Lilly&quot;     
+##  [193] &quot;Lucinda&quot;    &quot;Minerva&quot;    &quot;Lettie&quot;     &quot;Roxie&quot;     
+##  [197] &quot;Cynthia&quot;    &quot;Helena&quot;     &quot;Hilda&quot;      &quot;Hulda&quot;     
+##  [201] &quot;Bernice&quot;    &quot;Genevieve&quot;  &quot;Jean&quot;       &quot;Cordelia&quot;  
+##  [205] &quot;Marian&quot;     &quot;Francis&quot;    &quot;Jeanette&quot;   &quot;Adeline&quot;   
+##  [209] &quot;Gussie&quot;     &quot;Leah&quot;       &quot;Lois&quot;       &quot;Lura&quot;      
+##  [213] &quot;Mittie&quot;     &quot;Hallie&quot;     &quot;Isabella&quot;   &quot;Olga&quot;      
+##  [217] &quot;Phoebe&quot;     &quot;Teresa&quot;     &quot;Hester&quot;     &quot;Lida&quot;      
+##  [221] &quot;Lina&quot;       &quot;Winnie&quot;     &quot;Claudia&quot;    &quot;Marguerite&quot;
+##  [225] &quot;Vera&quot;       &quot;Cecelia&quot;    &quot;Bess&quot;       &quot;Emilie&quot;    
+##  [229] &quot;John&quot;       &quot;Rosetta&quot;    &quot;Verna&quot;      &quot;Myrtie&quot;    
+##  [233] &quot;Cecilia&quot;    &quot;Elva&quot;       &quot;Olivia&quot;     &quot;Ophelia&quot;   
+##  [237] &quot;Georgie&quot;    &quot;Elnora&quot;     &quot;Violet&quot;     &quot;Adele&quot;     
+##  [241] &quot;Lily&quot;       &quot;Linnie&quot;     &quot;Loretta&quot;    &quot;Madge&quot;     
+##  [245] &quot;Polly&quot;      &quot;Virgie&quot;     &quot;Eugenia&quot;    &quot;Lucile&quot;    
+##  [249] &quot;Lucille&quot;    &quot;Mabelle&quot;    &quot;Rosalie&quot;    &quot;Kittie&quot;    
+##  [253] &quot;Meta&quot;       &quot;Angie&quot;      &quot;Dessie&quot;     &quot;Georgiana&quot; 
+##  [257] &quot;Lila&quot;       &quot;Regina&quot;     &quot;Selma&quot;      &quot;Wilhelmina&quot;
+##  [261] &quot;Bridget&quot;    &quot;Lilla&quot;      &quot;Malinda&quot;    &quot;Vina&quot;      
+##  [265] &quot;Freda&quot;      &quot;Gertie&quot;     &quot;Jeannette&quot;  &quot;Louella&quot;   
+##  [269] &quot;Mandy&quot;      &quot;Roberta&quot;    &quot;Cassie&quot;     &quot;Corinne&quot;   
+##  [273] &quot;Ivy&quot;        &quot;Melissa&quot;    &quot;Lyda&quot;       &quot;Naomi&quot;     
+##  [277] &quot;Norma&quot;      &quot;Bell&quot;       &quot;Margie&quot;     &quot;Nona&quot;      
+##  [281] &quot;Zella&quot;      &quot;Dovie&quot;      &quot;Elvira&quot;     &quot;Erma&quot;      
+##  [285] &quot;Irma&quot;       &quot;Leota&quot;      &quot;William&quot;    &quot;Artie&quot;     
+##  [289] &quot;Blanch&quot;     &quot;Charity&quot;    &quot;Lorena&quot;     &quot;Lucretia&quot;  
+##  [293] &quot;Orpha&quot;      &quot;Alvina&quot;     &quot;Annette&quot;    &quot;Catharine&quot; 
+##  [297] &quot;Elma&quot;       &quot;Geneva&quot;     &quot;Janet&quot;      &quot;Lee&quot;       
+##  [301] &quot;Leora&quot;      &quot;Lona&quot;       &quot;Miriam&quot;     &quot;Zora&quot;      
+##  [305] &quot;Linda&quot;      &quot;Octavia&quot;    &quot;Sudie&quot;      &quot;Zula&quot;      
+##  [309] &quot;Adella&quot;     &quot;Alpha&quot;      &quot;Frieda&quot;     &quot;George&quot;    
+##  [313] &quot;Joanna&quot;     &quot;Leonora&quot;    &quot;Priscilla&quot;  &quot;Tennie&quot;    
+##  [317] &quot;Angeline&quot;   &quot;Docia&quot;      &quot;Ettie&quot;      &quot;Flossie&quot;   
+##  [321] &quot;Hanna&quot;      &quot;Letha&quot;      &quot;Minta&quot;      &quot;Retta&quot;     
+##  [325] &quot;Rosella&quot;    &quot;Adah&quot;       &quot;Berta&quot;      &quot;Elisabeth&quot; 
+##  [329] &quot;Elise&quot;      &quot;Goldie&quot;     &quot;Leola&quot;      &quot;Margret&quot;   
+##  [333] &quot;Adaline&quot;    &quot;Floy&quot;       &quot;Idella&quot;     &quot;Juanita&quot;   
+##  [337] &quot;Lenna&quot;      &quot;Lucie&quot;      &quot;Missouri&quot;   &quot;Nola&quot;      
+##  [341] &quot;Zoe&quot;        &quot;Eda&quot;        &quot;Isabell&quot;    &quot;James&quot;     
+##  [345] &quot;Julie&quot;      &quot;Letitia&quot;    &quot;Madeline&quot;   &quot;Malissa&quot;   
+##  [349] &quot;Mariah&quot;     &quot;Pattie&quot;     &quot;Vivian&quot;     &quot;Almeda&quot;    
+##  [353] &quot;Aurelia&quot;    &quot;Claire&quot;     &quot;Dolly&quot;      &quot;Hazel&quot;     
+##  [357] &quot;Jannie&quot;     &quot;Kathleen&quot;   &quot;Kathrine&quot;   &quot;Lavinia&quot;   
+##  [361] &quot;Marietta&quot;   &quot;Melvina&quot;    &quot;Ona&quot;        &quot;Pinkie&quot;    
+##  [365] &quot;Samantha&quot;   &quot;Susanna&quot;    &quot;Chloe&quot;      &quot;Donnie&quot;    
+##  [369] &quot;Elsa&quot;       &quot;Gladys&quot;     &quot;Matie&quot;      &quot;Pearle&quot;    
+##  [373] &quot;Vesta&quot;      &quot;Vinnie&quot;     &quot;Antoinette&quot; &quot;Clementine&quot;
+##  [377] &quot;Edythe&quot;     &quot;Harriette&quot;  &quot;Libbie&quot;     &quot;Lilian&quot;    
+##  [381] &quot;Lue&quot;        &quot;Lutie&quot;      &quot;Magdalena&quot;  &quot;Meda&quot;      
+##  [385] &quot;Rita&quot;       &quot;Tena&quot;       &quot;Zelma&quot;      &quot;Adelia&quot;    
+##  [389] &quot;Annetta&quot;    &quot;Antonia&quot;    &quot;Dona&quot;       &quot;Elizebeth&quot; 
+##  [393] &quot;Georgianna&quot; &quot;Gracie&quot;     &quot;Iona&quot;       &quot;Lessie&quot;    
+##  [397] &quot;Leta&quot;       &quot;Liza&quot;       &quot;Mertie&quot;     &quot;Molly&quot;     
+##  [401] &quot;Neva&quot;       &quot;Oma&quot;        &quot;Alida&quot;      &quot;Alva&quot;      
+##  [405] &quot;Cecile&quot;     &quot;Cleo&quot;       &quot;Donna&quot;      &quot;Ellie&quot;     
+##  [409] &quot;Ernestine&quot;  &quot;Evie&quot;       &quot;Frankie&quot;    &quot;Helene&quot;    
+##  [413] &quot;Minna&quot;      &quot;Myrta&quot;      &quot;Prudence&quot;   &quot;Queen&quot;     
+##  [417] &quot;Rilla&quot;      &quot;Savannah&quot;   &quot;Tessie&quot;     &quot;Tina&quot;      
+##  [421] &quot;Agatha&quot;     &quot;America&quot;    &quot;Anita&quot;      &quot;Arminta&quot;   
+##  [425] &quot;Dorothea&quot;   &quot;Ira&quot;        &quot;Luvenia&quot;    &quot;Marjorie&quot;  
+##  [429] &quot;Maybelle&quot;   &quot;Mellie&quot;     &quot;Nan&quot;        &quot;Pearlie&quot;   
+##  [433] &quot;Sidney&quot;     &quot;Velma&quot;      &quot;Clare&quot;      &quot;Constance&quot; 
+##  [437] &quot;Dixie&quot;      &quot;Ila&quot;        &quot;Iola&quot;       &quot;Jimmie&quot;    
+##  [441] &quot;Louvenia&quot;   &quot;Lucia&quot;      &quot;Ludie&quot;      &quot;Luna&quot;      
+##  [445] &quot;Metta&quot;      &quot;Patsy&quot;      &quot;Phebe&quot;      &quot;Sophronia&quot; 
+##  [449] &quot;Adda&quot;       &quot;Avis&quot;       &quot;Betsy&quot;      &quot;Bonnie&quot;    
+##  [453] &quot;Cecil&quot;      &quot;Cordie&quot;     &quot;Emmaline&quot;   &quot;Ethelyn&quot;   
+##  [457] &quot;Hortense&quot;   &quot;June&quot;       &quot;Louie&quot;      &quot;Lovie&quot;     
+##  [461] &quot;Marcella&quot;   &quot;Melinda&quot;    &quot;Mona&quot;       &quot;Odessa&quot;    
+##  [465] &quot;Veronica&quot;   &quot;Aimee&quot;      &quot;Annabel&quot;    &quot;Ava&quot;       
+##  [469] &quot;Bella&quot;      &quot;Carolina&quot;   &quot;Cathrine&quot;   &quot;Christena&quot; 
+##  [473] &quot;Clyde&quot;      &quot;Dena&quot;       &quot;Dolores&quot;    &quot;Eleanore&quot;  
+##  [477] &quot;Elmira&quot;     &quot;Fay&quot;        &quot;Frank&quot;      &quot;Jenny&quot;     
+##  [481] &quot;Kizzie&quot;     &quot;Lonnie&quot;     &quot;Loula&quot;      &quot;Magdalene&quot; 
+##  [485] &quot;Mettie&quot;     &quot;Mintie&quot;     &quot;Peggy&quot;      &quot;Reba&quot;      
+##  [489] &quot;Serena&quot;     &quot;Vida&quot;       &quot;Zada&quot;       &quot;Abigail&quot;   
+##  [493] &quot;Celestine&quot;  &quot;Celina&quot;     &quot;Claudie&quot;    &quot;Clemmie&quot;   
+##  [497] &quot;Connie&quot;     &quot;Daisie&quot;     &quot;Deborah&quot;    &quot;Dessa&quot;     
+##  [501] &quot;Easter&quot;     &quot;Eddie&quot;      &quot;Emelia&quot;     &quot;Emmie&quot;     
+##  [505] &quot;Imogene&quot;    &quot;India&quot;      &quot;Jeanne&quot;     &quot;Joan&quot;      
+##  [509] &quot;Lenore&quot;     &quot;Liddie&quot;     &quot;Lotta&quot;      &quot;Mame&quot;      
+##  [513] &quot;Nevada&quot;     &quot;Rachael&quot;    &quot;Robert&quot;     &quot;Sina&quot;      
+##  [517] &quot;Willa&quot;      &quot;Aline&quot;      &quot;Beryl&quot;      &quot;Charles&quot;   
+##  [521] &quot;Daisey&quot;     &quot;Dorcas&quot;     &quot;Edmonia&quot;    &quot;Effa&quot;      
+##  [525] &quot;Eldora&quot;     &quot;Eloise&quot;     &quot;Emmer&quot;      &quot;Era&quot;       
+##  [529] &quot;Gena&quot;       &quot;Henry&quot;      &quot;Iris&quot;       &quot;Izora&quot;     
+##  [533] &quot;Lennie&quot;     &quot;Lissie&quot;     &quot;Mallie&quot;     &quot;Malvina&quot;   
+##  [537] &quot;Mathilde&quot;   &quot;Mazie&quot;      &quot;Queenie&quot;    &quot;Rosina&quot;    
+##  [541] &quot;Salome&quot;     &quot;Theodora&quot;   &quot;Therese&quot;    &quot;Vena&quot;      
+##  [545] &quot;Wanda&quot;      &quot;Wilda&quot;      &quot;Altha&quot;      &quot;Anastasia&quot; 
+##  [549] &quot;Besse&quot;      &quot;Bird&quot;       &quot;Birtie&quot;     &quot;Clarissa&quot;  
+##  [553] &quot;Claude&quot;     &quot;Delilah&quot;    &quot;Diana&quot;      &quot;Emelie&quot;    
+##  [557] &quot;Erna&quot;       &quot;Fern&quot;       &quot;Florida&quot;    &quot;Frona&quot;     
+##  [561] &quot;Hilma&quot;      &quot;Joseph&quot;     &quot;Juliet&quot;     &quot;Leonie&quot;    
+##  [565] &quot;Lugenia&quot;    &quot;Mammie&quot;     &quot;Manda&quot;      &quot;Manerva&quot;   
+##  [569] &quot;Manie&quot;      &quot;Nella&quot;      &quot;Paulina&quot;    &quot;Philomena&quot; 
+##  [573] &quot;Rae&quot;        &quot;Selina&quot;     &quot;Sena&quot;       &quot;Theodosia&quot; 
+##  [577] &quot;Tommie&quot;     &quot;Una&quot;        &quot;Vernie&quot;     &quot;Adela&quot;     
+##  [581] &quot;Althea&quot;     &quot;Amalia&quot;     &quot;Amber&quot;      &quot;Angelina&quot;  
+##  [585] &quot;Annabelle&quot;  &quot;Anner&quot;      &quot;Arie&quot;       &quot;Clarice&quot;   
+##  [589] &quot;Corda&quot;      &quot;Corrie&quot;     &quot;Dell&quot;       &quot;Dellar&quot;    
+##  [593] &quot;Donie&quot;      &quot;Doris&quot;      &quot;Elda&quot;       &quot;Elinor&quot;    
+##  [597] &quot;Emeline&quot;    &quot;Emilia&quot;     &quot;Esta&quot;       &quot;Estell&quot;    
+##  [601] &quot;Etha&quot;       &quot;Fred&quot;       &quot;Hope&quot;       &quot;Indiana&quot;   
+##  [605] &quot;Ione&quot;       &quot;Jettie&quot;     &quot;Johnnie&quot;    &quot;Josiephine&quot;
+##  [609] &quot;Kitty&quot;      &quot;Lavina&quot;     &quot;Leda&quot;       &quot;Letta&quot;     
+##  [613] &quot;Mahala&quot;     &quot;Marcia&quot;     &quot;Margarette&quot; &quot;Maudie&quot;    
+##  [617] &quot;Maye&quot;       &quot;Norah&quot;      &quot;Oda&quot;        &quot;Patty&quot;     
+##  [621] &quot;Paula&quot;      &quot;Permelia&quot;   &quot;Rosalia&quot;    &quot;Roxanna&quot;   
+##  [625] &quot;Sula&quot;       &quot;Vada&quot;       &quot;Winnifred&quot;  &quot;Adline&quot;    
+##  [629] &quot;Almira&quot;     &quot;Alvena&quot;     &quot;Arizona&quot;    &quot;Becky&quot;     
+##  [633] &quot;Bennie&quot;     &quot;Bernadette&quot; &quot;Camille&quot;    &quot;Cordia&quot;    
+##  [637] &quot;Corine&quot;     &quot;Dicie&quot;      &quot;Dove&quot;       &quot;Drusilla&quot;  
+##  [641] &quot;Elena&quot;      &quot;Elenora&quot;    &quot;Elmina&quot;     &quot;Ethyl&quot;     
+##  [645] &quot;Evalyn&quot;     &quot;Evelina&quot;    &quot;Faye&quot;       &quot;Huldah&quot;    
+##  [649] &quot;Idell&quot;      &quot;Inga&quot;       &quot;Irena&quot;      &quot;Jewell&quot;    
+##  [653] &quot;Kattie&quot;     &quot;Lavenia&quot;    &quot;Leslie&quot;     &quot;Lovina&quot;    
+##  [657] &quot;Lulie&quot;      &quot;Magnolia&quot;   &quot;Margeret&quot;   &quot;Margery&quot;   
+##  [661] &quot;Media&quot;      &quot;Millicent&quot;  &quot;Nena&quot;       &quot;Ocie&quot;      
+##  [665] &quot;Orilla&quot;     &quot;Osie&quot;       &quot;Pansy&quot;      &quot;Ray&quot;       
+##  [669] &quot;Rosia&quot;      &quot;Rowena&quot;     &quot;Shirley&quot;    &quot;Tabitha&quot;   
+##  [673] &quot;Thomas&quot;     &quot;Verdie&quot;     &quot;Walter&quot;     &quot;Zetta&quot;     
+##  [677] &quot;Zoa&quot;        &quot;Zona&quot;       &quot;Albertina&quot;  &quot;Albina&quot;    
+##  [681] &quot;Alyce&quot;      &quot;Amie&quot;       &quot;Angela&quot;     &quot;Annis&quot;     
+##  [685] &quot;Carol&quot;      &quot;Carra&quot;      &quot;Clarence&quot;   &quot;Clarinda&quot;  
+##  [689] &quot;Delphia&quot;    &quot;Dillie&quot;     &quot;Doshie&quot;     &quot;Drucilla&quot;  
+##  [693] &quot;Etna&quot;       &quot;Eugenie&quot;    &quot;Eulalia&quot;    &quot;Eve&quot;       
+##  [697] &quot;Felicia&quot;    &quot;Florance&quot;   &quot;Fronie&quot;     &quot;Geraldine&quot; 
+##  [701] &quot;Gina&quot;       &quot;Glenna&quot;     &quot;Grayce&quot;     &quot;Hedwig&quot;    
+##  [705] &quot;Jessica&quot;    &quot;Jossie&quot;     &quot;Katheryn&quot;   &quot;Katy&quot;      
+##  [709] &quot;Lea&quot;        &quot;Leanna&quot;     &quot;Leitha&quot;     &quot;Leone&quot;     
+##  [713] &quot;Lidie&quot;      &quot;Loma&quot;       &quot;Lular&quot;      &quot;Magdalen&quot;  
+##  [717] &quot;Maymie&quot;     &quot;Minervia&quot;   &quot;Muriel&quot;     &quot;Neppie&quot;    
+##  [721] &quot;Olie&quot;       &quot;Onie&quot;       &quot;Osa&quot;        &quot;Otelia&quot;    
+##  [725] &quot;Paralee&quot;    &quot;Patience&quot;   &quot;Rella&quot;      &quot;Rillie&quot;    
+##  [729] &quot;Rosanna&quot;    &quot;Theo&quot;       &quot;Tilda&quot;      &quot;Tishie&quot;    
+##  [733] &quot;Tressa&quot;     &quot;Viva&quot;       &quot;Yetta&quot;      &quot;Zena&quot;      
+##  [737] &quot;Zola&quot;       &quot;Abby&quot;       &quot;Aileen&quot;     &quot;Alba&quot;      
+##  [741] &quot;Alda&quot;       &quot;Alla&quot;       &quot;Alverta&quot;    &quot;Ara&quot;       
+##  [745] &quot;Ardelia&quot;    &quot;Ardella&quot;    &quot;Arrie&quot;      &quot;Arvilla&quot;   
+##  [749] &quot;Augustine&quot;  &quot;Aurora&quot;     &quot;Bama&quot;       &quot;Bena&quot;      
+##  [753] &quot;Byrd&quot;       &quot;Calla&quot;      &quot;Camilla&quot;    &quot;Carey&quot;     
+##  [757] &quot;Carlotta&quot;   &quot;Celestia&quot;   &quot;Cherry&quot;     &quot;Cinda&quot;     
+##  [761] &quot;Classie&quot;    &quot;Claudine&quot;   &quot;Clemie&quot;     &quot;Clifford&quot;  
+##  [765] &quot;Clyda&quot;      &quot;Creola&quot;     &quot;Debbie&quot;     &quot;Dee&quot;       
+##  [769] &quot;Dinah&quot;      &quot;Doshia&quot;     &quot;Ednah&quot;      &quot;Edyth&quot;     
+##  [773] &quot;Eleanora&quot;   &quot;Electa&quot;     &quot;Eola&quot;       &quot;Erie&quot;      
+##  [777] &quot;Eudora&quot;     &quot;Euphemia&quot;   &quot;Evalena&quot;    &quot;Evaline&quot;   
+##  [781] &quot;Faith&quot;      &quot;Fidelia&quot;    &quot;Freddie&quot;    &quot;Golda&quot;     
+##  [785] &quot;Harry&quot;      &quot;Helma&quot;      &quot;Hermine&quot;    &quot;Hessie&quot;    
+##  [789] &quot;Ivah&quot;       &quot;Janette&quot;    &quot;Jennette&quot;   &quot;Joella&quot;    
+##  [793] &quot;Kathryne&quot;   &quot;Lacy&quot;       &quot;Lanie&quot;      &quot;Lauretta&quot;  
+##  [797] &quot;Leana&quot;      &quot;Leatha&quot;     &quot;Leo&quot;        &quot;Liller&quot;    
+##  [801] &quot;Lillis&quot;     &quot;Louetta&quot;    &quot;Madie&quot;      &quot;Mai&quot;       
+##  [805] &quot;Martina&quot;    &quot;Maryann&quot;    &quot;Melva&quot;      &quot;Mena&quot;      
+##  [809] &quot;Mercedes&quot;   &quot;Merle&quot;      &quot;Mima&quot;       &quot;Minda&quot;     
+##  [813] &quot;Monica&quot;     &quot;Nealie&quot;     &quot;Netta&quot;      &quot;Nolia&quot;     
+##  [817] &quot;Nonie&quot;      &quot;Odelia&quot;     &quot;Ottilie&quot;    &quot;Phyllis&quot;   
+##  [821] &quot;Robbie&quot;     &quot;Sabina&quot;     &quot;Sada&quot;       &quot;Sammie&quot;    
+##  [825] &quot;Suzanne&quot;    &quot;Sybilla&quot;    &quot;Thea&quot;       &quot;Tressie&quot;   
+##  [829] &quot;Vallie&quot;     &quot;Venie&quot;      &quot;Viney&quot;      &quot;Wilhelmine&quot;
+##  [833] &quot;Winona&quot;     &quot;Zelda&quot;      &quot;Zilpha&quot;     &quot;Adelle&quot;    
+##  [837] &quot;Adina&quot;      &quot;Adrienne&quot;   &quot;Albertine&quot;  &quot;Alys&quot;      
+##  [841] &quot;Ana&quot;        &quot;Araminta&quot;   &quot;Arthur&quot;     &quot;Birtha&quot;    
+##  [845] &quot;Bulah&quot;      &quot;Caddie&quot;     &quot;Celie&quot;      &quot;Charlotta&quot; 
+##  [849] &quot;Clair&quot;      &quot;Concepcion&quot; &quot;Cordella&quot;   &quot;Corrine&quot;   
+##  [853] &quot;Delila&quot;     &quot;Delphine&quot;   &quot;Dosha&quot;      &quot;Edgar&quot;     
+##  [857] &quot;Elaine&quot;     &quot;Elisa&quot;      &quot;Ellar&quot;      &quot;Elmire&quot;    
+##  [861] &quot;Elvina&quot;     &quot;Ena&quot;        &quot;Estie&quot;      &quot;Etter&quot;     
+##  [865] &quot;Fronnie&quot;    &quot;Genie&quot;      &quot;Georgina&quot;   &quot;Glenn&quot;     
+##  [869] &quot;Gracia&quot;     &quot;Guadalupe&quot;  &quot;Gwendolyn&quot;  &quot;Hassie&quot;    
+##  [873] &quot;Honora&quot;     &quot;Icy&quot;        &quot;Isa&quot;        &quot;Isadora&quot;   
+##  [877] &quot;Jesse&quot;      &quot;Jewel&quot;      &quot;Joe&quot;        &quot;Johannah&quot;  
+##  [881] &quot;Juana&quot;      &quot;Judith&quot;     &quot;Judy&quot;       &quot;Junie&quot;     
+##  [885] &quot;Lavonia&quot;    &quot;Lella&quot;      &quot;Lemma&quot;      &quot;Letty&quot;     
+##  [889] &quot;Linna&quot;      &quot;Littie&quot;     &quot;Lollie&quot;     &quot;Lorene&quot;    
+##  [893] &quot;Louis&quot;      &quot;Love&quot;       &quot;Lovisa&quot;     &quot;Lucina&quot;    
+##  [897] &quot;Lynn&quot;       &quot;Madora&quot;     &quot;Mahalia&quot;    &quot;Manervia&quot;  
+##  [901] &quot;Manuela&quot;    &quot;Margarett&quot;  &quot;Margaretta&quot; &quot;Margarita&quot; 
+##  [905] &quot;Marilla&quot;    &quot;Mignon&quot;     &quot;Mozella&quot;    &quot;Natalie&quot;   
+##  [909] &quot;Nelia&quot;      &quot;Nolie&quot;      &quot;Omie&quot;       &quot;Opal&quot;      
+##  [913] &quot;Ossie&quot;      &quot;Ottie&quot;      &quot;Ottilia&quot;    &quot;Parthenia&quot; 
+##  [917] &quot;Penelope&quot;   &quot;Pinkey&quot;     &quot;Pollie&quot;     &quot;Rennie&quot;    
+##  [921] &quot;Reta&quot;       &quot;Roena&quot;      &quot;Rosalee&quot;    &quot;Roseanna&quot;  
+##  [925] &quot;Ruthie&quot;     &quot;Sabra&quot;      &quot;Sannie&quot;     &quot;Selena&quot;    
+##  [929] &quot;Sibyl&quot;      &quot;Tella&quot;      &quot;Tempie&quot;     &quot;Tennessee&quot; 
+##  [933] &quot;Teressa&quot;    &quot;Texas&quot;      &quot;Theda&quot;      &quot;Thelma&quot;    
+##  [937] &quot;Thursa&quot;     &quot;Ula&quot;        &quot;Vannie&quot;     &quot;Verona&quot;    
+##  [941] &quot;Vertie&quot;     &quot;Wilma&quot;      &quot;John&quot;       &quot;William&quot;   
+##  [945] &quot;James&quot;      &quot;Charles&quot;    &quot;George&quot;     &quot;Frank&quot;     
+##  [949] &quot;Joseph&quot;     &quot;Thomas&quot;     &quot;Henry&quot;      &quot;Robert&quot;    
+##  [953] &quot;Edward&quot;     &quot;Harry&quot;      &quot;Walter&quot;     &quot;Arthur&quot;    
+##  [957] &quot;Fred&quot;       &quot;Albert&quot;     &quot;Samuel&quot;     &quot;David&quot;     
+##  [961] &quot;Louis&quot;      &quot;Joe&quot;        &quot;Charlie&quot;    &quot;Clarence&quot;  
+##  [965] &quot;Richard&quot;    &quot;Andrew&quot;     &quot;Daniel&quot;     &quot;Ernest&quot;    
+##  [969] &quot;Will&quot;       &quot;Jesse&quot;      &quot;Oscar&quot;      &quot;Lewis&quot;     
+##  [973] &quot;Peter&quot;      &quot;Benjamin&quot;   &quot;Frederick&quot;  &quot;Willie&quot;    
+##  [977] &quot;Alfred&quot;     &quot;Sam&quot;        &quot;Roy&quot;        &quot;Herbert&quot;   
+##  [981] &quot;Jacob&quot;      &quot;Tom&quot;        &quot;Elmer&quot;      &quot;Carl&quot;      
+##  [985] &quot;Lee&quot;        &quot;Howard&quot;     &quot;Martin&quot;     &quot;Michael&quot;   
+##  [989] &quot;Bert&quot;       &quot;Herman&quot;     &quot;Jim&quot;        &quot;Francis&quot;   
+##  [993] &quot;Harvey&quot;     &quot;Earl&quot;       &quot;Eugene&quot;     &quot;Ralph&quot;     
+##  [997] &quot;Ed&quot;         &quot;Claude&quot;     &quot;Edwin&quot;      &quot;Ben&quot;       
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 1923665 entries ]</code></pre>
 <p>Let’s use str_detect() to find all of the names that include a ‘sh’ sound:</p>
 <p>As you see, str_detect() runs as a <em>boolean operator</em>, in that it ascribes a <em>TRUE</em> or <em>FALSE</em> value for each entry in the column, based on our conditional statement: is there a ‘sh’ in the character string?</p>
 <p>Let’s combine our previous experience with ggplot to write a long, complicated set of code that will visualize the <em>most popular names starting in ‘Sh’ for women born in 1938:</em></p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="text-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb169-2"><a href="text-analysis.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb169-3"><a href="text-analysis.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb169-4"><a href="text-analysis.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb169-5"><a href="text-analysis.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,prop),prop,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
-<span id="cb169-6"><a href="text-analysis.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb169-7"><a href="text-analysis.html#cb169-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
-<p>Let’s fancy that up a bit, by calculating a ‘percentage’ of use of that name per year / per gender:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="text-analysis.html#cb170-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb170-2"><a href="text-analysis.html#cb170-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-3"><a href="text-analysis.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-4"><a href="text-analysis.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-5"><a href="text-analysis.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (prop <span class="sc">*</span> <span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-6"><a href="text-analysis.html#cb170-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,percent),percent,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
-<span id="cb170-7"><a href="text-analysis.html#cb170-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb170-8"><a href="text-analysis.html#cb170-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
-<p>how many ‘z’ names since 2000?</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="text-analysis.html#cb171-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb171-2"><a href="text-analysis.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">str_detect</span>(name, <span class="st">&quot;Z&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb171-3"><a href="text-analysis.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<span id="cb171-2"><a href="text-analysis.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-3"><a href="text-analysis.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-4"><a href="text-analysis.html#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-5"><a href="text-analysis.html#cb171-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,prop),prop,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
+<span id="cb171-6"><a href="text-analysis.html#cb171-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb171-7"><a href="text-analysis.html#cb171-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>Let’s fancy that up a bit, by calculating a ‘percentage’ of use of that name per year / per gender:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="text-analysis.html#cb172-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb172-2"><a href="text-analysis.html#cb172-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Sh&quot;</span>) <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">1938</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-3"><a href="text-analysis.html#cb172-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-4"><a href="text-analysis.html#cb172-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-5"><a href="text-analysis.html#cb172-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (prop <span class="sc">*</span> <span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-6"><a href="text-analysis.html#cb172-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,percent),percent,  <span class="at">fill =</span> name)) <span class="sc">+</span> </span>
+<span id="cb172-7"><a href="text-analysis.html#cb172-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb172-8"><a href="text-analysis.html#cb172-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>how many ‘z’ names since 2000?</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="text-analysis.html#cb173-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb173-2"><a href="text-analysis.html#cb173-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">str_detect</span>(name, <span class="st">&quot;Z&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb173-3"><a href="text-analysis.html#cb173-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 13,018 × 5
 ##     year sex   name        n    prop
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;
@@ -652,9 +567,9 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  2009 M     Zachary  8078 0.00381
 ## # … with 13,008 more rows</code></pre>
 <p>Why did R only pull out the names starting with Z? Because we capitalized it. How do we get both?</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="text-analysis.html#cb173-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb173-2"><a href="text-analysis.html#cb173-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb173-3"><a href="text-analysis.html#cb173-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="text-analysis.html#cb175-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb175-2"><a href="text-analysis.html#cb175-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb175-3"><a href="text-analysis.html#cb175-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
 ##     year sex   name        n   prop     Z
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;
@@ -670,9 +585,9 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1885 M     John     8756 0.0755     0
 ## # … with 1,924,655 more rows</code></pre>
 <p>Instead of arranging our data by name popularity, let’s look at the names with the <em>most</em> z’s in them:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="text-analysis.html#cb175-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb175-2"><a href="text-analysis.html#cb175-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb175-3"><a href="text-analysis.html#cb175-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(Z))</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="text-analysis.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb177-2"><a href="text-analysis.html#cb177-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Z =</span> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[zZ]&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb177-3"><a href="text-analysis.html#cb177-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(Z))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
 ##     year sex   name       n       prop     Z
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt; &lt;int&gt;
@@ -688,40 +603,40 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1883 F     Kizzie    14 0.000117       2
 ## # … with 1,924,655 more rows</code></pre>
 <p>What if, instead of specifying a particular letter, we just wanted to count the most frequent first letters in names?</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="text-analysis.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb177-2"><a href="text-analysis.html#cb177-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">first_letter =</span> <span class="fu">substr</span>(name, <span class="dv">1</span>,<span class="dv">1</span>)) <span class="ot">-&gt;</span> baby_letters</span></code></pre></div>
-<p>Let’s plot that:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="text-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    baby_letters <span class="sc">%&gt;%</span> </span>
-<span id="cb178-2"><a href="text-analysis.html#cb178-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(first_letter, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb178-3"><a href="text-analysis.html#cb178-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(first_letter, n),n)) <span class="sc">+</span> </span>
-<span id="cb178-4"><a href="text-analysis.html#cb178-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb178-5"><a href="text-analysis.html#cb178-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
-<p>We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="text-analysis.html#cb179-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb179-2"><a href="text-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">str_length</span>(name)) <span class="ot">-&gt;</span> babynames_length</span></code></pre></div>
+<span id="cb179-2"><a href="text-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">first_letter =</span> <span class="fu">substr</span>(name, <span class="dv">1</span>,<span class="dv">1</span>)) <span class="ot">-&gt;</span> baby_letters</span></code></pre></div>
+<p>Let’s plot that:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="text-analysis.html#cb180-1" aria-hidden="true" tabindex="-1"></a>    baby_letters <span class="sc">%&gt;%</span> </span>
+<span id="cb180-2"><a href="text-analysis.html#cb180-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(first_letter, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-3"><a href="text-analysis.html#cb180-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(first_letter, n),n)) <span class="sc">+</span> </span>
+<span id="cb180-4"><a href="text-analysis.html#cb180-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb180-5"><a href="text-analysis.html#cb180-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>We can also use stringr to calculate the length of all of our strings. What is the frequency of the shortest and longest names?</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb181-2"><a href="text-analysis.html#cb181-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">str_length</span>(name)) <span class="ot">-&gt;</span> babynames_length</span></code></pre></div>
 </div>
 <div id="average-name-length-over-time-1" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Average name length over time<a href="text-analysis.html#average-name-length-over-time-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, if we want to see the average length of a names over time, the code gets a little mroe advanced - note the <em>mean</em> function we haven’t used like this before:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="text-analysis.html#cb180-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb180-2"><a href="text-analysis.html#cb180-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb180-3"><a href="text-analysis.html#cb180-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb180-4"><a href="text-analysis.html#cb180-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
-<p>The results are impressive. Let’s split them up by Sex:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb181-2"><a href="text-analysis.html#cb181-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-3"><a href="text-analysis.html#cb181-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-4"><a href="text-analysis.html#cb181-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length, <span class="at">color =</span> sex)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="text-analysis.html#cb182-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb182-2"><a href="text-analysis.html#cb182-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb182-3"><a href="text-analysis.html#cb182-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb182-4"><a href="text-analysis.html#cb182-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>The results are impressive. Let’s split them up by Sex:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="text-analysis.html#cb183-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb183-2"><a href="text-analysis.html#cb183-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb183-3"><a href="text-analysis.html#cb183-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_at</span>(<span class="fu">vars</span>(length), <span class="fu">funs</span>(<span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb183-4"><a href="text-analysis.html#cb183-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, length, <span class="at">color =</span> sex)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 </div>
 <div id="common-issue-example-most-common-3-letter-names" class="section level3 hasAnchor" number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> Common issue: (example: most common 3-letter names)<a href="text-analysis.html#common-issue-example-most-common-3-letter-names" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As mentioned in the last Chapter, summarise() is confusing. In the case of babynames, you’ll know to use it when you keep getting the same results over and over, and you want to group those names together. Let’s take a look at this issue by calculating the most common 3-letter names:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="text-analysis.html#cb182-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb182-2"><a href="text-analysis.html#cb182-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb182-3"><a href="text-analysis.html#cb182-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="text-analysis.html#cb184-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb184-2"><a href="text-analysis.html#cb184-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb184-3"><a href="text-analysis.html#cb184-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(prop))</span></code></pre></div>
 <pre><code>## # A tibble: 41,274 × 6
 ##     year sex   name      n   prop length
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;int&gt;
@@ -737,11 +652,11 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10  1882 F     Ida    1673 0.0145      3
 ## # … with 41,264 more rows</code></pre>
 <p>We get a lot of repeated names. Time to summarize!</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="text-analysis.html#cb184-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb184-2"><a href="text-analysis.html#cb184-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb184-3"><a href="text-analysis.html#cb184-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb184-4"><a href="text-analysis.html#cb184-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n) ) <span class="sc">%&gt;%</span> </span>
-<span id="cb184-5"><a href="text-analysis.html#cb184-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="text-analysis.html#cb186-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb186-2"><a href="text-analysis.html#cb186-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb186-3"><a href="text-analysis.html#cb186-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb186-4"><a href="text-analysis.html#cb186-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb186-5"><a href="text-analysis.html#cb186-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total))</span></code></pre></div>
 <pre><code>## # A tibble: 970 × 2
 ##    name   total
 ##    &lt;chr&gt;  &lt;int&gt;
@@ -757,11 +672,11 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 Kim   214365
 ## # … with 960 more rows</code></pre>
 <p>Let’s try that again, with 2-letter names:</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="text-analysis.html#cb186-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb186-2"><a href="text-analysis.html#cb186-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb186-3"><a href="text-analysis.html#cb186-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb186-4"><a href="text-analysis.html#cb186-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb186-5"><a href="text-analysis.html#cb186-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) </span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="text-analysis.html#cb188-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb188-2"><a href="text-analysis.html#cb188-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb188-3"><a href="text-analysis.html#cb188-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb188-4"><a href="text-analysis.html#cb188-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb188-5"><a href="text-analysis.html#cb188-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) </span></code></pre></div>
 <pre><code>## # A tibble: 149 × 2
 ##    name   total
 ##    &lt;chr&gt;  &lt;int&gt;
@@ -777,26 +692,26 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 An      2048
 ## # … with 139 more rows</code></pre>
 <p>What is the longest name?</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="text-analysis.html#cb188-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb188-2"><a href="text-analysis.html#cb188-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(length))</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="text-analysis.html#cb190-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb190-2"><a href="text-analysis.html#cb190-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(length))</span></code></pre></div>
 <pre><code>## # A tibble: 1,924,665 × 6
-##     year sex   name              n    prop length
-##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;         &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
-##  1  1978 M     Christopherm…     5 2.93e-6     15
-##  2  1979 M     Johnchristop…     5 2.79e-6     15
-##  3  1980 M     Christopherm…     7 3.77e-6     15
-##  4  1980 M     Christopherj…     5 2.7 e-6     15
-##  5  1981 F     Mariadelrosa…     5 2.8 e-6     15
-##  6  1981 M     Christopherj…     5 2.68e-6     15
-##  7  1982 F     Mariadelosan…     6 3.31e-6     15
-##  8  1982 M     Christopherj…     6 3.18e-6     15
-##  9  1982 M     Christopherm…     5 2.65e-6     15
-## 10  1983 M     Christopherj…     8 4.29e-6     15
+##     year sex   name                n       prop length
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           &lt;int&gt;      &lt;dbl&gt;  &lt;int&gt;
+##  1  1978 M     Christophermich     5 0.00000293     15
+##  2  1979 M     Johnchristopher     5 0.00000279     15
+##  3  1980 M     Christophermich     7 0.00000377     15
+##  4  1980 M     Christopherjohn     5 0.0000027      15
+##  5  1981 F     Mariadelrosario     5 0.0000028      15
+##  6  1981 M     Christopherjohn     5 0.00000268     15
+##  7  1982 F     Mariadelosangel     6 0.00000331     15
+##  8  1982 M     Christopherjohn     6 0.00000318     15
+##  9  1982 M     Christophermich     5 0.00000265     15
+## 10  1983 M     Christopherjohn     8 0.00000429     15
 ## # … with 1,924,655 more rows</code></pre>
 <p>How many 15 letter names are there?</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="text-analysis.html#cb190-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
-<span id="cb190-2"><a href="text-analysis.html#cb190-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb190-3"><a href="text-analysis.html#cb190-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
+<span id="cb192-2"><a href="text-analysis.html#cb192-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(length <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb192-3"><a href="text-analysis.html#cb192-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 34 × 2
 ##    name                n
 ##    &lt;chr&gt;           &lt;int&gt;
@@ -812,96 +727,86 @@ Here are some functions from the stringr package that we can use to manipulate t
 ## 10 Mariadelosangel     4
 ## # … with 24 more rows</code></pre>
 <p>Let’s plot those names:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb192-2"><a href="text-analysis.html#cb192-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Christopherjohn&quot;</span>,<span class="st">&quot;Johnchristopher&quot;</span>,<span class="st">&quot;Christopherjame&quot;</span>,<span class="st">&quot;Franciscojavier&quot;</span>, <span class="st">&quot;Christophermich&quot;</span>, <span class="st">&quot;Ryanchristopher&quot;</span>,<span class="st">&quot;Christianjoseph&quot;</span>, <span class="st">&quot;Christopherjose&quot;</span>, <span class="st">&quot;Jonathanmichael&quot;</span>, <span class="st">&quot;Mariadelosangel&quot;</span>  </span>
-<span id="cb192-3"><a href="text-analysis.html#cb192-3" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">%&gt;%</span> </span>
-<span id="cb192-4"><a href="text-analysis.html#cb192-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="text-analysis.html#cb194-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb194-2"><a href="text-analysis.html#cb194-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Christopherjohn&quot;</span>,<span class="st">&quot;Johnchristopher&quot;</span>,<span class="st">&quot;Christopherjame&quot;</span>,<span class="st">&quot;Franciscojavier&quot;</span>, <span class="st">&quot;Christophermich&quot;</span>, <span class="st">&quot;Ryanchristopher&quot;</span>,<span class="st">&quot;Christianjoseph&quot;</span>, <span class="st">&quot;Christopherjose&quot;</span>, <span class="st">&quot;Jonathanmichael&quot;</span>, <span class="st">&quot;Mariadelosangel&quot;</span>  </span>
+<span id="cb194-3"><a href="text-analysis.html#cb194-3" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">%&gt;%</span> </span>
+<span id="cb194-4"><a href="text-analysis.html#cb194-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 <p>By the look of these names, it’s clear that most of them are actually <em>longer</em> than 15 characters - but 15 characters is the cut-off point for the column. Thus, we cannot accurately estimate the most common 15-letter names.</p>
 <p>Along similar lines, an analysis of the methodology behind <em>babynames</em> shows that only names that have <em>at least 5 instances in a given year</em> are recorded. So it’d be similarly futile for us to attempt to measure the <em>rarest</em> names, as they are excluded in the database. (It also helps clarify why some rarer names seem to ‘disappear’ in certain years.)</p>
 <p>OK, what else can stringr do?</p>
 <p>How about the average number of vowels per name?</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="text-analysis.html#cb193-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
-<pre><code>##    [1] 1 1 1 3 3 3 1 2 2 2 2 2 1 3 2 2 3 3 2 3 3
-##   [22] 2 3 3 3 3 3 1 3 2 4 3 1 3 2 3 4 1 2 1 1 2
-##   [43] 2 1 1 3 2 2 3 4 2 2 4 1 3 2 1 3 2 2 1 1 2
-##   [64] 3 3 2 3 2 3 2 2 1 3 3 4 3 2 2 2 2 3 1 2 4
-##   [85] 2 2 3 3 2 2 3 3 1 3 2 3 2 2 4 1 3 2 1 1 3
-##  [106] 4 2 0 2 2 2 3 3 1 4 3 2 3 3 1 2 0 3 3 2 3
-##  [127] 3 3 1 4 3 2 1 2 2 1 3 3 2 3 1 2 3 2 3 3 4
-##  [148] 4 1 3 1 3 3 4 3 3 2 1 3 3 2 2 2 3 3 1 1 2
-##  [169] 3 1 2 4 2 2 2 2 3 2 2 3 3 3 1 1 3 4 3 3 2
-##  [190] 2 3 1 3 3 3 3 2 3 2 2 3 5 2 4 3 2 4 3 3 2
-##  [211] 2 2 3 3 3 1 3 3 2 2 2 3 4 5 2 4 1 3 1 3 2
-##  [232] 2 4 1 3 3 4 2 3 2 1 3 3 2 1 3 4 3 3 3 4 3
-##  [253] 2 2 3 5 2 3 2 4 2 2 3 2 2 3 4 4 1 3 3 3 0
-##  [274] 3 1 3 2 1 3 2 2 3 2 1 1 3 3 2 1 2 3 4 1 2
-##  [295] 2 4 1 3 2 2 3 2 3 2 2 3 3 2 2 1 3 3 3 4 3
-##  [316] 3 3 3 2 3 2 2 2 2 3 1 2 3 2 3 3 2 3 1 2 4
-##  [337] 2 3 4 2 2 1 2 2 3 4 4 3 3 3 3 2 4 3 1 2 3
-##  [358] 3 3 4 4 3 1 3 3 3 2 3 1 1 3 3 2 3 4 4 1 4
-##  [379] 3 3 2 3 4 2 2 2 2 3 2 3 2 3 5 3 2 3 2 2 3
-##  [400] 1 2 1 2 1 3 2 2 2 3 2 3 3 2 1 3 3 2 3 3 2
-##  [421] 2 3 2 2 4 1 4 4 3 3 1 4 2 2 2 3 3 1 2 3 5
-##  [442] 3 3 2 2 1 2 4 1 1 1 3 2 3 3 1 3 2 4 3 3 3
-##  [463] 2 2 4 3 2 1 2 4 3 3 1 2 3 4 2 1 1 1 3 3 3
-##  [484] 4 3 3 1 2 3 2 2 3 4 3 4 3 3 4 3 2 2 2 3 2
-##  [505] 3 2 3 2 3 3 2 2 3 3 2 2 2 2 1 2 3 2 3 1 2
-##  [526] 3 1 1 2 1 1 2 3 3 3 3 3 3 5 3 3 4 3 2 2 2
-##  [547] 1 4 2 1 3 3 3 3 3 3 1 1 3 2 2 2 3 4 4 3 2
-##  [568] 3 3 2 4 4 2 3 2 5 3 1 3 2 2 3 1 3 3 1 2 3
-##  [589] 2 3 1 2 3 2 1 2 3 3 1 1 1 1 2 3 2 3 3 5 1
-##  [610] 3 2 2 3 3 4 4 2 2 1 1 3 4 4 3 2 2 3 2 2 2
-##  [631] 3 1 3 4 3 3 3 3 2 3 2 3 2 0 1 3 2 2 1 1 2
-##  [652] 2 3 4 3 3 3 4 3 2 3 3 2 2 2 2 1 1 3 3 2 3
-##  [673] 2 3 2 2 2 2 3 2 1 2 2 1 2 2 3 3 3 3 3 3 1
-##  [694] 4 4 1 4 3 3 4 2 2 2 2 3 3 2 1 2 3 3 3 3 2
-##  [715] 2 3 3 4 3 3 2 2 1 3 4 4 2 3 3 2 2 3 2 2 2
-##  [736] 2 2 0 3 1 1 1 2 1 3 2 2 2 4 3 2 2 0 2 3 2
-##  [757] 3 4 1 2 3 4 3 2 1 3 3 2 2 3 1 0 4 2 2 2 3
-##  [778] 4 3 3 2 4 3 2 1 2 3 3 1 3 3 3 2 1 3 4 3 3
-##  [799] 2 2 2 4 3 2 3 2 2 2 3 2 2 2 3 4 2 3 3 3 3
-##  [820] 1 3 3 2 3 3 2 2 3 3 3 2 4 3 2 2 2 2 3 3 0
-##  [841] 1 3 1 2 2 3 3 3 2 4 3 3 3 3 2 1 3 2 1 2 2
-##  [862] 1 2 1 3 3 4 1 3 5 2 3 3 0 1 3 2 2 2 3 3 2
-##  [883] 1 3 4 2 2 1 2 3 3 3 3 2 3 3 0 3 4 4 4 3 4
-##  [904] 4 3 2 3 4 3 3 2 1 2 2 3 4 4 2 3 3 2 3 4 4
-##  [925] 3 2 3 3 1 2 3 4 3 2 2 2 2 1 3 3 3 2 1 3 2
-##  [946] 2 3 1 2 2 1 2 1 1 2 1 1 1 3 2 3 2 3 3 2 1
-##  [967] 3 1 1 2 1 2 2 3 3 3 1 1 1 2 2 1 1 1 2 2 2
-##  [988] 3 1 2 1 2 2 1 3 1 0 3 1 1
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="text-analysis.html#cb195-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
+<pre><code>##    [1] 1 1 1 3 3 3 1 2 2 2 2 2 1 3 2 2 3 3 2 3 3 2 3 3 3 3 3
+##   [28] 1 3 2 4 3 1 3 2 3 4 1 2 1 1 2 2 1 1 3 2 2 3 4 2 2 4 1
+##   [55] 3 2 1 3 2 2 1 1 2 3 3 2 3 2 3 2 2 1 3 3 4 3 2 2 2 2 3
+##   [82] 1 2 4 2 2 3 3 2 2 3 3 1 3 2 3 2 2 4 1 3 2 1 1 3 4 2 0
+##  [109] 2 2 2 3 3 1 4 3 2 3 3 1 2 0 3 3 2 3 3 3 1 4 3 2 1 2 2
+##  [136] 1 3 3 2 3 1 2 3 2 3 3 4 4 1 3 1 3 3 4 3 3 2 1 3 3 2 2
+##  [163] 2 3 3 1 1 2 3 1 2 4 2 2 2 2 3 2 2 3 3 3 1 1 3 4 3 3 2
+##  [190] 2 3 1 3 3 3 3 2 3 2 2 3 5 2 4 3 2 4 3 3 2 2 2 3 3 3 1
+##  [217] 3 3 2 2 2 3 4 5 2 4 1 3 1 3 2 2 4 1 3 3 4 2 3 2 1 3 3
+##  [244] 2 1 3 4 3 3 3 4 3 2 2 3 5 2 3 2 4 2 2 3 2 2 3 4 4 1 3
+##  [271] 3 3 0 3 1 3 2 1 3 2 2 3 2 1 1 3 3 2 1 2 3 4 1 2 2 4 1
+##  [298] 3 2 2 3 2 3 2 2 3 3 2 2 1 3 3 3 4 3 3 3 3 2 3 2 2 2 2
+##  [325] 3 1 2 3 2 3 3 2 3 1 2 4 2 3 4 2 2 1 2 2 3 4 4 3 3 3 3
+##  [352] 2 4 3 1 2 3 3 3 4 4 3 1 3 3 3 2 3 1 1 3 3 2 3 4 4 1 4
+##  [379] 3 3 2 3 4 2 2 2 2 3 2 3 2 3 5 3 2 3 2 2 3 1 2 1 2 1 3
+##  [406] 2 2 2 3 2 3 3 2 1 3 3 2 3 3 2 2 3 2 2 4 1 4 4 3 3 1 4
+##  [433] 2 2 2 3 3 1 2 3 5 3 3 2 2 1 2 4 1 1 1 3 2 3 3 1 3 2 4
+##  [460] 3 3 3 2 2 4 3 2 1 2 4 3 3 1 2 3 4 2 1 1 1 3 3 3 4 3 3
+##  [487] 1 2 3 2 2 3 4 3 4 3 3 4 3 2 2 2 3 2 3 2 3 2 3 3 2 2 3
+##  [514] 3 2 2 2 2 1 2 3 2 3 1 2 3 1 1 2 1 1 2 3 3 3 3 3 3 5 3
+##  [541] 3 4 3 2 2 2 1 4 2 1 3 3 3 3 3 3 1 1 3 2 2 2 3 4 4 3 2
+##  [568] 3 3 2 4 4 2 3 2 5 3 1 3 2 2 3 1 3 3 1 2 3 2 3 1 2 3 2
+##  [595] 1 2 3 3 1 1 1 1 2 3 2 3 3 5 1 3 2 2 3 3 4 4 2 2 1 1 3
+##  [622] 4 4 3 2 2 3 2 2 2 3 1 3 4 3 3 3 3 2 3 2 3 2 0 1 3 2 2
+##  [649] 1 1 2 2 3 4 3 3 3 4 3 2 3 3 2 2 2 2 1 1 3 3 2 3 2 3 2
+##  [676] 2 2 2 3 2 1 2 2 1 2 2 3 3 3 3 3 3 1 4 4 1 4 3 3 4 2 2
+##  [703] 2 2 3 3 2 1 2 3 3 3 3 2 2 3 3 4 3 3 2 2 1 3 4 4 2 3 3
+##  [730] 2 2 3 2 2 2 2 2 0 3 1 1 1 2 1 3 2 2 2 4 3 2 2 0 2 3 2
+##  [757] 3 4 1 2 3 4 3 2 1 3 3 2 2 3 1 0 4 2 2 2 3 4 3 3 2 4 3
+##  [784] 2 1 2 3 3 1 3 3 3 2 1 3 4 3 3 2 2 2 4 3 2 3 2 2 2 3 2
+##  [811] 2 2 3 4 2 3 3 3 3 1 3 3 2 3 3 2 2 3 3 3 2 4 3 2 2 2 2
+##  [838] 3 3 0 1 3 1 2 2 3 3 3 2 4 3 3 3 3 2 1 3 2 1 2 2 1 2 1
+##  [865] 3 3 4 1 3 5 2 3 3 0 1 3 2 2 2 3 3 2 1 3 4 2 2 1 2 3 3
+##  [892] 3 3 2 3 3 0 3 4 4 4 3 4 4 3 2 3 4 3 3 2 1 2 2 3 4 4 2
+##  [919] 3 3 2 3 4 4 3 2 3 3 1 2 3 4 3 2 2 2 2 1 3 3 3 2 1 3 2
+##  [946] 2 3 1 2 2 1 2 1 1 2 1 1 1 3 2 3 2 3 3 2 1 3 1 1 2 1 2
+##  [973] 2 3 3 3 1 1 1 2 2 1 1 1 2 2 2 3 1 2 1 2 2 1 3 1 0 3 1
+## [1000] 1
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 1923665 entries ]</code></pre>
 <p>That’s a lot of numbers. Let’s calculate a mean value instead:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="text-analysis.html#cb195-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="text-analysis.html#cb197-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 2.420695</code></pre>
 <p>How about consonants?</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="text-analysis.html#cb197-1" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[bcdfghjklmnpqrstvwxyz]&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[bcdfghjklmnpqrstvwxyz]&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 2.752322</code></pre>
 <p>Example ideas for further exploration:</p>
 <p>How many names contain ‘liz’ in them?</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb199-2"><a href="text-analysis.html#cb199-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="fu">str_detect</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;liz&quot;</span>) )  <span class="sc">%&gt;%</span> </span>
-<span id="cb199-3"><a href="text-analysis.html#cb199-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb199-4"><a href="text-analysis.html#cb199-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb199-5"><a href="text-analysis.html#cb199-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, n),n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
-<span id="cb199-6"><a href="text-analysis.html#cb199-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a>    babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb201-2"><a href="text-analysis.html#cb201-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="fu">str_detect</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;liz&quot;</span>) )  <span class="sc">%&gt;%</span> </span>
+<span id="cb201-3"><a href="text-analysis.html#cb201-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb201-4"><a href="text-analysis.html#cb201-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb201-5"><a href="text-analysis.html#cb201-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name, n),n)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb201-6"><a href="text-analysis.html#cb201-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <p>Case Study: Born Without A (Proper) Name</p>
 <p>There are a number of names in the database that are totally anonymous. When, and why?</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="text-analysis.html#cb200-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb200-2"><a href="text-analysis.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unnamed&quot;</span>, <span class="st">&quot;Infant&quot;</span>, <span class="st">&quot;Infantof&quot;</span>, <span class="st">&quot;Notnamed&quot;</span>, <span class="st">&quot;Baby&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb200-3"><a href="text-analysis.html#cb200-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
-<p>Let’s compare this to the number of unique names per year:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb201-2"><a href="text-analysis.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb201-3"><a href="text-analysis.html#cb201-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">annual =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
-<span id="cb201-4"><a href="text-analysis.html#cb201-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, annual )) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="text-analysis.html#cb202-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb202-2"><a href="text-analysis.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unnamed&quot;</span>, <span class="st">&quot;Infant&quot;</span>, <span class="st">&quot;Infantof&quot;</span>, <span class="st">&quot;Notnamed&quot;</span>, <span class="st">&quot;Baby&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb202-3"><a href="text-analysis.html#cb202-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, prop, <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
-<p><em>Babynames</em> also includes a data set called births, that simply lists out the total number of births per year:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="text-analysis.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(births)</span>
-<span id="cb202-2"><a href="text-analysis.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(births, <span class="fu">aes</span>(year, births)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p>Let’s compare this to the number of unique names per year:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="text-analysis.html#cb203-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb203-2"><a href="text-analysis.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb203-3"><a href="text-analysis.html#cb203-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">annual =</span> <span class="fu">n_distinct</span>(name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb203-4"><a href="text-analysis.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, annual )) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><em>Babynames</em> also includes a data set called births, that simply lists out the total number of births per year:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="text-analysis.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(births)</span>
+<span id="cb204-2"><a href="text-analysis.html#cb204-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(births, <span class="fu">aes</span>(year, births)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <p>Why are these last two graphs different? Because the first is counting names, the second is counting births. And most babies have names that are shared with other babies, especially in the same year.</p>
 
 </div>

@@ -1,4 +1,23 @@
 # Statistical Analyses of Two Variables
 
+Analyzing a single variable can definitely help us understand the patterns of each variable in our data set; however, given its descriptive nature, it offers little insight for us to explore the relationships between different variables or to help us make informed decisions confidently. For instance, knowing the mean or median value of revenue does not allow us to understand the factors contributing to the high revenue.
+
+Therefore, introducing a second variable or more allows us to explore the relationships between variables, based on which we can infer the results obtained from a sample to the general population and make confident decisions based on such analyses. 
+
+Now, I am going to introduce a new data set of authors of the Twitter discourses using the co-hashtags of #BlackLivesMatter and #StopAsianHate for the study of cross-racial solidarity on Twitter. It has six variables. Specifically, **Gender** refers to the gender of Twitter authors; **Followers** refers to the number of Twitter followers for each author. Using the variable of **InfluencerType**, authors have been categorized by follower size. *Mega influencers* are the highest-ranked category with more than a million followers. *Macro influencers* are in the tier with 100K to up to a million followers. *Micro influencers* are classified to have a follower base ranging from 10,000 to no more than 100K. Those who have less than 10,000 followers are classified as *Nano influencers*. **Sentiment** reflects if a tweet is positive, negative, or neutral. **Post** refers to the number of tweets created by an author using the co-hashtags of #BlackLivesMatter and #StopAsianHate. Finally, **Impact** shows you the potential impact of an author on the related Twitter discourses. It’s a normalized logarithmic scale between 0-100, with 100 indicating the greatest impact. The remaining parts of this chapter use this audience data set to demonstrate the statistical analysis of two or more variables.
+
+```{r}
+
+#You will need to read the social media data first
+
+data <- read.csv("social media data.csv") #Create a dataset and name it as data
+
+library(kableExtra)
+
+knitr::kable(head(data, 10), "simple")
+```
+
+##Cross-tab
+
 
 
