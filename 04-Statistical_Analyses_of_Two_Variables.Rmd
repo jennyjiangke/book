@@ -20,7 +20,11 @@ knitr::kable(head(data, 20), digits = 0, booktabs = TRUE,
   kable_styling(font_size = 6.5)
 ```
 
-##Cross-tab
+## Cross-tab
+## Independent Variable VS. Dependent Variable
+## T-Test
+## Correlation 
+## Regression
 
 
 

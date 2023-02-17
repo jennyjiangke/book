@@ -11,6 +11,7 @@ tab:unnamed-chunk-46
 tab:unnamed-chunk-49
 tab:unnamed-chunk-51
 tab:unnamed-chunk-57
+tab:unnamed-chunk-58
 who-is-this-book-for
 why-r
 what-will-we-learn-to-do-with-r-in-this-book
@@ -55,6 +56,11 @@ central-tendency
 data-variation
 assignment-analyzing-a-single-variable
 statistical-analyses-of-two-variables
+cross-tab
+independent-variable-vs.-dependent-variable
+t-test
+correlation
+regression
 statistical-analyses-of-three-or-more-variables-modelling
 text-analysis
 an-introduction-to-stringr
