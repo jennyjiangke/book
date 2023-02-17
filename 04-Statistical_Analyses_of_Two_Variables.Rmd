@@ -14,7 +14,10 @@ data <- read.csv("social media data.csv") #Create a dataset and name it as data
 
 library(kableExtra)
 
-knitr::kable(head(data, 10), "simple")
+knitr::kable(head(data, 20), digits = 0, booktabs = TRUE,
+  caption = 'Author Information of Twitter Discourses Using the Co-hashtags of #BlackLivesMatter and #StopAsianHate'
+) %>%
+  kable_styling(font_size = 6.5)
 ```
 
 ##Cross-tab
