@@ -1,3 +1,70 @@
 # Statistical Analyses of Three or More Variables & Modelling
 
+## linear Regression
+
 Because many concepts in social science are complicated and jointly influenced by multiple factors, can we consider their influences simultaneously? The answer is yes. We can use multiple factors to predict our dependent variable. If we want to predict impact more accurately, we can consider including more than one independent variable in our model.
+
+Knowing the gender of the influencer would certainly help, but remember, that only explains 0.05% of the variance in impact. Could the influencer type make a difference, too? To find that out, we can include both the gender and influencer type as predictors in our regression model. We will still need to use the regression equation to predict the value of impact given the values of the predictors. 
+
+```{r}
+#Impact = b0 + b1*influencerType + b2*gender
+
+#create factors
+gender <- factor(data$Gender_D, c(0,1), labels=c('Male', 'Female'))
+contrasts(gender)
+
+influencer<-factor(data$InfluencerType_N, c(1,2,3,4), labels=c('nano', 'micro','macro','mega'))
+contrasts(influencer)
+
+model3 <- lm(data$Impact ~ gender + influencer)
+summary(model3)
+
+```
+
+Because we have two independent variables now, the equation is **Impact = 3.06 + 0.39 * Gender + 37.40 * InfluencerMicro + 58.56 * InfluencerMacro +75.50 * InfluencerMega**. Note here that the variable of influencer type has been coded into three dummy variables with two values: 0 and 1. For example,Influencer Micro can take the value of either 0 or 1. When it takes the value of 1, it represents influencers at the micro level; when it takes the value of 0, it indicates that this influencer is not at the micro level. In other words, this influencer could be at nano, macro, or mega level.
+
+To estimate the impact score, we just need to plug in the values of both predictors. If we have a male influencer at the micro level, the impact score would be 3.06 + 0.39 * 0 + 37.40 * 1 + 58.56 * 0 + 75.50 * 0 = 40.46. If it’s a female influencer at the mega level, her impact score would be 3.06 + 0.39 * 1 + 37.40 * 0 + 58.56 * 0 + 75.50 * 1 = 78.95, which is much higher compared to the male influencer at the micro level. You can see that the R-square of this model increased to 0.4 indicating 40% of variance in impact could be explained by gender and influencer type. 
+
+## Interaction Effects
+
+Furthermore, could the relationship between the influencer type and impact depend on the gender of Twitter authors? If we suspect that gender might further influence the direction and/or the strength of the relationship between the influencer type and impact score, we can add in an interaction term of gender and influencer type by multiplying these two terms.
+
+```{r}
+#interaction effects
+
+model4 <- lm(data$Impact ~ gender*influencer)
+summary(model4)
+
+#visualization
+data_2 <- data %>% 
+  group_by(Gender, InfluencerType) %>% 
+  summarise(Impact = mean(Impact)) %>%
+  arrange(desc(Impact))
+
+data_2$InfluencerType <- factor(data_2$InfluencerType,levels = c("nano", "micro", "macro", "mega")) #Re-order the sequence of influencer type
+
+data_2 %>% 
+  ggplot() +
+  aes(x = InfluencerType, 
+      y = Impact, 
+      color = Gender) +
+  geom_line(aes(group = Gender)) +
+  geom_point()+ 
+  ylab("Impacts")
+```
+
+```{r}
+#interaction effects of post and gender
+post <- data$Post
+
+model6 <- lm(data$Impact ~ post*gender)
+summary(model6)
+
+#model 6
+ggplot(data) +
+  aes(x = Post, y = Impact, color = Gender) +
+  geom_point(color = "grey") +
+  geom_smooth(method = "lm")+ 
+  ylab("Impacts")
+
+```

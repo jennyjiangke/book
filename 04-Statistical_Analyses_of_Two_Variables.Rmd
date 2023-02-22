@@ -47,7 +47,7 @@ By looking into the **Nano influencer** column, we found 46.6% female and 53.4% 
 
 To summarize the patterns of this contingency table: at the **Nano** and **Micro** level, female and male influencers have a pretty balanced distribution; however, **as the level of influencer goes up, female accounts for smaller percentages**. So, it appears that gender does have a relationship with the type of influencer, with females more likely to be lower-level influencers and males more likely to be higher-level influencers. 
 
-The key statistic we derived from a cross-tab analysis is called **Pearson’s chi-square**, which indicates whether there is a significant difference between the expected frequency of each cell and the observed frequency in that contingency table. For example, we believe that if gender did not affect the influencer type, then the expected frequency of female influencers at the **Macro level** should have been around **31 (66*46.6%)**, while in fact, we only observed 24 female influencers at the Macro level. There is a substantial difference between 31, the expected frequency if gender and influencer type had no relationship, and 24, the observed frequency. In this case, the Pearson’s chi-square we got was 9.5017, which was a **“sum” of all the differences between the expected frequency and observed frequency of all the cells in this contingency table**, and it was significant at the 0.02 level, indicating the probability of no differences among these groups in the population is only 2%. The R code for calculating Chi-sq is below:
+The key statistic we derived from a cross-tab analysis is called **Pearson’s chi-square**, which indicates whether there is a significant difference between the expected frequency of each cell and the observed frequency in that contingency table. For example, we believe that if gender did not affect the influencer type, then the expected frequency of female influencers at the **Macro level** should have been around 31 (66*46.6%), while in fact, we only observed 24 female influencers at the Macro level. There is a substantial difference between 31, the expected frequency if gender and influencer type had no relationship, and 24, the observed frequency. In this case, the Pearson’s chi-square we got was 9.5, which was a “sum” of all the differences between the expected frequency and observed frequency of all the cells in this contingency table, and it was significant at the 0.02 level, indicating the probability of no differences among these groups in the population is only 2%. The R code for calculating Chi-sq is below:
 
 ```{r}
 
@@ -97,7 +97,7 @@ Sometimes, we are interested in comparing multiple groups rather than just two g
 Here is the related R code:
 
 ```{r}
-options(scipen = 999) # urn off scientific notation for all variables
+options(scipen = 999) # turn off scientific notation for all variables
 options(digits = 4) # define the digits 
 
 mean_impact_sentiment <- data %>% #calculate the mean impact for different sentiment
@@ -127,14 +127,15 @@ plotmeans(Impact ~ Sentiment, data = data, frame = FALSE,
           xlab = "Sentiment", ylab = "Impact",
           main="Mean Plot with 95% CI") 
 
+```
 ##ANOVA
 
+```{r}
 # Compute the analysis of variance
 anova <- aov(Impact ~ Sentiment, data = data)
 # Summary of the analysis
 summary(anova)
-
-    ```
+```
 
 ## Correlation 
 
@@ -173,8 +174,20 @@ Let’s still use the example of Twitter user’s number of posts containing the
 
 #Impact = b0 + b1*Post
 
-model1 <- lm(data$Impact ~ Post) #regress the predictor and the outcome variables
+model1 <- lm(data$Impact ~ data$Post) #regress the predictor and the outcome variables
 summary(model1) # look into coefficients of the regression analysis & r square
+
+# visualization
+Post <- data$Post
+Impact <- data$Impact
+
+ggplot(data, aes(x = Post, y = Impact)) + 
+  #create scatterplots
+  geom_point() + 
+  #linear regression line
+  geom_smooth(method = 'lm', size = 2, alpha = 0.75) + 
+  xlab("Posts") + 
+  ylab("Impacts")
 
 ```
 
@@ -200,7 +213,7 @@ summary(model2)
 
 To predict the impact of each gender, we can simply plug in thevalues of gender. When influencers are male, their corresponding impact scorewould be: **4.34 + 0.52*0 = 4.34**. Female influencers’ impact score is: **4.34 + 0.52*1= 4.86**. Based on the equation, we could estimate the Twitter users’ impact score by just knowing their gender. We also can learn from this linear regression model that females had more impact on the Twitter discourses using the co-hashtags of#BlackLivesMatter and #StopAsianHate.
 
-Another important statistic to look at in a regression test is **R square**, which indicates the portion of variance in the dependent variable that has been explained by the predictor(s). In this model, the R square is .0005, meaning that 0.05% of variance in impact could be explained by gender. As mentioned earlier, in social science, usually our dependent variables are jointly influenced by multiple factors, some of which we can successfully identify and some not. When the regression test results indicate that 0.05% of the variance in impact has been explained by gender, we know that the rest of the 95% of variance in impact could be explained by many other factors jointly. 
+Another important statistic to look at in a regression test is **R square**, which indicates the portion of variance in the dependent variable that has been explained by the predictor(s). In this model, the R square is .0005, meaning that 0.05% of variance in impact could be explained by gender. As mentioned earlier, in social science, usually our dependent variables are jointly influenced by multiple factors, some of which we can successfully identify and some not. When the regression test results indicate that 0.05% of the variance in impact has been explained by gender, we know that the rest of the 99.5% of variance in impact could be explained by many other factors jointly. 
 
 
 
