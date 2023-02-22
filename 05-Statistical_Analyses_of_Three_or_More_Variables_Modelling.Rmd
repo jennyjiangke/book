@@ -1,4 +1,3 @@
 # Statistical Analyses of Three or More Variables & Modelling
 
-
-
+Because many concepts in social science are complicated and jointly influenced by multiple factors, can we consider their influences simultaneously? The answer is yes. We can use multiple factors to predict our dependent variable. If we want to predict impact more accurately, we can consider including more than one independent variable in our model.

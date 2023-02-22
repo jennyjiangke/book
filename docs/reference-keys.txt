@@ -57,7 +57,8 @@ assignment-analyzing-a-single-variable
 statistical-analyses-of-two-variables
 cross-tab
 independent-variable-vs.-dependent-variable
-t-test
+independent-sample-t-test
+anova
 correlation
 regression
 statistical-analyses-of-three-or-more-variables-modelling
