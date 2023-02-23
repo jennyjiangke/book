@@ -90,7 +90,7 @@ b.	Revenue ~ Costs (Predicting Revenue using Costs)
 **Step 4**. Develop R code to plot the two regressions with trendlines.
 **Step 5**. Develop R code to run the correlation analysis between
 a.	Users & Costs
-b.	Revenue & Costs 
+b.	Revenue & Costs
 **Step 6**. Write a report briefly summarizing the results of regression and correlation analysis. 
 
 **Sample Report**

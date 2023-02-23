@@ -340,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb191-8"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Gender)) <span class="sc">+</span></span>
 <span id="cb191-9"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
 <span id="cb191-10"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>From the above statistics and graph, you can see the significant interaction effect between gender and influencer type for predicting impacts. Male micro influencers had a little bit higher impacts than female micro influeners. But for other types of influencers, such as megas, males had lower impacts than females.</p>
 <p>Could the relationship between the numbers of post and impact also depend on the gender of Twitter authors? Let’s add in an interaction term of gender and the number of post by multiplying these two terms.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects of post and gender</span></span>
@@ -375,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb194-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span> </span>
 <span id="cb194-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>The above visualization and statistics shows significant interaction effects (p = 0.022) between gender and the numbers of post when predicting impact. But the R square is only 0.0027 indicating less than 0.3% of the variance in impact can be explained by this model.The R square of previous model of interaction between gender and the number of posts is 0.403, indicating more than 40% of the variance in impact can be explained by this regression model, and thus representing a better model for predicting impacts.</p>
 </div>
 <div id="assignment-1" class="section level2 hasAnchor" number="5.3">
