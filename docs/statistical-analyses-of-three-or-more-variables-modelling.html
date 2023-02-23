@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-22" />
+<meta name="date" content="2023-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,6 +209,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression"><i class="fa fa-check"></i><b>5.1</b> linear Regression</a></li>
 <li class="chapter" data-level="5.2" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#interaction-effects"><i class="fa fa-check"></i><b>5.2</b> Interaction Effects</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#assignment-1"><i class="fa fa-check"></i><b>5.3</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression-and-correlation"><i class="fa fa-check"></i><b>5.3.1</b> Linear Regression and Correlation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>6</b> Text Analysis</a>
 <ul>
@@ -247,23 +251,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> linear Regression<a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Because many concepts in social science are complicated and jointly influenced by multiple factors, can we consider their influences simultaneously? The answer is yes. We can use multiple factors to predict our dependent variable. If we want to predict impact more accurately, we can consider including more than one independent variable in our model.</p>
 <p>Knowing the gender of the influencer would certainly help, but remember, that only explains 0.05% of the variance in impact. Could the influencer type make a difference, too? To find that out, we can include both the gender and influencer type as predictors in our regression model. We will still need to use the regression equation to predict the value of impact given the values of the predictors.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Impact = b0 + b1*influencerType + b2*gender</span></span>
-<span id="cb187-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="co">#create factors</span></span>
-<span id="cb187-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-4" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>Gender_D, <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span>))</span>
-<span id="cb187-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-5" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(gender)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Impact = b0 + b1*influencerType + b2*gender</span></span>
+<span id="cb181-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="co">#create factors</span></span>
+<span id="cb181-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb181-4" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>Gender_D, <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span>))</span>
+<span id="cb181-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(gender)</span></code></pre></div>
 <pre><code>##        Female
 ## Male        0
 ## Female      1</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-1" aria-hidden="true" tabindex="-1"></a>influencer<span class="ot">&lt;-</span><span class="fu">factor</span>(data<span class="sc">$</span>InfluencerType_N, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;nano&#39;</span>, <span class="st">&#39;micro&#39;</span>,<span class="st">&#39;macro&#39;</span>,<span class="st">&#39;mega&#39;</span>))</span>
-<span id="cb189-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(influencer)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb183-1" aria-hidden="true" tabindex="-1"></a>influencer<span class="ot">&lt;-</span><span class="fu">factor</span>(data<span class="sc">$</span>InfluencerType_N, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;nano&#39;</span>, <span class="st">&#39;micro&#39;</span>,<span class="st">&#39;macro&#39;</span>,<span class="st">&#39;mega&#39;</span>))</span>
+<span id="cb183-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(influencer)</span></code></pre></div>
 <pre><code>##       micro macro mega
 ## nano      0     0    0
 ## micro     1     0    0
 ## macro     0     1    0
 ## mega      0     0    1</code></pre>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> gender <span class="sc">+</span> influencer)</span>
-<span id="cb191-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb185-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> gender <span class="sc">+</span> influencer)</span>
+<span id="cb185-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = data$Impact ~ gender + influencer)
@@ -291,10 +295,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="interaction-effects" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Interaction Effects<a href="statistical-analyses-of-three-or-more-variables-modelling.html#interaction-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Furthermore, could the relationship between the influencer type and impact depend on the gender of Twitter authors? If we suspect that gender might further influence the direction and/or the strength of the relationship between the influencer type and impact score, we can add in an interaction term of gender and influencer type by multiplying these two terms.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects</span></span>
-<span id="cb193-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb193-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb193-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb193-3" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> gender<span class="sc">*</span>influencer)</span>
-<span id="cb193-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects</span></span>
+<span id="cb187-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-3" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> gender<span class="sc">*</span>influencer)</span>
+<span id="cb187-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = data$Impact ~ gender * influencer)
@@ -319,28 +323,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 8.78 on 30511 degrees of freedom
 ## Multiple R-squared:  0.403,  Adjusted R-squared:  0.403 
 ## F-statistic: 2.94e+03 on 7 and 30511 DF,  p-value: &lt;0.0000000000000002</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualization</span></span>
-<span id="cb195-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb195-2" aria-hidden="true" tabindex="-1"></a>data_2 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb195-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb195-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, InfluencerType) <span class="sc">%&gt;%</span> </span>
-<span id="cb195-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb195-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Impact =</span> <span class="fu">mean</span>(Impact)) <span class="sc">%&gt;%</span></span>
-<span id="cb195-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb195-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Impact))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override using the `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-1" aria-hidden="true" tabindex="-1"></a>data_2<span class="sc">$</span>InfluencerType <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_2<span class="sc">$</span>InfluencerType,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nano&quot;</span>, <span class="st">&quot;micro&quot;</span>, <span class="st">&quot;macro&quot;</span>, <span class="st">&quot;mega&quot;</span>)) <span class="co">#Re-order the sequence of influencer type</span></span>
-<span id="cb197-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb197-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-3" aria-hidden="true" tabindex="-1"></a>data_2 <span class="sc">%&gt;%</span> </span>
-<span id="cb197-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb197-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> InfluencerType, </span>
-<span id="cb197-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Impact, </span>
-<span id="cb197-7"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> Gender) <span class="sc">+</span></span>
-<span id="cb197-8"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Gender)) <span class="sc">+</span></span>
-<span id="cb197-9"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
-<span id="cb197-10"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb197-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects of post and gender</span></span>
-<span id="cb198-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb198-2" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> data<span class="sc">$</span>Post</span>
-<span id="cb198-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb198-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb198-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb198-4" aria-hidden="true" tabindex="-1"></a>model6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> post<span class="sc">*</span>gender)</span>
-<span id="cb198-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb198-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model6)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualization</span></span>
+<span id="cb189-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-2" aria-hidden="true" tabindex="-1"></a>data_2 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb189-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, InfluencerType) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Impact =</span> <span class="fu">mean</span>(Impact)) <span class="sc">%&gt;%</span></span>
+<span id="cb189-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Impact))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override using the `.groups`
+## argument.</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-1" aria-hidden="true" tabindex="-1"></a>data_2<span class="sc">$</span>InfluencerType <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_2<span class="sc">$</span>InfluencerType,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nano&quot;</span>, <span class="st">&quot;micro&quot;</span>, <span class="st">&quot;macro&quot;</span>, <span class="st">&quot;mega&quot;</span>)) <span class="co">#Re-order the sequence of influencer type</span></span>
+<span id="cb191-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb191-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-3" aria-hidden="true" tabindex="-1"></a>data_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb191-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb191-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> InfluencerType, </span>
+<span id="cb191-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Impact, </span>
+<span id="cb191-7"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> Gender) <span class="sc">+</span></span>
+<span id="cb191-8"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb191-9"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb191-10"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p>From the above statistics and graph, you can see the significant interaction effect between gender and influencer type for predicting impacts. Male micro influencers had a little bit higher impacts than female micro influeners. But for other types of influencers, such as megas, males had lower impacts than females.</p>
+<p>Could the relationship between the numbers of post and impact also depend on the gender of Twitter authors? Let’s add in an interaction term of gender and the number of post by multiplying these two terms.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects of post and gender</span></span>
+<span id="cb192-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-2" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> data<span class="sc">$</span>Post</span>
+<span id="cb192-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-4" aria-hidden="true" tabindex="-1"></a>model6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> post<span class="sc">*</span>gender)</span>
+<span id="cb192-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model6)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = data$Impact ~ post * gender)
@@ -361,15 +368,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 11.3 on 30515 degrees of freedom
 ## Multiple R-squared:  0.00279,    Adjusted R-squared:  0.00269 
 ## F-statistic: 28.4 on 3 and 30515 DF,  p-value: &lt;0.0000000000000002</code></pre>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 6</span></span>
-<span id="cb200-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
-<span id="cb200-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Post, <span class="at">y =</span> Impact, <span class="at">color =</span> Gender) <span class="sc">+</span></span>
-<span id="cb200-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb200-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span> </span>
-<span id="cb200-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb200-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 6</span></span>
+<span id="cb194-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb194-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Post, <span class="at">y =</span> Impact, <span class="at">color =</span> Gender) <span class="sc">+</span></span>
+<span id="cb194-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb194-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb194-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p>The above visualization and statistics shows significant interaction effects (p = 0.022) between gender and the numbers of post when predicting impact. But the R square is only 0.0027 indicating less than 0.3% of the variance in impact can be explained by this model.The R square of previous model of interaction between gender and the number of posts is 0.403, indicating more than 40% of the variance in impact can be explained by this regression model, and thus representing a better model for predicting impacts.</p>
+</div>
+<div id="assignment-1" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Assignment<a href="statistical-analyses-of-three-or-more-variables-modelling.html#assignment-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="linear-regression-and-correlation" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Linear Regression and Correlation<a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression-and-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Learning Objective</strong>: Apply Linear Regression and Correlation analysis onto media analytics</p>
+<p><strong>Step 1</strong>. Download your google analytic data. (GA-regression&amp;correlation.xlsx)
+<strong>Step 2</strong>. Download the case study R code ( Casestudy-GA.R) to import and clean your data.
+<strong>Step 3</strong>. Develop R code to run the regression analysis of:
+a. Users ~ Costs (Predicting Users using Costs)
+b. Revenue ~ Costs (Predicting Revenue using Costs)
+<strong>Step 4</strong>. Develop R code to plot the two regressions with trendlines.
+<strong>Step 5</strong>. Develop R code to run the correlation analysis between
+a. Users &amp; Costs
+b. Revenue &amp; Costs
+<strong>Step 6</strong>. Write a report briefly summarizing the results of regression and correlation analysis.</p>
+<p><strong>Sample Report</strong></p>
+<p>The results of correlation analysis indicated that there are strong negative correlations (r = -0.838) between Bounce Rate and Average Session Duration. The longer the Average Session Duration, the smaller the Bounce Rate.</p>
+<p>The result of regression analysis is illustrated in the figure below. Specifically, the Bounce Rate could be predicted by the Average Session Duration. The linear regression equation is: Y = – 0.00149X + 0.724. The R^2 of the linear regression is 0.6961, indicating nearly 70% of the variance in Bounce Rate can be explained or predicted by the Average Session Duration.</p>
+<p><img src="images/6.png" alt="R Studio’s first loading screen" />
+### Multiple Regression Analysis</p>
+<p><strong>Learning Objective</strong>: Apply Multiple Regression analysis onto media analytics.</p>
+<p><strong>Step 1</strong>. Download the data of tweets containing the co-hashtags of #BlackLivesMatter and #StopAsianHate from BrandWatch (Tools – Downloads – New - Select Query: BLS &amp; SAH - Select a month data of your choice - Request Download). Download the data as an Excel file.
+<strong>Step 2</strong>. Download the case study R code (Casestudy_ml.R) to import and clean your data.
+<strong>Step 3</strong>. Develop your own code to run the multiple regression analysis of:
+a. Impacts ~ Gender + Influencer Type (Predicting Impacts using Gender and Influencer Type)
+b. Impacts ~ Gender * Influencer Type (Predicting Impacts using Gender * Influencer Type)
+<strong>Step 4</strong>. Develop your own code to plot the interaction effects.
+<strong>Step 5</strong>. Write a report briefly summarizing the results of the multiple regression analysis. (Sample report attached)</p>
+<p><strong>Sample Report</strong></p>
+<p>The result of the multiple linear regression analysis indicates that both gender and influencer type are significant predictors of impacts on the social media conversations of co-hashtags of #BlackLivesMatter and #StopAsianHate. The multiple linear regression equation is: Impact = 3.06 + 0.39 * GenderFemale + 37.40 * InfluencerMicro + 58.56 * InfluencerMacro + 75.50 * InfluencerMega. The R Square of the linear multiple regression is 0.4025, indicating 40% of the variance in Impact can be explained or predicted by gender and influencer type.</p>
+<p>We also found a significant interaction effect between gender and influencer type (F = 3.14, p = 0.02426). The related regression equation is: Impact = 3.06 + 0.43 * GenderFemale + 38.17 * InfluencerMicro + 58.17 * InfluencerMacro + 71.06 * InfluencerMega - 1.52 * GenderFemale * InfluencerMicro + 1.20 * GenderFemale * InfluencerMacro + 11.17 * GenderFemale * InfluencerMega. The R Square of the interaction model is 0.4026, slightly better than the model containing only main effects.</p>
+<p><img src="images/7.png" alt="R Studio’s first loading screen" />
+The figure demonstrated the interaction effects: While females generally have more impacts on the social media conversations of co-hashtags of #BlackLivesMatter and #StopAsianHate, the female micro influencers’ impacts are slightly lower than male influencers.</p>
 
+</div>
 </div>
 </div>
             </section>

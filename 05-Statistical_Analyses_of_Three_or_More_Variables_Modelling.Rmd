@@ -53,6 +53,11 @@ data_2 %>%
   ylab("Impacts")
 ```
 
+From the above statistics and graph, you can see the significant interaction effect between gender and influencer type for predicting impacts. Male micro influencers had a little bit higher impacts than female micro influeners. But for other types of influencers, such as megas, males had lower impacts than females.
+
+Could the relationship between the numbers of post and impact also depend on the gender of Twitter authors? Let's add in an interaction term of gender and the number of post by multiplying these two terms.
+
+
 ```{r}
 #interaction effects of post and gender
 post <- data$Post
@@ -68,3 +73,50 @@ ggplot(data) +
   ylab("Impacts")
 
 ```
+
+The above visualization and statistics shows significant interaction effects (p = 0.022) between gender and the numbers of post when predicting impact. But the R square is only 0.0027 indicating less than 0.3% of the variance in impact can be explained by this model.The R square of previous model of interaction between gender and the number of posts is 0.403, indicating more than 40% of the variance in impact can be explained by this regression model, and thus representing a better model for predicting impacts.
+
+## Assignment 
+
+### Linear Regression and Correlation
+
+**Learning Objective**: Apply Linear Regression and Correlation analysis onto media analytics
+
+**Step 1**. Download your google analytic data. (GA-regression&correlation.xlsx)
+**Step 2**. Download the case study R code ( Casestudy-GA.R) to import and clean your data.
+**Step 3**. Develop R code to run the regression analysis of:
+a.	Users ~ Costs (Predicting Users using Costs)
+b.	Revenue ~ Costs (Predicting Revenue using Costs)
+**Step 4**. Develop R code to plot the two regressions with trendlines.
+**Step 5**. Develop R code to run the correlation analysis between
+a.	Users & Costs
+b.	Revenue & Costs 
+**Step 6**. Write a report briefly summarizing the results of regression and correlation analysis. 
+
+**Sample Report**
+
+The results of correlation analysis indicated that there are strong negative correlations (r = -0.838) between Bounce Rate and Average Session Duration. The longer the Average Session Duration, the smaller the Bounce Rate.
+
+The result of regression analysis is illustrated in the figure below. Specifically, the Bounce Rate could be predicted by the Average Session Duration.  The linear regression equation is: Y = – 0.00149X + 0.724.  The R^2 of the linear regression is 0.6961, indicating nearly 70% of the variance in Bounce Rate can be explained or predicted by the Average Session Duration.
+
+![R Studio's first loading screen](images/6.png)
+### Multiple Regression Analysis
+
+**Learning Objective**:  Apply Multiple Regression analysis onto media analytics.
+
+**Step 1**. Download the data of tweets containing the co-hashtags of #BlackLivesMatter and #StopAsianHate from BrandWatch (Tools – Downloads – New - Select Query: BLS & SAH - Select a month data of your choice - Request Download). Download the data as an Excel file.
+**Step 2**. Download the case study R code (Casestudy_ml.R) to import and clean your data.
+**Step 3**. Develop your own code to run the multiple regression analysis of:
+a.	Impacts ~ Gender + Influencer Type (Predicting Impacts using Gender and Influencer Type)
+b.	Impacts ~ Gender * Influencer Type (Predicting Impacts using Gender * Influencer Type)
+**Step 4**. Develop your own code to plot the interaction effects.
+**Step 5**. Write a report briefly summarizing the results of the multiple regression analysis. (Sample report attached)
+
+**Sample Report**
+
+The result of the multiple linear regression analysis indicates that both gender and influencer type are significant predictors of impacts on the social media conversations of co-hashtags of #BlackLivesMatter and #StopAsianHate. The multiple linear regression equation is: Impact = 3.06 + 0.39 * GenderFemale + 37.40 * InfluencerMicro + 58.56 * InfluencerMacro + 75.50 * InfluencerMega. The R Square of the linear multiple regression is 0.4025, indicating 40% of the variance in Impact can be explained or predicted by gender and influencer type. 
+
+We also found a significant interaction effect between gender and influencer type (F = 3.14, p = 0.02426). The related regression equation is: Impact = 3.06 + 0.43 * GenderFemale + 38.17 * InfluencerMicro + 58.17 * InfluencerMacro + 71.06 * InfluencerMega - 1.52 * GenderFemale * InfluencerMicro + 1.20 * GenderFemale * InfluencerMacro + 11.17 * GenderFemale * InfluencerMega. The R Square of the interaction model is 0.4026, slightly better than the model containing only main effects. 
+
+![R Studio's first loading screen](images/7.png)
+The figure demonstrated the interaction effects: While females generally have more impacts on the social media conversations of co-hashtags of #BlackLivesMatter and #StopAsianHate, the female micro influencers’ impacts are slightly lower than male influencers.

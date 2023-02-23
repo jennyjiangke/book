@@ -38,7 +38,6 @@ data$InfluencerType <- factor(data$InfluencerType,
 #redo the crosstable
 CrossTable(data$Gender, data$InfluencerType)
 
-# In the report, the first row is frequency, the second row is Chi-square, the third row is row proportion, the fourth row is column proportion, the fifth row is total proportion
 ```
 
 As you can see from the contingency table, female influencers account for nearly 47% of our sample, while male influencers account for 53%. If gender had nothing to do with the level of influence a user could reach, then we would end up finding around 47% females and 53% males among every single type of influencer. Now let’s see whether that is the case. 
@@ -79,6 +78,14 @@ mean_impact_gender %>%
   ggplot(aes(Gender, Impact)) +
   geom_col()
 
+#mean plot
+library("ggpubr")
+ggline(data, x = "Gender", y = "Impact", 
+       add = c("mean_se"), # Add error bars: mean_se
+       order = c("male", "female"),
+       ylab = "Impact", xlab = "Gender")
+
+#t-test
 t_test(x = data,
        formula = Impact ~ Gender,
        order = c("male", "female"),
@@ -120,12 +127,6 @@ ggline(data, x = "Sentiment", y = "Impact",
 boxplot(Impact ~ Sentiment, data = data,
         xlab = "Sentiment", ylab = "Impact",
         frame = FALSE, col = c("red", "grey", "green"))
-
-# plotmeans
-library("gplots") #you will need to install gplots package
-plotmeans(Impact ~ Sentiment, data = data, frame = FALSE,
-          xlab = "Sentiment", ylab = "Impact",
-          main="Mean Plot with 95% CI") 
 
 ```
 ##ANOVA

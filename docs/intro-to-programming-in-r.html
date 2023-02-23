@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-22" />
+<meta name="date" content="2023-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,6 +209,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression"><i class="fa fa-check"></i><b>5.1</b> linear Regression</a></li>
 <li class="chapter" data-level="5.2" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#interaction-effects"><i class="fa fa-check"></i><b>5.2</b> Interaction Effects</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#assignment-1"><i class="fa fa-check"></i><b>5.3</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression-and-correlation"><i class="fa fa-check"></i><b>5.3.1</b> Linear Regression and Correlation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>6</b> Text Analysis</a>
 <ul>
@@ -278,11 +282,11 @@ Having R package-based means that users only need to load packages relevant to t
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-programming-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
 <pre><code>## Rows: 1,924,665
 ## Columns: 5
-## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880,…
-## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F…
-## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;, &quot;Bertha&quot;, &quot;Sarah&quot;, &quot;Annie&quot;, &quot;Cla…
-## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 1156, 1063, 1045, 1040, 1012, 995, …
-## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0.016167, 0.015081, 0.014487, 0.013524, 0.013196, 0.01288…</code></pre>
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188…
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, …
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;, …
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 115…
+## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0.016167, 0.015081, 0.014…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
