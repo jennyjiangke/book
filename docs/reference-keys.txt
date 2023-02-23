@@ -66,6 +66,7 @@ linear-regression
 interaction-effects
 assignment-1
 linear-regression-and-correlation
+multiple-regression-analysis
 text-analysis
 an-introduction-to-stringr
 practical-applications-of-stringr-1

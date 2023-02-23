@@ -109,7 +109,8 @@ The results of correlation analysis indicated that there are strong negative cor
 The result of regression analysis is illustrated in the figure below. Specifically, the Bounce Rate could be predicted by the Average Session Duration.  The linear regression equation is: Y = – 0.00149X + 0.724.  The R^2 of the linear regression is 0.6961, indicating nearly 70% of the variance in Bounce Rate can be explained or predicted by the Average Session Duration.
 
 ![R Studio's first loading screen](images/6.png)
-### Multiple Regression Analysis
+
+###  Multiple Regression Analysis
 
 **Learning Objective**:  Apply Multiple Regression analysis onto media analytics.
 
