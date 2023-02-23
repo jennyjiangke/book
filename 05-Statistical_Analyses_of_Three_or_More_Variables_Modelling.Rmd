@@ -83,14 +83,23 @@ The above visualization and statistics shows significant interaction effects (p 
 **Learning Objective**: Apply Linear Regression and Correlation analysis onto media analytics
 
 **Step 1**. Download your google analytic data. (GA-regression&correlation.xlsx)
+
 **Step 2**. Download the case study R code ( Casestudy-GA.R) to import and clean your data.
+
 **Step 3**. Develop R code to run the regression analysis of:
+
 a.	Users ~ Costs (Predicting Users using Costs)
+
 b.	Revenue ~ Costs (Predicting Revenue using Costs)
+
 **Step 4**. Develop R code to plot the two regressions with trendlines.
+
 **Step 5**. Develop R code to run the correlation analysis between
+
 a.	Users & Costs
+
 b.	Revenue & Costs
+
 **Step 6**. Write a report briefly summarizing the results of regression and correlation analysis. 
 
 **Sample Report**
@@ -105,12 +114,19 @@ The result of regression analysis is illustrated in the figure below. Specifical
 **Learning Objective**:  Apply Multiple Regression analysis onto media analytics.
 
 **Step 1**. Download the data of tweets containing the co-hashtags of #BlackLivesMatter and #StopAsianHate from BrandWatch (Tools – Downloads – New - Select Query: BLS & SAH - Select a month data of your choice - Request Download). Download the data as an Excel file.
+
 **Step 2**. Download the case study R code (Casestudy_ml.R) to import and clean your data.
+
 **Step 3**. Develop your own code to run the multiple regression analysis of:
+
 a.	Impacts ~ Gender + Influencer Type (Predicting Impacts using Gender and Influencer Type)
+
 b.	Impacts ~ Gender * Influencer Type (Predicting Impacts using Gender * Influencer Type)
+
 **Step 4**. Develop your own code to plot the interaction effects.
+
 **Step 5**. Write a report briefly summarizing the results of the multiple regression analysis. (Sample report attached)
+
 
 **Sample Report**
 

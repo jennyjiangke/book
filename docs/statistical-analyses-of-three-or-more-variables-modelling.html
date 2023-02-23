@@ -383,29 +383,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="linear-regression-and-correlation" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Linear Regression and Correlation<a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression-and-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Learning Objective</strong>: Apply Linear Regression and Correlation analysis onto media analytics</p>
-<p><strong>Step 1</strong>. Download your google analytic data. (GA-regression&amp;correlation.xlsx)
-<strong>Step 2</strong>. Download the case study R code ( Casestudy-GA.R) to import and clean your data.
-<strong>Step 3</strong>. Develop R code to run the regression analysis of:
-a. Users ~ Costs (Predicting Users using Costs)
-b. Revenue ~ Costs (Predicting Revenue using Costs)
-<strong>Step 4</strong>. Develop R code to plot the two regressions with trendlines.
-<strong>Step 5</strong>. Develop R code to run the correlation analysis between
-a. Users &amp; Costs
-b. Revenue &amp; Costs
-<strong>Step 6</strong>. Write a report briefly summarizing the results of regression and correlation analysis.</p>
+<p><strong>Step 1</strong>. Download your google analytic data. (GA-regression&amp;correlation.xlsx)</p>
+<p><strong>Step 2</strong>. Download the case study R code ( Casestudy-GA.R) to import and clean your data.</p>
+<p><strong>Step 3</strong>. Develop R code to run the regression analysis of:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Users ~ Costs (Predicting Users using Costs)</p></li>
+<li><p>Revenue ~ Costs (Predicting Revenue using Costs)</p></li>
+</ol>
+<p><strong>Step 4</strong>. Develop R code to plot the two regressions with trendlines.</p>
+<p><strong>Step 5</strong>. Develop R code to run the correlation analysis between</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Users &amp; Costs</p></li>
+<li><p>Revenue &amp; Costs</p></li>
+</ol>
+<p><strong>Step 6</strong>. Write a report briefly summarizing the results of regression and correlation analysis.</p>
 <p><strong>Sample Report</strong></p>
 <p>The results of correlation analysis indicated that there are strong negative correlations (r = -0.838) between Bounce Rate and Average Session Duration. The longer the Average Session Duration, the smaller the Bounce Rate.</p>
 <p>The result of regression analysis is illustrated in the figure below. Specifically, the Bounce Rate could be predicted by the Average Session Duration. The linear regression equation is: Y = – 0.00149X + 0.724. The R^2 of the linear regression is 0.6961, indicating nearly 70% of the variance in Bounce Rate can be explained or predicted by the Average Session Duration.</p>
 <p><img src="images/6.png" alt="R Studio’s first loading screen" />
 ### Multiple Regression Analysis</p>
 <p><strong>Learning Objective</strong>: Apply Multiple Regression analysis onto media analytics.</p>
-<p><strong>Step 1</strong>. Download the data of tweets containing the co-hashtags of #BlackLivesMatter and #StopAsianHate from BrandWatch (Tools – Downloads – New - Select Query: BLS &amp; SAH - Select a month data of your choice - Request Download). Download the data as an Excel file.
-<strong>Step 2</strong>. Download the case study R code (Casestudy_ml.R) to import and clean your data.
-<strong>Step 3</strong>. Develop your own code to run the multiple regression analysis of:
-a. Impacts ~ Gender + Influencer Type (Predicting Impacts using Gender and Influencer Type)
-b. Impacts ~ Gender * Influencer Type (Predicting Impacts using Gender * Influencer Type)
-<strong>Step 4</strong>. Develop your own code to plot the interaction effects.
-<strong>Step 5</strong>. Write a report briefly summarizing the results of the multiple regression analysis. (Sample report attached)</p>
+<p><strong>Step 1</strong>. Download the data of tweets containing the co-hashtags of #BlackLivesMatter and #StopAsianHate from BrandWatch (Tools – Downloads – New - Select Query: BLS &amp; SAH - Select a month data of your choice - Request Download). Download the data as an Excel file.</p>
+<p><strong>Step 2</strong>. Download the case study R code (Casestudy_ml.R) to import and clean your data.</p>
+<p><strong>Step 3</strong>. Develop your own code to run the multiple regression analysis of:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Impacts ~ Gender + Influencer Type (Predicting Impacts using Gender and Influencer Type)</p></li>
+<li><p>Impacts ~ Gender * Influencer Type (Predicting Impacts using Gender * Influencer Type)</p></li>
+</ol>
+<p><strong>Step 4</strong>. Develop your own code to plot the interaction effects.</p>
+<p><strong>Step 5</strong>. Write a report briefly summarizing the results of the multiple regression analysis. (Sample report attached)</p>
 <p><strong>Sample Report</strong></p>
 <p>The result of the multiple linear regression analysis indicates that both gender and influencer type are significant predictors of impacts on the social media conversations of co-hashtags of #BlackLivesMatter and #StopAsianHate. The multiple linear regression equation is: Impact = 3.06 + 0.39 * GenderFemale + 37.40 * InfluencerMicro + 58.56 * InfluencerMacro + 75.50 * InfluencerMega. The R Square of the linear multiple regression is 0.4025, indicating 40% of the variance in Impact can be explained or predicted by gender and influencer type.</p>
 <p>We also found a significant interaction effect between gender and influencer type (F = 3.14, p = 0.02426). The related regression equation is: Impact = 3.06 + 0.43 * GenderFemale + 38.17 * InfluencerMicro + 58.17 * InfluencerMacro + 71.06 * InfluencerMega - 1.52 * GenderFemale * InfluencerMicro + 1.20 * GenderFemale * InfluencerMacro + 11.17 * GenderFemale * InfluencerMega. The R Square of the interaction model is 0.4026, slightly better than the model containing only main effects.</p>
