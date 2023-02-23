@@ -63,7 +63,7 @@ Could the relationship between the numbers of post and impact also depend on the
 post <- data$Post
 
 model5 <- lm(data$Impact ~ post*gender)
-summary(model6)
+summary(model5)
 
 #model 5 visualization
 ggplot(data) +
