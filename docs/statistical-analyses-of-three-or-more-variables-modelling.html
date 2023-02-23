@@ -346,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects of post and gender</span></span>
 <span id="cb192-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-2" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> data<span class="sc">$</span>Post</span>
 <span id="cb192-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-4" aria-hidden="true" tabindex="-1"></a>model6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> post<span class="sc">*</span>gender)</span>
+<span id="cb192-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-4" aria-hidden="true" tabindex="-1"></a>model5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(data<span class="sc">$</span>Impact <span class="sc">~</span> post<span class="sc">*</span>gender)</span>
 <span id="cb192-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model6)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -368,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 11.3 on 30515 degrees of freedom
 ## Multiple R-squared:  0.00279,    Adjusted R-squared:  0.00269 
 ## F-statistic: 28.4 on 3 and 30515 DF,  p-value: &lt;0.0000000000000002</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 6</span></span>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 5 visualization</span></span>
 <span id="cb194-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
 <span id="cb194-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Post, <span class="at">y =</span> Impact, <span class="at">color =</span> Gender) <span class="sc">+</span></span>
 <span id="cb194-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>

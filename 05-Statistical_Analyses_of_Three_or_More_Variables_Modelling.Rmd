@@ -62,10 +62,10 @@ Could the relationship between the numbers of post and impact also depend on the
 #interaction effects of post and gender
 post <- data$Post
 
-model6 <- lm(data$Impact ~ post*gender)
+model5 <- lm(data$Impact ~ post*gender)
 summary(model6)
 
-#model 6
+#model 5 visualization
 ggplot(data) +
   aes(x = Post, y = Impact, color = Gender) +
   geom_point(color = "grey") +
