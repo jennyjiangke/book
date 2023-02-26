@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-23" />
+<meta name="date" content="2023-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2874,7 +2874,7 @@ Figure 3.1: Distribution of Test Scores from 20 Students
 </p>
 </div>
 <p>Since 60 is the most frequent data point, it is the mode of the dataset. When we do the central tendency analysis, we also need to consider the data types. While interval and ratio data have a median, mode, and mean, the nominal data has only a mode. Furthermore, when the data distribution is symmetrical, such as your data is normally distributed, the mean is the best measure of central tendency. But, when the dataset has a strongly skewed distribution, the best indicator of central tendency is the median or mode, with the median usually preferred.</p>
-<p>Now we can use the code below to get the mean, median, and mode for the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data of the Google Merchandise Store.</p>
+<p>Now we can use the code below to get the mean, median, and mode for the number of Users and New Users, number of Sessions, E-commerce Conversion Rates, Transactions, and Revenues for the Google analytics data of the Google Merchandise Store. But note that when a vector doesn’t contain a repeating number (no mode), the code will return the first value in that vector. For the table below, there is no mode for sessions, and the code automatically returned the first value <em>118241</em> in the report.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="statistical-analyses-of-a-single-variable.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean for each col</span></span>
 <span id="cb137-2"><a href="statistical-analyses-of-a-single-variable.html#cb137-2" aria-hidden="true" tabindex="-1"></a>mean_report <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
 <span id="cb137-3"><a href="statistical-analyses-of-a-single-variable.html#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, mean)</span>
@@ -3174,7 +3174,7 @@ Score2
 </tbody>
 </table>
 <p>Although they have the same mean (70) and median (70), the detailed data distributions vary significantly in a way that indicates the data in data set 1 were more spread out. This indicates that the mere central tendency measures cannot 100% accurately represent distribution. While the central tendency is the key to data description and prediction, variation is used to evaluate the quality of central tendency measures, and it plays an essential role in explaining statistical contribution.</p>
-<p><strong>Variation Ratio</strong> reflects the proportion of cases that are not in the mode category. For example, from Table 3.9, the mode for Session is 3787. But this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.</p>
+<p><strong>Variation Ratio</strong> reflects the proportion of cases that are not in the mode category. For example, if the mode for Session is 3787, but this mode contains only two cases. Since the number of observations is 96, The variation ratio for Session is: (96-2)/96 = .98 or 98%, indicating the mode of 3787 is not a very representative indicator of sessions. To the contrary, for the variable of Transaction, the mode was 0 with 53 data points taking this value. The variation ratio of transaction is: (96-53)/96 = .45 or 45%, indicating “0” demonstrated relatively strong representativeness of transaction. This variation ratio also reflects the need for improvements of conversions for a variety of channels for the Google Merchandise Store.</p>
 <p><strong>Range</strong> is the difference between the highest and lowest scores of a distribution. In our dataset, the range in class sizes is 237-17=220.</p>
 <p><strong>Inter-ranges</strong> drops off a specified highest and lowest percentage of data points and then calculates the range of the remaining data points. The most popular inter-ranges are <em>inter-decile range</em>, <em>inter-quintile range</em>, and <em>inter-quartile range</em>, which drop off the highest and the lowest 10%, 20%, and 25% of the data points, respectively, and reflect the range of the remaining data points.</p>
 <p>Table 3.11 lists the <strong>range</strong> and <strong>Inter-quartile range (IQR)</strong> for the number of users and new users, number of sessions, e-commerce conversion rate, transaction, and revenue for the Google analytics dataset.</p>

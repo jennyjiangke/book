@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-23" />
+<meta name="date" content="2023-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -278,12 +278,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -10.05  -3.45  -3.06  -3.06  74.44 
 ## 
 ## Coefficients:
-##                 Estimate Std. Error t value             Pr(&gt;|t|)    
-## (Intercept)       3.0578     0.0694   44.03 &lt; 0.0000000000000002 ***
-## genderFemale      0.3879     0.1008    3.85              0.00012 ***
-## influencermicro  37.4046     0.2839  131.77 &lt; 0.0000000000000002 ***
-## influencermacro  58.6027     1.0825   54.14 &lt; 0.0000000000000002 ***
-## influencermega   75.5270     3.9286   19.22 &lt; 0.0000000000000002 ***
+##                 Estimate Std. Error t value             Pr(&gt;|t|)
+## (Intercept)       3.0578     0.0694   44.03 &lt; 0.0000000000000002
+## genderFemale      0.3879     0.1008    3.85              0.00012
+## influencermicro  37.4046     0.2839  131.77 &lt; 0.0000000000000002
+## influencermacro  58.6027     1.0825   54.14 &lt; 0.0000000000000002
+## influencermega   75.5270     3.9286   19.22 &lt; 0.0000000000000002
+##                    
+## (Intercept)     ***
+## genderFemale    ***
+## influencermicro ***
+## influencermacro ***
+## influencermega  ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -309,15 +315,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -13.90  -3.47  -3.04  -3.04  74.46 
 ## 
 ## Coefficients:
-##                              Estimate Std. Error t value             Pr(&gt;|t|)    
-## (Intercept)                     3.037      0.070   43.38 &lt; 0.0000000000000002 ***
-## genderFemale                    0.433      0.103    4.22             0.000024 ***
-## influencermicro                38.172      0.404   94.56 &lt; 0.0000000000000002 ***
-## influencermacro                58.170      1.357   42.87 &lt; 0.0000000000000002 ***
-## influencermega                 71.063      5.071   14.01 &lt; 0.0000000000000002 ***
-## genderFemale:influencermicro   -1.518      0.568   -2.67               0.0075 ** 
-## genderFemale:influencermacro    1.201      2.250    0.53               0.5933    
-## genderFemale:influencermega    11.167      8.018    1.39               0.1637    
+##                              Estimate Std. Error t value
+## (Intercept)                     3.037      0.070   43.38
+## genderFemale                    0.433      0.103    4.22
+## influencermicro                38.172      0.404   94.56
+## influencermacro                58.170      1.357   42.87
+## influencermega                 71.063      5.071   14.01
+## genderFemale:influencermicro   -1.518      0.568   -2.67
+## genderFemale:influencermacro    1.201      2.250    0.53
+## genderFemale:influencermega    11.167      8.018    1.39
+##                                          Pr(&gt;|t|)    
+## (Intercept)                  &lt; 0.0000000000000002 ***
+## genderFemale                             0.000024 ***
+## influencermicro              &lt; 0.0000000000000002 ***
+## influencermacro              &lt; 0.0000000000000002 ***
+## influencermega               &lt; 0.0000000000000002 ***
+## genderFemale:influencermicro               0.0075 ** 
+## genderFemale:influencermacro               0.5933    
+## genderFemale:influencermega                0.1637    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -329,8 +344,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb189-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, InfluencerType) <span class="sc">%&gt;%</span> </span>
 <span id="cb189-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Impact =</span> <span class="fu">mean</span>(Impact)) <span class="sc">%&gt;%</span></span>
 <span id="cb189-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Impact))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override
+## using the `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-1" aria-hidden="true" tabindex="-1"></a>data_2<span class="sc">$</span>InfluencerType <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_2<span class="sc">$</span>InfluencerType,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nano&quot;</span>, <span class="st">&quot;micro&quot;</span>, <span class="st">&quot;macro&quot;</span>, <span class="st">&quot;mega&quot;</span>)) <span class="co">#Re-order the sequence of influencer type</span></span>
 <span id="cb191-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb191-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb191-3" aria-hidden="true" tabindex="-1"></a>data_2 <span class="sc">%&gt;%</span> </span>
@@ -358,11 +373,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -44.94  -4.85  -4.29  -4.29  94.75 
 ## 
 ## Coefficients:
-##                   Estimate Std. Error t value             Pr(&gt;|t|)    
-## (Intercept)         4.1396     0.0927   44.64 &lt; 0.0000000000000002 ***
-## post                0.1548     0.0197    7.84   0.0000000000000047 ***
-## genderFemale        0.6382     0.1373    4.65   0.0000033613215465 ***
-## post:genderFemale  -0.0784     0.0343   -2.29                0.022 *  
+##                   Estimate Std. Error t value
+## (Intercept)         4.1396     0.0927   44.64
+## post                0.1548     0.0197    7.84
+## genderFemale        0.6382     0.1373    4.65
+## post:genderFemale  -0.0784     0.0343   -2.29
+##                               Pr(&gt;|t|)    
+## (Intercept)       &lt; 0.0000000000000002 ***
+## post                0.0000000000000047 ***
+## genderFemale        0.0000033613215465 ***
+## post:genderFemale                0.022 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 

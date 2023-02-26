@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-23" />
+<meta name="date" content="2023-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -350,8 +350,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To summarize the patterns of this contingency table: at the <strong>Nano</strong> and <strong>Micro</strong> level, female and male influencers have a pretty balanced distribution; however, <strong>as the level of influencer goes up, female accounts for smaller percentages</strong>. So, it appears that gender does have a relationship with the type of influencer, with females more likely to be lower-level influencers and males more likely to be higher-level influencers.</p>
 <p>The key statistic we derived from a cross-tab analysis is called <strong>Pearson’s chi-square</strong>, which indicates whether there is a significant difference between the expected frequency of each cell and the observed frequency in that contingency table. For example, we believe that if gender did not affect the influencer type, then the expected frequency of female influencers at the <strong>Macro level</strong> should have been around 31 (66*46.6%), while in fact, we only observed 24 female influencers at the Macro level. There is a substantial difference between 31, the expected frequency if gender and influencer type had no relationship, and 24, the observed frequency. In this case, the Pearson’s chi-square we got was 9.5, which was a “sum” of all the differences between the expected frequency and observed frequency of all the cells in this contingency table, and it was significant at the 0.02 level, indicating the probability of no differences among these groups in the population is only 2%. The R code for calculating Chi-sq is below:</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="statistical-analyses-of-two-variables.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(data<span class="sc">$</span>Gender, data<span class="sc">$</span>InfluencerType, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## Warning in chisq.test(data$Gender, data$InfluencerType, correct = FALSE): Chi-squared
-## approximation may be incorrect</code></pre>
+<pre><code>## Warning in chisq.test(data$Gender, data$InfluencerType, correct =
+## FALSE): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -391,9 +391,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb164-4"><a href="statistical-analyses-of-two-variables.html#cb164-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">order =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>),</span>
 <span id="cb164-5"><a href="statistical-analyses-of-two-variables.html#cb164-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two-sided&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
-##   statistic   t_df   p_value alternative estimate lower_ci upper_ci
-##       &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1     -4.05 29805. 0.0000522 two.sided     -0.528   -0.784   -0.272</code></pre>
+##   statistic   t_df   p_value alternative estimate lower_ci upper…¹
+##       &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1     -4.05 29805. 0.0000522 two.sided     -0.528   -0.784  -0.272
+## # … with abbreviated variable name ¹​upper_ci</code></pre>
 <p>Again, the ultimate piece of evidence we are looking for is the significance level, and in this case, it’s .00005. What does it mean? It means the chances are about 0.05% that males and females really had the same level of impact, which is the null hypothesis. Well, the chances are pretty low, aren’t they? Our null hypothesis doesn’t really hold, and we are confident enough to claim that females generate bigger impacts than males on the Twitter discourses using the co-hashtags of #BlackLivesMatter and #StopAsianHate, not just within our sample, but in the whole population of Twitter users.</p>
 <div id="anova" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> ANOVA<a href="statistical-analyses-of-two-variables.html#anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
