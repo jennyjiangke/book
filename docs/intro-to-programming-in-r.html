@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-02-26" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,13 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.13.0/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.13.0/css/v4-shims.min.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
 
 
 <style type="text/css">
@@ -215,13 +222,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.2" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#multiple-regression-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Multiple Regression Analysis</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>6</b> Text Analysis</a>
+<li class="chapter" data-level="6" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html"><i class="fa fa-check"></i><b>6</b> Accessing Twitter’s API in R</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="text-analysis.html"><a href="text-analysis.html#an-introduction-to-stringr"><i class="fa fa-check"></i><b>6.1</b> An Introduction to Stringr</a>
+<li class="chapter" data-level="6.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#making-your-first-request-to-the-new-twitter-api-v2"><i class="fa fa-check"></i><b>6.1</b> Making Your First Request to the New Twitter API v2</a></li>
+<li class="chapter" data-level="6.2" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#using-you-twitter-app-in-r"><i class="fa fa-check"></i><b>6.2</b> Using You Twitter App in R</a></li>
+<li class="chapter" data-level="6.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#analyzing-twitter-data"><i class="fa fa-check"></i><b>6.3</b> Analyzing Twitter Data</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="text-analysis.html"><a href="text-analysis.html#practical-applications-of-stringr-1"><i class="fa fa-check"></i><b>6.1.1</b> Practical Applications of Stringr</a></li>
-<li class="chapter" data-level="6.1.2" data-path="text-analysis.html"><a href="text-analysis.html#average-name-length-over-time-1"><i class="fa fa-check"></i><b>6.1.2</b> Average name length over time</a></li>
-<li class="chapter" data-level="6.1.3" data-path="text-analysis.html"><a href="text-analysis.html#common-issue-example-most-common-3-letter-names"><i class="fa fa-check"></i><b>6.1.3</b> Common issue: (example: most common 3-letter names)</a></li>
+<li class="chapter" data-level="6.3.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#lubridate-working-with-time"><i class="fa fa-check"></i><b>6.3.1</b> Lubridate &amp; Working with Time</a></li>
+<li class="chapter" data-level="6.3.2" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#tweet-source"><i class="fa fa-check"></i><b>6.3.2</b> Tweet Source</a></li>
+<li class="chapter" data-level="6.3.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#text-analysis-in-twitter"><i class="fa fa-check"></i><b>6.3.3</b> Text Analysis in Twitter</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>7</b> Network Analysis</a></li>
@@ -283,11 +292,11 @@ Having R package-based means that users only need to load packages relevant to t
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-programming-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
 <pre><code>## Rows: 1,924,665
 ## Columns: 5
-## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188…
-## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;…
-## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Mar…
-## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 132…
-## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0…</code></pre>
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880…
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;,…
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;…
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258…
+## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0.016167, 0.01…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
@@ -818,6 +827,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
