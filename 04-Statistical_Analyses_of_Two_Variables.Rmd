@@ -21,7 +21,6 @@ Sometimes, the distribution of one variable is contingent upon a second variable
 ```{r}
 #The CrossTable() command from the gmodels package produces frequencies, and table, row, & column proportions with a single command.
 
-install.packages("gmodels")
 library(gmodels)
 
 #Run the CrossTable() command, with your two variables as inputs.
