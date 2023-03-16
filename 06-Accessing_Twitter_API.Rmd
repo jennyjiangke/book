@@ -245,8 +245,9 @@ top_words <- tweets %>%
   head(10)
 
 top_words %>% 
-  ggplot(aes(reorder(word,-n),n,fill = word)) +
-  geom_col()
+  ggplot(aes(reorder(word,n),n,fill = word)) +
+  geom_col() +
+  coord_flip()
 ```
 
 **More information of search tips**
@@ -264,8 +265,9 @@ user_description <- users %>%
   head(10)
 
 user_description %>% 
-  ggplot(aes(reorder(word,-n),n,fill = word)) +
-  geom_col()
+  ggplot(aes(reorder(word,n),n,fill = word)) +
+  geom_col() +
+  coord_flip()
 ```
 
 ## Assignment
