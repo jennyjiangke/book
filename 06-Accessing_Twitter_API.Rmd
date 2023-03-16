@@ -60,6 +60,9 @@ First, we have to 'tell' Twitter who we are and what App we're using, buy enteri
 
 ## load rtweet
 library(rtweet)
+
+#more information on rtweet: https://cran.r-project.org/web/packages/rtweet/rtweet.pdf
+
 ```
 
 Once our app is set up in dev.twitter.com, we should be able to generate *four secret codes*:
@@ -228,3 +231,190 @@ pope %>%
   count(word, sort = TRUE) %>% 
   wordcloud2()
 ```
+
+
+## Search Keywords/Search Users by Keywords/Hashtags
+
+```{r}
+tweets <- search_tweets(q = "covid vaccine", n = 100,
+                        lang = "en",
+                        include_rts = FALSE)
+# the max # of n is 18000
+
+tweets %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words) %>% 
+  filter(!word %in% c("https", "t.co", "covid", "vaccine")) %>% 
+  count(word, sort = TRUE) %>% 
+  head(100) %>% 
+  wordcloud2(size = 0.7, shape = 'star')
+```
+
+**More information of search tips**
+
+https://www.rdocumentation.org/packages/rtweet/versions/0.7.0/topics/search_tweets
+
+```{r}
+users <- search_users("covid vaccine", n = 100)
+
+users %>% 
+  unnest_tokens(word, description) %>% 
+  anti_join(stop_words) %>% 
+  filter(!word %in% c("https", "t.co", "covid", "vaccine")) %>% 
+  count(word, sort = TRUE) %>% 
+  wordcloud2(shape = 'diamond')
+
+# more about wordcloud2: https://r-graph-gallery.com/196-the-wordcloud2-library.html
+```
+
+## Assignment
+
+**Learning Objectives** 
+
+Get to know how to use Twitter APIs to collect tweets for a client/topic of your choice.
+
+**Step 1** Discuss with your group members to select a brand/person’s Twitter account that your group would like to collect data from. 
+
+**Step 2** Collect the most recent 1000 tweets from your client's Twitter account, as well as your client's **Twitter follower information**.
+
+**step 3** Explore the Twitter data you collected to answer the questions below:
+
+1. What’s the date range of the 1000 tweets you collected for your client?
+
+2. How many of the 1000 tweets are retweets?
+
+3. How many of the 1000 tweets are original? Among the original tweets, how many are messages sent to others?
+
+4. Which original tweet has been retweeted most? Please describe this tweet.
+
+5. Which original tweet has been favorited most? Please describe this tweet.
+
+6. Among the 1000 tweets, how many have media URLs?
+
+7. Among your client’s followers, which one has the greatest number of followers? What is that user’s most recent tweet/retweet? Also, describe the user's profile.
+
+8. Among your client’s followers, which one has been listed by other Twitter users most? What is that user’s most recent tweet/retweet? Also, describe the user's profile.
+
+**Step 4** Discuss the implications of your answers and create a 5-7 mins presentation.
+
+### Sample code 
+
+```{r}
+#Load required libraries
+library(rtweet)
+
+#Create a token with API Keys
+
+#create_token(
+#app = "YOUR_APP_NAME_HERE",
+#consumer_key = "XXXXXXXXXXXXXXXXXXX",
+#consumer_secret = "XXXXXXXXXXXXXXXXXXX",
+#access_token = "XXXXXXXXXXXXXXXXXXX",
+#access_secret = "XXXXXXXXXXXXXXXXXXX",
+#set_renv = TRUE) -> mytoken
+
+```
+
+**Collect owned twitter data through Twitter API**
+  
+```{r}
+library(ggplot2) 
+dt_timeline <- get_timelines("elonedge", n = 100, token = mytoken) 
+#The most recent 1000 tweets, question 1: click the dt_timeline in environment to see "created at" for date range.
+
+ggplot(dt_timeline, aes(x = created_at)) + 
+  geom_histogram(aes(fill = ..count..))
+#Develop the visualization
+
+```
+
+**Question 2 & 3**
+How many of the 1000 tweets are retweets/original? 
+Among the original tweets, how many are messages sent to others?
+  
+```{r}
+  
+dt_rt <- dt_timeline %>% 
+  group_by(is_retweet) %>% 
+  count(is_retweet)
+
+dt_me <- dt_timeline %>% 
+  filter(is_retweet=="FALSE") %>% 
+  filter(!is.na(reply_to_screen_name)) %>% 
+  count(is_retweet)
+
+# Basic piechart
+# Create Data
+type <- data.frame(
+  group=c("retweet", "orginial", "message"),
+  value=c(381,6,81))
+
+# Basic piechart
+ggplot(type, aes(x="", y=value, fill=group)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0) +
+  theme_void() # remove background, grid, numeric labels
+```
+
+**Questions 4-6**
+Which original tweet has been retweeted most? 
+Which original tweet has been favorited most? 
+Among the 1000 tweets, how many have media URLs?
+  
+```{r}
+Toptweet_1 <- dt_timeline %>% 
+  filter(retweet_count ==max(retweet_count)) %>% 
+  select(text,created_at,retweet_count)
+
+Toptweet_2 <- dt_timeline %>% 
+  filter(favorite_count == max(favorite_count)) %>% 
+  select(text,created_at,favorite_count)
+
+url <- dt_timeline %>% 
+  filter(!is.na(media_url)) %>% 
+  count(media_url)
+
+```
+
+**Questions 7 & 8**
+  
+Among your client’s followers, which one has the greatest number of followers? What is that user’s most recent tweet/retweet? 
+  
+Among your client’s followers, which one has been listed by other Twitter users most? What is that user’s most recent tweet/retweet? 
+  
+```{r}
+#Get the following and follower information
+
+friends <- get_friends("elonedge") 
+#get a user's friends
+
+followers <- get_followers("elonedge") 
+#get a user's followers
+
+#Collect data from a user's friends/followers. 
+bio_fr <-  lookup_users(friends$user_id[1:20]) 
+bio_fr_full <-  lookup_users(friends$user_id) 
+
+bio_fl <-  lookup_users(followers$user_id[1:20]) 
+bio_fl_full <-  lookup_users(followers$user_id) 
+
+#If you would like to save the follower id
+save_as_csv(bio_fl_full, "~/yourpath/elonedge_follower.csv") 
+
+#Top follower
+Topfollower_1 <- bio_fl_full %>% 
+  filter(followers_count == max(followers_count)) %>% 
+  select(text,created_at,location,description,followers_count)
+
+Topfollower_2 <- bio_fl_full %>% 
+  filter(listed_count == max(listed_count)) %>% 
+  select(text,created_at,location,description,followers_count)
+
+```
+
+
+
+
+
+
+

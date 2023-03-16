@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-03-02" />
+<meta name="date" content="2023-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -232,6 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.2" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#tweet-source"><i class="fa fa-check"></i><b>6.3.2</b> Tweet Source</a></li>
 <li class="chapter" data-level="6.3.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#text-analysis-in-twitter"><i class="fa fa-check"></i><b>6.3.3</b> Text Analysis in Twitter</a></li>
 </ul></li>
+<li class="chapter" data-level="6.4" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#search-keywordssearch-users-by-keywordshashtags"><i class="fa fa-check"></i><b>6.4</b> Search Keywords/Search Users by Keywords/Hashtags</a></li>
+<li class="chapter" data-level="6.5" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#assignment-2"><i class="fa fa-check"></i><b>6.5</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a></li>
 <li class="chapter" data-level="8" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>8</b> Network Analysis</a></li>
@@ -319,24 +321,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -13.90  -3.47  -3.04  -3.04  74.46 
 ## 
 ## Coefficients:
-##                              Estimate Std. Error t value             Pr(&gt;|t|)
-## (Intercept)                     3.037      0.070   43.38 &lt; 0.0000000000000002
-## genderFemale                    0.433      0.103    4.22             0.000024
-## influencermicro                38.172      0.404   94.56 &lt; 0.0000000000000002
-## influencermacro                58.170      1.357   42.87 &lt; 0.0000000000000002
-## influencermega                 71.063      5.071   14.01 &lt; 0.0000000000000002
-## genderFemale:influencermicro   -1.518      0.568   -2.67               0.0075
-## genderFemale:influencermacro    1.201      2.250    0.53               0.5933
-## genderFemale:influencermega    11.167      8.018    1.39               0.1637
-##                                 
-## (Intercept)                  ***
-## genderFemale                 ***
-## influencermicro              ***
-## influencermacro              ***
-## influencermega               ***
-## genderFemale:influencermicro ** 
-## genderFemale:influencermacro    
-## genderFemale:influencermega     
+##                              Estimate Std. Error t value
+## (Intercept)                     3.037      0.070   43.38
+## genderFemale                    0.433      0.103    4.22
+## influencermicro                38.172      0.404   94.56
+## influencermacro                58.170      1.357   42.87
+## influencermega                 71.063      5.071   14.01
+## genderFemale:influencermicro   -1.518      0.568   -2.67
+## genderFemale:influencermacro    1.201      2.250    0.53
+## genderFemale:influencermega    11.167      8.018    1.39
+##                                          Pr(&gt;|t|)    
+## (Intercept)                  &lt; 0.0000000000000002 ***
+## genderFemale                             0.000024 ***
+## influencermicro              &lt; 0.0000000000000002 ***
+## influencermacro              &lt; 0.0000000000000002 ***
+## influencermega               &lt; 0.0000000000000002 ***
+## genderFemale:influencermicro               0.0075 ** 
+## genderFemale:influencermacro               0.5933    
+## genderFemale:influencermega                0.1637    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -348,8 +350,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb187-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, InfluencerType) <span class="sc">%&gt;%</span> </span>
 <span id="cb187-4"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Impact =</span> <span class="fu">mean</span>(Impact)) <span class="sc">%&gt;%</span></span>
 <span id="cb187-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb187-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Impact))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Gender&#39;. You can override using
+## the `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-1" aria-hidden="true" tabindex="-1"></a>data_2<span class="sc">$</span>InfluencerType <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_2<span class="sc">$</span>InfluencerType,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nano&quot;</span>, <span class="st">&quot;micro&quot;</span>, <span class="st">&quot;macro&quot;</span>, <span class="st">&quot;mega&quot;</span>)) <span class="co">#Re-order the sequence of influencer type</span></span>
 <span id="cb189-2"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb189-3"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-3" aria-hidden="true" tabindex="-1"></a>data_2 <span class="sc">%&gt;%</span> </span>
@@ -360,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb189-8"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Gender)) <span class="sc">+</span></span>
 <span id="cb189-9"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
 <span id="cb189-10"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb189-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>From the above statistics and graph, you can see the significant interaction effect between gender and influencer type for predicting impacts. Male micro influencers had a little bit higher impacts than female micro influeners. But for other types of influencers, such as megas, males had lower impacts than females.</p>
 <p>Could the relationship between the numbers of post and impact also depend on the gender of Twitter authors? Let’s add in an interaction term of gender and the number of post by multiplying these two terms.</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co">#interaction effects of post and gender</span></span>
@@ -395,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb192-5"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span> </span>
 <span id="cb192-6"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#cb192-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Impacts&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <p>The above visualization and statistics shows significant interaction effects (p = 0.022) between gender and the numbers of post when predicting impact. But the R square is only 0.0027 indicating less than 0.3% of the variance in impact can be explained by this model.The R square of previous model of interaction between gender and the number of posts is 0.403, indicating more than 40% of the variance in impact can be explained by this regression model, and thus representing a better model for predicting impacts.</p>
 </div>
 <div id="assignment-1" class="section level2 hasAnchor" number="5.3">

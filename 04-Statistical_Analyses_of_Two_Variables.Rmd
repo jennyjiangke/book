@@ -85,10 +85,8 @@ ggline(data, x = "Gender", y = "Impact",
        ylab = "Impact", xlab = "Gender")
 
 #t-test
-t_test(x = data,
-       formula = Impact ~ Gender,
-       order = c("male", "female"),
-       alternative = "two-sided")
+t.test(Impact ~ Gender,
+       data = data)
 
 ```
 Again, the ultimate piece of evidence we are looking for is the significance level, and in this case, it’s .00005. What does it mean? It means the chances are about 0.05% that  males and females really had the same level of impact, which is the null hypothesis. Well, the chances are pretty low, aren’t they? Our null hypothesis doesn’t really hold, and we are confident enough to claim that females generate bigger impacts than males on the Twitter discourses using the co-hashtags of #BlackLivesMatter and #StopAsianHate, not just within our sample, but in the whole population of Twitter users.
