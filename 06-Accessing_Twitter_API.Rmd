@@ -71,10 +71,9 @@ Once our app is set up in dev.twitter.com, we should be able to generate *four s
 
 -   Access Secret
 
-    All of these values can be generated from the 'Keys and Tokens' tab of your App's page on dev.twitter.com.
+All of these values can be generated from the 'Keys and Tokens' tab of your App's page on dev.twitter.com.
 
-
-    Run this in R - be sure to replace "YOUR_APP_NAME" and "XXXXX" with the name of your App in the Twitter Developer Portal:
+Run this in R - be sure to replace "YOUR_APP_NAME" and "XXXXX" with the name of your App in the Twitter Developer Portal:
 
 ```{r, eval = FALSE}
 
@@ -143,8 +142,8 @@ Let's start with time.
 
 Lubridate is a really useful R package. You can ask it to break any collection of dates into days, weeks, months or years. And if it doesn't recognize the format of your date column, you can 'tell' it how to read correctly. Let's try using it on Twitter data.
 
-```{r}
-# install.packages('lubridate')
+```{r, eval = FALSE}
+install.packages('lubridate')
 ```
 
 The 'created_at' column of our Twitter data contains our date information. Let's try some things out:
@@ -220,6 +219,7 @@ Cool. How about a word cloud?
 
 ```{r}
 library(wordcloud2)
+# more about wordcloud2: https://r-graph-gallery.com/196-the-wordcloud2-library.html
 pope %>% 
   unnest_tokens(word, text) %>% 
   anti_join(stop_words) %>% 
@@ -232,18 +232,21 @@ pope %>%
 ## Search Keywords/Search Users by Keywords/Hashtags
 
 ```{r}
-tweets <- search_tweets(q = "covid vaccine", n = 100,
+tweets <- search_tweets(q = "chatgpt", n = 100,
                         lang = "en",
                         include_rts = FALSE)
 # the max # of n is 18000
 
-tweets %>% 
+top_words <- tweets %>% 
   unnest_tokens(word, text) %>% 
   anti_join(stop_words) %>% 
-  filter(!word %in% c("https", "t.co", "covid", "vaccine")) %>% 
+  filter(!word %in% c("https", "t.co", "chatgpt", "gpt")) %>% 
   count(word, sort = TRUE) %>% 
-  head(100) %>% 
-  wordcloud2(size = 0.7, shape = 'star')
+  head(10)
+
+top_words %>% 
+  ggplot(aes(reorder(word,-n),n,fill = word)) +
+  geom_col()
 ```
 
 **More information of search tips**
@@ -251,16 +254,18 @@ tweets %>%
 https://www.rdocumentation.org/packages/rtweet/versions/0.7.0/topics/search_tweets
 
 ```{r}
-users <- search_users("covid vaccine", n = 100)
+users <- search_users("chatgpt", n = 100)
 
-users %>% 
+user_description <- users %>% 
   unnest_tokens(word, description) %>% 
   anti_join(stop_words) %>% 
-  filter(!word %in% c("https", "t.co", "covid", "vaccine")) %>% 
+  filter(!word %in% c("https", "t.co", "chatgpt", "gpt")) %>% 
   count(word, sort = TRUE) %>% 
-  wordcloud2(shape = 'diamond')
+  head(10)
 
-# more about wordcloud2: https://r-graph-gallery.com/196-the-wordcloud2-library.html
+user_description %>% 
+  ggplot(aes(reorder(word,-n),n,fill = word)) +
+  geom_col()
 ```
 
 ## Assignment
@@ -295,20 +300,16 @@ Get to know how to use Twitter APIs to collect tweets for a client/topic of your
 
 ### Sample code 
 
-```{r}
-#Load required libraries
-library(rtweet)
+```{r, eval = FALSE}
 
-#Create a token with API Keys
-
-#create_token(
-#app = "YOUR_APP_NAME_HERE",
-#consumer_key = "XXXXXXXXXXXXXXXXXXX",
-#consumer_secret = "XXXXXXXXXXXXXXXXXXX",
-#access_token = "XXXXXXXXXXXXXXXXXXX",
-#access_secret = "XXXXXXXXXXXXXXXXXXX",
-#set_renv = TRUE) -> mytoken
-
+create_token(
+app = "YOUR_APP_NAME_HERE",
+consumer_key = "XXXXXXXXXXXXXXXXXXX",
+consumer_secret = "XXXXXXXXXXXXXXXXXXX",
+access_token = "XXXXXXXXXXXXXXXXXXX",
+access_secret = "XXXXXXXXXXXXXXXXXXX",
+set_renv = TRUE
+) -> mytoken
 ```
 
 **Collect owned twitter data through Twitter API**
