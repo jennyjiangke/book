@@ -1,9 +1,5 @@
 # Accessing Twitter's API in R
 
-```{r setup, include=FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 Twitter is a unique source for data, for many reasons: along with text, it includes date and time information, and data on the type of device anr/or software used to post the tweet. What we often do *not* have reliable Twitter data on is location. There are two ways for Twitter to record your location: one is created during your Twitter account setup, where you (optionally) fill in where you are located. Many users fill in joke locations (The Milky Way, 3rd Rock From the Sun). To do something with location data, it'd have to be somewhat standardized, i.e. text inputs for Town and State.Without these prompts, values vary wildly, from 'North Dakota' to 'Brooklyn' to '27510,' so it's really not very useful data.
 
 The other way Twitter will record your location is by geolocating your exact position. This has to be turned on or off, by choosing if Twitter can use your location on your device. Many users - most, in fact - have location services turned off. That means if you use geolocation data, you're only observing data from *users who have opted in to location services for twitter.* That's a subset of Twitter users that will drastically skew our results, so I also discourage its use.
@@ -148,7 +144,7 @@ Let's start with time.
 Lubridate is a really useful R package. You can ask it to break any collection of dates into days, weeks, months or years. And if it doesn't recognize the format of your date column, you can 'tell' it how to read correctly. Let's try using it on Twitter data.
 
 ```{r}
-install.packages('lubridate')
+# install.packages('lubridate')
 ```
 
 The 'created_at' column of our Twitter data contains our date information. Let's try some things out:
@@ -200,13 +196,13 @@ A few notes about our plots:
 
 We can again use the *tidytext* package to create and analyze tokens:
 
-    ```{r}
+```{r}
        library(tidytext)
      pope %>% 
       unnest_tokens(word, text) %>% 
       anti_join(stop_words) %>% 
       count(word, sort = TRUE) 
-    ```
+```
 
 That certainly looks correct, although there are a few words that don't seem to make sense: *t.co* and *https* . *t.co* is short for twitter.com, and the https is part of a link, of course. You may also see *amp*, which is short for *ampersand.*
 
@@ -318,7 +314,6 @@ library(rtweet)
 **Collect owned twitter data through Twitter API**
   
 ```{r}
-library(ggplot2) 
 dt_timeline <- get_timelines("elonedge", n = 100, token = mytoken) 
 #The most recent 1000 tweets, question 1: click the dt_timeline in environment to see "created at" for date range.
 
@@ -348,6 +343,7 @@ dt_me <- dt_timeline %>%
 type <- data.frame(
   group=c("retweet", "orginial", "message"),
   value=c(381,6,81))
+#change the value based on your own findings.
 
 # Basic piechart
 ggplot(type, aes(x="", y=value, fill=group)) +
@@ -399,7 +395,7 @@ bio_fl <-  lookup_users(followers$user_id[1:20])
 bio_fl_full <-  lookup_users(followers$user_id) 
 
 #If you would like to save the follower id
-save_as_csv(bio_fl_full, "~/yourpath/elonedge_follower.csv") 
+#save_as_csv(bio_fl_full, "~/yourpath/elonedge_follower.csv") 
 
 #Top follower
 Topfollower_1 <- bio_fl_full %>% 
@@ -411,10 +407,3 @@ Topfollower_2 <- bio_fl_full %>%
   select(text,created_at,location,description,followers_count)
 
 ```
-
-
-
-
-
-
-

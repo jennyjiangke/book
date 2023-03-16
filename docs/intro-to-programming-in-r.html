@@ -233,7 +233,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#text-analysis-in-twitter"><i class="fa fa-check"></i><b>6.3.3</b> Text Analysis in Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#search-keywordssearch-users-by-keywordshashtags"><i class="fa fa-check"></i><b>6.4</b> Search Keywords/Search Users by Keywords/Hashtags</a></li>
-<li class="chapter" data-level="6.5" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#assignment-2"><i class="fa fa-check"></i><b>6.5</b> Assignment</a></li>
+<li class="chapter" data-level="6.5" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#assignment-2"><i class="fa fa-check"></i><b>6.5</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#sample-code"><i class="fa fa-check"></i><b>6.5.1</b> Sample code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a></li>
 <li class="chapter" data-level="8" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>8</b> Network Analysis</a></li>
@@ -295,11 +298,11 @@ Having R package-based means that users only need to load packages relevant to t
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-programming-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
 <pre><code>## Rows: 1,924,665
 ## Columns: 5
-## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 18…
-## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;…
-## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret…
-## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 12…
-## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0.0161…</code></pre>
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, …
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;…
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;…
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, …
+## $ prop &lt;dbl&gt; 0.072384, 0.026679, 0.020521, 0.019866, 0.017888…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
