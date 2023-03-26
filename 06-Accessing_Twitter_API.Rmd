@@ -122,7 +122,7 @@ pope %>%
   )
 ```
 
-You'll also need to import it - if you copy it into your Project's folder, you can simply run the command `pope <- read_csv('pope_tweets.csv')`
+You'll also need to import it - if you copy it into your Project's folder, you can simply run the command `pope <- read.csv(file = 'pope_tweets.csv', header = FALSE)`
 
 ## Analyzing Twitter Data
 
@@ -183,6 +183,7 @@ prez <- get_timeline('potus', n=18000, retryonratelimit = TRUE)
 ggplot(prez, aes(source)) + geom_bar(aes(fill = ..count..)) + coord_flip()
 
 ```
+
 A few notes about our plots:
 
 -   We are using geom_bar() instead of geom_col() - they look the same, but geom_col() often requires extra parameters like 'bin width.'
@@ -317,7 +318,7 @@ set_renv = TRUE
 **Collect owned twitter data through Twitter API**
   
 ```{r}
-dt_timeline <- get_timelines("elonedge", n = 100, token = mytoken) 
+dt_timeline <- get_timelines("elonedge", n = 1000, token = mytoken) 
 #The most recent 1000 tweets, question 1: click the dt_timeline in environment to see "created at" for date range.
 
 ggplot(dt_timeline, aes(x = created_at)) + 

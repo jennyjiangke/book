@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -181,6 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="manipulating-data.html"><a href="manipulating-data.html#additional-functions"><i class="fa fa-check"></i><b>2.6</b> Additional Functions</a></li>
 <li class="chapter" data-level="2.7" data-path="manipulating-data.html"><a href="manipulating-data.html#case-study-born-without-a-proper-name"><i class="fa fa-check"></i><b>2.7</b> Case Study: Born Without A (Proper) Name</a></li>
 <li class="chapter" data-level="2.8" data-path="manipulating-data.html"><a href="manipulating-data.html#assignment"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
+<li class="chapter" data-level="2.9" data-path="manipulating-data.html"><a href="manipulating-data.html#students-works"><i class="fa fa-check"></i><b>2.9</b> Students Works</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html"><i class="fa fa-check"></i><b>3</b> Statistical Analyses of a Single Variable</a>
 <ul>
@@ -238,7 +239,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#sample-code"><i class="fa fa-check"></i><b>6.5.1</b> Sample code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a></li>
+<li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis.html"><a href="text-analysis.html#creating-a-corpus"><i class="fa fa-check"></i><b>7.1</b> Creating a Corpus</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis.html"><a href="text-analysis.html#finding-common-words"><i class="fa fa-check"></i><b>7.2</b> Finding Common Words</a></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis.html"><a href="text-analysis.html#bigrams"><i class="fa fa-check"></i><b>7.3</b> Bigrams</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis.html"><a href="text-analysis.html#word-clouds"><i class="fa fa-check"></i><b>7.4</b> Word Clouds</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis.html"><a href="text-analysis.html#sentiment"><i class="fa fa-check"></i><b>7.5</b> Sentiment</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>8</b> Network Analysis</a></li>
 <li class="chapter" data-level="9" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>9</b> Geo-Spatial Analysis and Visualizations</a></li>
 <li class="chapter" data-level="10" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10</b> Publishing</a></li>
@@ -363,8 +371,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To summarize the patterns of this contingency table: at the <strong>Nano</strong> and <strong>Micro</strong> level, female and male influencers have a pretty balanced distribution; however, <strong>as the level of influencer goes up, female accounts for smaller percentages</strong>. So, it appears that gender does have a relationship with the type of influencer, with females more likely to be lower-level influencers and males more likely to be higher-level influencers.</p>
 <p>The key statistic we derived from a cross-tab analysis is called <strong>Pearson’s chi-square</strong>, which indicates whether there is a significant difference between the expected frequency of each cell and the observed frequency in that contingency table. For example, we believe that if gender did not affect the influencer type, then the expected frequency of female influencers at the <strong>Macro level</strong> should have been around 31 (66*46.6%), while in fact, we only observed 24 female influencers at the Macro level. There is a substantial difference between 31, the expected frequency if gender and influencer type had no relationship, and 24, the observed frequency. In this case, the Pearson’s chi-square we got was 9.5, which was a “sum” of all the differences between the expected frequency and observed frequency of all the cells in this contingency table, and it was significant at the 0.02 level, indicating the probability of no differences among these groups in the population is only 2%. The R code for calculating Chi-sq is below:</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="statistical-analyses-of-two-variables.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(data<span class="sc">$</span>Gender, data<span class="sc">$</span>InfluencerType, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## Warning in chisq.test(data$Gender, data$InfluencerType, correct
-## = FALSE): Chi-squared approximation may be incorrect</code></pre>
+<pre><code>## Warning in chisq.test(data$Gender, data$InfluencerType,
+## correct = FALSE): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -447,14 +455,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb171-2"><a href="statistical-analyses-of-two-variables.html#cb171-2" aria-hidden="true" tabindex="-1"></a>anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(Impact <span class="sc">~</span> Sentiment, <span class="at">data =</span> data)</span>
 <span id="cb171-3"><a href="statistical-analyses-of-two-variables.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the analysis</span></span>
 <span id="cb171-4"><a href="statistical-analyses-of-two-variables.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova)</span></code></pre></div>
-<pre><code>##                Df  Sum Sq Mean Sq F value              Pr(&gt;F)
-## Sentiment       2   88248   44124     350 &lt;0.0000000000000002
-## Residuals   30516 3852570     126                            
-##                
-## Sentiment   ***
-## Residuals      
+<pre><code>##                Df  Sum Sq Mean Sq F value
+## Sentiment       2   88248   44124     350
+## Residuals   30516 3852570     126        
+##                          Pr(&gt;F)    
+## Sentiment   &lt;0.0000000000000002 ***
+## Residuals                          
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
 <div id="correlation" class="section level2 hasAnchor" number="4.4">
@@ -503,14 +512,15 @@ Now that we know the direction, what about the strength? <strong>An r value clos
 ## -49.37  -4.55  -4.55  -4.55  95.05 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value             Pr(&gt;|t|)
-## (Intercept)   4.4264     0.0682   64.88 &lt; 0.0000000000000002
-## data$Post     0.1281     0.0161    7.93   0.0000000000000022
-##                
-## (Intercept) ***
-## data$Post   ***
+##             Estimate Std. Error t value
+## (Intercept)   4.4264     0.0682   64.88
+## data$Post     0.1281     0.0161    7.93
+##                         Pr(&gt;|t|)    
+## (Intercept) &lt; 0.0000000000000002 ***
+## data$Post     0.0000000000000022 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 11.4 on 30517 degrees of freedom
 ## Multiple R-squared:  0.00206,    Adjusted R-squared:  0.00203 
@@ -554,14 +564,15 @@ Now that we know the direction, what about the strength? <strong>An r value clos
 ##  -4.87  -4.87  -4.34  -4.34  94.73 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value             Pr(&gt;|t|)
-## (Intercept)    4.3448     0.0891   48.78 &lt; 0.0000000000000002
-## genderFemale   0.5282     0.1303    4.05             0.000051
-##                 
-## (Intercept)  ***
-## genderFemale ***
+##              Estimate Std. Error t value
+## (Intercept)    4.3448     0.0891   48.78
+## genderFemale   0.5282     0.1303    4.05
+##                          Pr(&gt;|t|)    
+## (Intercept)  &lt; 0.0000000000000002 ***
+## genderFemale             0.000051 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 11.4 on 30517 degrees of freedom
 ## Multiple R-squared:  0.000538,   Adjusted R-squared:  0.000505 

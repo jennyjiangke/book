@@ -39,6 +39,7 @@ revisiting-summarize
 additional-functions
 case-study-born-without-a-proper-name
 assignment
+students-works
 statistical-analyses-of-a-single-variable
 variables-levels-of-measurement
 nominal-data
@@ -78,6 +79,11 @@ search-keywordssearch-users-by-keywordshashtags
 assignment-2
 sample-code
 text-analysis
+creating-a-corpus
+finding-common-words
+bigrams
+word-clouds
+sentiment
 network-analysis
 geo-spatial-analysis-and-visualizations
 publishing

@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -181,6 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="manipulating-data.html"><a href="manipulating-data.html#additional-functions"><i class="fa fa-check"></i><b>2.6</b> Additional Functions</a></li>
 <li class="chapter" data-level="2.7" data-path="manipulating-data.html"><a href="manipulating-data.html#case-study-born-without-a-proper-name"><i class="fa fa-check"></i><b>2.7</b> Case Study: Born Without A (Proper) Name</a></li>
 <li class="chapter" data-level="2.8" data-path="manipulating-data.html"><a href="manipulating-data.html#assignment"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
+<li class="chapter" data-level="2.9" data-path="manipulating-data.html"><a href="manipulating-data.html#students-works"><i class="fa fa-check"></i><b>2.9</b> Students Works</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html"><i class="fa fa-check"></i><b>3</b> Statistical Analyses of a Single Variable</a>
 <ul>
@@ -238,7 +239,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#sample-code"><i class="fa fa-check"></i><b>6.5.1</b> Sample code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a></li>
+<li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis.html"><a href="text-analysis.html#creating-a-corpus"><i class="fa fa-check"></i><b>7.1</b> Creating a Corpus</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis.html"><a href="text-analysis.html#finding-common-words"><i class="fa fa-check"></i><b>7.2</b> Finding Common Words</a></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis.html"><a href="text-analysis.html#bigrams"><i class="fa fa-check"></i><b>7.3</b> Bigrams</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis.html"><a href="text-analysis.html#word-clouds"><i class="fa fa-check"></i><b>7.4</b> Word Clouds</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis.html"><a href="text-analysis.html#sentiment"><i class="fa fa-check"></i><b>7.5</b> Sentiment</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="network-analysis.html"><a href="network-analysis.html"><i class="fa fa-check"></i><b>8</b> Network Analysis</a></li>
 <li class="chapter" data-level="9" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>9</b> Geo-Spatial Analysis and Visualizations</a></li>
 <li class="chapter" data-level="10" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10</b> Publishing</a></li>
@@ -273,18 +281,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>geom_point() creates a <em>scatterplot</em>, but we can also see hints of an overall trend, or correlation here - so let’s add that to the ggplot():</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="manipulating-data.html#cb51-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
 <span id="cb51-2"><a href="manipulating-data.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
+## x&#39;</code></pre>
 <p><img src="bookdownproj_files/figure-html/mtcars3-1.png" width="672" /></p>
 <p>Let’s try adding color based on a variable:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="manipulating-data.html#cb53-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
 <span id="cb53-2"><a href="manipulating-data.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg, <span class="at">color =</span> cyl)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
+## x&#39;</code></pre>
 <pre><code>## Warning: The following aesthetics were dropped during statistical
 ## transformation: colour
 ## ℹ This can happen when ggplot fails to infer the correct
 ##   grouping structure in the data.
-## ℹ Did you forget to specify a `group` aesthetic or to convert
-##   a numerical variable into a factor?</code></pre>
+## ℹ Did you forget to specify a `group` aesthetic or to
+##   convert a numerical variable into a factor?</code></pre>
 <p><img src="bookdownproj_files/figure-html/mtcars4-1.png" width="672" /></p>
 <p>Great. On to mutate().</p>
 <div id="mutate" class="section level2 hasAnchor" number="2.1">
@@ -386,8 +396,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="manipulating-data.html#cb68-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
 <span id="cb68-2"><a href="manipulating-data.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span> </span>
 <span id="cb68-3"><a href="manipulating-data.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">name_count =</span> <span class="fu">n_distinct</span>(name)) <span class="ot">-&gt;</span> distinct</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can
+## override using the `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="manipulating-data.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(distinct, <span class="fu">aes</span>(year, name_count)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb70-2"><a href="manipulating-data.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>sex)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/summ2-1.png" width="672" /></p>
@@ -809,10 +819,11 @@ Let’s replace every instance of ‘l’ with ‘x’
 ## 
 ## # Simple named list: list(mean = mean, median = median)
 ## 
-## # Auto named with `tibble::lst()`: tibble::lst(mean, median)
+## # Auto named with `tibble::lst()`: tibble::lst(mean,
+##   median)
 ## 
-## # Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm =
-##   TRUE))</code></pre>
+## # Using lambdas list(~ mean(., trim = .2), ~ median(.,
+##   na.rm = TRUE))</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>The results are impressive. Let’s split them up by Sex:</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="manipulating-data.html#cb101-1" aria-hidden="true" tabindex="-1"></a>    babynames_length <span class="sc">%&gt;%</span> </span>
@@ -918,42 +929,44 @@ Let’s replace every instance of ‘l’ with ‘x’
 <p>OK, what else can stringr do?</p>
 <p>How about the average number of vowels per name?</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="manipulating-data.html#cb112-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
-<pre><code>##    [1] 1 1 1 3 3 3 1 2 2 2 2 2 1 3 2 2 3 3 2 3 3 2 3 3 3 3 3 1
-##   [29] 3 2 4 3 1 3 2 3 4 1 2 1 1 2 2 1 1 3 2 2 3 4 2 2 4 1 3 2
-##   [57] 1 3 2 2 1 1 2 3 3 2 3 2 3 2 2 1 3 3 4 3 2 2 2 2 3 1 2 4
-##   [85] 2 2 3 3 2 2 3 3 1 3 2 3 2 2 4 1 3 2 1 1 3 4 2 0 2 2 2 3
-##  [113] 3 1 4 3 2 3 3 1 2 0 3 3 2 3 3 3 1 4 3 2 1 2 2 1 3 3 2 3
-##  [141] 1 2 3 2 3 3 4 4 1 3 1 3 3 4 3 3 2 1 3 3 2 2 2 3 3 1 1 2
-##  [169] 3 1 2 4 2 2 2 2 3 2 2 3 3 3 1 1 3 4 3 3 2 2 3 1 3 3 3 3
-##  [197] 2 3 2 2 3 5 2 4 3 2 4 3 3 2 2 2 3 3 3 1 3 3 2 2 2 3 4 5
-##  [225] 2 4 1 3 1 3 2 2 4 1 3 3 4 2 3 2 1 3 3 2 1 3 4 3 3 3 4 3
-##  [253] 2 2 3 5 2 3 2 4 2 2 3 2 2 3 4 4 1 3 3 3 0 3 1 3 2 1 3 2
-##  [281] 2 3 2 1 1 3 3 2 1 2 3 4 1 2 2 4 1 3 2 2 3 2 3 2 2 3 3 2
-##  [309] 2 1 3 3 3 4 3 3 3 3 2 3 2 2 2 2 3 1 2 3 2 3 3 2 3 1 2 4
-##  [337] 2 3 4 2 2 1 2 2 3 4 4 3 3 3 3 2 4 3 1 2 3 3 3 4 4 3 1 3
-##  [365] 3 3 2 3 1 1 3 3 2 3 4 4 1 4 3 3 2 3 4 2 2 2 2 3 2 3 2 3
-##  [393] 5 3 2 3 2 2 3 1 2 1 2 1 3 2 2 2 3 2 3 3 2 1 3 3 2 3 3 2
-##  [421] 2 3 2 2 4 1 4 4 3 3 1 4 2 2 2 3 3 1 2 3 5 3 3 2 2 1 2 4
-##  [449] 1 1 1 3 2 3 3 1 3 2 4 3 3 3 2 2 4 3 2 1 2 4 3 3 1 2 3 4
-##  [477] 2 1 1 1 3 3 3 4 3 3 1 2 3 2 2 3 4 3 4 3 3 4 3 2 2 2 3 2
-##  [505] 3 2 3 2 3 3 2 2 3 3 2 2 2 2 1 2 3 2 3 1 2 3 1 1 2 1 1 2
-##  [533] 3 3 3 3 3 3 5 3 3 4 3 2 2 2 1 4 2 1 3 3 3 3 3 3 1 1 3 2
-##  [561] 2 2 3 4 4 3 2 3 3 2 4 4 2 3 2 5 3 1 3 2 2 3 1 3 3 1 2 3
-##  [589] 2 3 1 2 3 2 1 2 3 3 1 1 1 1 2 3 2 3 3 5 1 3 2 2 3 3 4 4
-##  [617] 2 2 1 1 3 4 4 3 2 2 3 2 2 2 3 1 3 4 3 3 3 3 2 3 2 3 2 0
-##  [645] 1 3 2 2 1 1 2 2 3 4 3 3 3 4 3 2 3 3 2 2 2 2 1 1 3 3 2 3
-##  [673] 2 3 2 2 2 2 3 2 1 2 2 1 2 2 3 3 3 3 3 3 1 4 4 1 4 3 3 4
-##  [701] 2 2 2 2 3 3 2 1 2 3 3 3 3 2 2 3 3 4 3 3 2 2 1 3 4 4 2 3
-##  [729] 3 2 2 3 2 2 2 2 2 0 3 1 1 1 2 1 3 2 2 2 4 3 2 2 0 2 3 2
-##  [757] 3 4 1 2 3 4 3 2 1 3 3 2 2 3 1 0 4 2 2 2 3 4 3 3 2 4 3 2
-##  [785] 1 2 3 3 1 3 3 3 2 1 3 4 3 3 2 2 2 4 3 2 3 2 2 2 3 2 2 2
-##  [813] 3 4 2 3 3 3 3 1 3 3 2 3 3 2 2 3 3 3 2 4 3 2 2 2 2 3 3 0
-##  [841] 1 3 1 2 2 3 3 3 2 4 3 3 3 3 2 1 3 2 1 2 2 1 2 1 3 3 4 1
-##  [869] 3 5 2 3 3 0 1 3 2 2 2 3 3 2 1 3 4 2 2 1 2 3 3 3 3 2 3 3
-##  [897] 0 3 4 4 4 3 4 4 3 2 3 4 3 3 2 1 2 2 3 4 4 2 3 3 2 3 4 4
-##  [925] 3 2 3 3 1 2 3 4 3 2 2 2 2 1 3 3 3 2 1 3 2 2 3 1 2 2 1 2
-##  [953] 1 1 2 1 1 1 3 2 3 2 3 3 2 1 3 1 1 2 1 2 2 3 3 3 1 1 1 2
-##  [981] 2 1 1 1 2 2 2 3 1 2 1 2 2 1 3 1 0 3 1 1
+<pre><code>##    [1] 1 1 1 3 3 3 1 2 2 2 2 2 1 3 2 2 3 3 2 3 3 2 3 3 3 3 3
+##   [28] 1 3 2 4 3 1 3 2 3 4 1 2 1 1 2 2 1 1 3 2 2 3 4 2 2 4 1
+##   [55] 3 2 1 3 2 2 1 1 2 3 3 2 3 2 3 2 2 1 3 3 4 3 2 2 2 2 3
+##   [82] 1 2 4 2 2 3 3 2 2 3 3 1 3 2 3 2 2 4 1 3 2 1 1 3 4 2 0
+##  [109] 2 2 2 3 3 1 4 3 2 3 3 1 2 0 3 3 2 3 3 3 1 4 3 2 1 2 2
+##  [136] 1 3 3 2 3 1 2 3 2 3 3 4 4 1 3 1 3 3 4 3 3 2 1 3 3 2 2
+##  [163] 2 3 3 1 1 2 3 1 2 4 2 2 2 2 3 2 2 3 3 3 1 1 3 4 3 3 2
+##  [190] 2 3 1 3 3 3 3 2 3 2 2 3 5 2 4 3 2 4 3 3 2 2 2 3 3 3 1
+##  [217] 3 3 2 2 2 3 4 5 2 4 1 3 1 3 2 2 4 1 3 3 4 2 3 2 1 3 3
+##  [244] 2 1 3 4 3 3 3 4 3 2 2 3 5 2 3 2 4 2 2 3 2 2 3 4 4 1 3
+##  [271] 3 3 0 3 1 3 2 1 3 2 2 3 2 1 1 3 3 2 1 2 3 4 1 2 2 4 1
+##  [298] 3 2 2 3 2 3 2 2 3 3 2 2 1 3 3 3 4 3 3 3 3 2 3 2 2 2 2
+##  [325] 3 1 2 3 2 3 3 2 3 1 2 4 2 3 4 2 2 1 2 2 3 4 4 3 3 3 3
+##  [352] 2 4 3 1 2 3 3 3 4 4 3 1 3 3 3 2 3 1 1 3 3 2 3 4 4 1 4
+##  [379] 3 3 2 3 4 2 2 2 2 3 2 3 2 3 5 3 2 3 2 2 3 1 2 1 2 1 3
+##  [406] 2 2 2 3 2 3 3 2 1 3 3 2 3 3 2 2 3 2 2 4 1 4 4 3 3 1 4
+##  [433] 2 2 2 3 3 1 2 3 5 3 3 2 2 1 2 4 1 1 1 3 2 3 3 1 3 2 4
+##  [460] 3 3 3 2 2 4 3 2 1 2 4 3 3 1 2 3 4 2 1 1 1 3 3 3 4 3 3
+##  [487] 1 2 3 2 2 3 4 3 4 3 3 4 3 2 2 2 3 2 3 2 3 2 3 3 2 2 3
+##  [514] 3 2 2 2 2 1 2 3 2 3 1 2 3 1 1 2 1 1 2 3 3 3 3 3 3 5 3
+##  [541] 3 4 3 2 2 2 1 4 2 1 3 3 3 3 3 3 1 1 3 2 2 2 3 4 4 3 2
+##  [568] 3 3 2 4 4 2 3 2 5 3 1 3 2 2 3 1 3 3 1 2 3 2 3 1 2 3 2
+##  [595] 1 2 3 3 1 1 1 1 2 3 2 3 3 5 1 3 2 2 3 3 4 4 2 2 1 1 3
+##  [622] 4 4 3 2 2 3 2 2 2 3 1 3 4 3 3 3 3 2 3 2 3 2 0 1 3 2 2
+##  [649] 1 1 2 2 3 4 3 3 3 4 3 2 3 3 2 2 2 2 1 1 3 3 2 3 2 3 2
+##  [676] 2 2 2 3 2 1 2 2 1 2 2 3 3 3 3 3 3 1 4 4 1 4 3 3 4 2 2
+##  [703] 2 2 3 3 2 1 2 3 3 3 3 2 2 3 3 4 3 3 2 2 1 3 4 4 2 3 3
+##  [730] 2 2 3 2 2 2 2 2 0 3 1 1 1 2 1 3 2 2 2 4 3 2 2 0 2 3 2
+##  [757] 3 4 1 2 3 4 3 2 1 3 3 2 2 3 1 0 4 2 2 2 3 4 3 3 2 4 3
+##  [784] 2 1 2 3 3 1 3 3 3 2 1 3 4 3 3 2 2 2 4 3 2 3 2 2 2 3 2
+##  [811] 2 2 3 4 2 3 3 3 3 1 3 3 2 3 3 2 2 3 3 3 2 4 3 2 2 2 2
+##  [838] 3 3 0 1 3 1 2 2 3 3 3 2 4 3 3 3 3 2 1 3 2 1 2 2 1 2 1
+##  [865] 3 3 4 1 3 5 2 3 3 0 1 3 2 2 2 3 3 2 1 3 4 2 2 1 2 3 3
+##  [892] 3 3 2 3 3 0 3 4 4 4 3 4 4 3 2 3 4 3 3 2 1 2 2 3 4 4 2
+##  [919] 3 3 2 3 4 4 3 2 3 3 1 2 3 4 3 2 2 2 2 1 3 3 3 2 1 3 2
+##  [946] 2 3 1 2 2 1 2 1 1 2 1 1 1 3 2 3 2 3 3 2 1 3 1 1 2 1 2
+##  [973] 2 3 3 3 1 1 1 2 2 1 1 1 2 2 2 3 1 2 1 2 2 1 3 1 0 3 1
+## [1000] 1
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 1923665 entries ]</code></pre>
 <p>That’s a lot of numbers. Let’s calculate a mean value instead:</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="manipulating-data.html#cb114-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">str_count</span>(babynames<span class="sc">$</span>name, <span class="st">&quot;[aeiou]&quot;</span>))</span></code></pre></div>
@@ -1004,6 +1017,9 @@ Let’s replace every instance of ‘l’ with ‘x’
 <li><p>For each visualization, consider including a paragraph describing your findings, and another paragraph describing your process.</p></li>
 <li><p>If you use an external source, be sure to include the URL in a comment.</p></li>
 </ol>
+</div>
+<div id="students-works" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Students Works<a href="manipulating-data.html#students-works" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
