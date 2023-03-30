@@ -385,7 +385,7 @@ library(wordcloud2)
 wordcloud2(tweets_frequency, size = 2.8, shape = 'star')
 
 ```
-### sentiment analysis
+### Sentiment Analysis
 
 Now, let's use "bing" measure the positivity / negativity
 
@@ -487,7 +487,9 @@ bigram_counts %>%
   coord_flip()
 
 ```
-### topic modeling
+
+
+### Topic Modeling
 
 Topic modeling is a computational technique used to extract and identify topics or themes present in a collection of text documents. It is often used in natural language processing (NLP) and text mining applications to analyze large amounts of unstructured data.
 
@@ -520,9 +522,9 @@ Now, let's create a document term matrix. In R, a Document-Term Matrix (DTM) is 
 dtm <- tweets_frequency_ID %>%
   cast_dtm(user_id, words, n)
 
-#topic model with 10 topics
+#topic model with 5 topics
 library(topicmodels)
-lda <- LDA(dtm, k = 10, control = list(seed = 12345))
+lda <- LDA(dtm, k = 5, control = list(seed = 12345))
 topics <- tidy(lda, matrix = "beta")
 
 ```

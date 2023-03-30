@@ -91,6 +91,7 @@ removing-stop-words-stemming
 frequency-analysis
 sentiment-analysis
 bigram-analysis
+topic-modeling
 semantic-network-analysis-of-social-media-text
 assignment-3
 network-analysis
