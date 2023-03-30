@@ -587,8 +587,6 @@ Now, let's take a look at the network visualizaitons.
 library(igraph)
 mygraph <- graph.data.frame(word_pairs,directed=FALSE)
 
-###initial plot###
-plot(mygraph)
 #shows the number of nodes
 vcount(mygraph)
 #shows the number of edges

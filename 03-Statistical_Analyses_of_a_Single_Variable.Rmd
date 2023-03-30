@@ -282,7 +282,7 @@ Now we can use the code below to get the mean, median, and mode for the number o
 ```{r}
 #Calculate mean for each col
 mean_report <- my_data %>% 
-  summarise_if(is.numeric, mean)
+  summarise_if(is.numeric, ~mean)
 
 #Calculate median for each col
 median_report <- my_data %>% 
@@ -465,7 +465,7 @@ The codes for calculating standard deviation is easy.
 ```{r}
 #Calculate sd for each col
 sd_report <- my_data %>% 
-  summarise_if(is.numeric, sd)
+  summarise_if(is.numeric, ~sd)
 
 #aggregate sd to the stats_report
 Descriptive_Statistics <- bind_rows(stats_report, sd_report)
