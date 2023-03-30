@@ -1,5 +1,7 @@
 # Text Analysis
 
+# Basic Text Analysis
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -72,7 +74,7 @@ gambler <-gutenberg_download(2197, mirror = "http://mirrors.xmission.com/gutenbe
    mutate('title' = "Stavrogin's Confession and The Plan of The Life of a Great Sinner")
 ```
 
-## Creating a Corpus
+### Creating a Corpus
 
 Now, let's merge all of the books into one huge corpus (a corpus is a large, structured collection of text data). We'll do this using the function rbind(), which is the easiest way to merge data frames with identical columns, as we have here.
 
@@ -80,7 +82,7 @@ Now, let's merge all of the books into one huge corpus (a corpus is a large, str
 dostoyevsky <- rbind(crime,brothers, notes, idiot, demons, gambler, poor, white, house, uncle, short, grand, stavrogin)
 ```
 
-## Finding Common Words
+### Finding Common Words
 
 So, what are the most common words used by Dostoevsky?
 
@@ -123,7 +125,7 @@ d_words %>%
   ggplot(aes(reorder(word, n),n, fill = title)) + geom_col() + coord_flip()
 ```
 
-## Bigrams
+### Bigrams
 
 Bigrams are just collections of words that show up next to each other in a text, like 'United States' or 'ice cream.' When we count bigrams, we can also measure what word or words most frequently precedes or comes after another word. For instance, Lewis Carrol's relative disdain for his protagonist Alice is clear when performing a bigram analysis of what words come before her name: the most frequent is *poor*, as in *poor Alice*.
 
@@ -173,7 +175,7 @@ d_bigrams %>%
 
 That's a little more interesting.
 
-## Word Clouds
+### Word Clouds
 
 It's very easy to generate a word cloud from a very specific data frame: one with the columns 'word' and 'n,' showing word frequency. Your data frame can have other columns in it, but it needs these two in particular - and they have to be named correctly, too.
 
@@ -197,7 +199,7 @@ d_words %>%
   wordcloud2()
 ```
 
-## Sentiment
+### Sentiment
 
 For our final analysis, we can measure sentiment from the three sentiment lexicons built into the *tidytext* package. They are:
 
@@ -286,3 +288,384 @@ d_words %>%
   ggtitle("Most Depressing Dostoyevsky Books")
 
 ```
+
+## A Case Study of Text Analysis of Social Media Text
+
+In this case study, an analysis is conducted on the social media discussions of the hashtags #BlackLivesMatter, utilizing Twitter data. The initial step involves the use of Twitter APIs to gather the most recent 1000 tweets featuring the hashtag. Subsequently, the tweets are cleaned by eliminating stop words and performing stemming. The study also entails the creation of visualizations and an examination of the semantic network derived from the cleaned set of 1000 tweets.
+
+### Using APIs for Data Collection
+
+```{r}
+#Load required libraries
+
+library(rtweet)
+library(tidyverse)
+library(tidytext)
+
+#Before collecting the data, you will need to create a token as illustrated in chapter 6.
+
+tweets <- search_tweets(q = "#BlackLivesMatter", n = 1000, lang = "en", include_rts = FALSE)
+
+# You can save the collected tweets as a csv file on your computer
+# write.csv(tweets, "~/your_path/tweets.csv", row.names=FALSE)
+
+#The collected tweets has 90 variables. We only look into the first five variables
+tweets <- tweets[,1:5]
+```
+
+### Removing Stop Words & Stemming
+
+In a tweet, you may come across several unique symbols like http, rt, and t.co. When removing such symbols, we decided to keep "#" and "@" to indicate mentions and hashtags used in the tweets.
+
+
+```{r}
+
+#Keep special symbols
+reg_words <- "([^A-Za-z_\\d#@']|'(?![A-Za-z_\\d#@]))"
+
+```
+
+Afterwards, we eliminate stop words that are usually prevalent in English, such as "the," "of," and "to," among others. Additionally, we performed stemming by dealing with plural endings to reduce a word to its root form. You can find various methods of stemming at this link: https://smltar.com/stemming.html.
+
+```{r}
+tweets_clean <- tweets %>%
+  mutate(text = str_replace_all(text, "https://t.co/[A-Za-z\\d]+|http://[A-Za-z\\d]+|&amp;|&lt;|&gt;|RT|https", "")) %>%
+  unnest_tokens(word, text, token = "regex", pattern = reg_words) %>%
+  anti_join(stop_words) %>%
+  mutate(words = case_when(
+    str_detect(word, "sses$") ~
+      str_replace(word, "sses$", "ss"),
+    str_detect(word, "ies$") ~
+      str_replace(word, "ies$", "y"),
+    str_detect(word, "ss$") ~
+      word,
+    str_detect(word, "s$") ~
+      str_remove(word, "s$"),
+    TRUE ~ word))
+```
+
+
+In the presented case study, stemming is performed by addressing plural endings. However, it may be necessary to employ a different stemming approach depending on the situation. For instance, one might seek to convert various variations of "support" to its base form.
+
+```{r}
+#mannually stemming
+tweets_clean <- tweets_clean %>%
+  mutate(words = str_replace(words, "supporting", "support")) %>%
+  mutate(words = str_replace(words, "attacking", "attack"))
+```
+
+Now, Let's first count the word frequency
+
+```{r}
+tweets_frequency <- tweets_clean %>% 
+  count(words, sort = TRUE) 
+
+#change colname "n" to "frequency"
+colnames(tweets_frequency)[2] <- "frequency"
+
+#remove some meaningless words if needed
+tweets_frequency<-tweets_frequency[!(tweets_frequency$words=="amp"),]
+```
+
+### Frequency Analysis
+
+Now, let's visualize the frequency
+
+```{r}
+tweets_frequency %>%
+  top_n(10) %>%
+  ggplot(aes(reorder(words, frequency),frequency, fill = words)) + 
+  geom_col() + 
+  coord_flip()
+
+#visualize word cloud
+library(wordcloud2)
+
+# Change the shape:
+wordcloud2(tweets_frequency, size = 2.8, shape = 'star')
+
+```
+### sentiment analysis
+
+Now, let's use "bing" measure the positivity / negativity
+
+```{r}
+tweets_sentiment <- 
+  tweets_clean %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(words, sentiment, sort = TRUE) %>%
+  ungroup()
+
+# you also can export sentiment analysis results use write.csv
+
+# visualizations
+
+tweets_sentiment %>%
+  group_by(sentiment) %>%
+  top_n(10) %>%
+  ggplot(aes(reorder(words, n),n, fill = words)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Tweets about #BlackLivesMatter",
+       x = NULL) +
+  coord_flip()
+```
+
+
+Based on the visualization, it appears that the word "ding" has been identified as a highly frequent negative term. If you disagree with this conclusion, you may choose to remove "ding" from the sentiment results.
+
+```{r}
+tweets_sentiment <- tweets_sentiment %>% 
+  filter(!(words == "ding"))
+
+#redo sentiment visualizations
+
+tweets_sentiment %>%
+  group_by(sentiment) %>%
+  top_n(10) %>%
+  ggplot(aes(reorder(words, n),n, fill = words)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Tweets about #BlackLivesMatter",
+       x = NULL) +
+  coord_flip()
+
+```
+
+### Bigram Analysis
+
+We can also provide a list of the most commonly occurring bigrams in this case study.
+
+```{r}
+tweets_2 <- tweets %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+bigram_separated <- tweets_2 %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bigram_filtered <- bigram_separated %>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word)
+
+bigram_united <- bigram_filtered %>%
+  unite(bigram, word1, word2, sep = " ")
+
+# calculate the frequency of bigrams
+bigram_counts <- bigram_united %>% 
+  count(bigram, sort = TRUE)
+
+# bigram visualization
+bigram_counts %>%
+  top_n(10) %>%
+  ggplot(aes(reorder(bigram, n),n, fill = bigram)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip()
+
+```
+
+Upon reviewing the visualizations, it seems appropriate to exclude https, t.co, and ding from the report.
+
+```{r}
+bigram_filtered_2 <- bigram_filtered %>%
+  filter(!word1 %in% c("https", "t.co", "ding")) %>%
+  filter(!word2 %in% c("https", "t.co", "ding"))
+
+bigram_united <- bigram_filtered_2 %>%
+  unite(bigram, word1, word2, sep = " ")
+
+# calculate the frequency of bigrams
+bigram_counts <- bigram_united %>% 
+  count(bigram, sort = TRUE)
+
+# bigram visualization
+bigram_counts %>%
+  top_n(10) %>%
+  ggplot(aes(reorder(bigram, n),n, fill = bigram)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip()
+
+```
+### topic modeling
+
+Topic modeling is a computational technique used to extract and identify topics or themes present in a collection of text documents. It is often used in natural language processing (NLP) and text mining applications to analyze large amounts of unstructured data.
+
+The most commonly used approach to topic modeling is Latent Dirichlet Allocation (LDA), which assumes that each document is a mixture of several latent topics, and each topic is a distribution of words. By analyzing the co-occurrence of words in the documents, LDA can infer the underlying topics and their relative importance.
+
+However, topic modeling does have some limitations. The accuracy of the results depends on the quality of the text data and how relevant it is to the research question. Also, it can be hard to understand the results if the topics are not clear. Finally, topic modeling cannot tell us about the feelings or tone of the text, which can be important for some uses.
+
+Despite these limits, topic modeling is still very useful in NLP and text mining. It is used for many things like analyzing social media, doing market research, and understanding content.
+
+```{r}
+# find each ID's word counts
+tweets_frequency_ID <- tweets_clean %>%
+  count(user_id, words, sort = TRUE)
+
+# find each ID's word total counts
+total_tweets_frequency_ID <- tweets_frequency_ID %>% 
+  group_by(user_id) %>% 
+  summarize(total = sum(n))
+
+tweets_frequency_ID <- left_join(tweets_frequency_ID, total_tweets_frequency_ID)
+
+```
+
+In R, the left_join() function is used to merge two data frames based on a common column, where the result contains all the rows of the left data frame and only the matching rows of the right data frame.
+
+Now, let's create a document term matrix. In R, a Document-Term Matrix (DTM) is a matrix that represents the frequency of terms that occur in a collection of text documents. Each row in the matrix represents a document, and each column represents a term. The values in the matrix are the frequency of each term in each document.
+
+```{r} 
+#create document term matrix
+dtm <- tweets_frequency_ID %>%
+  cast_dtm(user_id, words, n)
+
+#topic model with 10 topics
+library(topicmodels)
+lda <- LDA(dtm, k = 10, control = list(seed = 12345))
+topics <- tidy(lda, matrix = "beta")
+
+```
+
+In the above code, dtm is the input document term matrix, and k = 10 specifies the number of topics that the model should generate. The control argument is a list of additional parameters that can be passed to the LDA() function. In this case, the seed = 12345 parameter is used to set a random seed, which ensures that the results will be reproducible. 
+
+In the context of topic modeling in R, the tidy() function from the tidytext package can be used to convert a fitted LDA (Latent Dirichlet Allocation) model into a tidy format, which makes it easier to manipulate and analyze the model results.
+
+In the context of Latent Dirichlet Allocation (LDA), the beta value is a hyperparameter that controls the distribution of words within topics. Specifically, it determines the strength of the prior belief that a particular word will be associated with a particular topic. 
+
+Let's visualize the top terms in the top ten topics.
+
+```{r}
+top_terms <- topics %>%
+  group_by(topic) %>%
+  top_n(5, beta) %>%
+  arrange(topic, -beta)
+
+# visualization of topics
+top_terms %>%
+  ggplot(aes(reorder(term, beta),beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip() 
+```
+You may find this article helpful in determining how to decide on the number of topics: https://cran.r-project.org/web/packages/ldatuning/vignettes/topics.html
+
+
+## Semantic Network Analysis of Social Media Text
+
+Semantic network analysis is a technique used to analyze the meaning and relationships between words and concepts in social media text. It involves mapping out the relationships between words and concepts in a network or graph-like structure to identify key themes, topics, and patterns in the text. This approach can be used to extract insights from large volumes of social media data, such as identifying trends or sentiment analysis. By analyzing the connections between words and concepts, semantic network analysis can help researchers and organizations gain a deeper understanding of the topics being discussed on social media and the relationships between them. The case study demonstrates how to generate and visualize a semantic network based on the analysis occurrence of words used in tweets containing #BlackLivesMatter. The unit of analysis of word co-occurrence is a tweet.
+
+```{r}
+# count words co-occurring within sections
+library(widyr)
+word_pairs <- tweets_clean %>%
+  pairwise_count(words, status_id, sort = TRUE)
+
+#In network analysis, an edge list is represented by source-target-weight data.
+colnames(word_pairs)[1] <- "Source"
+colnames(word_pairs)[2] <- "Target"
+colnames(word_pairs)[3] <- "Weight"
+
+# What if we only consider edge weights that are greater than the mean plus one standard deviation, given that we have over 10,000 rows?
+mean <-mean(word_pairs$Weight)
+sd <- sd(word_pairs$Weight)
+mean+sd
+
+word_pairs <- word_pairs %>%
+  filter(Weight > mean+sd)
+
+# You can save this edge list use write.csv
+```
+
+Now, let's take a look at the network visualizaitons.
+
+```{r}
+
+#install.packages("igraph")
+library(igraph)
+mygraph <- graph.data.frame(word_pairs,directed=FALSE)
+
+###initial plot###
+plot(mygraph)
+#shows the number of nodes
+vcount(mygraph)
+#shows the number of edges
+ecount(mygraph)
+#show density
+edge_density(mygraph, loops = FALSE)
+
+#Centrality
+degree <- as.data.frame(degree(mygraph,mode = "total"), normalized = TRUE)
+eigen <- as.data.frame(eigen_centrality(mygraph), directed=FALSE)
+between <- as.data.frame(betweenness(mygraph), directed=FALSE, normalized = TRUE)
+
+# You can save this edge list use write.csv
+
+```
+
+You can delete any nodes from the network. For example:
+
+```{r}
+# delete nodes from the network (optional)
+mygraph <- delete_vertices(mygraph, "#blacklivesmatter")
+```
+
+In network analysis, a k-core is a subgraph in which each node has at least degree k. In other words, a k-core is a maximal connected subgraph in which every node has at least k neighbors within the subgraph. K-cores are often used to analyze the structural properties of complex networks. For example, the k-core decomposition of a network can help identify central nodes or communities within the network. 
+
+```{r}
+#K-CORE:maximal subgraph in which each vertex(nodes) has at least degree k. 
+kcore <- coreness(mygraph, mode="all") 
+threecore <- induced_subgraph(mygraph, kcore>=3)
+
+#Centrality
+degree_3 <- as.data.frame(degree(threecore,mode = "total"), normalized = TRUE)
+eigen_3 <- as.data.frame(eigen_centrality(threecore), directed=FALSE)
+between_3 <- as.data.frame(betweenness(threecore), directed=FALSE, normalized = TRUE)
+
+
+# cluster analysis
+#install.packages("lsa")
+library(SnowballC)
+library(lsa)
+c = cluster_edge_betweenness(threecore)
+modularity(c)
+```
+
+In general, the cluster_edge_betweenness function is a clustering algorithm that uses the betweenness centrality of edges in the network to identify clusters or communities of nodes. Betweenness centrality measures the extent to which a particular edge lies on the shortest paths between other pairs of nodes in the network.
+
+In R, modularity is a function that takes a clustering or community assignment as input and computes the modularity of the network with respect to that clustering. Modularity is a measure of the quality of a given clustering, and it quantifies the degree to which nodes in the same cluster are more densely connected to each other than they are to nodes in other clusters.
+
+Now, let's optimize the network visualization based on the cluster analysis
+
+```{r}
+
+library(ggraph)
+
+ggraph(threecore, layout = "fr") +
+  # Add nodes and edges
+  geom_node_point() +
+  geom_edge_link() +
+  geom_node_text(aes(label = name), repel=TRUE) +
+  # Adjust plot aesthetics
+  theme_graph(base_family = "Helvetica") +
+  scale_edge_color_gradient(low = "grey", high = "black", guide = "legend") +
+  scale_color_manual(values = c("blue", "red")) +
+  labs(title = "A Semantic Network of #BlackLivesMatter", subtitle = "Based on Co-Occurrence")
+
+
+```
+
+## Assignment 
+ 
+Select (a) unique hashtag(s) for a client of your choice (e.g., Airbnb: #airbnb, #airbnbexperience). 
+
+**Step 1**  Using your Twitter APIs to collect the most recent 1000 tweets containing the hashtag(s).
+
+**Step 2** Clean the tweets in terms of Removing Stop Words and Stemming
+
+**Step 3** Conduct text Analysis including Frequency Analysis, Sentiment Analysis, and Topic Modeling. Visualize the top 10 most frequent words, positive words, negative words, and top 10 topics.
+
+**Step 4** Create, visualize and analyze the semantic network of the collected Twitter conversations. The visualization should reflect the modularity analysis result. Report the top 10 words with the greatest degree, eigenvector, centralities, and betweenness centralities. 
+
+**Step 5** Based on the results of text analysis and visualizations, write a short story in 500 words with an interesting title. Finally, attach your visualizations of the top 10 most Frequent words, positive words, negative words, top 10 topics, and network visualization in the end of your story. Save your word document as .pdf for submission.
+

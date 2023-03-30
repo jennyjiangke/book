@@ -197,11 +197,11 @@ A few notes about our plots:
 We can again use the *tidytext* package to create and analyze tokens:
 
 ```{r}
-       library(tidytext)
-     pope %>% 
-      unnest_tokens(word, text) %>% 
-      anti_join(stop_words) %>% 
-      count(word, sort = TRUE) 
+library(tidytext)
+pope %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE) 
 ```
 
 That certainly looks correct, although there are a few words that don't seem to make sense: *t.co* and *https* . *t.co* is short for twitter.com, and the https is part of a link, of course. You may also see *amp*, which is short for *ampersand.*
@@ -346,7 +346,7 @@ dt_me <- dt_timeline %>%
 # Create Data
 type <- data.frame(
   group=c("retweet", "orginial", "message"),
-  value=c(381,6,81))
+  value=c(81,381,6))
 #change the value based on your own findings.
 
 # Basic piechart
@@ -363,7 +363,7 @@ Among the 1000 tweets, how many have media URLs?
   
 ```{r}
 Toptweet_1 <- dt_timeline %>% 
-  filter(retweet_count ==max(retweet_count)) %>% 
+  filter(retweet_count == max(retweet_count)) %>% 
   select(text,created_at,retweet_count)
 
 Toptweet_2 <- dt_timeline %>% 
