@@ -1,6 +1,6 @@
 # Text Analysis
 
-# Basic Text Analysis
+## Basic Text Analysis
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -636,22 +636,6 @@ In general, the cluster_edge_betweenness function is a clustering algorithm that
 In R, modularity is a function that takes a clustering or community assignment as input and computes the modularity of the network with respect to that clustering. Modularity is a measure of the quality of a given clustering, and it quantifies the degree to which nodes in the same cluster are more densely connected to each other than they are to nodes in other clusters.
 
 Now, let's optimize the network visualization based on the cluster analysis
-
-```{r}
-
-library(ggraph)
-
-ggraph(threecore, layout = "fr") +
-  # Add nodes and edges
-  geom_node_point() +
-  geom_edge_link() +
-  geom_node_text(aes(label = name), repel=TRUE) +
-  # Adjust plot aesthetics
-  theme_graph(base_family = "Helvetica") +
-  scale_edge_color_gradient(low = "grey", high = "black", guide = "legend") +
-  scale_color_manual(values = c("blue", "red")) +
-  labs(title = "A Semantic Network of #BlackLivesMatter", subtitle = "Based on Co-Occurrence")
-
 
 ```
 
