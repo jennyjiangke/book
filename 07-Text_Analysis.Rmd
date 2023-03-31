@@ -344,7 +344,6 @@ tweets_clean <- tweets %>%
     TRUE ~ word))
 ```
 
-
 In the presented case study, stemming is performed by addressing plural endings. However, it may be necessary to employ a different stemming approach depending on the situation. For instance, one might seek to convert various variations of "support" to its base form.
 
 ```{r}
@@ -363,8 +362,6 @@ tweets_frequency <- tweets_clean %>%
 #change colname "n" to "frequency"
 colnames(tweets_frequency)[2] <- "frequency"
 
-#remove some meaningless words if needed
-tweets_frequency<-tweets_frequency[!(tweets_frequency$words=="amp"),]
 ```
 
 ### Frequency Analysis
@@ -382,7 +379,7 @@ tweets_frequency %>%
 library(wordcloud2)
 
 # Change the shape:
-wordcloud2(tweets_frequency, size = 2.8, shape = 'star')
+wordcloud2(tweets_frequency, size = 1.5, shape = 'star')
 
 ```
 ### Sentiment Analysis
@@ -591,10 +588,15 @@ mygraph <- graph.data.frame(word_pairs,directed=FALSE)
 vcount(mygraph)
 #shows the number of edges
 ecount(mygraph)
+#let's count average link weight
+ecount(mygraph)/vcount(mygraph)
 #show density
 edge_density(mygraph, loops = FALSE)
 
 #Centrality
+options(scipen = 999) # turn off scientific notation for all variables
+options(digits = 4) # define the digits 
+
 degree <- as.data.frame(degree(mygraph,mode = "total"), normalized = TRUE)
 eigen <- as.data.frame(eigen_centrality(mygraph), directed=FALSE)
 between <- as.data.frame(betweenness(mygraph), directed=FALSE, normalized = TRUE)
@@ -603,41 +605,62 @@ between <- as.data.frame(betweenness(mygraph), directed=FALSE, normalized = TRUE
 
 ```
 
-You can delete any nodes from the network. For example:
-
-```{r}
-# delete nodes from the network (optional)
-mygraph <- delete_vertices(mygraph, "#blacklivesmatter")
-```
-
 In network analysis, a k-core is a subgraph in which each node has at least degree k. In other words, a k-core is a maximal connected subgraph in which every node has at least k neighbors within the subgraph. K-cores are often used to analyze the structural properties of complex networks. For example, the k-core decomposition of a network can help identify central nodes or communities within the network. 
 
+
 ```{r}
+
 #K-CORE:maximal subgraph in which each vertex(nodes) has at least degree k. 
 kcore <- coreness(mygraph, mode="all") 
-threecore <- induced_subgraph(mygraph, kcore>=3)
+core <- induced_subgraph(mygraph, kcore>=18)
 
 #Centrality
-degree_3 <- as.data.frame(degree(threecore,mode = "total"), normalized = TRUE)
-eigen_3 <- as.data.frame(eigen_centrality(threecore), directed=FALSE)
-between_3 <- as.data.frame(betweenness(threecore), directed=FALSE, normalized = TRUE)
-
+degree_core <- as.data.frame(degree(core,mode = "total"), normalized = TRUE)
+eigen_core <- as.data.frame(eigen_centrality(core), directed=FALSE)
+between_core <- as.data.frame(betweenness(core), directed=FALSE, normalized = TRUE)
 
 # cluster analysis
 #install.packages("lsa")
 library(SnowballC)
 library(lsa)
-c = cluster_edge_betweenness(threecore)
+c = cluster_edge_betweenness(core)
 modularity(c)
+
 ```
 
 In general, the cluster_edge_betweenness function is a clustering algorithm that uses the betweenness centrality of edges in the network to identify clusters or communities of nodes. Betweenness centrality measures the extent to which a particular edge lies on the shortest paths between other pairs of nodes in the network.
 
 In R, modularity is a function that takes a clustering or community assignment as input and computes the modularity of the network with respect to that clustering. Modularity is a measure of the quality of a given clustering, and it quantifies the degree to which nodes in the same cluster are more densely connected to each other than they are to nodes in other clusters.
 
-Now, let's optimize the network visualization based on the cluster analysis
+Now, let's optimize the network visualization based on the kcore and cluster analysis
 
+```{r}
+library(ggraph)
+
+# Add betweenness centrality to node attributes
+V(core)$betweenness <- betweenness(core)
+
+# Add community membership to node attributes
+V(core)$community <- c$membership
+
+# Compute community colors
+community_colors <- scales::hue_pal()(max(c$membership) + 1)[c$membership + 1]
+
+# Visualize the graph using ggraph
+ggraph(core, layout = "fr") +
+  geom_edge_link(aes(width = E(core)$weight), color = "gray", alpha = 0.5) +
+  geom_node_point(aes(size = V(core)$betweenness, color = community_colors, alpha = 0.5)) +
+  scale_size_continuous(range = c(1, 4)) +
+  geom_node_text(aes(label = name, size = V(core)$betweenness, color = community_colors), check_overlap = TRUE, repel = TRUE, point.padding = unit(0.5, "lines")) +
+  scale_size_continuous(range = c(2, 5)) +
+  scale_color_discrete(name = "Community") +
+  labs(title = "Semantic Nework Analysis of #BlackLivesMatter (03/31/2023)", subtitle = "Jenny Jiang") +
+  theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), plot.subtitle = element_text(hjust = 0.5, size = 7, face = "bold"))
+  
+ 
+  
 ```
+Using the findings from text mining and network analysis, an intriguing narrative can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
 
 ## Assignment 
  
@@ -649,7 +672,7 @@ Select (a) unique hashtag(s) for a client of your choice (e.g., Airbnb: #airbnb,
 
 **Step 3** Conduct text Analysis including Frequency Analysis, Sentiment Analysis, and Topic Modeling. Visualize the top 10 most frequent words, positive words, negative words, and top 10 topics.
 
-**Step 4** Create, visualize and analyze the semantic network of the collected Twitter conversations. The visualization should reflect the modularity analysis result. Report the top 10 words with the greatest degree, eigenvector, centralities, and betweenness centralities. 
+**Step 4** Create, visualize and analyze the semantic network of the collected Twitter conversations. The visualization should reflect the modularity analysis result. Report the top 10 words with the greatest degree, eigenvector centralities, and betweenness centralities. 
 
 **Step 5** Based on the results of text analysis and visualizations, write a short story in 500 words with an interesting title. Finally, attach your visualizations of the top 10 most Frequent words, positive words, negative words, top 10 topics, and network visualization in the end of your story. Save your word document as .pdf for submission.
 
