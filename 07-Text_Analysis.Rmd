@@ -660,7 +660,8 @@ ggraph(core, layout = "fr") +
  
   
 ```
-Using the findings from text mining and network analysis, an intriguing narrative can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
+
+Using the findings from text mining and network analysis, an intriguing story can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
 
 ## Assignment 
  
