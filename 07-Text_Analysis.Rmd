@@ -519,9 +519,9 @@ Now, let's create a document term matrix. In R, a Document-Term Matrix (DTM) is 
 dtm <- tweets_frequency_ID %>%
   cast_dtm(user_id, words, n)
 
-#topic model with 5 topics
+#topic model with 6 topics
 library(topicmodels)
-lda <- LDA(dtm, k = 5, control = list(seed = 12345))
+lda <- LDA(dtm, k = 6, control = list(seed = 12345))
 topics <- tidy(lda, matrix = "beta")
 
 ```
@@ -532,7 +532,7 @@ In the context of topic modeling in R, the tidy() function from the tidytext pac
 
 In the context of Latent Dirichlet Allocation (LDA), the beta value is a hyperparameter that controls the distribution of words within topics. Specifically, it determines the strength of the prior belief that a particular word will be associated with a particular topic. 
 
-Let's visualize the top terms in the top ten topics.
+Let's visualize the top terms in the top six topics.
 
 ```{r}
 top_terms <- topics %>%
@@ -656,12 +656,48 @@ ggraph(core, layout = "fr") +
   scale_color_discrete(name = "Community") +
   labs(title = "Semantic Nework Analysis of #BlackLivesMatter (03/31/2023)", subtitle = "Jenny Jiang") +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), plot.subtitle = element_text(hjust = 0.5, size = 7, face = "bold"))
-  
- 
-  
+
 ```
 
-Using the findings from text mining and network analysis, an intriguing story can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
+Now, Let's take a look at the top salient nodes in each cluster
+
+```{r}
+library(ggplot2)
+# get the top 5 most central nodes for each cluster and visualize
+# create a data frame with node names and centrality measures
+nodes_df <- data.frame(node = names(degree(core)), centrality = degree(core))
+
+# add cluster membership information to the nodes_df data frame
+nodes_df$cluster <- membership(c)
+
+# sort the data frame by centrality within each cluster
+nodes_df <- nodes_df[order(nodes_df$cluster, -nodes_df$centrality), ]
+
+# get the top 5 nodes for each cluster
+top_nodes_df <- nodes_df %>% 
+  group_by(cluster) %>% 
+  slice_head(n = 5)
+
+```
+
+The order() function is used to sort the rows of nodes_df based on the values of two columns: cluster and centrality. The cluster column is sorted in ascending order while the centrality column is sorted in descending order within each cluster. The - symbol in front of nodes_df$centrality is used to specify that centrality should be sorted in descending order.
+
+Now, let's visualize the top 5 nodes in each cluster.
+
+```{r}
+
+# plot a horizontal bar chart for the top 5 nodes in each cluster
+
+ggplot(top_nodes_df, aes(x = centrality, y = node, fill = factor(cluster))) +
+  geom_col(position = "dodge") +
+  ggtitle("Top 5 Most Central Nodes in Each cluster") +
+  xlab("Centrality") +
+  ylab("Node") +
+  facet_wrap(~ cluster, ncol = 2, scales = "free_y")
+
+```
+
+With the above interesting findings from text mining and network analysis, an intriguing story can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
 
 ## Assignment 
  
