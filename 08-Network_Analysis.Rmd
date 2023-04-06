@@ -138,17 +138,13 @@ But the specific interpretation of a modularity value depends on the context of 
 
 In summary, SNA is a powerful method for analyzing social structures and relationships. By examining patterns of connections and interactions between social actors, SNA can help to identify key actors and structures in a network, and can inform interventions and policy decisions aimed at improving social outcomes.
 
-# A Case Study of Social Networks from Twitter Conversations
+## A Case Study of Social Networks from Twitter Conversations
 
 This case study focuses on analyzing social networks from Twitter conversations. Three different types of networks were identified and analyzed: **Mention Network**, **Message Network**, **User-Sources Network**. 
 
 ### Mention Network
 
 A mention network is a way to understand how Twitter users interact with each other. Each Twitter user is represented as a point in the network. When one user mentions another user in a tweet, a line is drawn from the mentioning user to the mentioned user. This line represents the interaction between the two users. The more often a user mentions another user, the stronger the line will be between them. The mention network can help researchers analyze patterns of communication on Twitter, identify important users or "hubs" in the network, find groups of users who tend to interact with each other frequently or "communities," and categorize user accounts based on their interactions with others.
-
-### Message Network
-
-A Twitter message network is a way to analyze how Twitter users communicate with each other using replies. Each Twitter user is represented as a point in the network. When one user sends a message to another user in reply to their tweet, a line is drawn from the sender to the receiver. This line represents the interaction between the two users. The more often a user sends a message to another user, the stronger the line will be between them. The message network can help researchers analyze patterns of communication on Twitter, identify important users or "hubs" in the network, find groups of users who tend to interact with each other frequently or "communities," and categorize user accounts based on their interactions with others. It is called a directed network because the lines have an arrow that points from the sender to the receiver, indicating the direction of the interaction.
 
 Here's an example R code that uses the rtweet package to collect the most recent tweets containing the #ChatGPT hashtag, creates a mention network, performs some basic network analysis, and visualizes the network using the igraph package:
 
@@ -204,7 +200,7 @@ indegree <- data.frame(name = V(mentions_graph)$name, indegree = degree(mentions
 outdegree <- data.frame(name = V(mentions_graph)$name, outdegree = degree(mentions_graph, mode = "out"))
 closeness <- data.frame(name = V(mentions_graph)$name, closeness = closeness(mentions_graph, mode = "total"))
 betweenness <- data.frame(name = V(mentions_graph)$name, betweenness = betweenness(mentions_graph, directed = TRUE, normalized = TRUE))
-eigenvector <- data.frame(name = V(mentions_graph)$name, eigenvector = eigen_centrality(mentions_graph, directed = TRUE)$vector)
+eigenvector <- data.frame(name = V(mentions_graph)$name, eigenvector = eigen_centrality(mentions_graph, directed = FALSE)$vector)
 
 # combine into a single dataframe
 centrality_df <- merge(indegree, outdegree, by = "name", all = TRUE)
@@ -212,36 +208,8 @@ centrality_df <- merge(centrality_df, closeness, by = "name", all = TRUE)
 centrality_df <- merge(centrality_df, betweenness, by = "name", all = TRUE)
 centrality_df <- merge(centrality_df, eigenvector, by = "name", all = TRUE)
 
-#visualize the mention network
-library(ggraph)
-
-# Create undirected graph
-mentions_graph_undirected <- as.undirected(mentions_graph, mode = "collapse")
-
-# Calculate Louvain communities
-communities <- cluster_louvain(mentions_graph_undirected)
-
-# Color palette for communities
-community_colors <- rainbow(max(membership(communities)))
-
-# Set community colors for each node
-V(mentions_graph)$community <- membership(communities)
-
-# Visualize network with community labels
-ggraph(mentions_graph, layout = "fr") +
-  geom_edge_link(aes(width = E(mentions_graph)$weight), color = "gray", alpha = 0.5) +
-  geom_node_point(aes(size = V(mentions_graph)$indegree, color = factor(community), alpha = 0.5)) +
-  scale_size_continuous(range = c(0.5, 2)) +
-  scale_color_manual(values = community_colors) +
-  geom_node_text(aes(label = name, size = V(mentions_graph)$indegree, color = factor(community)), check_overlap = TRUE, repel = TRUE, point.padding = unit(0.5, "lines")) +
-  labs(title = "Mention Network of #ChatGPT (04/06/2023)", subtitle = "Jenny Jiang") +
-  theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), plot.subtitle = element_text(hjust = 0.5, size = 7, face = "bold"))
-
 ```
-
-In the community detection process in the above example, the **cluster_louvain** is a function in the igraph package in R that performs community detection using the Louvain method. Community detection is the process of identifying groups of nodes in a network that are densely connected to each other but sparsely connected to other groups. The Louvain method is an iterative algorithm that optimizes the modularity score of a network partition, which measures the quality of the division of the network into communities. The Louvain method is one of the most widely used community detection methods and is particularly useful for large-scale networks.
-
-To produce more visually appealing visualizations for large-scale networks, it is recommended to utilize specialized network visualization and analysis tools like Gephi. Here's a link to download and install Gephi: https://gephi.org/users/download/
+We've got a whopping 750 nodes in this mention network. For better-looking and more informative visualizations of large-scale networks, it's a good idea to use fancy network analysis and visualization tools like Gephi. You can grab a copy of Gephi here: https://gephi.org/users/download/
 
 Gephi is a free and open-source network visualization and analysis tool that allows you to create complex and aesthetically pleasing network visualizations. It provides a user-friendly interface and a variety of tools for network analysis, including measures of centrality, clustering, and community detection.
 
@@ -250,7 +218,11 @@ For larger networks, Gephi can be more efficient and powerful than using R packa
 This is the optimized network visualization generated by Gephi:
 
 ![Mention Netowrk of Twitter Conversations on ChatGPT](images/GPT_mention_nework.png)
-Well, look at this fancy visualization! It seems like the recent ChatGPT conversations have sparked a whole bunch of mini conversation clusters. And it looks like @CerfiaFR, a French research center that's all about artificial intelligence, machine learning, and cognitive science, performs as a hub of a big group of chatty folks talking about #ChatGPT.
+Well, look at this mention visualization! It seems like the recent ChatGPT conversations have sparked a whole bunch of mini conversation clusters. And it looks like @CerfiaFR, a French research center that's all about artificial intelligence, machine learning, and cognitive science, performs as a hub of a big group of chatty folks talking about #ChatGPT.
+
+### Message Network
+
+A Twitter message network is a way to analyze how Twitter users communicate with each other using replies. Each Twitter user is represented as a point in the network. When one user sends a message to another user in reply to their tweet, a line is drawn from the sender to the receiver. This line represents the interaction between the two users. The more often a user sends a message to another user, the stronger the line will be between them. The message network can help researchers analyze patterns of communication on Twitter, identify important users or "hubs" in the network, find groups of users who tend to interact with each other frequently or "communities," and categorize user accounts based on their interactions with others. It is called a directed network because the lines have an arrow that points from the sender to the receiver, indicating the direction of the interaction.
 
 ### User-Source Network
 

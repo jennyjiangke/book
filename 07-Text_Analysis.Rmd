@@ -612,7 +612,7 @@ In network analysis, a k-core is a subgraph in which each node has at least degr
 
 #K-CORE:maximal subgraph in which each vertex(nodes) has at least degree k. 
 kcore <- coreness(mygraph, mode="all") 
-core <- induced_subgraph(mygraph, kcore>=18)
+core <- induced_subgraph(mygraph, kcore>=21)
 
 #Centrality
 degree_core <- as.data.frame(degree(core,mode = "total"), normalized = TRUE)
