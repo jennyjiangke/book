@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 A Case Study of Social Networks from Twitter Conversations | Media Analytics With R</title>
+  <meta name="description" content="Chapter 9 A Case Study of Social Networks from Twitter Conversations | Media Analytics With R" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 A Case Study of Social Networks from Twitter Conversations | Media Analytics With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 A Case Study of Social Networks from Twitter Conversations | Media Analytics With R" />
+  
+  
+  
+
+<meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
+
+
+<meta name="date" content="2023-04-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="social-network-analysis.html"/>
+<link rel="next" href="geo-spatial-analysis-and-visualizations.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.13.0/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.13.0/css/v4-shims.min.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Media Analytics with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i><b>0.1</b> Who is this book for?</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>0.2</b> Why R?</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-will-we-learn-to-do-with-r-in-this-book"><i class="fa fa-check"></i><b>0.3</b> What will we learn to do with R in this book?</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#installing-the-software"><i class="fa fa-check"></i><b>0.4</b> Installing the Software</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>0.5</b> Getting Started</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#r-studio-projects"><i class="fa fa-check"></i><b>0.6</b> R Studio Projects</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html"><i class="fa fa-check"></i><b>1</b> Intro to Programming in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#creating-a-new-project-in-r-studio"><i class="fa fa-check"></i><b>1.1</b> Creating a New Project in R Studio</a></li>
+<li class="chapter" data-level="1.2" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#loading-packages-and-data"><i class="fa fa-check"></i><b>1.2</b> Loading Packages and Data</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#section"><i class="fa fa-check"></i><b>1.3</b> %&gt;%</a></li>
+<li class="chapter" data-level="1.4" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#filtering-data"><i class="fa fa-check"></i><b>1.4</b> Filtering Data</a></li>
+<li class="chapter" data-level="1.5" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#visualizing"><i class="fa fa-check"></i><b>1.5</b> Visualizing</a></li>
+<li class="chapter" data-level="1.6" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#syntax"><i class="fa fa-check"></i><b>1.6</b> Syntax</a></li>
+<li class="chapter" data-level="1.7" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#creating-variables"><i class="fa fa-check"></i><b>1.7</b> Creating Variables</a></li>
+<li class="chapter" data-level="1.8" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#modifying-data"><i class="fa fa-check"></i><b>1.8</b> Modifying Data</a></li>
+<li class="chapter" data-level="1.9" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#count"><i class="fa fa-check"></i><b>1.9</b> Count</a></li>
+<li class="chapter" data-level="1.10" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#more-aesthetics"><i class="fa fa-check"></i><b>1.10</b> More Aesthetics</a></li>
+<li class="chapter" data-level="1.11" data-path="intro-to-programming-in-r.html"><a href="intro-to-programming-in-r.html#review"><i class="fa fa-check"></i><b>1.11</b> Review</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>2</b> Manipulating Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate"><i class="fa fa-check"></i><b>2.1</b> Mutate</a></li>
+<li class="chapter" data-level="2.2" data-path="manipulating-data.html"><a href="manipulating-data.html#group_by-summarize"><i class="fa fa-check"></i><b>2.2</b> Group_by , Summarize()</a></li>
+<li class="chapter" data-level="2.3" data-path="manipulating-data.html"><a href="manipulating-data.html#working-with-strings"><i class="fa fa-check"></i><b>2.3</b> Working with Strings</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="manipulating-data.html"><a href="manipulating-data.html#practical-applications-of-stringr"><i class="fa fa-check"></i><b>2.3.1</b> Practical Applications of Stringr</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="manipulating-data.html"><a href="manipulating-data.html#average-name-length-over-time"><i class="fa fa-check"></i><b>2.4</b> Average name length over time</a></li>
+<li class="chapter" data-level="2.5" data-path="manipulating-data.html"><a href="manipulating-data.html#revisiting-summarize"><i class="fa fa-check"></i><b>2.5</b> Revisiting summarize()</a></li>
+<li class="chapter" data-level="2.6" data-path="manipulating-data.html"><a href="manipulating-data.html#additional-functions"><i class="fa fa-check"></i><b>2.6</b> Additional Functions</a></li>
+<li class="chapter" data-level="2.7" data-path="manipulating-data.html"><a href="manipulating-data.html#case-study-born-without-a-proper-name"><i class="fa fa-check"></i><b>2.7</b> Case Study: Born Without A (Proper) Name</a></li>
+<li class="chapter" data-level="2.8" data-path="manipulating-data.html"><a href="manipulating-data.html#assignment"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
+<li class="chapter" data-level="2.9" data-path="manipulating-data.html"><a href="manipulating-data.html#students-works"><i class="fa fa-check"></i><b>2.9</b> Students Works</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html"><i class="fa fa-check"></i><b>3</b> Statistical Analyses of a Single Variable</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#variables-levels-of-measurement"><i class="fa fa-check"></i><b>3.1</b> Variables &amp; Levels of Measurement</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#nominal-data"><i class="fa fa-check"></i><b>3.1.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#ordinal-data"><i class="fa fa-check"></i><b>3.1.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#interval-data"><i class="fa fa-check"></i><b>3.1.3</b> Interval Data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#ratio-data"><i class="fa fa-check"></i><b>3.1.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#frequency-distribution"><i class="fa fa-check"></i><b>3.2</b> Frequency Distribution</a></li>
+<li class="chapter" data-level="3.3" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#percentage-change"><i class="fa fa-check"></i><b>3.3</b> Percentage Change</a></li>
+<li class="chapter" data-level="3.4" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#relative-frequency"><i class="fa fa-check"></i><b>3.4</b> Relative Frequency</a></li>
+<li class="chapter" data-level="3.5" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#percentage-points"><i class="fa fa-check"></i><b>3.5</b> Percentage Points</a></li>
+<li class="chapter" data-level="3.6" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#rate"><i class="fa fa-check"></i><b>3.6</b> Rate</a></li>
+<li class="chapter" data-level="3.7" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#ratio"><i class="fa fa-check"></i><b>3.7</b> Ratio</a></li>
+<li class="chapter" data-level="3.8" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#central-tendency"><i class="fa fa-check"></i><b>3.8</b> Central Tendency</a></li>
+<li class="chapter" data-level="3.9" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#data-variation"><i class="fa fa-check"></i><b>3.9</b> Data Variation</a></li>
+<li class="chapter" data-level="3.10" data-path="statistical-analyses-of-a-single-variable.html"><a href="statistical-analyses-of-a-single-variable.html#assignment-analyzing-a-single-variable"><i class="fa fa-check"></i><b>3.10</b> Assignment: Analyzing a Single Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html"><i class="fa fa-check"></i><b>4</b> Statistical Analyses of Two Variables</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#cross-tab"><i class="fa fa-check"></i><b>4.1</b> Cross-tab</a></li>
+<li class="chapter" data-level="4.2" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#independent-variable-vs.-dependent-variable"><i class="fa fa-check"></i><b>4.2</b> Independent Variable VS. Dependent Variable</a></li>
+<li class="chapter" data-level="4.3" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#independent-sample-t-test"><i class="fa fa-check"></i><b>4.3</b> Independent sample T-Test</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#anova"><i class="fa fa-check"></i><b>4.3.1</b> ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#correlation"><i class="fa fa-check"></i><b>4.4</b> Correlation</a></li>
+<li class="chapter" data-level="4.5" data-path="statistical-analyses-of-two-variables.html"><a href="statistical-analyses-of-two-variables.html#regression"><i class="fa fa-check"></i><b>4.5</b> Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html"><i class="fa fa-check"></i><b>5</b> Statistical Analyses of Three or More Variables &amp; Modelling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression"><i class="fa fa-check"></i><b>5.1</b> linear Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#interaction-effects"><i class="fa fa-check"></i><b>5.2</b> Interaction Effects</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#assignment-1"><i class="fa fa-check"></i><b>5.3</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#linear-regression-and-correlation"><i class="fa fa-check"></i><b>5.3.1</b> Linear Regression and Correlation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="statistical-analyses-of-three-or-more-variables-modelling.html"><a href="statistical-analyses-of-three-or-more-variables-modelling.html#multiple-regression-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Multiple Regression Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html"><i class="fa fa-check"></i><b>6</b> Accessing Twitter’s API in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#making-your-first-request-to-the-new-twitter-api-v2"><i class="fa fa-check"></i><b>6.1</b> Making Your First Request to the New Twitter API v2</a></li>
+<li class="chapter" data-level="6.2" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#using-you-twitter-app-in-r"><i class="fa fa-check"></i><b>6.2</b> Using You Twitter App in R</a></li>
+<li class="chapter" data-level="6.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#analyzing-twitter-data"><i class="fa fa-check"></i><b>6.3</b> Analyzing Twitter Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#lubridate-working-with-time"><i class="fa fa-check"></i><b>6.3.1</b> Lubridate &amp; Working with Time</a></li>
+<li class="chapter" data-level="6.3.2" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#tweet-source"><i class="fa fa-check"></i><b>6.3.2</b> Tweet Source</a></li>
+<li class="chapter" data-level="6.3.3" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#text-analysis-in-twitter"><i class="fa fa-check"></i><b>6.3.3</b> Text Analysis in Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#search-keywordssearch-users-by-keywordshashtags"><i class="fa fa-check"></i><b>6.4</b> Search Keywords/Search Users by Keywords/Hashtags</a></li>
+<li class="chapter" data-level="6.5" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#assignment-2"><i class="fa fa-check"></i><b>6.5</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="accessing-twitters-api-in-r.html"><a href="accessing-twitters-api-in-r.html#sample-code"><i class="fa fa-check"></i><b>6.5.1</b> Sample code</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis.html"><a href="text-analysis.html#basic-text-analysis"><i class="fa fa-check"></i><b>7.1</b> Basic Text Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="text-analysis.html"><a href="text-analysis.html#creating-a-corpus"><i class="fa fa-check"></i><b>7.1.1</b> Creating a Corpus</a></li>
+<li class="chapter" data-level="7.1.2" data-path="text-analysis.html"><a href="text-analysis.html#finding-common-words"><i class="fa fa-check"></i><b>7.1.2</b> Finding Common Words</a></li>
+<li class="chapter" data-level="7.1.3" data-path="text-analysis.html"><a href="text-analysis.html#bigrams"><i class="fa fa-check"></i><b>7.1.3</b> Bigrams</a></li>
+<li class="chapter" data-level="7.1.4" data-path="text-analysis.html"><a href="text-analysis.html#word-clouds"><i class="fa fa-check"></i><b>7.1.4</b> Word Clouds</a></li>
+<li class="chapter" data-level="7.1.5" data-path="text-analysis.html"><a href="text-analysis.html#sentiment"><i class="fa fa-check"></i><b>7.1.5</b> Sentiment</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis.html"><a href="text-analysis.html#a-case-study-of-text-analysis-of-social-media-text"><i class="fa fa-check"></i><b>7.2</b> A Case Study of Text Analysis of Social Media Text</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="text-analysis.html"><a href="text-analysis.html#using-apis-for-data-collection"><i class="fa fa-check"></i><b>7.2.1</b> Using APIs for Data Collection</a></li>
+<li class="chapter" data-level="7.2.2" data-path="text-analysis.html"><a href="text-analysis.html#removing-stop-words-stemming"><i class="fa fa-check"></i><b>7.2.2</b> Removing Stop Words &amp; Stemming</a></li>
+<li class="chapter" data-level="7.2.3" data-path="text-analysis.html"><a href="text-analysis.html#frequency-analysis"><i class="fa fa-check"></i><b>7.2.3</b> Frequency Analysis</a></li>
+<li class="chapter" data-level="7.2.4" data-path="text-analysis.html"><a href="text-analysis.html#sentiment-analysis"><i class="fa fa-check"></i><b>7.2.4</b> Sentiment Analysis</a></li>
+<li class="chapter" data-level="7.2.5" data-path="text-analysis.html"><a href="text-analysis.html#bigram-analysis"><i class="fa fa-check"></i><b>7.2.5</b> Bigram Analysis</a></li>
+<li class="chapter" data-level="7.2.6" data-path="text-analysis.html"><a href="text-analysis.html#topic-modeling"><i class="fa fa-check"></i><b>7.2.6</b> Topic Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis.html"><a href="text-analysis.html#semantic-network-analysis-of-social-media-text"><i class="fa fa-check"></i><b>7.3</b> Semantic Network Analysis of Social Media Text</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis.html"><a href="text-analysis.html#a-case-study-of-co-hashtag-network"><i class="fa fa-check"></i><b>7.4</b> A Case Study of Co-hashtag Network</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis.html"><a href="text-analysis.html#assignment-3"><i class="fa fa-check"></i><b>7.5</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="social-network-analysis.html"><a href="social-network-analysis.html"><i class="fa fa-check"></i><b>8</b> Social Network Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="social-network-analysis.html"><a href="social-network-analysis.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="social-network-analysis.html"><a href="social-network-analysis.html#centrality-measures"><i class="fa fa-check"></i><b>8.2</b> Centrality Measures</a></li>
+<li class="chapter" data-level="8.3" data-path="social-network-analysis.html"><a href="social-network-analysis.html#density-reciprocity-moduarity"><i class="fa fa-check"></i><b>8.3</b> Density, Reciprocity &amp; Moduarity</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html"><i class="fa fa-check"></i><b>9</b> A Case Study of Social Networks from Twitter Conversations</a>
+<ul>
+<li class="chapter" data-level="9.0.1" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#mention-network"><i class="fa fa-check"></i><b>9.0.1</b> Mention Network</a></li>
+<li class="chapter" data-level="9.0.2" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#message-network"><i class="fa fa-check"></i><b>9.0.2</b> Message Network</a></li>
+<li class="chapter" data-level="9.0.3" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#user-source-network"><i class="fa fa-check"></i><b>9.0.3</b> User-Source Network</a></li>
+<li class="chapter" data-level="9.1" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#a-case-study-of-social-semantic-networks-of-twitter-conversations"><i class="fa fa-check"></i><b>9.1</b> A Case Study of Social-Semantic Networks of Twitter Conversations</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#hashtag-user-network"><i class="fa fa-check"></i><b>9.1.1</b> Hashtag-User Network</a></li>
+<li class="chapter" data-level="9.1.2" data-path="a-case-study-of-social-networks-from-twitter-conversations.html"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#hashtag-mention-network"><i class="fa fa-check"></i><b>9.1.2</b> Hashtag-Mention Network</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>10</b> Geo-Spatial Analysis and Visualizations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html#working-with-geo-spatial-data"><i class="fa fa-check"></i><b>10.1</b> Working With Geo-Spatial Data</a></li>
+<li class="chapter" data-level="10.2" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html#geo-spatial-data-types"><i class="fa fa-check"></i><b>10.2</b> Geo-Spatial Data Types</a></li>
+<li class="chapter" data-level="10.3" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html#geo-spatial-r-packages"><i class="fa fa-check"></i><b>10.3</b> Geo-Spatial R Packages</a></li>
+<li class="chapter" data-level="10.4" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html#adding-external-data"><i class="fa fa-check"></i><b>10.4</b> Adding External Data</a></li>
+<li class="chapter" data-level="10.5" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html#creating-a-choropleth-map"><i class="fa fa-check"></i><b>10.5</b> Creating a Choropleth Map</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>11</b> Publishing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="publishing.html"><a href="publishing.html#creating-a-new-quarto-document"><i class="fa fa-check"></i><b>11.1</b> Creating a new Quarto document</a></li>
+<li class="chapter" data-level="11.2" data-path="publishing.html"><a href="publishing.html#code-chunks"><i class="fa fa-check"></i><b>11.2</b> Code Chunks</a></li>
+<li class="chapter" data-level="11.3" data-path="publishing.html"><a href="publishing.html#x11"><i class="fa fa-check"></i><b>11.3</b> X11</a></li>
+<li class="chapter" data-level="11.4" data-path="publishing.html"><a href="publishing.html#quarto-pub"><i class="fa fa-check"></i><b>11.4</b> Quarto Pub</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Media Analytics With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a-case-study-of-social-networks-from-twitter-conversations" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> A Case Study of Social Networks from Twitter Conversations<a href="a-case-study-of-social-networks-from-twitter-conversations.html#a-case-study-of-social-networks-from-twitter-conversations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This case study focuses on analyzing social networks from Twitter conversations. Three different types of networks were identified and analyzed: <strong>Mention Network</strong>, <strong>Message Network</strong>, <strong>User-Sources Network</strong>.</p>
+<div id="mention-network" class="section level3 hasAnchor" number="9.0.1">
+<h3><span class="header-section-number">9.0.1</span> Mention Network<a href="a-case-study-of-social-networks-from-twitter-conversations.html#mention-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A mention network is a way to understand how Twitter users interact with each other. Each Twitter user is represented as a point in the network. When one user mentions another user in a tweet, a line is drawn from the mentioning user to the mentioned user. This line represents the interaction between the two users. The more often a user mentions another user, the stronger the line will be between them. The mention network can help researchers analyze patterns of communication on Twitter, identify important users or “hubs” in the network, find groups of users who tend to interact with each other frequently or “communities,” and categorize user accounts based on their interactions with others.</p>
+</div>
+<div id="message-network" class="section level3 hasAnchor" number="9.0.2">
+<h3><span class="header-section-number">9.0.2</span> Message Network<a href="a-case-study-of-social-networks-from-twitter-conversations.html#message-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Twitter message network is a way to analyze how Twitter users communicate with each other using replies. Each Twitter user is represented as a point in the network. When one user sends a message to another user in reply to their tweet, a line is drawn from the sender to the receiver. This line represents the interaction between the two users. The more often a user sends a message to another user, the stronger the line will be between them. The message network can help researchers analyze patterns of communication on Twitter, identify important users or “hubs” in the network, find groups of users who tend to interact with each other frequently or “communities,” and categorize user accounts based on their interactions with others. It is called a directed network because the lines have an arrow that points from the sender to the receiver, indicating the direction of the interaction.</p>
+<p>Here’s an example R code that uses the rtweet package to collect the most recent tweets containing the #ChatGPT hashtag, creates a mention network, performs some basic network analysis, and visualizes the network using the igraph package:</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb328-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb328-3"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb328-4"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb328-5"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-6"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-6" aria-hidden="true" tabindex="-1"></a><span class="co"># search for tweets containing #ChatGPT and retrieve up to 1000 tweets</span></span>
+<span id="cb328-7"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb328-7" aria-hidden="true" tabindex="-1"></a>tweets <span class="ot">&lt;-</span> <span class="fu">search_tweets</span>(<span class="st">&quot;#ChatGPT&quot;</span>, <span class="at">n =</span> <span class="dv">1000</span>)</span></code></pre></div>
+<pre><code>## 
+Downloading [=======&gt;---------------------------------]  20%
+Downloading [===========&gt;-----------------------------]  30%
+Downloading [===============&gt;-------------------------]  40%
+Downloading [===================&gt;---------------------]  50%
+Downloading [========================&gt;----------------]  60%
+Downloading [============================&gt;------------]  70%
+Downloading [================================&gt;--------]  80%
+Downloading [====================================&gt;----]  90%
+Downloading [=========================================] 100%</code></pre>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract mentions_screen_name column and drop NAs</span></span>
+<span id="cb330-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-2" aria-hidden="true" tabindex="-1"></a>mentions <span class="ot">&lt;-</span> tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb330-3"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(screen_name, mentions_screen_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-4"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>mentions_screen_name <span class="sc">==</span> <span class="st">&quot;NA&quot;</span>)</span>
+<span id="cb330-5"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb330-6"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-6" aria-hidden="true" tabindex="-1"></a><span class="co"># separate multiple mentions_screen_name into separate rows</span></span>
+<span id="cb330-7"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-7" aria-hidden="true" tabindex="-1"></a>mentions <span class="ot">&lt;-</span> mentions <span class="sc">%&gt;%</span> </span>
+<span id="cb330-8"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(mentions_screen_name, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-9"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>mentions_screen_name <span class="sc">==</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb330-10"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb330-11"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-11" aria-hidden="true" tabindex="-1"></a><span class="co"># create mention network data frame</span></span>
+<span id="cb330-12"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-12" aria-hidden="true" tabindex="-1"></a>mentions_net <span class="ot">&lt;-</span> mentions <span class="sc">%&gt;%</span> </span>
+<span id="cb330-13"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(screen_name, mentions_screen_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-14"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">weight =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-15"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb330-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;screen_name&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns to source and target</span></span>
+<span id="cb332-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mentions_net)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;source&quot;</span>, <span class="st">&quot;target&quot;</span>)</span>
+<span id="cb332-3"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-4"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-4" aria-hidden="true" tabindex="-1"></a><span class="co">#export the mention network</span></span>
+<span id="cb332-5"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(mentions_net, <span class="st">&quot;~/Jenny/teaching/329/chatgpt_mention.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb332-6"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-7"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create directed graph</span></span>
+<span id="cb332-8"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-8" aria-hidden="true" tabindex="-1"></a>mentions_graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(mentions_net, <span class="at">directed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb332-9"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-10"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-10" aria-hidden="true" tabindex="-1"></a><span class="co">#shows the number of nodes</span></span>
+<span id="cb332-11"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb332-11" aria-hidden="true" tabindex="-1"></a><span class="fu">vcount</span>(mentions_graph)</span></code></pre></div>
+<pre><code>## [1] 698</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="co">#shows the number of edges</span></span>
+<span id="cb334-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb334-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(mentions_graph)</span></code></pre></div>
+<pre><code>## [1] 529</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let&#39;s count average link weight</span></span>
+<span id="cb336-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb336-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(mentions_graph)<span class="sc">/</span><span class="fu">vcount</span>(mentions_graph)</span></code></pre></div>
+<pre><code>## [1] 0.7579</code></pre>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="co">#show density</span></span>
+<span id="cb338-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb338-2" aria-hidden="true" tabindex="-1"></a><span class="fu">edge_density</span>(mentions_graph, <span class="at">loops =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.001087</code></pre>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Centrality</span></span>
+<span id="cb340-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># turn off scientific notation for all variables</span></span>
+<span id="cb340-3"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">4</span>) <span class="co"># define the digits </span></span>
+<span id="cb340-4"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb340-5"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate centrality measures</span></span>
+<span id="cb340-6"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-6" aria-hidden="true" tabindex="-1"></a>indegree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>name, <span class="at">indegree =</span> <span class="fu">degree</span>(mentions_graph, <span class="at">mode =</span> <span class="st">&quot;in&quot;</span>))</span>
+<span id="cb340-7"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-7" aria-hidden="true" tabindex="-1"></a>outdegree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>name, <span class="at">outdegree =</span> <span class="fu">degree</span>(mentions_graph, <span class="at">mode =</span> <span class="st">&quot;out&quot;</span>))</span>
+<span id="cb340-8"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-8" aria-hidden="true" tabindex="-1"></a>closeness <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>name, <span class="at">closeness =</span> <span class="fu">closeness</span>(mentions_graph, <span class="at">mode =</span> <span class="st">&quot;total&quot;</span>))</span>
+<span id="cb340-9"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-9" aria-hidden="true" tabindex="-1"></a>betweenness <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>name, <span class="at">betweenness =</span> <span class="fu">betweenness</span>(mentions_graph, <span class="at">directed =</span> <span class="cn">TRUE</span>, <span class="at">normalized =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb340-10"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb340-10" aria-hidden="true" tabindex="-1"></a>eigenvector <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>name, <span class="at">eigenvector =</span> <span class="fu">eigen_centrality</span>(mentions_graph, <span class="at">directed =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>vector)</span></code></pre></div>
+<pre><code>## Warning in eigen_centrality(mentions_graph, directed = TRUE): At core/centrality/
+## centrality_other.c:348 : Weighted directed graph in eigenvector centrality.</code></pre>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine into a single dataframe</span></span>
+<span id="cb342-2"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-2" aria-hidden="true" tabindex="-1"></a>centrality_df <span class="ot">&lt;-</span> <span class="fu">merge</span>(indegree, outdegree, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb342-3"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-3" aria-hidden="true" tabindex="-1"></a>centrality_df <span class="ot">&lt;-</span> <span class="fu">merge</span>(centrality_df, closeness, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb342-4"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-4" aria-hidden="true" tabindex="-1"></a>centrality_df <span class="ot">&lt;-</span> <span class="fu">merge</span>(centrality_df, betweenness, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb342-5"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-5" aria-hidden="true" tabindex="-1"></a>centrality_df <span class="ot">&lt;-</span> <span class="fu">merge</span>(centrality_df, eigenvector, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb342-6"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-7"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-7" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize the mention network</span></span>
+<span id="cb342-8"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb342-9"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-10"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create undirected graph</span></span>
+<span id="cb342-11"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-11" aria-hidden="true" tabindex="-1"></a>mentions_graph_undirected <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(mentions_graph, <span class="at">mode =</span> <span class="st">&quot;collapse&quot;</span>)</span>
+<span id="cb342-12"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-13"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Louvain communities</span></span>
+<span id="cb342-14"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-14" aria-hidden="true" tabindex="-1"></a>communities <span class="ot">&lt;-</span> <span class="fu">cluster_louvain</span>(mentions_graph_undirected)</span>
+<span id="cb342-15"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-16"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Color palette for communities</span></span>
+<span id="cb342-17"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-17" aria-hidden="true" tabindex="-1"></a>community_colors <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">max</span>(<span class="fu">membership</span>(communities)))</span>
+<span id="cb342-18"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-19"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Set community colors for each node</span></span>
+<span id="cb342-20"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-20" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(mentions_graph)<span class="sc">$</span>community <span class="ot">&lt;-</span> <span class="fu">membership</span>(communities)</span>
+<span id="cb342-21"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-22"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize network with community labels</span></span>
+<span id="cb342-23"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(mentions_graph, <span class="at">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="sc">+</span></span>
+<span id="cb342-24"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width =</span> <span class="fu">E</span>(mentions_graph)<span class="sc">$</span>weight), <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb342-25"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>indegree, <span class="at">color =</span> <span class="fu">factor</span>(community), <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb342-26"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb342-27"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> community_colors) <span class="sc">+</span></span>
+<span id="cb342-28"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name, <span class="at">size =</span> <span class="fu">V</span>(mentions_graph)<span class="sc">$</span>indegree, <span class="at">color =</span> <span class="fu">factor</span>(community)), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">point.padding =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;lines&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb342-29"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Mention Network of #ChatGPT (04/06/2023)&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Jenny Jiang&quot;</span>) <span class="sc">+</span></span>
+<span id="cb342-30"><a href="a-case-study-of-social-networks-from-twitter-conversations.html#cb342-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>), <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">7</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning: ggrepel: 698 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
+<p>In the community detection process in the above example, the <strong>cluster_louvain</strong> is a function in the igraph package in R that performs community detection using the Louvain method. Community detection is the process of identifying groups of nodes in a network that are densely connected to each other but sparsely connected to other groups. The Louvain method is an iterative algorithm that optimizes the modularity score of a network partition, which measures the quality of the division of the network into communities. The Louvain method is one of the most widely used community detection methods and is particularly useful for large-scale networks.</p>
+<p>To produce more visually appealing visualizations for large-scale networks, it is recommended to utilize specialized network visualization and analysis tools like Gephi. Here’s a link to download and install Gephi: <a href="https://gephi.org/users/download/" class="uri">https://gephi.org/users/download/</a></p>
+<p>Gephi is a free and open-source network visualization and analysis tool that allows you to create complex and aesthetically pleasing network visualizations. It provides a user-friendly interface and a variety of tools for network analysis, including measures of centrality, clustering, and community detection.</p>
+<p>For larger networks, Gephi can be more efficient and powerful than using R packages such as igraph and ggplot2. However, it does require some learning curve and familiarity with network analysis concepts.</p>
+<p>This is the optimized network visualization generated by Gephi:</p>
+<p><img src="images/GPT_mention_nework.png" alt="Mention Netowrk of Twitter Conversations on ChatGPT" />
+Well, look at this fancy visualization! It seems like the recent ChatGPT conversations have sparked a whole bunch of mini conversation clusters. And it looks like <span class="citation">@CerfiaFR</span>, a French research center that’s all about artificial intelligence, machine learning, and cognitive science, performs as a hub of a big group of chatty folks talking about #ChatGPT.</p>
+</div>
+<div id="user-source-network" class="section level3 hasAnchor" number="9.0.3">
+<h3><span class="header-section-number">9.0.3</span> User-Source Network<a href="a-case-study-of-social-networks-from-twitter-conversations.html#user-source-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A user-source Twitter network is a type of undirected network that involves two types of nodes - users and sources. The links between these nodes are created based on the co-occurrence of users and the source of their tweets. For example, if a user sends a tweet from a particular source (e.g. Twitter Web App, Hootsuite, Tweetdeck), a link is created between the user and the source. The more often they appear together, the stronger the link between them.</p>
+<p>This type of network can be used to explore the relationships between users and the sources they use to tweet. By analyzing the network, we can find and analyze which users use which clients (or sources). This information can be useful for understanding how users interact with different sources and for categorizing user accounts.</p>
+</div>
+<div id="a-case-study-of-social-semantic-networks-of-twitter-conversations" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> A Case Study of Social-Semantic Networks of Twitter Conversations<a href="a-case-study-of-social-networks-from-twitter-conversations.html#a-case-study-of-social-semantic-networks-of-twitter-conversations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A social-semantic network is a type of network that combines both social and semantic elements. In social networks, the focus is on the relationships between individuals, whereas in semantic networks, the focus is on the meaning or topics of the information being exchanged. Social-semantic networks, therefore, are networks that capture both the social relationships between individuals and the topics or themes of the conversations they have.</p>
+<p>The case study examines two types of networks, namely the Hashtag-User Network and the Hashtag-Mention network. In these networks, hashtags represent the semantics of the conversations, while user and mention represent the social aspect. The study aims to identify the prominent semantic topics in conversations among different user groups.</p>
+<div id="hashtag-user-network" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Hashtag-User Network<a href="a-case-study-of-social-networks-from-twitter-conversations.html#hashtag-user-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Hashtag-User network is a type of network where hashtags and Twitter users are the nodes, and the links between them represent the co-occurrence of a user and a hashtag in a tweet. For example, if a user wrote a tweet with a certain hashtag, there will be a link between that user and the hashtag in the hashtag-user network. The strength of the link is based on how often the user and the hashtag appear together in tweets.</p>
+<p>This type of network can be used to explore the relationship between users and hashtags, find out which users are interested in which topics, and analyze the patterns of communication among different user groups on Twitter.</p>
+</div>
+<div id="hashtag-mention-network" class="section level3 hasAnchor" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Hashtag-Mention Network<a href="a-case-study-of-social-networks-from-twitter-conversations.html#hashtag-mention-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Hashtag-Mention network is a type of undirected network that involves two types of nodes: hashtags and <span class="citation">@mentions</span>. In this network, a link is created between a hashtag and an <span class="citation">@mention</span> if they co-occur in a tweet. The link weight is determined by the frequency of co-occurrence, meaning that the more often a hashtag and an <span class="citation">@mention</span> appear together, the stronger the link between them.</p>
+<p>The primary use of a hashtag-mention network is to explore the relational activity between mentioned users and hashtags, which allows for the identification of users who are considered experts around particular topics. By analyzing this network, one can understand which hashtags are frequently mentioned together and which users tend to be mentioned together with certain hashtags.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="social-network-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="geo-spatial-analysis-and-visualizations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jennyjiangke/book/edit/master/08-Network_Analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/jennyjiangke/book/blob/master/08-Network_Analysis.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
