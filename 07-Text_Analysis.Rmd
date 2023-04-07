@@ -699,12 +699,6 @@ ggplot(top_nodes_df, aes(x = centrality, y = node, fill = factor(cluster))) +
 
 With the above interesting findings from text mining and network analysis, an intriguing story can be constructed regarding the recent Twitter discourse on #BlackLivesMatter.
 
-## A Case Study of Co-hashtag Network
-
-A co-hashtag network is a special type of semantic network that explores the relationship between different hashtags on social media platforms like Twitter. In this network, the nodes represent hashtags and links are established between them based on co-occurrence. If two hashtags appear together in the same tweet, they are connected by a link. The more often two hashtags appear together, the stronger the link between them. This network helps to explore the relationships between hashtags, find and analyze sub-issues, and distinguish between different types of hashtags. By analyzing this network, we can identify communities of users who use similar hashtags and understand the topics and issues that they are interested in.
-
-
-
 ## Assignment 
  
 Select (a) unique hashtag(s) for a client of your choice (e.g., Airbnb: #airbnb, #airbnbexperience). 
