@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-04-07" />
+<meta name="date" content="2023-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -285,6 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.2" data-path="social-network-analysis.html"><a href="social-network-analysis.html#hashtag-user-network"><i class="fa fa-check"></i><b>8.5.2</b> Hashtag-User Network</a></li>
 <li class="chapter" data-level="8.5.3" data-path="social-network-analysis.html"><a href="social-network-analysis.html#hashtag-mention-network"><i class="fa fa-check"></i><b>8.5.3</b> Hashtag-Mention Network</a></li>
 </ul></li>
+<li class="chapter" data-level="8.6" data-path="social-network-analysis.html"><a href="social-network-analysis.html#assignment-4"><i class="fa fa-check"></i><b>8.6</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>9</b> Geo-Spatial Analysis and Visualizations</a>
 <ul>
@@ -331,13 +332,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>‘File’ -&gt; ‘New Project…’</p>
 <p>You must specify where the project will reside on your hard drive.</p>
 <p>Now go to ‘File’ -&gt; ‘New File…’ -&gt; ‘Quarto Document,’ give it a name, and hit OK.</p>
-<p>The first thing you’ll notice is that a new Quarto document is not blank - it’s filled with content. This content is meant to act as examples of how to use Quarto to create and style text, links, code and visualizations.</p>
-<p>At the very top is the header, separated from the rest of the document by dashes. Just leave that section along for now.</p>
-<p>Before deleting the rest of the content, note that it give examples of the most common tasks in Quarto: making links, adding code, controlling if code exectues, etc. You’ll also notice there’s a small table of contents in the upper-right corner of your new document. Any time you create text with a ‘header 2’ designation, it’ll mark a new section in your table of contents. (For those of you that know HTML, this is an <code>&lt;h2&gt;</code> tag.)</p>
-<p>Let’s delete everything <em>after</em> the header and practice creating a new project from scratch.</p>
-<p>Text can simply be typed and then formatted from the text style options at the top of the Source pane in R Studio. It’s just like using Google Docs or Microsoft Word to create italic text, bullet lists, tables, or anything else.</p>
+<p>If you cannot find the ‘Quarto Document’ option under ‘New File…’ in RStudio, it is likely that the Quarto package is not installed or it is not loaded in your R session. You will need to do <strong>install.packages(“quarto”)</strong>, and then <strong>library(quarto)</strong>.</p>
+<p>If you still cannot see the ‘Quarto Document’ option after installing and loading the Quarto package, try restarting RStudio and repeating the steps above.</p>
+<p>In Quarto Document, text can simply be typed and then formatted from the text style options at the top of the Source pane in R Studio. It’s just like using Google Docs or Microsoft Word to create italic text, bullet lists, tables, or anything else.</p>
 <p>Start by creating a project title - I’ll name mine ‘Publishing Example.’ Then highlight this text, and select ‘Heading 1’ from the drop-down menu at the top of the Source panel.</p>
 <p>A Heading 1 acts as a Title attribute to your page. By the way, each time you add a ‘Header 2’ - the second-largest headline text - Quarto will automatically add that text to the Table of Contents, on the assumption that you are creating a new section. Very convenient.</p>
+<div class="figure">
+<img src="images/Quarto_1.png" title="Quarto Visual Editor" alt="" />
+<p class="caption">Quarto Visual Editor</p>
+</div>
 <p>After our Title, let’s insert some text - an introductory paragraph. I usually use this to introduce the idea behind a project, where I got the data from, and what I expect to see in the results.</p>
 <p>Try adding a link in that paragraph - highlight any text, then choose the ‘link’ icon in the menu above the Source panel.</p>
 </div>
@@ -349,14 +352,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>library(babynames)</code></p>
 <p>Note that we are loading our necessary <em>libraries</em>, but not <em>installing</em> anything. Install commands do not work in Quatro documents; instead, open a new R Script file and run your package install. And remember, packages only be installed once, but must be loaded for each R session.</p>
 <p>Let’s test if we did this right, by clicking on the green arrow on the right-hand side of the code chunk. This will ‘play’ the code and show the results.</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="publishing.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb396-2"><a href="publishing.html#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
-<p>Note that loading the tidyverse produces a long, unnecessary message about packages and conflicts. Let’s hide that from our audience by adding a comment at the top of the code chunk that acts as a command: to <em>not include the</em> <em>messages</em> resulting from our code in our project’s output. It looks like this:</p>
-<p><code>| #message: false</code></p>
-<p>I’ll plug that line in right under the {r} declaration of the code chunk, and here are the results:</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="publishing.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb397-2"><a href="publishing.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="publishing.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb409-2"><a href="publishing.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
+<p>Note that loading the tidyverse produces a long, unnecessary message about packages and conflicts. Let’s hide that from our audience by adding a comment (i.e., message = FALSE) at the top of the code chunk that acts as a command: to <em>not include the</em> <em>messages</em> resulting from our code in our project’s output.</p>
+<p>I’ll plug <strong>message = FALSE</strong> in the {r} declaration of the code chunk, and here are the results:</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="publishing.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb410-2"><a href="publishing.html#cb410-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
 <p>That’s better. The code executes, but no one ‘sees’ the messages.</p>
+<p>Besides <strong>message = FALSE</strong>, we also have other chunk options:</p>
+<ul>
+<li><p>include = FALSE prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.</p></li>
+<li><p>echo = FALSE prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.</p></li>
+<li><p>warning = FALSE prevents warnings that are generated by code from appearing in the finished.</p></li>
+<li><p>fig.cap = “…” adds a caption to graphical results.</p></li>
+</ul>
 <p>Now let’s try to create a visualization, by writing code that asks (and answers) a question. How about:</p>
 <blockquote>
 <p>What were the most common Male names of the 20th Century?</p>
@@ -366,33 +375,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To get that, we’d need to pivot - or, in R, <em>summarize</em>: the <em>total</em> number of people with each name is equal to the <em>sum</em> of their <em>n</em> values<em>.</em></p>
 <p>After that, in order to visualize it, let’s be be sure to arrange the results in order of <em>total</em> before limiting to just the top, say, 10 results.</p>
 <p>In our ggplot, let’s put names on the x axis and total on the y, with each name having a hue based on the value of <em>n</em>. This will be a column chart, and let’s flip it sideways to maximize readability. Here’s my code for that:</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="publishing.html#cb398-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb398-2"><a href="publishing.html#cb398-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb398-3"><a href="publishing.html#cb398-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> year <span class="sc">&lt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb398-4"><a href="publishing.html#cb398-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb398-5"><a href="publishing.html#cb398-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb398-6"><a href="publishing.html#cb398-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">%&gt;%</span> </span>
-<span id="cb398-7"><a href="publishing.html#cb398-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb398-8"><a href="publishing.html#cb398-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,total), total, <span class="at">fill =</span> total)) <span class="sc">+</span> </span>
-<span id="cb398-9"><a href="publishing.html#cb398-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb398-10"><a href="publishing.html#cb398-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-252-1.png" width="672" /></p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="publishing.html#cb411-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb411-2"><a href="publishing.html#cb411-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb411-3"><a href="publishing.html#cb411-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> year <span class="sc">&lt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb411-4"><a href="publishing.html#cb411-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb411-5"><a href="publishing.html#cb411-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb411-6"><a href="publishing.html#cb411-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb411-7"><a href="publishing.html#cb411-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb411-8"><a href="publishing.html#cb411-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,total), total, <span class="at">fill =</span> total)) <span class="sc">+</span> </span>
+<span id="cb411-9"><a href="publishing.html#cb411-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb411-10"><a href="publishing.html#cb411-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
 <p>The X axis is using scientific notation, as the numbers are pretty large. I want to change that - it’s a simple line of code in R - but I don’t need my audience to see it.</p>
-<p>So I’ll add <code>#| echo: false</code> to the code chunk - I’d also move it to the top of the document, so it applies to all visualizations:</p>
+<p>So I’ll add **<code>echo=false**</code> to the code chunk - I’d also move it to the top of the document before <strong>options(scipen = 10000)</strong>, so it applies to all visualizations:</p>
 <p>Again, this means <em>tell R not to use scientific notation on my visualizations. In addition, do not show this code to my audience.</em></p>
 <p>Rendering that column chart should look better now:</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="publishing.html#cb399-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb399-2"><a href="publishing.html#cb399-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb399-3"><a href="publishing.html#cb399-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> year <span class="sc">&lt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb399-4"><a href="publishing.html#cb399-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb399-5"><a href="publishing.html#cb399-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb399-6"><a href="publishing.html#cb399-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">%&gt;%</span> </span>
-<span id="cb399-7"><a href="publishing.html#cb399-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb399-8"><a href="publishing.html#cb399-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,total), total, <span class="at">fill =</span> total)) <span class="sc">+</span> </span>
-<span id="cb399-9"><a href="publishing.html#cb399-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb399-10"><a href="publishing.html#cb399-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-254-1.png" width="672" /></p>
-<p>There are many other options for how your page looks and functions, all of which can be found at <a href="https://www.quarto.org">quarto.org</a>.</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="publishing.html#cb412-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb412-2"><a href="publishing.html#cb412-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb412-3"><a href="publishing.html#cb412-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> year <span class="sc">&lt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-4"><a href="publishing.html#cb412-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-5"><a href="publishing.html#cb412-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-6"><a href="publishing.html#cb412-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-7"><a href="publishing.html#cb412-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-8"><a href="publishing.html#cb412-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(name,total), total, <span class="at">fill =</span> total)) <span class="sc">+</span> </span>
+<span id="cb412-9"><a href="publishing.html#cb412-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb412-10"><a href="publishing.html#cb412-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <p>Let’s test to see if our page is ‘valid’ thus far, by <em>rendering</em> it: click the <em>Render</em> button at the top of your page, and see if any errors arise.</p>
 <p>If they do, R Studio should alert you to where the error is and why it was thrown. If there are no errors, you should see your project in a pop-up browser window.</p>
 </div>

@@ -1,4 +1,4 @@
-# Social Network Analysis 
+# Social Network Analysis
 
 ## Introduction
 
@@ -15,6 +15,7 @@ g <- graph(edges=c(1,2,2,3,3,4), n=4, directed=FALSE)
 # Plot the graph
 plot(g, layout=layout.circle, vertex.label=1:4)
 ```
+
 The graph() function from the igraph package is used to create the graph. The edges argument is used to specify the edges of the graph by passing a vector of node pairs. In this case, the graph is specified by passing the vector c(1,2,2,3,3,4), which means that there are three edges: (1,2), (2,3), and (3,4). The n argument is used to specify the number of nodes in the graph.
 
 After creating the graph object g, the plot() function is used to visualize it. The layout.circle argument specifies that the graph should be displayed in a circular layout. The vertex.label argument specifies the labels for each node, in this case simply 1, 2, 3, and 4.
@@ -113,6 +114,7 @@ reciprocity <- reciprocity(g)
 cat(paste("The reciprocity of the network is", reciprocity, "\n"))
 
 ```
+
 In the above example, we create a sample directed network graph with 5 nodes and 7 edges. We then compute the reciprocity of the graph using the reciprocity function provided by the igraph package. The output shows the reciprocity of the network is .57, indicating that each pair of nodes in the network that are connected by a directed edge, approximately 57.14% of those pairs have reciprocal edges (i.e., edges going in both directions).
 
 Reciprocity is an important measure of the symmetry of relationships in a network. A high reciprocity value indicates a high level of mutual connection or interaction between nodes, while a low reciprocity value indicates a more one-sided or unbalanced set of relationships.
@@ -140,7 +142,7 @@ In summary, SNA is a powerful method for analyzing social structures and relatio
 
 ## A Case Study of Social Networks from Twitter Conversations
 
-This case study focuses on analyzing social networks from Twitter conversations. Three different types of networks were identified and analyzed: **Mention Network**, **Message Network**, **User-Sources Network**. 
+This case study focuses on analyzing social networks from Twitter conversations. Three different types of networks were identified and analyzed: **Mention Network**, **Message Network**, **User-Sources Network**.
 
 ### Mention Network
 
@@ -211,7 +213,8 @@ centrality_me <- merge(centrality_me, betweenness_me, by = "name", all = TRUE)
 centrality_me <- merge(centrality_me, eigenvector_me, by = "name", all = TRUE)
 
 ```
-We've got a whopping thousands of nodes in this mention network. For better-looking and more informative visualizations of large-scale networks, it's a good idea to use fancy network analysis and visualization tools like Gephi. You can grab a copy of Gephi here: https://gephi.org/users/download/
+
+We've got a whopping thousands of nodes in this mention network. For better-looking and more informative visualizations of large-scale networks, it's a good idea to use fancy network analysis and visualization tools like Gephi. You can grab a copy of Gephi here: <https://gephi.org/users/download/>
 
 Gephi is a free and open-source network visualization and analysis tool that allows you to create complex and aesthetically pleasing network visualizations. It provides a user-friendly interface and a variety of tools for network analysis, including measures of centrality, clustering, and community detection.
 
@@ -290,7 +293,7 @@ The mention network was bustling with activity, with numerous nodes and edges ca
 
 A user-source Twitter network is a type of undirected network that involves two types of nodes - users and sources. The links between these nodes are created based on the co-occurrence of users and the source of their tweets. For example, if a user sends a tweet from a particular source (e.g. Twitter Web App, Hootsuite, Tweetdeck), a link is created between the user and the source. The more often they appear together, the stronger the link between them.
 
-This type of network can be used to explore the relationships between users and the sources they use to tweet. By analyzing the network, we can find and analyze which users use which clients (or sources). This information can be useful for understanding how users interact with different sources and for categorizing user accounts. 
+This type of network can be used to explore the relationships between users and the sources they use to tweet. By analyzing the network, we can find and analyze which users use which clients (or sources). This information can be useful for understanding how users interact with different sources and for categorizing user accounts.
 
 ```{r}
 # extract source and drop NAs
@@ -414,11 +417,12 @@ centrality_hash <- merge(centrality_hash, betweenness_hash, by = "name", all = T
 centrality_hash<- merge(centrality_hash, eigenvector_hash, by = "name", all = TRUE)
 
 ```
+
 Let's first take a look at the co-hashtags visualization from Gephi.
 
 ![User-Hashtag Netowrk of Twitter Conversations on ChatGPT: 1](images/GPT_hash.png)
 
-As we gaze upon the visual representation of #ChatGPT conversations, we can spot the major hashtag clusters that have emerged. But wait, there's more! Now, let's delve deeper into the minds of different user groups. How are they using these hashtags? Which influencers are being mentioned in relation to different topics? To answer these burning questions, let's take a gander at the Hashtag-User network and the Hashtag-Mention network. 
+As we gaze upon the visual representation of #ChatGPT conversations, we can spot the major hashtag clusters that have emerged. But wait, there's more! Now, let's delve deeper into the minds of different user groups. How are they using these hashtags? Which influencers are being mentioned in relation to different topics? To answer these burning questions, let's take a gander at the Hashtag-User network and the Hashtag-Mention network.
 
 ### Hashtag-User Network
 
@@ -490,7 +494,7 @@ Check out these two Gephi visualizations of the Hashtag-User Network. The first 
 
 ![User-Hashtag Netowrk of Twitter Conversations on ChatGPT: 1](images/GPT_userhash_1.png)
 
-But if you want to get to the juicy center of the network, the second visualization is where it's at. We stripped away all the ChatGPT-related hashtags like #Chat and #ChatGPT to really hone in on the core of the network. No surprise,  the main focus is on AI - not like we can escape it, right? But hey, check this out - turns out that our friend @khulood_almani, an Assistant Professor in Computer and Information from Saudi Arabia, seems to be a real chatterbox when it comes to the topic of AI.
+But if you want to get to the juicy center of the network, the second visualization is where it's at. We stripped away all the ChatGPT-related hashtags like #Chat and #ChatGPT to really hone in on the core of the network. No surprise, the main focus is on AI - not like we can escape it, right? But hey, check this out - turns out that our friend @khulood_almani, an Assistant Professor in Computer and Information from Saudi Arabia, seems to be a real chatterbox when it comes to the topic of AI.
 
 ![User-Hashtag Netowrk of Twitter Conversations on ChatGPT: 2](images/GPT_userhash_2.png)
 
@@ -588,6 +592,7 @@ ggplot(top_outdegree_um, aes(x = reorder(name, outdegree), y = outdegree, fill =
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 #top outdegree refers to top hashtags
 ```
+
 The **axis.text.x** refers to the x-axis labels, and element_text() is a function that allows you to set the text properties of an element in a plot. The angle argument rotates the labels by the specified angle (in degrees), while the vjust argument sets the vertical justification of the text to adjust the position of the labels. In this case, vjust = 0.5 centers the labels vertically.
 
 Therefore, theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) is used to rotate the x-axis labels by 90 degrees and center them vertically in a ggplot2 chart. This is commonly used when the labels are long or numerous and overlap each other, making them difficult to read horizontally.
@@ -598,3 +603,16 @@ Now, let's see the network visualizations from Gephi.
 
 Behold the grandeur of the ChatGPT network visualization, for it reveals that the vibrant topics swirling around this phenomenon were expertly guided by a diverse cast of influencers. The likes of @OpenAI, @YouTube, @Khulood_Almani, @enricomolinari, @FrRonconi, @sonu_monika, @Khulood_Alm, @DataChaz, @Forbes, and @elonmusk loomed large as the virtuosos of the ChatGPT domain.
 
+## Assignment
+
+In this assignment, you will be analyzing social media conversations related to a topic of your choosing using Twitter data. Here are the steps you'll need to follow:
+
+1.  Utilize your Twitter APIs to collect up to 5000 of the most recent tweets containing a hashtag of your choice.
+
+2.  Use R to create a Twitter network. This could include networks such as a mention network, message network, user-source network, co-hashtag network, hashtag-user network, or hashtag-mention network.
+
+3.  Import the Twitter network data into Gephi to create network visualizations.
+
+4.  Create a Quarto publication that includes the code for collecting and analyzing your Twitter conversation data, as well as the network visualizations produced from Gephi. Make sure to use appropriate chunk options in your Quarto publication to hide your Twitter API keys and tokens, and to prevent messages and warnings generated by your code. Additionally, include a 100-word interpretation of your network analysis results and network visualization that you find interesting.
+
+By completing these steps, you will gain valuable experience in analyzing social media conversations and visualizing networks. Good luck!

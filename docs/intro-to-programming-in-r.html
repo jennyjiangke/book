@@ -23,7 +23,7 @@
 <meta name="author" content="Jenny Jiang &amp; Brian Walsh" />
 
 
-<meta name="date" content="2023-04-07" />
+<meta name="date" content="2023-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -285,6 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.2" data-path="social-network-analysis.html"><a href="social-network-analysis.html#hashtag-user-network"><i class="fa fa-check"></i><b>8.5.2</b> Hashtag-User Network</a></li>
 <li class="chapter" data-level="8.5.3" data-path="social-network-analysis.html"><a href="social-network-analysis.html#hashtag-mention-network"><i class="fa fa-check"></i><b>8.5.3</b> Hashtag-Mention Network</a></li>
 </ul></li>
+<li class="chapter" data-level="8.6" data-path="social-network-analysis.html"><a href="social-network-analysis.html#assignment-4"><i class="fa fa-check"></i><b>8.6</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="geo-spatial-analysis-and-visualizations.html"><a href="geo-spatial-analysis-and-visualizations.html"><i class="fa fa-check"></i><b>9</b> Geo-Spatial Analysis and Visualizations</a>
 <ul>
@@ -357,11 +358,11 @@ Having R package-based means that users only need to load packages relevant to t
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-to-programming-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(babynames)</span></code></pre></div>
 <pre><code>## Rows: 1,924,665
 ## Columns: 5
-## $ year [3m[38;5;246m&lt;dbl&gt;[39m[23m 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188…
-## $ sex  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;…
-## $ name [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Ida&quot;, &quot;Alice&quot;, &quot;Bertha&quot;, &quot;Sarah&quot;, &quot;Annie&quot;, &quot;Clara&quot;,…
-## $ n    [3m[38;5;246m&lt;int&gt;[39m[23m 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258, 1226, 1156, 1063, 1045, 1040, 1012, 995, 982,…
-## $ prop [3m[38;5;246m&lt;dbl&gt;[39m[23m 0.072384, 0.026679, 0.020521, 0.019866, 0.017888, 0.016167, 0.015081, 0.014487, 0.013524, 0.013196, 0.012889, 0…</code></pre>
+## $ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 18…
+## $ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F…
+## $ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;, &quot;Id…
+## $ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 12…
+## $ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.…</code></pre>
 <p>The output of <em>glimpse</em> is a little overwhelming at first, although it makes clear there are a lot of rows in it (Excel cannot handle 1,924,665 rows of data, but this is <em>still</em> not ‘Big Data’).</p>
 <p>So let’s try <em>head</em> and <em>tail</em> to see the first and last 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-to-programming-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(babynames, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
