@@ -6,3 +6,16 @@ view: https://github.com/jennyjiangke/book/blob/master/%s
 language:
   ui:
     chapter_name: "Chapter "
+
+- index.Rmd
+- cover.md
+- 01-Intro.Rmd
+- 02-Manipulating_Data.Rmd
+- 03-Statistical_Analyses_of_a_Single_Variable.Rmd
+- 04-Statistical_Analyses_of_Two_Variables.Rmd
+- 05-Statistical_Analyses_of_Three_or_More_Variables_Modelling.Rmd
+- 06-Accessing_Twitter_API.Rmd
+- 07-Text_Analysis.Rmd
+- 08-Network_Analysis.Rmd
+- 09-Geo_Spatial_Analysis.Rmd
+- 10-Publishing.Rmd
