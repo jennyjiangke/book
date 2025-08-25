@@ -325,15 +325,20 @@ Now that we've gotten familiar with how to control leaflet, let's go back to tha
 
 Start by going back to their website:
 
-<https://www.cdc.gov/nchs/pressroom/sosmap/firearm_mortality/firearm.htm>
+<https://www.cdc.gov/nchs/state-stats/deaths/firearms.html>
 
-...and downloading the CSV. Since it includes data for multiple years, let's filter it to only use data from 2020.
+...and downloading the CSV. Remember, if you want to load external data in R Studio, you want to create a project and designate a project folder. In this case, you would also move your .csv to the project folder.
+
+```{r}
+usa <- read_csv("data-table.csv")
+```
+*didn't work? Is the .csv file still in your 'Downloads' folder? Did you load the tidyverse library before running the command? *
+
+Since the .csv includes data for multiple years, let's filter it to only use data from 2020.
 
 (Note: how can you visualize \*time\* on a map? There are two ways: animation and side-by-side comparisons. While animation sounds more exciting, it often doesn't woerk as well as you want, especially with digitally rendered maps. But showing two maps side-by-side, identical other than the year being analyzed, would effectively illustrate a change over time.)
 
-```{r}
-usa <- read_csv("undefined.csv")
-
+```
 usa %>% 
   filter(YEAR == 2020) -> usa
 ```
