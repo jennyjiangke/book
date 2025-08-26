@@ -1,3 +1,5 @@
+NOTE: This process no longer works, as Twitter's API no longer has an affordable Academic Tier for research.
+
 # Accessing Twitter's API in R
 
 Twitter is a unique source for data, for many reasons: along with text, it includes date and time information, and data on the type of device anr/or software used to post the tweet. What we often do *not* have reliable Twitter data on is location. There are two ways for Twitter to record your location: one is created during your Twitter account setup, where you (optionally) fill in where you are located. Many users fill in joke locations (The Milky Way, 3rd Rock From the Sun). To do something with location data, it'd have to be somewhat standardized, i.e. text inputs for Town and State.Without these prompts, values vary wildly, from 'North Dakota' to 'Brooklyn' to '27510,' so it's really not very useful data.

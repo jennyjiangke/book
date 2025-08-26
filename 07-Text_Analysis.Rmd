@@ -289,6 +289,8 @@ d_words %>%
 
 ```
 
+***NOTE: This section no longer works, as Twitter's API no longer has an affordable Academic Tier.***
+
 ## A Case Study of Text Analysis of Social Media Text
 
 In this case study, an analysis is conducted on the social media discussions of the hashtags #BlackLivesMatter, utilizing Twitter data. The initial step involves the use of Twitter APIs to gather the most recent 1000 tweets featuring the hashtag. Subsequently, the tweets are cleaned by eliminating stop words and performing stemming. The study also entails the creation of visualizations and an examination of the semantic network derived from the cleaned set of 1000 tweets.
