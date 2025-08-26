@@ -133,6 +133,15 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red for danger */
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
 </style>
 
 
@@ -323,6 +332,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="accessing-twitters-api-in-r" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Accessing Twitter’s API in R<a href="accessing-twitters-api-in-r.html#accessing-twitters-api-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+    
+    <h1 class="alert">NOTE: This section no longer works because Twitter no longer offers affordable Academic access to its API for research.</h1>
+    
 <p>Twitter is a unique source for data, for many reasons: along with text, it includes date and time information, and data on the type of device anr/or software used to post the tweet. What we often do <em>not</em> have reliable Twitter data on is location. There are two ways for Twitter to record your location: one is created during your Twitter account setup, where you (optionally) fill in where you are located. Many users fill in joke locations (The Milky Way, 3rd Rock From the Sun). To do something with location data, it’d have to be somewhat standardized, i.e. text inputs for Town and State.Without these prompts, values vary wildly, from ‘North Dakota’ to ‘Brooklyn’ to ‘27510,’ so it’s really not very useful data.</p>
 <p>The other way Twitter will record your location is by geolocating your exact position. This has to be turned on or off, by choosing if Twitter can use your location on your device. Many users - most, in fact - have location services turned off. That means if you use geolocation data, you’re only observing data from <em>users who have opted in to location services for twitter.</em> That’s a subset of Twitter users that will drastically skew our results, so I also discourage its use.</p>
 <p>One other caveat with Twitter, which can be frustrating to new users: you can’t go back in time and look at every Tweet ever posted. (Access to this is referred to as Twitter’s ‘Firehose.’) Just searching Twitter for a term will only return results from the last seven days. How can we get around this limitation?</p>
